@@ -1,0 +1,48 @@
+.profile-card {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.pc-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-sm);
+}
+
+.pc-avatar span {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  color: #FFFFFF;
+}
+
+.pc-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+}
+
+.pc-level {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.pc-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.pc-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}

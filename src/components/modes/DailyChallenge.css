@@ -1,0 +1,258 @@
+.daily-mode {
+  min-height: 100dvh;
+  background: var(--bg-primary);
+}
+
+.daily-content {
+  padding: var(--space-md);
+}
+
+.streak-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.streak-current {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.streak-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  display: block;
+  line-height: 1;
+}
+
+.streak-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.streak-best {
+  text-align: right;
+}
+
+.streak-best-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.streak-best-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+/* Streak Calendar */
+.daily-streak-calendar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.daily-streak-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.daily-streak-day-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.daily-streak-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--border);
+}
+
+.daily-streak-day.active .daily-streak-dot {
+  background: #10B981;
+}
+
+.daily-streak-day.today .daily-streak-dot {
+  border: 2px solid var(--text-primary);
+}
+
+/* Countdown */
+.daily-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.daily-completed {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.daily-completed h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  margin: var(--space-sm) 0 8px;
+}
+
+.daily-completed p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.daily-challenge-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.challenge-type-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.daily-challenge-card h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.challenge-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.challenge-prompt {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+}
+
+[data-theme="dark"] .challenge-prompt {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.challenge-prompt strong {
+  font-size: 0.8rem;
+  color: #065F46;
+}
+
+[data-theme="dark"] .challenge-prompt strong {
+  color: #10B981;
+}
+
+.challenge-prompt p {
+  margin: 4px 0 0;
+  color: #047857;
+  font-size: 0.9rem;
+}
+
+[data-theme="dark"] .challenge-prompt p {
+  color: #34D399;
+}
+
+.challenge-example {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.challenge-example strong {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.challenge-example p {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.daily-challenge-card textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  resize: vertical;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.daily-challenge-card textarea:focus {
+  outline: none;
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.challenge-history {
+  margin-top: var(--space-xl);
+}
+
+.challenge-history h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 var(--space-sm);
+}
+
+.history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.history-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.history-response {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}

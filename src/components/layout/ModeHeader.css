@@ -1,0 +1,44 @@
+.mode-header {
+  padding: 16px 16px 24px;
+  position: relative;
+  color: #FFFFFF;
+}
+
+.mode-header-back {
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mode-header-back:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.mode-header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.mode-header-text h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.mode-header-text p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}

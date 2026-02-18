@@ -1,0 +1,240 @@
+.practice-mode {
+  min-height: 100dvh;
+  background: var(--bg-primary);
+}
+
+.practice-content {
+  padding: var(--space-md);
+}
+
+.practice-empty {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.practice-empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: #FEE2E2;
+  color: #EF4444;
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+}
+
+[data-theme="dark"] .practice-empty-icon {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.practice-empty h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  margin: 0 0 8px;
+}
+
+.practice-empty p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0 0 var(--space-md);
+  line-height: 1.6;
+}
+
+/* Category Filters */
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: var(--space-lg);
+}
+
+.category-chip {
+  padding: 5px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-chip.active {
+  background: #EF4444;
+  border-color: #EF4444;
+  color: #FFFFFF;
+}
+
+/* Scenario */
+.practice-scenario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.scenario-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.scenario-context h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+}
+
+.scenario-context p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.weak-question {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+}
+
+[data-theme="dark"] .weak-question {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.weak-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #DC2626;
+  letter-spacing: 0.05em;
+}
+
+.weak-question p {
+  font-style: italic;
+  color: var(--text-primary);
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+}
+
+/* Input */
+.practice-input label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.practice-input textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  resize: vertical;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.practice-input textarea:focus {
+  outline: none;
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.practice-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 4px 0 var(--space-sm);
+}
+
+/* Results */
+.practice-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.score-reveal {
+  transition: transform 0.6s ease;
+}
+
+.feedback-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  width: 100%;
+}
+
+.feedback-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.matched-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-sm);
+}
+
+.matched-keywords span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.strong-examples {
+  width: 100%;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+
+[data-theme="dark"] .strong-examples {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.strong-examples h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  margin: 0 0 8px;
+  color: #065F46;
+}
+
+[data-theme="dark"] .strong-examples h4 {
+  color: #10B981;
+}
+
+.strong-example {
+  font-style: italic;
+  color: #047857;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 8px 0;
+  border-bottom: 1px solid #D1FAE5;
+}
+
+[data-theme="dark"] .strong-example {
+  color: #34D399;
+  border-bottom-color: rgba(16, 185, 129, 0.2);
+}
+
+.strong-example:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}

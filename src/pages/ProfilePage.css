@@ -1,0 +1,220 @@
+.profile-page {
+  padding: var(--space-md);
+}
+
+.profile-hero {
+  text-align: center;
+  padding: var(--space-lg) 0 var(--space-md);
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-sm);
+}
+
+.avatar-circle span {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: #FFFFFF;
+}
+
+.profile-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  margin: 0 0 4px;
+  cursor: pointer;
+}
+
+.profile-level {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.name-edit {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.name-edit input {
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  width: 200px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.name-edit input:focus {
+  outline: none;
+  border-color: var(--text-primary);
+}
+
+.name-edit button {
+  padding: 8px 16px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.profile-stats-row {
+  display: flex;
+  justify-content: space-around;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-stat-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.profile-stat-lbl {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Weekly Summary */
+.weekly-summary h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  margin: 0 0 var(--space-sm);
+}
+
+.weekly-stats {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.weekly-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Current Focus */
+.current-focus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--focus-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0;
+}
+
+.focus-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.focus-action {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--focus-color);
+}
+
+/* Achievements */
+.profile-section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 var(--space-sm);
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  padding-bottom: var(--space-lg);
+}
+
+.achievement-item {
+  text-align: center;
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.4;
+}
+
+.achievement-item.unlocked {
+  opacity: 1;
+}
+
+.achievement-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-item.unlocked .achievement-circle {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+}
+
+[data-theme="dark"] .achievement-item.unlocked .achievement-circle {
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.achievement-locked-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.achievement-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.achievement-desc {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
