@@ -2,8 +2,8 @@
 
 ## Last Session
 - **Date:** 2026-02-18
-- **What was done:** Phase 1.5 — Adaptive Algorithms & Tiered Scoring + Phase 1.75 UI Upgrades + Content Expansion
-- **Current focus:** Phase 1.5 complete, Phase 1.75 complete
+- **What was done:** Phase 2 — Claude API Integration for AI-powered feedback
+- **Current focus:** Phase 2 complete, all core features built
 
 ## Phase 1 — Completed
 1. ✅ Scaffold React + Vite project with folder structure
@@ -36,17 +36,7 @@
 8. ✅ Achievement Triggers (src/engine/achievements.js) — 25 achievements with condition checks and XP rewards
 9. ✅ Feedback Messages (src/data/feedbackMessages.js) — 5+ variations per feedback type
 10. ✅ Database schema updated with engine tables (user_scores, bpq_history, daily_quests, difficulty_tiers, user_stats)
-11. ✅ All 8 engines wired into existing UI components:
-    - Practice Mode → response scorer + adaptive difficulty + XP engine + quest tracking
-    - Learn Mode → XP engine + quest tracking + achievement checks
-    - Daily Challenge → XP engine + streak bonus + quest tracking + achievements
-    - Simulate Mode → XP engine + quest tracking + achievements
-    - Review Mode → XP engine + quest tracking + achievements
-    - Journal Page → XP engine + quest tracking + achievements
-    - Today Page → daily quest generator + recommendations engine
-    - Progress Page → real BPQ from engine + category scores + recommendations
-    - Modes Page → recommendations engine for "Recommended" badge
-    - Profile Page → league engine + weekly XP
+11. ✅ All 8 engines wired into existing UI components
 
 ## Phase 1.75 — Completed (Content Expansion & UI Upgrades)
 
@@ -74,18 +64,53 @@
 - ✅ SimulateMode: category/difficulty filters, typing indicator, empathy score
 - ✅ ReviewMode: 3D card flip, session progress, streak counter, flashcards wired
 
+## Phase 2 — Completed (Claude API Integration)
+
+### Infrastructure
+- ✅ Vercel serverless proxy (api/claude.js) — forwards to Anthropic Messages API
+- ✅ Vite dev middleware plugin — handles /api/claude locally during development
+- ✅ vercel.json — SPA routing config for Vercel deployment
+- ✅ Client AI service layer (src/services/claudeApi.js) — API key management, callClaude wrapper
+
+### AI Features
+- ✅ AI Practice Feedback (src/engine/aiFeedback.js):
+    - Sends user question + scenario to Claude when responseScorer flags needsAIReview (score 40-75)
+    - Returns structured JSON: strengths, improvements, suggested rewrite, techniques
+    - System prompt enforces warm Bisa coaching tone
+- ✅ AI Simulation Conversations (src/engine/aiSimulation.js):
+    - Free-text input alongside pre-written choices in SimulateMode
+    - Claude plays the NPC character, staying in-character
+    - Hidden quality metadata (<!--BISA:{"quality":"..."}-->) for scoring
+    - Turn-limited conversations (8 max) with natural wrap-up
+- ✅ API Key Settings (src/components/settings/ApiKeySettings.jsx):
+    - Masked key display, test connection, clear key
+    - Added to Profile page under Settings section
+
+### Graceful Degradation
+- ✅ Everything works without API key (rule-based scoring, tree-based sims)
+- ✅ AI features only appear when API key is configured
+- ✅ Soft upsell prompts users to add key in Settings when AI could help
+
+### Wiring
+- ✅ PracticeMode: async AI feedback after rule-based scoring, loading skeleton, error handling
+- ✅ SimulateMode: free-text textarea with send button, AI NPC responses, turn counter
+- ✅ ProfilePage: API key settings section with GearSix icon
+
 ## Build Stats
-- Build: 5,688KB JS (1,253KB gzipped), 47KB CSS (8KB gzipped)
+- Build: 5,698KB JS (1,256KB gzipped), 52KB CSS (9KB gzipped)
 - npm run build: ✅ succeeds with no errors
 
 ## Remaining Work
-- Phase 2: Claude API integration for AI-powered feedback (response scorer already flags ambiguous responses)
-- Phase 3: User accounts via Supabase, real leaderboards
+- Phase 3: User accounts via Supabase, real leaderboards, cloud sync
 - Code splitting to reduce bundle size
+- Vercel deployment
 
 ## Architecture Notes
 - Engine layer (src/engine/) handles all intelligence/personalization with pure math
-- Response scorer flags ambiguous responses (score 40-75) as `needsAIReview: true` for Phase 2
+- AI layer (src/engine/aiFeedback.js, aiSimulation.js) enhances engines when API key available
+- Response scorer flags ambiguous responses (score 40-75) as `needsAIReview: true` for AI review
+- Claude calls go through /api/claude proxy (Vercel serverless in prod, Vite middleware in dev)
+- API key stored in localStorage, sent per-request (user's own key, not shared)
 - Daily quests are auto-generated weighted by weak categories
 - BPQ recalculates after every XP award
 - Adaptive difficulty adjusts per-category after 3 sessions above/below threshold

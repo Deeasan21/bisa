@@ -77,10 +77,9 @@ export default function DailyChallenge() {
     if (!db || !response.trim() || !challenge) return;
 
     const todayStr = getTodayString();
-    saveChallengeCompletion(db, todayStr, challenge.type, challenge.title, response);
-
     let newStreak = 0;
     try {
+      saveChallengeCompletion(db, todayStr, challenge.type, challenge.title, response);
       newStreak = updateStreak(db, todayStr);
       awardXP(db, 'daily_challenge', XP_RULES.dailyChallenge(), `Daily: ${challenge.title}`);
       if (newStreak > 0) {

@@ -169,9 +169,8 @@ export default function SimulateMode() {
     if (!db) return;
     const greatCount = scores.filter(q => q === 'great' || q === 'high').length;
 
-    saveSimulationAttempt(db, activeSim.id, choicesMade, scores, endingNode.id || 'ending');
-
     try {
+      saveSimulationAttempt(db, activeSim.id, choicesMade, scores, endingNode.id || 'ending');
       const qualityPercent = Math.round((greatCount / Math.max(1, scores.length)) * 100);
       awardXP(db, 'simulation', XP_RULES.simulation(qualityPercent), `Simulation: ${activeSim.title}`);
       updateQuestProgress(db, 'simulation');

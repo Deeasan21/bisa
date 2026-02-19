@@ -1,0 +1,128 @@
+.api-key-settings {
+  margin-top: 8px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.api-key-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.api-key-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.api-key-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.api-key-input-row {
+  margin-bottom: 10px;
+}
+
+.api-key-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-family: monospace;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.api-key-input:focus {
+  border-color: #8B5CF6;
+}
+
+.api-key-masked {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.api-key-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.api-key-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.api-key-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.api-key-btn.test {
+  background: #8B5CF620;
+  color: #8B5CF6;
+}
+
+.api-key-btn.clear {
+  background: #EF444420;
+  color: #EF4444;
+}
+
+.api-key-status {
+  font-size: 0.82rem;
+  margin-bottom: 8px;
+}
+
+.api-key-status.success {
+  color: #10B981;
+}
+
+.api-key-status.error {
+  color: #EF4444;
+}
+
+.api-key-link {
+  font-size: 0.8rem;
+  color: #8B5CF6;
+  text-decoration: none;
+}
+
+.api-key-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+}

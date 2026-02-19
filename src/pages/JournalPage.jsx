@@ -58,8 +58,8 @@ export default function JournalPage() {
 
   const handleSubmit = () => {
     if (!db || !form.question.trim()) return;
-    addJournalEntry(db, form);
     try {
+      addJournalEntry(db, form);
       awardXP(db, 'journal', XP_RULES.journal(), 'Journal entry');
       updateQuestProgress(db, 'journal');
       checkAchievements(db, getOverallProgress(db));

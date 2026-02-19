@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, GearSix } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
 import { getOrCreateProfile, updateProfile, getTotalXP, getStreakInfo, getUnlockedAchievements, getOverallProgress } from '../utils/database';
@@ -7,6 +7,7 @@ import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getLeague, getNextLeague, getLeagueProgress, getWeeklyXP, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
 import Card from '../components/common/Card';
+import ApiKeySettings from '../components/settings/ApiKeySettings';
 import './ProfilePage.css';
 
 function AnimatedNumber({ value, duration = 800 }) {
@@ -194,6 +195,11 @@ export default function ProfilePage() {
           );
         })}
       </div>
+      <h2 className="profile-section-title">
+        <GearSix size={18} weight="duotone" />
+        Settings
+      </h2>
+      <ApiKeySettings />
     </div>
   );
 }

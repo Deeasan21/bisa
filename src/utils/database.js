@@ -248,21 +248,27 @@ export function query(db, sql) {
 export function runStmt(db, sql, params = []) {
   if (!db) return;
   const stmt = db.prepare(sql);
-  stmt.bind(params);
-  stmt.step();
-  stmt.free();
+  try {
+    stmt.bind(params);
+    stmt.step();
+  } finally {
+    stmt.free();
+  }
 }
 
 export function queryStmt(db, sql, params = []) {
   if (!db) return [];
   const stmt = db.prepare(sql);
-  stmt.bind(params);
-  const results = [];
-  while (stmt.step()) {
-    results.push(stmt.getAsObject());
+  try {
+    stmt.bind(params);
+    const results = [];
+    while (stmt.step()) {
+      results.push(stmt.getAsObject());
+    }
+    return results;
+  } finally {
+    stmt.free();
   }
-  stmt.free();
-  return results;
 }
 
 // ============================================

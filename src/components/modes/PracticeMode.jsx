@@ -76,10 +76,9 @@ export default function PracticeMode() {
     setCompletedIds([...completedIds, scenario.id]);
 
     if (db) {
-      const feedbackText = scored.feedback.join(' ');
-      savePracticeAttempt(db, scenario.id, userQuestion, scored.score, feedbackText);
-
       try {
+        const feedbackText = scored.feedback.join(' ');
+        savePracticeAttempt(db, scenario.id, userQuestion, scored.score, feedbackText);
         const category = scenario.skillCategory || scenario.skill || 'Open vs. Closed';
         recordScore(db, 'practice', category, scored.score);
         const xpAmount = XP_RULES.practice(scored.score);

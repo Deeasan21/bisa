@@ -44,7 +44,7 @@ export function recordScore(db, mode, category, score) {
   // Insert into user_scores
   runStmt(db,
     "INSERT INTO user_scores (mode, category, score, difficulty_tier, created_at) VALUES (?, ?, ?, ?, datetime('now'))",
-    [mode, category, getCurrentTier(db, category)]
+    [mode, category, score, getCurrentTier(db, category)]
   );
 
   // Update rolling scores for this category

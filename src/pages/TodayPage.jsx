@@ -71,7 +71,7 @@ export default function TodayPage() {
     }
     if (streak >= 7) return 'celebrating';
     if (streak >= 3) return 'happy';
-    if (quests.challenge) return 'encouraging';
+    if (engineQuests.length > 0) return 'encouraging';
     return 'thinking';
   };
 
@@ -87,7 +87,7 @@ export default function TodayPage() {
       const isToday = i === 0;
       // Simple heuristic: active if within streak range
       const isActive = lastDate && i < streak;
-      days.push({ dateStr, dayLabel, isToday, isActive: isActive || (isToday && quests.challenge) });
+      days.push({ dateStr, dayLabel, isToday, isActive: isActive || isToday });
     }
     return days;
   };
