@@ -18,6 +18,7 @@ import ScoreGauge from '../common/ScoreGauge';
 import Button from '../common/Button';
 import Badge from '../common/Badge';
 import Skeleton from '../common/Skeleton';
+import AchievementToast from '../common/AchievementToast';
 import './PracticeMode.css';
 
 const theme = MODE_THEMES.practice;
@@ -37,6 +38,8 @@ export default function PracticeMode() {
   const [result, setResult] = useState(null);
   const [completedIds, setCompletedIds] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
+
+  const [newAchievement, setNewAchievement] = useState(null);
 
   // AI feedback state
   const [aiResult, setAiResult] = useState(null);
@@ -86,7 +89,8 @@ export default function PracticeMode() {
         const xpAmount = XP_RULES.practice(scored.score);
         awardXP(db, 'practice', xpAmount, `Practiced: ${category}`);
         updateQuestProgress(db, 'practice');
-        checkAchievements(db, getOverallProgress(db));
+        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       } catch (err) {
         console.error('Engine error during practice submission:', err);
       }
@@ -139,6 +143,7 @@ export default function PracticeMode() {
 
   return (
     <div className="practice-mode">
+      <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle={`${PRACTICE_SCENARIOS.length} scenarios`} />
 
       <div className="practice-content">

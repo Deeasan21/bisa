@@ -13,6 +13,7 @@ import Button from '../common/Button';
 import Card from '../common/Card';
 import Badge from '../common/Badge';
 import ProgressBar from '../common/ProgressBar';
+import AchievementToast from '../common/AchievementToast';
 import './ReviewMode.css';
 
 const theme = MODE_THEMES.review;
@@ -33,6 +34,7 @@ export default function ReviewMode() {
   const [seeding, setSeeding] = useState(false);
   const [goodStreak, setGoodStreak] = useState(0);
   const [reviewed, setReviewed] = useState(0);
+  const [newAchievement, setNewAchievement] = useState(null);
 
   useEffect(() => {
     if (!isReady || !db) return;
@@ -85,7 +87,8 @@ export default function ReviewMode() {
       if (newCount % 10 === 0) {
         awardXP(db, 'review', XP_RULES.reviewSession(), `Reviewed ${newCount} cards`);
         updateQuestProgress(db, 'review', 10);
-        checkAchievements(db, getOverallProgress(db));
+        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       }
       return newCount;
     });
@@ -110,6 +113,7 @@ export default function ReviewMode() {
 
   return (
     <div className="review-mode">
+      <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle="Spaced repetition" />
 
       <div className="review-content">

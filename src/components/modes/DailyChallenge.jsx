@@ -26,6 +26,7 @@ import ScoreGauge from '../common/ScoreGauge';
 import ProgressBar from '../common/ProgressBar';
 import XPToast from '../common/XPToast';
 import Skeleton from '../common/Skeleton';
+import AchievementToast from '../common/AchievementToast';
 import './DailyChallenge.css';
 
 const theme = MODE_THEMES.daily;
@@ -69,6 +70,7 @@ export default function DailyChallenge() {
   const [hoursLeft, setHoursLeft] = useState(getHoursUntilMidnight());
   const [aiCoaching, setAiCoaching] = useState(null);
   const [aiCoachingLoading, setAiCoachingLoading] = useState(false);
+  const [newAchievement, setNewAchievement] = useState(null);
   const inputRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -161,7 +163,8 @@ export default function DailyChallenge() {
       }
       updateQuestProgress(db, 'daily_challenge');
       updateQuestProgress(db, 'streak');
-      checkAchievements(db, getOverallProgress(db));
+      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during burst completion:', err);
     }
@@ -223,6 +226,7 @@ export default function DailyChallenge() {
       <ModeHeader theme={theme} title="Daily Challenge" subtitle="Question Burst" />
       <Confetti active={showConfetti} />
       <XPToast amount={xpAwarded} visible={showXPToast} onDone={() => setShowXPToast(false)} />
+      <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
 
       <div className="daily-content">
         {/* Streak display — always visible in ready + completed */}

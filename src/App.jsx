@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import TodayPage from './pages/TodayPage';
@@ -6,11 +6,12 @@ import ModesPage from './pages/ModesPage';
 import ProgressPage from './pages/ProgressPage';
 import JournalPage from './pages/JournalPage';
 import ProfilePage from './pages/ProfilePage';
-import LearnMode from './components/modes/LearnMode';
-import PracticeMode from './components/modes/PracticeMode';
-import DailyChallenge from './components/modes/DailyChallenge';
-import SimulateMode from './components/modes/SimulateMode';
-import ReviewMode from './components/modes/ReviewMode';
+
+const LearnMode = lazy(() => import('./components/modes/LearnMode'));
+const PracticeMode = lazy(() => import('./components/modes/PracticeMode'));
+const DailyChallenge = lazy(() => import('./components/modes/DailyChallenge'));
+const SimulateMode = lazy(() => import('./components/modes/SimulateMode'));
+const ReviewMode = lazy(() => import('./components/modes/ReviewMode'));
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -49,11 +50,13 @@ export default function App() {
           <Route path="/journal" element={<JournalPage />} />
           <Route path="/me" element={<ProfilePage />} />
         </Route>
-        <Route path="/mode/learn" element={<LearnMode />} />
-        <Route path="/mode/practice" element={<PracticeMode />} />
-        <Route path="/mode/daily" element={<DailyChallenge />} />
-        <Route path="/mode/simulate" element={<SimulateMode />} />
-        <Route path="/mode/review" element={<ReviewMode />} />
+        <Suspense fallback={<div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading...</div>}>
+          <Route path="/mode/learn" element={<LearnMode />} />
+          <Route path="/mode/practice" element={<PracticeMode />} />
+          <Route path="/mode/daily" element={<DailyChallenge />} />
+          <Route path="/mode/simulate" element={<SimulateMode />} />
+          <Route path="/mode/review" element={<ReviewMode />} />
+        </Suspense>
       </Routes>
     </ErrorBoundary>
   );

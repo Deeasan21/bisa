@@ -14,6 +14,7 @@ import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import Badge from '../common/Badge';
 import Skeleton from '../common/Skeleton';
+import AchievementToast from '../common/AchievementToast';
 import './LearnMode.css';
 
 const theme = MODE_THEMES.learn;
@@ -59,6 +60,7 @@ export default function LearnMode() {
   const [reflectedLessons, setReflectedLessons] = useState(new Set());
   const [aiReflectionResult, setAiReflectionResult] = useState(null);
   const [aiReflectionLoading, setAiReflectionLoading] = useState(false);
+  const [newAchievement, setNewAchievement] = useState(null);
 
   const lesson = LESSONS[selectedLesson];
 
@@ -96,7 +98,8 @@ export default function LearnMode() {
       try {
         awardXP(db, 'lesson', XP_RULES.lesson(), `Reflection on Lesson ${lesson.id}`);
         updateQuestProgress(db, 'lesson');
-        checkAchievements(db, getOverallProgress(db));
+        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       } catch (err) {
         console.error('Engine error during lesson save:', err);
       }
@@ -138,6 +141,7 @@ export default function LearnMode() {
 
   return (
     <div className="learn-mode">
+      <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle={`${LESSONS.length} lessons`} />
 
       <button className="lesson-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>

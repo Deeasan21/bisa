@@ -13,7 +13,6 @@ import ProgressBar from '../components/common/ProgressBar';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Confetti from '../components/common/Confetti';
-import XPToast from '../components/common/XPToast';
 import './TodayPage.css';
 
 export default function TodayPage() {

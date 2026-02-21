@@ -11,6 +11,7 @@ import MascotMessage from '../components/common/MascotMessage';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
+import AchievementToast from '../components/common/AchievementToast';
 import './JournalPage.css';
 
 const QUESTION_TYPES = ['Open', 'Clarifying', 'Probing', 'Reflective', 'Hypothetical', 'Follow-up', 'Other'];
@@ -68,6 +69,7 @@ export default function JournalPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('');
   const [deletingId, setDeletingId] = useState(null);
+  const [newAchievement, setNewAchievement] = useState(null);
 
   useEffect(() => {
     if (!isReady || !db) return;
@@ -81,7 +83,8 @@ export default function JournalPage() {
       addJournalEntry(db, form);
       awardXP(db, 'journal', XP_RULES.journal(), 'Journal entry');
       updateQuestProgress(db, 'journal');
-      checkAchievements(db, getOverallProgress(db));
+      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during journal submission:', err);
     }
@@ -124,6 +127,7 @@ export default function JournalPage() {
 
   return (
     <div className="journal-page animate-fade-in">
+      <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <div className="journal-header">
         <div>
           <h1>Journal</h1>

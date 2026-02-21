@@ -18,6 +18,7 @@ import Card from '../common/Card';
 import Badge from '../common/Badge';
 import ProgressBar from '../common/ProgressBar';
 import Skeleton from '../common/Skeleton';
+import AchievementToast from '../common/AchievementToast';
 import './SimulateMode.css';
 
 const theme = MODE_THEMES.simulate;
@@ -51,6 +52,7 @@ export default function SimulateMode() {
   const [ruleFeedback, setRuleFeedback] = useState(null);
   const [aiSummary, setAiSummary] = useState(null);
   const [aiSummaryLoading, setAiSummaryLoading] = useState(false);
+  const [newAchievement, setNewAchievement] = useState(null);
   const aiAvailable = hasApiKey();
 
   useEffect(() => {
@@ -259,7 +261,8 @@ export default function SimulateMode() {
       const qualityPercent = Math.round((greatCount / Math.max(1, scores.length)) * 100);
       awardXP(db, 'simulation', XP_RULES.simulation(qualityPercent), `Simulation: ${activeSim.title}`);
       updateQuestProgress(db, 'simulation');
-      checkAchievements(db, getOverallProgress(db));
+      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during simulation ending:', err);
     }
@@ -313,6 +316,7 @@ export default function SimulateMode() {
   if (!activeSim) {
     return (
       <div className="simulate-mode">
+        <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
         <ModeHeader theme={theme} subtitle={`${SIMULATIONS.length} conversations`} />
         <div className="sim-content">
           {/* Category/Difficulty Filters */}
