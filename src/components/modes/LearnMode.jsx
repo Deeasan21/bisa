@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { CaretDown, CaretRight, CheckCircle, Trash, Sparkle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { LESSONS } from '../../data/lessons';
@@ -48,7 +49,9 @@ const REFLECTION_PROMPTS = {
 
 export default function LearnMode() {
   const { db, isReady } = useDatabase();
-  const [selectedLesson, setSelectedLesson] = useState(0);
+  const location = useLocation();
+  const initialLesson = location.state?.lessonIndex ?? 0;
+  const [selectedLesson, setSelectedLesson] = useState(initialLesson);
   const [reflection, setReflection] = useState('');
   const [saved, setSaved] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
