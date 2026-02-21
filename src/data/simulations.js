@@ -14,7 +14,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Yes, I've noticed you've been missing deadlines. What's going on?", next: "direct_open", quality: "good" },
           { text: "Why have you been missing deadlines?", next: "direct_closed", quality: "poor" },
-          { text: "How are things going for you lately?", next: "gentle_open", quality: "great" }
+          { text: "How are things going for you lately?", next: "gentle_open", quality: "great" },
+          { text: "Yeah, I just wanted to check in. I've noticed things seem different lately and I wanted to hear your side.", next: "direct_open", quality: "good" },
+          { text: "Before we get into anything work-related — how are you, really?", next: "gentle_open", quality: "great" }
         ]
       },
       direct_open: {
@@ -23,7 +25,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "What's been the hardest part?", next: "probing_good", quality: "great" },
           { text: "We all have tough times. You need to figure it out.", next: "dismissive", quality: "poor" },
-          { text: "Tell me more about what's happening.", next: "probing_good", quality: "good" }
+          { text: "Tell me more about what's happening.", next: "probing_good", quality: "good" },
+          { text: "I appreciate you being honest. Take your time — what's been weighing on you the most?", next: "probing_good", quality: "great" },
+          { text: "Okay, but the deadlines still need to be met. What's your plan?", next: "dismissive", quality: "medium" }
         ]
       },
       direct_closed: {
@@ -41,7 +45,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "I'm sorry to hear that. What would help you right now?", next: "supportive", quality: "great" },
           { text: "What's happening at home?", next: "too_personal", quality: "medium" },
-          { text: "How is that affecting your work?", next: "work_focus", quality: "good" }
+          { text: "How is that affecting your work?", next: "work_focus", quality: "good" },
+          { text: "Thank you for telling me that. You don't have to share details you're not comfortable with, but I'm here to listen.", next: "supportive", quality: "great" },
+          { text: "We all get distracted sometimes. Just try to keep up with the deadlines, okay?", next: "dismissive", quality: "poor" }
         ]
       },
       probing_good: {
@@ -58,7 +64,9 @@ export const SIMULATIONS = [
         text: "There's family stuff. My mom's been sick and I've been trying to help out.",
         choices: [
           { text: "I'm sorry to hear that. What would help you manage both right now?", next: "ending_great", quality: "great" },
-          { text: "That's tough. We need to figure out how to get you back on track though.", next: "ending_medium", quality: "medium" }
+          { text: "That's tough. We need to figure out how to get you back on track though.", next: "ending_medium", quality: "medium" },
+          { text: "That's a lot to carry. How long has this been going on?", next: "probing_good", quality: "good" },
+          { text: "You should have told me sooner. We could have worked something out.", next: "ending_poor", quality: "poor" }
         ]
       },
       dismissive: {
@@ -131,7 +139,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "What's been on your mind?", next: "open_start", quality: "great" },
           { text: "Are you thinking about leaving?", next: "direct_start", quality: "medium" },
-          { text: "Thinking about what?", next: "neutral_start", quality: "good" }
+          { text: "Thinking about what?", next: "neutral_start", quality: "good" },
+          { text: "I'm glad you reached out. Take your time — I'm here to listen.", next: "open_start", quality: "great" },
+          { text: "Yeah, you mentioned that. What's going on?", next: "neutral_start", quality: "medium" }
         ]
       },
       open_start: {
@@ -140,7 +150,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "What would 'right' look like for you?", next: "values_explore", quality: "great" },
           { text: "When did you start feeling this way?", next: "timeline", quality: "good" },
-          { text: "Have you thought about what else you'd do?", next: "alternatives", quality: "medium" }
+          { text: "Have you thought about what else you'd do?", next: "alternatives", quality: "medium" },
+          { text: "Going through the motions is a tough place to be. What's missing for you right now?", next: "values_explore", quality: "great" },
+          { text: "Everyone feels that way sometimes. I'm sure it'll pass.", next: "advice_too_soon", quality: "poor" }
         ]
       },
       direct_start: {
@@ -148,7 +160,9 @@ export const SIMULATIONS = [
         text: "Maybe. I don't know. I feel stuck.",
         choices: [
           { text: "What does 'stuck' feel like for you?", next: "values_explore", quality: "great" },
-          { text: "Stuck how?", next: "timeline", quality: "good" }
+          { text: "Stuck how?", next: "timeline", quality: "good" },
+          { text: "I hear you. When you say stuck, is it the role itself or something bigger?", next: "values_explore", quality: "good" },
+          { text: "If you're feeling stuck, maybe you just need a new project to energize you.", next: "advice_too_soon", quality: "poor" }
         ]
       },
       neutral_start: {
@@ -156,7 +170,9 @@ export const SIMULATIONS = [
         text: "My career, I guess. Whether I'm in the right place.",
         choices: [
           { text: "What's making you question it?", next: "values_explore", quality: "great" },
-          { text: "Do you like what you're doing day to day?", next: "daily_work", quality: "good" }
+          { text: "Do you like what you're doing day to day?", next: "daily_work", quality: "good" },
+          { text: "That's a big question. What would 'the right place' feel like?", next: "values_explore", quality: "great" },
+          { text: "You're still early in your career. Give it more time.", next: "advice_too_soon", quality: "poor" }
         ]
       },
       values_explore: {
@@ -165,7 +181,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "What would 'making a difference' look like in practice?", next: "vision", quality: "great" },
           { text: "That's common in big companies. Have you talked to your manager?", next: "advice_too_soon", quality: "medium" },
-          { text: "When have you felt like you were making a difference?", next: "past_success", quality: "great" }
+          { text: "When have you felt like you were making a difference?", next: "past_success", quality: "great" },
+          { text: "Feeling like a cog is soul-crushing. What part of your work still feels meaningful, even a little?", next: "daily_work", quality: "good" },
+          { text: "Have you thought about transferring to a different team or role?", next: "alternatives", quality: "poor" }
         ]
       },
       timeline: {
@@ -173,7 +191,9 @@ export const SIMULATIONS = [
         text: "Probably the last six months. After that reorg, things changed.",
         choices: [
           { text: "What changed for you specifically?", next: "values_explore", quality: "great" },
-          { text: "Reorgs are tough. It usually gets better.", next: "advice_too_soon", quality: "poor" }
+          { text: "Reorgs are tough. It usually gets better.", next: "advice_too_soon", quality: "poor" },
+          { text: "Six months is a long time to sit with that feeling. What kept you from saying something sooner?", next: "values_explore", quality: "good" },
+          { text: "Tell me what things were like before the reorg, compared to now.", next: "values_explore", quality: "good" }
         ]
       },
       alternatives: {
@@ -257,7 +277,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "I've noticed some issues with the recent deliverables and wanted to understand what's happening.", next: "curious_open", quality: "great" },
           { text: "We need to talk about the quality of your work lately.", next: "direct_critical", quality: "medium" },
-          { text: "Your work has been sloppy. What's going on?", next: "accusatory", quality: "poor" }
+          { text: "Your work has been sloppy. What's going on?", next: "accusatory", quality: "poor" },
+          { text: "Yeah, thanks for sitting down. I wanted to share some observations and get your take on things.", next: "curious_open", quality: "good" },
+          { text: "I've got some concerns about a few recent projects. Can I walk you through what I've seen?", next: "specifics_curious", quality: "great" }
         ]
       },
       curious_open: {
@@ -266,7 +288,8 @@ export const SIMULATIONS = [
         choices: [
           { text: "The last two reports had errors that made it to the client. I'm curious what's been different in your process lately.", next: "specifics_curious", quality: "great" },
           { text: "Several errors. You need to be more careful.", next: "vague_critical", quality: "poor" },
-          { text: "Can I share some specific examples and get your perspective?", next: "specifics_curious", quality: "great" }
+          { text: "Can I share some specific examples and get your perspective?", next: "specifics_curious", quality: "great" },
+          { text: "Before I get into specifics, what's your own sense of how the recent deliverables have gone?", next: "process_explore", quality: "good" }
         ]
       },
       direct_critical: {
@@ -283,7 +306,9 @@ export const SIMULATIONS = [
         text: "Sloppy? That's harsh. I'm doing my best with everything on my plate.",
         choices: [
           { text: "You're right, that was too blunt. Let me try again\u2014what's making things harder right now?", next: "recover", quality: "good" },
-          { text: "Everyone's busy. That's not an excuse.", next: "defensive_trigger", quality: "poor" }
+          { text: "Everyone's busy. That's not an excuse.", next: "defensive_trigger", quality: "poor" },
+          { text: "I'm sorry, that came out wrong. What I meant is I've seen some errors and I want to understand what's behind them.", next: "specifics_curious", quality: "great" },
+          { text: "I hear you. Let's set aside how I said it. Can you walk me through what's on your plate right now?", next: "recover", quality: "good" }
         ]
       },
       specifics_curious: {
@@ -300,7 +325,9 @@ export const SIMULATIONS = [
         text: "Honestly? I've been skipping my usual review step because there's no time. I know that's not good.",
         choices: [
           { text: "I appreciate you being honest. What would it take to bring that step back?", next: "solution_collab", quality: "great" },
-          { text: "So you know it's a problem. Why haven't you fixed it?", next: "pushback", quality: "poor" }
+          { text: "So you know it's a problem. Why haven't you fixed it?", next: "pushback", quality: "poor" },
+          { text: "That tells me a lot. What does the review step usually look like when you have time for it?", next: "solution_collab", quality: "good" },
+          { text: "It sounds like the process isn't the issue \u2014 the workload is. What would need to change?", next: "solution_collab", quality: "great" }
         ]
       },
       vague_critical: {
@@ -376,7 +403,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Sometimes. What made you pick this neighborhood to live in?", next: "location_open", quality: "good" },
           { text: "Yeah, it's great. So, what do you do for work?", next: "work_surface", quality: "medium" },
-          { text: "I do. There's a story behind why\u2014want to hear it?", next: "share_first", quality: "great" }
+          { text: "I do. There's a story behind why\u2014want to hear it?", next: "share_first", quality: "great" },
+          { text: "First time, actually. A friend told me the vibes are good here. What's your go-to coffee order?", next: "positive_explore", quality: "good" },
+          { text: "Yeah. Good coffee. So tell me about yourself.", next: "work_surface", quality: "poor" }
         ]
       },
       share_first: {
@@ -418,7 +447,9 @@ export const SIMULATIONS = [
         text: "Portland. It was nice but kind of small. Ready for something new.",
         choices: [
           { text: "What were you hoping to find in something new?", next: "meaning_explore", quality: "great" },
-          { text: "I've heard Portland is great. What did you like about it?", next: "positive_explore", quality: "medium" }
+          { text: "I've heard Portland is great. What did you like about it?", next: "positive_explore", quality: "medium" },
+          { text: "That's a bold move. What gave you the push to actually do it?", next: "meaning_explore", quality: "great" },
+          { text: "Cool. Do you miss it?", next: "positive_explore", quality: "poor" }
         ]
       },
       positive_explore: {
@@ -426,7 +457,9 @@ export const SIMULATIONS = [
         text: "The food scene, honestly. And I've met some good people through a hiking group.",
         choices: [
           { text: "Hiking group sounds fun. What got you into hiking?", next: "passion_explore", quality: "good" },
-          { text: "What do you love about being outdoors?", next: "passion_explore", quality: "great" }
+          { text: "What do you love about being outdoors?", next: "passion_explore", quality: "great" },
+          { text: "Meeting good people through a shared interest \u2014 that's the best way. What do those friendships mean to you?", next: "meaning_explore", quality: "great" },
+          { text: "Nice. What's your favorite restaurant so far?", next: "facts_only_2", quality: "medium" }
         ]
       },
       passion_explore: {
@@ -434,7 +467,9 @@ export const SIMULATIONS = [
         text: "There's something about being in nature that resets my brain. The silence. No notifications. Just... existing.",
         choices: [
           { text: "That sounds like something you need, not just something you like. When did you realize that about yourself?", next: "deep_connection", quality: "great" },
-          { text: "Do you go often?", next: "facts_only_2", quality: "medium" }
+          { text: "Do you go often?", next: "facts_only_2", quality: "medium" },
+          { text: "Just existing \u2014 I love how you put that. What does life feel like when you don't have that reset?", next: "deep_connection", quality: "great" },
+          { text: "I should try hiking. What trail would you recommend?", next: "story_invite", quality: "good" }
         ]
       },
       career_path: {
@@ -520,7 +555,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Actually, I'm here to learn about you. What's your day-to-day like?", next: "redirect_good", quality: "great" },
           { text: "I'd love to tell you about it! We built this tool that...", next: "pitch_mistake", quality: "poor" },
-          { text: "Before that\u2014can you walk me through how you currently handle [problem area]?", next: "process_explore", quality: "great" }
+          { text: "Before that\u2014can you walk me through how you currently handle [problem area]?", next: "process_explore", quality: "great" },
+          { text: "We'll get to that. But first, I'm curious \u2014 what's the biggest headache in your work right now?", next: "redirect_good", quality: "good" },
+          { text: "I'll share all the details. But what would be most useful is if you could tell me what problems you're hoping we solve.", next: "process_explore", quality: "good" }
         ]
       },
       redirect_good: {
@@ -562,7 +599,9 @@ export const SIMULATIONS = [
         text: "Honestly? Keeping track of everything. We're growing faster than our systems can handle.",
         choices: [
           { text: "What have you tried so far to fix that?", next: "attempted_solutions", quality: "great" },
-          { text: "Tell me more about what 'keeping track' involves day to day.", next: "pain_explore", quality: "great" }
+          { text: "Tell me more about what 'keeping track' involves day to day.", next: "pain_explore", quality: "great" },
+          { text: "Growth outpacing systems is a common pain point. What breaks first when things get busy?", next: "pain_explore", quality: "good" },
+          { text: "Got it. We can definitely fix that for you.", next: "premature_solution", quality: "medium" }
         ]
       },
       history_explore: {
@@ -570,7 +609,9 @@ export const SIMULATIONS = [
         text: "About six months ago. We doubled our customer base and suddenly everything was on fire.",
         choices: [
           { text: "What did you try first to deal with it?", next: "attempted_solutions", quality: "great" },
-          { text: "What's the cost of not fixing it?", next: "impact_explore", quality: "great" }
+          { text: "What's the cost of not fixing it?", next: "impact_explore", quality: "great" },
+          { text: "Doubling your customer base is exciting but painful. What specifically caught fire first?", next: "pain_explore", quality: "good" },
+          { text: "We see that a lot. Our tool handles exactly that kind of scaling.", next: "premature_solution", quality: "poor" }
         ]
       },
       impact_explore: {
@@ -656,7 +697,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Work's good. But I'd rather hear about you. What's been on your mind lately?", next: "redirect_to_them", quality: "great" },
           { text: "Same old. Busy. How about you\u2014how's retirement treating you?", next: "surface_exchange", quality: "medium" },
-          { text: "Actually, before we do the updates\u2014I've been thinking. I don't think we really talk anymore. Can we try something different tonight?", next: "meta_open", quality: "great" }
+          { text: "Actually, before we do the updates\u2014I've been thinking. I don't think we really talk anymore. Can we try something different tonight?", next: "meta_open", quality: "great" },
+          { text: "It's going fine. Hey, I've missed you. How have you really been?", next: "redirect_to_them", quality: "good" },
+          { text: "Good, good. What's for dinner? I'm starving.", next: "surface_continue", quality: "poor" }
         ]
       },
       redirect_to_them: {
@@ -673,7 +716,9 @@ export const SIMULATIONS = [
         text: "Oh, it's fine. A lot of time on my hands. But I stay busy.",
         choices: [
           { text: "Do you like having more time? Or is it hard sometimes?", next: "vulnerability_invite", quality: "great" },
-          { text: "That's good. Staying busy is important.", next: "surface_continue", quality: "poor" }
+          { text: "That's good. Staying busy is important.", next: "surface_continue", quality: "poor" },
+          { text: "What do you fill your time with these days? What gives you energy?", next: "meaning_explore", quality: "good" },
+          { text: "A lot of time on your hands \u2014 that sounds like it could be a blessing or a curse. Which is it for you?", next: "vulnerability_invite", quality: "great" }
         ]
       },
       meta_open: {
@@ -681,7 +726,9 @@ export const SIMULATIONS = [
         text: "Different? What do you mean?",
         choices: [
           { text: "I feel like we always talk about what we're doing, but not what we're feeling or thinking. I want to know how you really are.", next: "vulnerability_invite", quality: "great" },
-          { text: "Never mind, it's nothing. So how's the house?", next: "surface_continue", quality: "poor" }
+          { text: "Never mind, it's nothing. So how's the house?", next: "surface_continue", quality: "poor" },
+          { text: "I just mean \u2014 I realized I don't ask you the real questions enough. Like, what's making you happy these days? What's hard?", next: "vulnerability_invite", quality: "great" },
+          { text: "I don't know exactly. I just want tonight to be more than catching up on logistics. Can we talk about something that matters?", next: "permission_ask", quality: "good" }
         ]
       },
       meaning_explore: {
@@ -689,7 +736,9 @@ export const SIMULATIONS = [
         text: "The garden? I don't know... it's peaceful. I can see progress. Plant something, it grows. Feels like I'm doing something that matters, even if it's small.",
         choices: [
           { text: "Do you feel that way in other parts of life? That what you do matters?", next: "deep_territory", quality: "great" },
-          { text: "I can see why you love it. What are you growing right now?", next: "retreat_to_facts", quality: "medium" }
+          { text: "I can see why you love it. What are you growing right now?", next: "retreat_to_facts", quality: "medium" },
+          { text: "That's beautiful. I didn't know the garden meant that much to you. What else gives you that feeling?", next: "deep_territory", quality: "great" },
+          { text: "That's nice. You always did have a green thumb.", next: "surface_continue", quality: "poor" }
         ]
       },
       surface_continue: {
@@ -823,6 +872,20 @@ export const SIMULATIONS = [
             quality: "great",
             mindset: "learner",
             observation: "You acknowledged the situation while setting a non-threatening tone."
+          },
+          {
+            text: "I did. And you look like you'd rather be anywhere else right now. That's okay. Can we just talk?",
+            next: "gentle_open",
+            quality: "good",
+            mindset: "learner",
+            observation: "You named the tension directly but with warmth, showing you're paying attention."
+          },
+          {
+            text: "Yeah, let's get this over with. I've got some performance concerns to go through.",
+            next: "direct_confrontation",
+            quality: "poor",
+            mindset: "judger",
+            observation: "Your tone matched Casey's dread and confirmed their worst expectations."
           }
         ]
       },
@@ -874,6 +937,20 @@ export const SIMULATIONS = [
             quality: "poor",
             mindset: "judger",
             observation: "You shifted into Judger mode\u2014making it about their character rather than the situation."
+          },
+          {
+            text: "You're right, and I can't blame you for being skeptical. So here's my agenda: I've noticed things are off, and I care more about you than the metrics. What's going on?",
+            next: "trust_building",
+            quality: "great",
+            mindset: "learner",
+            observation: "You owned the transparency and led with care rather than performance."
+          },
+          {
+            text: "Okay, I hear the sarcasm. Look, I've noticed some things slipping. Can we talk about that?",
+            next: "direct_confrontation",
+            quality: "medium",
+            mindset: "judger",
+            observation: "You acknowledged the pushback but moved quickly to the performance topic without building safety."
           }
         ]
       },
@@ -896,6 +973,20 @@ export const SIMULATIONS = [
             quality: "poor",
             mindset: "judger",
             observation: "The defensive signals intensified and you escalated further."
+          },
+          {
+            text: "I believe you. And I'm not here to pile on. But I can see this conversation is already tense \u2014 what would help make this easier?",
+            next: "trust_building",
+            quality: "great",
+            mindset: "learner",
+            observation: "You read the defensive posture and tried to create safety before proceeding."
+          },
+          {
+            text: "Good. What's the plan, specifically?",
+            next: "mechanical_exchange",
+            quality: "medium",
+            mindset: "judger",
+            observation: "You kept focus on deliverables while Casey's body language screams discomfort."
           }
         ]
       },
@@ -1168,7 +1259,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "You're right on time. I'm glad you made it. How was your day?", next: "safe_opener", quality: "good" },
           { text: "No worries at all. I almost went to the wrong restaurant, so we're even. What made you pick this place?", next: "share_vulnerability", quality: "great" },
-          { text: "Nope, right on time. So, tell me about yourself.", next: "too_broad", quality: "medium" }
+          { text: "Nope, right on time. So, tell me about yourself.", next: "too_broad", quality: "medium" },
+          { text: "Parking around here is the worst. I'm just happy you're here. First impressions \u2014 what do you think of the place?", next: "share_vulnerability", quality: "good" },
+          { text: "You're fine! I've been looking forward to this. Can I get you something to drink?", next: "safe_opener", quality: "good" }
         ]
       },
       share_vulnerability: {
@@ -1194,7 +1287,9 @@ export const SIMULATIONS = [
         text: "Oh, um. I don't know where to start. I'm Riley. I do graphic design. I have a cat named Mochi. This is awkward, isn't it?",
         choices: [
           { text: "A little. But honestly, first dates are supposed to be awkward. Tell me about Mochi — how'd you end up with a cat named after a dessert?", next: "comfort_zone", quality: "great" },
-          { text: "It doesn't have to be. Where did you go to school?", next: "yes_no_trap", quality: "poor" }
+          { text: "It doesn't have to be. Where did you go to school?", next: "yes_no_trap", quality: "poor" },
+          { text: "That was actually a perfect intro. Graphic design and a cat named Mochi? I already have follow-up questions. Which do you want to talk about first?", next: "comfort_zone", quality: "good" },
+          { text: "Only a little. I think the awkward part is kind of charming. What got you into graphic design?", next: "connection_thread", quality: "great" }
         ]
       },
       too_intense_early: {
@@ -1307,7 +1402,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Yeah. I wanted to check in with you, not as your lead but as someone who respects your work. How are things going?", next: "warm_entry", quality: "great" },
           { text: "I'll be straight with you — I've been hearing some concerns about your recent work. What's happening?", next: "direct_entry", quality: "medium" },
-          { text: "People are complaining about your work, Dana. We need to talk about it.", next: "blunt_entry", quality: "poor" }
+          { text: "People are complaining about your work, Dana. We need to talk about it.", next: "blunt_entry", quality: "poor" },
+          { text: "I did. I've noticed some things are different lately and I wanted to understand before jumping to conclusions. Can I share what I'm seeing?", next: "permission_ask", quality: "great" },
+          { text: "Yeah. Look, I care about you and the team, and something feels off. I want to talk about it openly.", next: "warm_entry", quality: "good" }
         ]
       },
       warm_entry: {
@@ -1333,7 +1430,9 @@ export const SIMULATIONS = [
         text: "Wow. Okay. Who's complaining?",
         choices: [
           { text: "I'm sorry — that came out harsher than I meant. Let me try again. I've noticed some changes in your work recently and I'm concerned, not angry. What's going on?", next: "recovery_attempt", quality: "great" },
-          { text: "That's not the point. The point is the work needs to improve.", next: "defensive_response", quality: "poor" }
+          { text: "That's not the point. The point is the work needs to improve.", next: "defensive_response", quality: "poor" },
+          { text: "I shouldn't have led with that. Forget who said what — I want to hear from you. What's been going on?", next: "recovery_attempt", quality: "good" },
+          { text: "Names don't matter. What matters is that this isn't like you. Dana, talk to me — what's happening?", next: "honest_bridge", quality: "good" }
         ]
       },
       avoidance_path: {
@@ -1457,7 +1556,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Thanks for making time, Kenji. I actually wanted to learn from you. I realize we haven't had a chance to connect one-on-one, and I'd love to hear how the project looks from your perspective.", next: "respectful_open", quality: "great" },
           { text: "I wanted to talk about the team meetings. I've noticed you don't speak up much and I wanted to check if everything's okay.", next: "direct_address", quality: "medium" },
-          { text: "Some people on the team feel like you're not contributing enough in meetings. I wanted to give you a chance to respond.", next: "confrontational", quality: "poor" }
+          { text: "Some people on the team feel like you're not contributing enough in meetings. I wanted to give you a chance to respond.", next: "confrontational", quality: "poor" },
+          { text: "I appreciate you joining, Kenji. I've been wanting to get to know how you prefer to work and collaborate. What's been your experience with the team so far?", next: "respectful_open", quality: "great" },
+          { text: "Nothing specific — just wanted to sync up. How are things going on your end with the project?", next: "technical_thread", quality: "good" }
         ]
       },
       respectful_open: {
@@ -1483,7 +1584,9 @@ export const SIMULATIONS = [
         text: "I am sorry to hear that. I have been contributing to the shared documents and doing code reviews after the meetings. But I understand the concern.",
         choices: [
           { text: "Wait — you've been contributing through documentation and code reviews? I didn't know that. Can you tell me more about what you've been working on?", next: "hidden_contributions", quality: "great" },
-          { text: "The work outside meetings is good, but you need to be more vocal in the meetings themselves.", next: "well_meaning_miss", quality: "medium" }
+          { text: "The work outside meetings is good, but you need to be more vocal in the meetings themselves.", next: "well_meaning_miss", quality: "medium" },
+          { text: "I really appreciate you telling me that. It sounds like there's a lot of work happening that the team isn't seeing. What's the best way for you to share those contributions?", next: "hidden_contributions", quality: "good" },
+          { text: "Documentation and code reviews are valuable. But people judge contribution by meeting participation here, and I think that's been an issue.", next: "well_meaning_miss", quality: "poor" }
         ]
       },
       cultural_bridge: {
@@ -1604,7 +1707,9 @@ export const SIMULATIONS = [
         text: "Yeah. Everyone says that.",
         choices: [
           { text: "I'm sorry. That was one of those things people say when they don't know what to say. I don't know what to say. But I'm here. What do you actually need right now?", next: "present_moment", quality: "great" },
-          { text: "Because it's true. You just have to take it one step at a time.", next: "shutting_down", quality: "poor" }
+          { text: "Because it's true. You just have to take it one step at a time.", next: "shutting_down", quality: "poor" },
+          { text: "You sound tired of hearing it. What do you wish people would say instead?", next: "reframe", quality: "great" },
+          { text: "I can hear how exhausting that must be. You don't have to say anything at all right now if you don't want to.", next: "present_moment", quality: "good" }
         ]
       },
       reframe: {
@@ -1724,7 +1829,9 @@ export const SIMULATIONS = [
         text: "Of course. What's on your mind?",
         choices: [
           { text: "I want to find a way to make this work because I'm genuinely excited about the role and the team. Help me understand — what's the most important thing for you in making this hire work?", next: "interests_explore", quality: "great" },
-          { text: "The base salary is 15% below what I was targeting. Is there room to move on that?", next: "direct_counter", quality: "good" }
+          { text: "The base salary is 15% below what I was targeting. Is there room to move on that?", next: "direct_counter", quality: "good" },
+          { text: "I love the role. The compensation is lower than I expected, though. Can we talk through the full package together?", next: "total_comp", quality: "good" },
+          { text: "Honestly, the money doesn't work for me. I need you to come up or I can't accept.", next: "blunt_ask", quality: "poor" }
         ]
       },
       range_explore: {
@@ -1732,7 +1839,9 @@ export const SIMULATIONS = [
         text: "The top of the range is reserved for people who've been in the role for a while. But I'll level with you — if you bring the experience you've described, I could probably justify coming up somewhat. What would make this feel right to you?",
         choices: [
           { text: "I appreciate the transparency. Rather than throwing out a number, can I share what I'm weighing? I want to make sure we solve for the right things.", next: "total_comp", quality: "great" },
-          { text: "If you could get to [target number], I'd sign today.", next: "anchor_set", quality: "good" }
+          { text: "If you could get to [target number], I'd sign today.", next: "anchor_set", quality: "good" },
+          { text: "That's helpful. What does the progression look like for people who come in at the higher end — what sets them apart early on?", next: "growth_path", quality: "great" },
+          { text: "Midpoint seems low for what I'm bringing. Can you just bump it to the top of the range?", next: "direct_counter", quality: "medium" }
         ]
       },
       growth_path: {
@@ -1825,7 +1934,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "Uncle Ray, I'm curious what made you start thinking about this. What happened?", next: "curiosity_approach", quality: "great" },
           { text: "Actually, I don't think everyone's thinking that. Can we not do this at dinner?", next: "direct_pushback", quality: "medium" },
-          { text: "That's a pretty broad statement. Not everyone sees it the same way, right?", next: "gentle_challenge", quality: "good" }
+          { text: "That's a pretty broad statement. Not everyone sees it the same way, right?", next: "gentle_challenge", quality: "good" },
+          { text: "You're clearly feeling strongly about this. What's been going on that brought this up?", next: "curiosity_approach", quality: "great" },
+          { text: "Come on, Uncle Ray. That's not cool.", next: "direct_pushback", quality: "poor" }
         ]
       },
       curiosity_approach: {
@@ -1842,7 +1953,9 @@ export const SIMULATIONS = [
         text: "See, this is the problem. You can't even have a conversation anymore without someone shutting you down.",
         choices: [
           { text: "You're right, I didn't mean to shut you down. I just noticed Aisha got quiet and I got protective. But I do want to understand where you're coming from. What's behind this for you?", next: "story_thread", quality: "great" },
-          { text: "I'm not shutting you down. I just think there are people at this table it affects, and maybe a holiday dinner isn't the place.", next: "boundary_set", quality: "good" }
+          { text: "I'm not shutting you down. I just think there are people at this table it affects, and maybe a holiday dinner isn't the place.", next: "boundary_set", quality: "good" },
+          { text: "Fair point. I don't want to shut you down. I just want to make sure everyone at this table feels included. What's been on your mind about this?", next: "curiosity_approach", quality: "good" },
+          { text: "You're right, that's not what I want. I actually am curious. Something is clearly bothering you. What's really going on?", next: "story_thread", quality: "great" }
         ]
       },
       gentle_challenge: {
@@ -1850,7 +1963,9 @@ export const SIMULATIONS = [
         text: "Well, everyone I talk to thinks so. Regular people. Not the people on TV.",
         choices: [
           { text: "Who are the people you're talking to? What are they experiencing that's making them feel this way?", next: "story_thread", quality: "great" },
-          { text: "Aisha, you've been quiet. You okay?", next: "check_on_aisha", quality: "good" }
+          { text: "Aisha, you've been quiet. You okay?", next: "check_on_aisha", quality: "good" },
+          { text: "Regular people like who? I want to understand what they're going through.", next: "empathy_redirect", quality: "good" },
+          { text: "That's just your echo chamber, Uncle Ray. The world is more complicated than that.", next: "logic_battle", quality: "poor" }
         ]
       },
       story_thread: {
@@ -1962,7 +2077,9 @@ export const SIMULATIONS = [
         text: "I appreciate that, but my mind is made up. I don't want this to be a negotiation.",
         choices: [
           { text: "Understood. It's not. But I do want to learn from this — for the team and for myself as a leader. Would you be willing to be really honest with me about what we got wrong?", next: "permission_bridge", quality: "great" },
-          { text: "Is it the money? Because I can talk to HR about a raise.", next: "missing_the_point", quality: "poor" }
+          { text: "Is it the money? Because I can talk to HR about a raise.", next: "missing_the_point", quality: "poor" },
+          { text: "I respect that. Then help me understand what happened so I don't make the same mistakes with the rest of the team.", next: "permission_bridge", quality: "good" },
+          { text: "I hear you. I'm not trying to change your mind. But I owe it to myself and the team to ask: what did we miss?", next: "floodgate_opens", quality: "great" }
         ]
       },
       permission_bridge: {
@@ -1970,7 +2087,9 @@ export const SIMULATIONS = [
         text: "Tough questions? Sure. I think I owe you that. And honestly, I've wanted to say some of this for a while.",
         choices: [
           { text: "Then let me shut up and listen. What's the thing you've wanted to say but haven't?", next: "floodgate_opens", quality: "great" },
-          { text: "What held you back from saying it before?", next: "systemic_issue", quality: "great" }
+          { text: "What held you back from saying it before?", next: "systemic_issue", quality: "great" },
+          { text: "I want to hear all of it. Start wherever feels right.", next: "floodgate_opens", quality: "good" },
+          { text: "That's on me that you didn't feel you could say it sooner. What would have made it safe to bring this up?", next: "systemic_issue", quality: "great" }
         ]
       },
       defensive_misstep: {
@@ -2096,7 +2215,9 @@ export const SIMULATIONS = [
         choices: [
           { text: "What am I actually afraid of? Not the practical stuff — the real fear underneath.", next: "fear_explore", quality: "great" },
           { text: "Let me make a pros and cons list. Money, career growth, location, family...", next: "logic_trap", quality: "medium" },
-          { text: "If I take fear completely out of it, what do I want?", next: "desire_explore", quality: "great" }
+          { text: "If I take fear completely out of it, what do I want?", next: "desire_explore", quality: "great" },
+          { text: "Who do I want to be five years from now? Let me start there.", next: "values_fork", quality: "great" },
+          { text: "Maybe I should call someone and ask for advice.", next: "external_validation", quality: "poor" }
         ]
       },
       fear_explore: {
@@ -2113,7 +2234,9 @@ export const SIMULATIONS = [
         text: "You've already made the list. Three times. The pros and cons are exactly balanced, which means the answer isn't in logic. The real question is: what does your gut say that your spreadsheet can't capture?",
         choices: [
           { text: "My gut says... I want to go. But my heart says I'll miss everything I'm leaving.", next: "desire_explore", quality: "great" },
-          { text: "Maybe I should ask someone else for advice.", next: "external_validation", quality: "medium" }
+          { text: "Maybe I should ask someone else for advice.", next: "external_validation", quality: "medium" },
+          { text: "My gut says this opportunity scares me — and the things that scare me are usually the things I need to face.", next: "fear_explore", quality: "great" },
+          { text: "I keep coming back to my parents. I can't leave them. That's my answer.", next: "avoidance_path", quality: "poor" }
         ]
       },
       desire_explore: {

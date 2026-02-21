@@ -304,3 +304,84 @@
   text-align: right;
   margin-top: 4px;
 }
+
+/* Rule-based feedback card */
+.sim-rule-feedback {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sim-techniques {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.sim-rule-feedback-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* AI Conversation Summary */
+.sim-ai-summary {
+  text-align: left;
+  background: var(--bg-card);
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sim-ai-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8B5CF6;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sim-ai-summary-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.sim-ai-highlight {
+  background: #F5F3FF;
+  border: 1px solid #DDD6FE;
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+}
+
+[data-theme="dark"] .sim-ai-highlight {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+.sim-ai-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7C3AED;
+}
+
+.sim-ai-highlight p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}

@@ -390,3 +390,37 @@
   color: var(--text-secondary);
   line-height: 1.5;
 }
+
+/* AI Coaching Button */
+.ai-coaching-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1.5px dashed rgba(139, 92, 246, 0.4);
+  border-radius: var(--radius-lg);
+  background: #F5F3FF;
+  color: #7C3AED;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+[data-theme="dark"] .ai-coaching-btn {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #C4B5FD;
+}
+
+.ai-coaching-btn:hover {
+  background: #EDE9FE;
+  border-color: #8B5CF6;
+}
+
+[data-theme="dark"] .ai-coaching-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+}

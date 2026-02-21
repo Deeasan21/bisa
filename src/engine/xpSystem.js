@@ -18,9 +18,10 @@ export const XP_RULES = {
     return 20 + Math.round((score / 100) * 30);
   },
 
-  /** Daily Challenge: flat 25 XP */
-  dailyChallenge() {
-    return 25;
+  /** Daily Challenge: 15 base + (score% × 35 bonus). No score = 25 (backward compat) */
+  dailyChallenge(score = 0) {
+    if (!score) return 25;
+    return 15 + Math.round((score / 100) * 35);
   },
 
   /** Lesson: flat 30 XP */

@@ -42,6 +42,7 @@ export default function PracticeMode() {
   const [aiResult, setAiResult] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState(null);
+  const [showAiButton, setShowAiButton] = useState(false);
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -67,6 +68,7 @@ export default function PracticeMode() {
     setAiResult(null);
     setAiLoading(false);
     setAiError(null);
+    setShowAiButton(false);
   };
 
   const handleSubmit = async () => {
@@ -102,6 +104,26 @@ export default function PracticeMode() {
       } finally {
         setAiLoading(false);
       }
+    }
+
+    // For scores outside auto-trigger range: show manual AI coaching button
+    if (!scored.needsAIReview && hasApiKey() && scored.score > 0) {
+      setShowAiButton(true);
+    }
+  };
+
+  const handleRequestAI = async () => {
+    if (!scenario || !userQuestion.trim()) return;
+    setShowAiButton(false);
+    setAiLoading(true);
+    setAiError(null);
+    try {
+      const aiFeedback = await getAIFeedback(userQuestion, scenario);
+      setAiResult(aiFeedback);
+    } catch (err) {
+      setAiError(err.message);
+    } finally {
+      setAiLoading(false);
     }
   };
 
@@ -272,8 +294,16 @@ export default function PracticeMode() {
                   </div>
                 )}
 
-                {/* Soft upsell when AI could help but no key */}
-                {result.needsAIReview && !hasApiKey() && !aiLoading && (
+                {/* Manual AI coaching button for scores outside auto-trigger range */}
+                {showAiButton && !aiLoading && !aiResult && (
+                  <button className="ai-coaching-btn animate-fade-in" onClick={handleRequestAI}>
+                    <Sparkle size={16} weight="fill" color="#8B5CF6" />
+                    <span>Get AI Coaching</span>
+                  </button>
+                )}
+
+                {/* Soft upsell when no API key */}
+                {!hasApiKey() && !aiLoading && result.score > 0 && (
                   <div className="ai-upsell animate-fade-in">
                     <Robot size={16} weight="duotone" color="#8B5CF6" />
                     <p>Want more detailed feedback? Add your API key in <strong>Settings</strong> on your Profile page.</p>
