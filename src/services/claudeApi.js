@@ -3,6 +3,9 @@
  *
  * Manages the user's Anthropic API key (localStorage) and
  * sends requests through the /api/claude proxy.
+ *
+ * AI features work for everyone via the server-side API key.
+ * Users can optionally add their own key for unlimited access.
  */
 
 const STORAGE_KEY = 'bisa_api_key';
@@ -19,7 +22,17 @@ export function setApiKey(key) {
   }
 }
 
+/**
+ * Returns true always — AI is available for everyone via the server key.
+ */
 export function hasApiKey() {
+  return true;
+}
+
+/**
+ * Returns true only if the user has their own personal API key configured.
+ */
+export function hasPersonalApiKey() {
   return !!getApiKey();
 }
 
@@ -31,12 +44,16 @@ export function hasApiKey() {
  */
 export async function callClaude({ system, messages, max_tokens = 1024 }) {
   const apiKey = getApiKey();
-  if (!apiKey) throw new Error('No API key configured');
+
+  const body = { system, messages, max_tokens };
+  if (apiKey) {
+    body.apiKey = apiKey;
+  }
 
   const res = await fetch('/api/claude', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ system, messages, apiKey, max_tokens }),
+    body: JSON.stringify(body),
   });
 
   const data = await res.json();

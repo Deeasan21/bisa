@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Plus, X, Star, Trash, MagnifyingGlass } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
+import { Plus, X, Star, Trash, MagnifyingGlass, BookOpen } from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
-import { addJournalEntry, getJournalEntries, deleteJournalEntry, getOverallProgress } from '../utils/database';
+import { addJournalEntry, getJournalEntries, deleteJournalEntry, getAllReflections, getOverallProgress } from '../utils/database';
+import { LESSONS } from '../data/lessons';
 import { awardXP, XP_RULES } from '../engine/xpSystem';
 import { updateQuestProgress } from '../engine/dailyQuests';
 import { checkAchievements } from '../engine/achievements';
@@ -32,6 +34,19 @@ const TYPE_COLORS = {
   Other: '#78716C',
 };
 
+const SKILL_COLORS = {
+  'Open vs. Closed': '#EF4444',
+  'Probing': '#8B5CF6',
+  'Empathy': '#EC4899',
+  'Follow-up': '#3B82F6',
+  'Clarifying': '#F59E0B',
+  'Framing': '#10B981',
+  'Self-Reflection': '#06B6D4',
+  'Leadership': '#F59E0B',
+  'Cultural Awareness': '#8B5CF6',
+  'Body Language': '#EC4899',
+};
+
 const defaultForm = {
   situation: '',
   question: '',
@@ -44,7 +59,10 @@ const defaultForm = {
 
 export default function JournalPage() {
   const { db, isReady } = useDatabase();
+  const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
+  const [reflections, setReflections] = useState([]);
+  const [activeTab, setActiveTab] = useState('journal');
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(defaultForm);
   const [searchQuery, setSearchQuery] = useState('');
@@ -54,6 +72,7 @@ export default function JournalPage() {
   useEffect(() => {
     if (!isReady || !db) return;
     setEntries(getJournalEntries(db));
+    setReflections(getAllReflections(db));
   }, [db, isReady]);
 
   const handleSubmit = () => {
@@ -85,6 +104,10 @@ export default function JournalPage() {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
+  const getLessonForReflection = (lessonId) => {
+    return LESSONS.find(l => l.id === lessonId);
+  };
+
   // Filter entries
   const filteredEntries = entries.filter(entry => {
     if (filterType && entry.type !== filterType) return false;
@@ -106,187 +129,254 @@ export default function JournalPage() {
           <h1>Journal</h1>
           <p>Log your real-world questions</p>
         </div>
+        {activeTab === 'journal' && (
+          <button
+            className="journal-toggle-btn"
+            onClick={() => setShowForm(!showForm)}
+          >
+            {showForm ? <X size={20} weight="bold" /> : <Plus size={20} weight="bold" />}
+          </button>
+        )}
+      </div>
+
+      {/* Tab Switcher */}
+      <div className="journal-tabs">
         <button
-          className="journal-toggle-btn"
-          onClick={() => setShowForm(!showForm)}
+          className={`journal-tab${activeTab === 'journal' ? ' active' : ''}`}
+          onClick={() => setActiveTab('journal')}
         >
-          {showForm ? <X size={20} weight="bold" /> : <Plus size={20} weight="bold" />}
+          Journal
+        </button>
+        <button
+          className={`journal-tab${activeTab === 'reflections' ? ' active' : ''}`}
+          onClick={() => setActiveTab('reflections')}
+        >
+          Lesson Reflections {reflections.length > 0 && <span className="journal-tab-count">{reflections.length}</span>}
         </button>
       </div>
 
-      {showForm && (
-        <div className="journal-form animate-fade-in">
-          <div className="form-field">
-            <label>Situation <span className="optional">(optional)</span></label>
-            <input
-              type="text"
-              value={form.situation}
-              onChange={(e) => updateForm('situation', e.target.value)}
-              placeholder="Where were you? Who were you talking to?"
-            />
-          </div>
-          <div className="form-field">
-            <label>Your Question <span className="required">*</span></label>
-            <textarea
-              value={form.question}
-              onChange={(e) => updateForm('question', e.target.value)}
-              placeholder="What question did you ask (or wish you had asked)?"
-              rows={3}
-            />
-          </div>
-          <div className="form-field">
-            <label>Question Type</label>
-            <div className="type-pills">
-              {QUESTION_TYPES.map(t => (
-                <button
-                  key={t}
-                  className={`type-pill${form.type === t ? ' active' : ''}`}
-                  onClick={() => updateForm('type', t)}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="form-field">
-            <label>Mood <span className="optional">(optional)</span></label>
-            <div className="mood-chips">
-              {MOOD_OPTIONS.map(m => (
-                <button
-                  key={m.label}
-                  className={`mood-chip${form.mood === m.label ? ' active' : ''}`}
-                  onClick={() => updateForm('mood', form.mood === m.label ? '' : m.label)}
-                >
-                  <span>{m.emoji}</span>
-                  <span className="mood-chip-label">{m.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="form-field">
-            <label>Outcome <span className="optional">(optional)</span></label>
-            <textarea
-              value={form.outcome}
-              onChange={(e) => updateForm('outcome', e.target.value)}
-              placeholder="What happened after you asked?"
-              rows={2}
-            />
-          </div>
-          <div className="form-field">
-            <label>Effectiveness Rating</label>
-            <div className="rating-row">
-              {[1, 2, 3, 4, 5].map(n => (
-                <button
-                  key={n}
-                  className={`rating-star${form.rating >= n ? ' active' : ''}`}
-                  onClick={() => updateForm('rating', n)}
-                >
-                  <Star size={24} weight={form.rating >= n ? 'fill' : 'regular'} />
-                </button>
-              ))}
-              {form.rating > 0 && (
-                <span className="rating-label">{RATING_LABELS[form.rating]}</span>
-              )}
-            </div>
-          </div>
-          <div className="form-field">
-            <label>Reflection <span className="optional">(optional)</span></label>
-            <textarea
-              value={form.reflection}
-              onChange={(e) => updateForm('reflection', e.target.value)}
-              placeholder="What did you learn? What would you do differently?"
-              rows={3}
-            />
-          </div>
-          <Button
-            variant="mode"
-            modeColor="#06B6D4"
-            onClick={handleSubmit}
-            disabled={!form.question.trim()}
-          >
-            Save Entry
-          </Button>
-        </div>
-      )}
-
-      {/* Search / Filter */}
-      {entries.length > 0 && !showForm && (
-        <div className="journal-filters">
-          <div className="journal-search">
-            <MagnifyingGlass size={16} color="var(--text-muted)" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search entries..."
-            />
-          </div>
-          <div className="journal-filter-pills">
-            <button
-              className={`filter-pill${!filterType ? ' active' : ''}`}
-              onClick={() => setFilterType('')}
-            >
-              All
-            </button>
-            {QUESTION_TYPES.filter(t => t !== 'Other').map(t => (
-              <button
-                key={t}
-                className={`filter-pill${filterType === t ? ' active' : ''}`}
-                onClick={() => setFilterType(filterType === t ? '' : t)}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="journal-entries">
-        {entries.length === 0 && !showForm ? (
-          <div className="journal-empty">
-            <MascotMessage
-              message="Your journal is waiting! Tap + to log your first real-world question. Every great questioner starts by noticing."
-              emotion="encouraging"
-            />
-          </div>
-        ) : filteredEntries.length === 0 && searchQuery ? (
-          <div className="journal-empty">
-            <p>No entries match your search.</p>
-          </div>
-        ) : (
-          filteredEntries.map(entry => (
-            <Card
-              key={entry.id}
-              padding="md"
-            >
-              <div
-                className={`entry-card${deletingId === entry.id ? ' deleting' : ''}`}
-                style={{ '--entry-color': TYPE_COLORS[entry.type] || TYPE_COLORS.Other }}
-              >
-                <div className="entry-border-accent" />
-                <div className="entry-header">
-                  <Badge text={entry.type} color={TYPE_COLORS[entry.type] || '#06B6D4'} variant="soft" size="sm" />
-                  <span className="entry-date">{entry.date}</span>
-                </div>
-                {entry.situation && <p className="entry-situation">{entry.situation}</p>}
-                <p className="entry-question">"{entry.question}"</p>
-                {entry.outcome && <p className="entry-outcome">{entry.outcome}</p>}
-                {entry.rating > 0 && (
-                  <div className="entry-rating">
-                    {Array.from({ length: entry.rating }, (_, i) => (
-                      <Star key={i} size={14} weight="fill" color="#F59E0B" />
-                    ))}
-                  </div>
-                )}
-                {entry.reflection && <p className="entry-reflection">{entry.reflection}</p>}
-                <button className="entry-delete" onClick={() => handleDelete(entry.id)}>
-                  <Trash size={16} />
-                </button>
+      {activeTab === 'journal' && (
+        <>
+          {showForm && (
+            <div className="journal-form animate-fade-in">
+              <div className="form-field">
+                <label>Situation <span className="optional">(optional)</span></label>
+                <input
+                  type="text"
+                  value={form.situation}
+                  onChange={(e) => updateForm('situation', e.target.value)}
+                  placeholder="Where were you? Who were you talking to?"
+                />
               </div>
-            </Card>
-          ))
-        )}
-      </div>
+              <div className="form-field">
+                <label>Your Question <span className="required">*</span></label>
+                <textarea
+                  value={form.question}
+                  onChange={(e) => updateForm('question', e.target.value)}
+                  placeholder="What question did you ask (or wish you had asked)?"
+                  rows={3}
+                />
+              </div>
+              <div className="form-field">
+                <label>Question Type</label>
+                <div className="type-pills">
+                  {QUESTION_TYPES.map(t => (
+                    <button
+                      key={t}
+                      className={`type-pill${form.type === t ? ' active' : ''}`}
+                      onClick={() => updateForm('type', t)}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="form-field">
+                <label>Mood <span className="optional">(optional)</span></label>
+                <div className="mood-chips">
+                  {MOOD_OPTIONS.map(m => (
+                    <button
+                      key={m.label}
+                      className={`mood-chip${form.mood === m.label ? ' active' : ''}`}
+                      onClick={() => updateForm('mood', form.mood === m.label ? '' : m.label)}
+                    >
+                      <span>{m.emoji}</span>
+                      <span className="mood-chip-label">{m.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="form-field">
+                <label>Outcome <span className="optional">(optional)</span></label>
+                <textarea
+                  value={form.outcome}
+                  onChange={(e) => updateForm('outcome', e.target.value)}
+                  placeholder="What happened after you asked?"
+                  rows={2}
+                />
+              </div>
+              <div className="form-field">
+                <label>Effectiveness Rating</label>
+                <div className="rating-row">
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <button
+                      key={n}
+                      className={`rating-star${form.rating >= n ? ' active' : ''}`}
+                      onClick={() => updateForm('rating', n)}
+                    >
+                      <Star size={24} weight={form.rating >= n ? 'fill' : 'regular'} />
+                    </button>
+                  ))}
+                  {form.rating > 0 && (
+                    <span className="rating-label">{RATING_LABELS[form.rating]}</span>
+                  )}
+                </div>
+              </div>
+              <div className="form-field">
+                <label>Reflection <span className="optional">(optional)</span></label>
+                <textarea
+                  value={form.reflection}
+                  onChange={(e) => updateForm('reflection', e.target.value)}
+                  placeholder="What did you learn? What would you do differently?"
+                  rows={3}
+                />
+              </div>
+              <Button
+                variant="mode"
+                modeColor="#06B6D4"
+                onClick={handleSubmit}
+                disabled={!form.question.trim()}
+              >
+                Save Entry
+              </Button>
+            </div>
+          )}
+
+          {/* Search / Filter */}
+          {entries.length > 0 && !showForm && (
+            <div className="journal-filters">
+              <div className="journal-search">
+                <MagnifyingGlass size={16} color="var(--text-muted)" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search entries..."
+                />
+              </div>
+              <div className="journal-filter-pills">
+                <button
+                  className={`filter-pill${!filterType ? ' active' : ''}`}
+                  onClick={() => setFilterType('')}
+                >
+                  All
+                </button>
+                {QUESTION_TYPES.filter(t => t !== 'Other').map(t => (
+                  <button
+                    key={t}
+                    className={`filter-pill${filterType === t ? ' active' : ''}`}
+                    onClick={() => setFilterType(filterType === t ? '' : t)}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="journal-entries">
+            {entries.length === 0 && !showForm ? (
+              <div className="journal-empty">
+                <MascotMessage
+                  message="Your journal is waiting! Tap + to log your first real-world question. Every great questioner starts by noticing."
+                  emotion="encouraging"
+                />
+              </div>
+            ) : filteredEntries.length === 0 && searchQuery ? (
+              <div className="journal-empty">
+                <p>No entries match your search.</p>
+              </div>
+            ) : (
+              filteredEntries.map(entry => (
+                <Card
+                  key={entry.id}
+                  padding="md"
+                >
+                  <div
+                    className={`entry-card${deletingId === entry.id ? ' deleting' : ''}`}
+                    style={{ '--entry-color': TYPE_COLORS[entry.type] || TYPE_COLORS.Other }}
+                  >
+                    <div className="entry-border-accent" />
+                    <div className="entry-header">
+                      <Badge text={entry.type} color={TYPE_COLORS[entry.type] || '#06B6D4'} variant="soft" size="sm" />
+                      <span className="entry-date">{entry.date}</span>
+                    </div>
+                    {entry.situation && <p className="entry-situation">{entry.situation}</p>}
+                    <p className="entry-question">"{entry.question}"</p>
+                    {entry.outcome && <p className="entry-outcome">{entry.outcome}</p>}
+                    {entry.rating > 0 && (
+                      <div className="entry-rating">
+                        {Array.from({ length: entry.rating }, (_, i) => (
+                          <Star key={i} size={14} weight="fill" color="#F59E0B" />
+                        ))}
+                      </div>
+                    )}
+                    {entry.reflection && <p className="entry-reflection">{entry.reflection}</p>}
+                    <button className="entry-delete" onClick={() => handleDelete(entry.id)}>
+                      <Trash size={16} />
+                    </button>
+                  </div>
+                </Card>
+              ))
+            )}
+          </div>
+        </>
+      )}
+
+      {activeTab === 'reflections' && (
+        <div className="journal-entries">
+          {reflections.length === 0 ? (
+            <div className="journal-empty">
+              <MascotMessage
+                message="No lesson reflections yet! Visit Learn mode to start reflecting on lessons."
+                emotion="encouraging"
+              />
+            </div>
+          ) : (
+            reflections.map(r => {
+              const lesson = getLessonForReflection(r.lessonId);
+              if (!lesson) return null;
+              return (
+                <Card key={r.lessonId} padding="md">
+                  <div
+                    className="reflection-entry"
+                    onClick={() => navigate('/mode/learn')}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div className="reflection-entry-header">
+                      <div className="reflection-entry-title">
+                        <BookOpen size={16} weight="duotone" color="#F59E0B" />
+                        <span>Lesson {lesson.id}: {lesson.title}</span>
+                      </div>
+                      <Badge
+                        text={lesson.skillCategory}
+                        color={SKILL_COLORS[lesson.skillCategory] || '#78716C'}
+                        variant="soft"
+                        size="sm"
+                      />
+                    </div>
+                    <p className="reflection-entry-content">{r.content}</p>
+                    <span className="reflection-entry-date">
+                      {r.updatedAt ? new Date(r.updatedAt).toLocaleDateString() : ''}
+                    </span>
+                  </div>
+                </Card>
+              );
+            })
+          )}
+        </div>
+      )}
     </div>
   );
 }

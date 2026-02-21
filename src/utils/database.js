@@ -227,6 +227,11 @@ export function initializeSchema(db) {
   if (statsCheck.length === 0) {
     db.run("INSERT INTO user_stats (id) VALUES (1)");
   }
+
+  // ---- Phase 2: Question Burst schema migration ----
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN score INTEGER DEFAULT 0"); } catch(e) { /* column already exists */ }
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN questions_json TEXT"); } catch(e) { /* column already exists */ }
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN challenge_format TEXT DEFAULT 'journal'"); } catch(e) { /* column already exists */ }
 }
 
 // ============================================
@@ -300,6 +305,26 @@ export function saveReflection(db, lessonId, content) {
     runStmt(db, "INSERT INTO reflections (lesson_id, content) VALUES (?, ?)", [lessonId, content]);
   }
   saveDatabase(db);
+}
+
+export function deleteReflection(db, lessonId) {
+  if (!db) return;
+  runStmt(db, "DELETE FROM reflections WHERE lesson_id = ?", [lessonId]);
+  saveDatabase(db);
+}
+
+export function getAllReflections(db) {
+  if (!db) return [];
+  const results = query(db, `
+    SELECT lesson_id, content, created_at, updated_at
+    FROM reflections ORDER BY updated_at DESC
+  `);
+  return results.map(r => ({
+    lessonId: r.lesson_id,
+    content: r.content,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+  }));
 }
 
 // ============================================
@@ -383,13 +408,25 @@ export function saveChallengeCompletion(db, date, type, title, response) {
 }
 
 export function getChallengeHistory(db, limit = 30) {
-  const results = query(db, `SELECT challenge_date, challenge_type, challenge_title, response FROM challenge_history ORDER BY created_at DESC LIMIT ${limit}`);
+  const results = query(db, `SELECT challenge_date, challenge_type, challenge_title, response, score, questions_json, challenge_format FROM challenge_history ORDER BY created_at DESC LIMIT ${limit}`);
   return results.map(r => ({
     date: r.challenge_date,
     type: r.challenge_type,
     title: r.challenge_title,
-    response: r.response
+    response: r.response,
+    format: r.challenge_format || 'journal',
+    score: r.score || 0,
+    questions: r.questions_json ? JSON.parse(r.questions_json) : null,
   }));
+}
+
+export function saveBurstCompletion(db, date, type, title, questions, score) {
+  runStmt(
+    db,
+    "INSERT INTO challenge_history (challenge_date, challenge_type, challenge_title, response, score, questions_json, challenge_format, created_at) VALUES (?, ?, ?, ?, ?, ?, 'burst', datetime('now'))",
+    [date, type, title, `Question Burst: ${questions.length} questions, score ${score}`, score, JSON.stringify(questions)]
+  );
+  saveDatabase(db);
 }
 
 // ============================================

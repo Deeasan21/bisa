@@ -2,8 +2,27 @@
  * Vercel Serverless Function — Claude API Proxy
  *
  * Forwards requests to Anthropic's Messages API.
- * Uses the caller's own API key (passed in the request body).
+ * Uses the caller's own API key if provided, otherwise falls back
+ * to the server-side ANTHROPIC_API_KEY environment variable.
+ * Rate limits server-key usage to 10 calls per IP per day.
  */
+
+// In-memory rate limit store (resets on cold start — acceptable soft limit)
+const rateLimitMap = new Map();
+const DAILY_LIMIT = 10;
+
+function getRateLimitKey(req) {
+  const ip = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
+  const date = new Date().toISOString().split('T')[0];
+  return `${ip}:${date}`;
+}
+
+function checkRateLimit(key) {
+  const count = rateLimitMap.get(key) || 0;
+  if (count >= DAILY_LIMIT) return false;
+  rateLimitMap.set(key, count + 1);
+  return true;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,12 +31,27 @@ export default async function handler(req, res) {
 
   const { messages, system, apiKey, max_tokens = 1024 } = req.body || {};
 
-  if (!apiKey) {
-    return res.status(400).json({ error: 'No API key provided' });
-  }
-
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages array is required' });
+  }
+
+  // Determine which API key to use
+  const userKey = apiKey || null;
+  const serverKey = process.env.ANTHROPIC_API_KEY || null;
+  const effectiveKey = userKey || serverKey;
+
+  if (!effectiveKey) {
+    return res.status(400).json({ error: 'No API key available' });
+  }
+
+  // Rate limit only when using the server key
+  if (!userKey && serverKey) {
+    const key = getRateLimitKey(req);
+    if (!checkRateLimit(key)) {
+      return res.status(429).json({
+        error: 'Daily limit reached. Bisa allows 10 AI calls per day for free. Add your own API key in Settings for unlimited access.',
+      });
+    }
   }
 
   try {
@@ -25,7 +59,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
+        'x-api-key': effectiveKey,
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({

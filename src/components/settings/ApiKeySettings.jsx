@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Key, CheckCircle, XCircle, Spinner } from '@phosphor-icons/react';
-import { getApiKey, setApiKey, hasApiKey, testConnection } from '../../services/claudeApi';
+import { getApiKey, setApiKey, hasPersonalApiKey, testConnection } from '../../services/claudeApi';
 import Button from '../common/Button';
 import './ApiKeySettings.css';
 
@@ -56,8 +56,9 @@ export default function ApiKeySettings() {
         <h3>AI Features</h3>
       </div>
       <p className="api-key-desc">
-        Add your Anthropic API key to unlock AI-powered feedback in Practice and Simulate modes.
-        Your key is stored locally in your browser and never saved on any server.
+        Bisa includes AI-powered coaching for everyone. Want to use your own
+        API key for unlimited access? Add it below. Your key is stored locally
+        in your browser and never saved on any server.
       </p>
 
       <div className="api-key-input-row">

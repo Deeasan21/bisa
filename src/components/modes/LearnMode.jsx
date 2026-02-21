@@ -1,15 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
-import { CaretDown, CaretRight, CheckCircle } from '@phosphor-icons/react';
+import { CaretDown, CaretRight, CheckCircle, Trash, Sparkle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { LESSONS } from '../../data/lessons';
 import { useDatabase } from '../../hooks/useDatabase';
-import { getReflection, saveReflection, getOverallProgress } from '../../utils/database';
+import { getReflection, saveReflection, deleteReflection, getOverallProgress } from '../../utils/database';
 import { awardXP, XP_RULES } from '../../engine/xpSystem';
 import { updateQuestProgress } from '../../engine/dailyQuests';
 import { checkAchievements } from '../../engine/achievements';
+import { hasApiKey } from '../../services/claudeApi';
+import { getAIReflectionFeedback } from '../../engine/aiReflectionCoaching';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import Badge from '../common/Badge';
+import Skeleton from '../common/Skeleton';
 import './LearnMode.css';
 
 const theme = MODE_THEMES.learn;
@@ -30,6 +33,19 @@ const TIER_COLORS = {
   5: '#EF4444',
 };
 
+const REFLECTION_PROMPTS = {
+  'Open vs. Closed': "Think of a recent conversation. Where could you have replaced a closed question with an open one?",
+  'Probing': "When was the last time you went deeper with a follow-up instead of accepting a surface answer?",
+  'Empathy': "Recall a time someone felt truly heard by you. What did you say or ask that made the difference?",
+  'Follow-up': "Think of a conversation that ended too quickly. What follow-up question could have opened it up?",
+  'Clarifying': "When did an assumption lead you astray? What clarifying question would have helped?",
+  'Framing': "How does the way you frame a question change the answer you get? Think of a real example.",
+  'Self-Reflection': "What pattern do you notice in your own questioning habits? What would you like to change?",
+  'Leadership': "How do your questions shape the way your team thinks and acts?",
+  'Cultural Awareness': "How might someone from a different background interpret your questions differently?",
+  'Body Language': "Think of a time when someone's body language told you more than their words. What did you ask next?",
+};
+
 export default function LearnMode() {
   const { db, isReady } = useDatabase();
   const [selectedLesson, setSelectedLesson] = useState(0);
@@ -38,6 +54,8 @@ export default function LearnMode() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsedTiers, setCollapsedTiers] = useState({});
   const [reflectedLessons, setReflectedLessons] = useState(new Set());
+  const [aiReflectionResult, setAiReflectionResult] = useState(null);
+  const [aiReflectionLoading, setAiReflectionLoading] = useState(false);
 
   const lesson = LESSONS[selectedLesson];
 
@@ -57,6 +75,8 @@ export default function LearnMode() {
     const existing = getReflection(db, lesson.id);
     setReflection(existing || '');
     setSaved(!!existing);
+    setAiReflectionResult(null);
+    setAiReflectionLoading(false);
 
     // Check which lessons have reflections
     const reflected = new Set();
@@ -80,6 +100,33 @@ export default function LearnMode() {
     }
     setSaved(true);
     setReflectedLessons(prev => new Set([...prev, lesson.id]));
+    setAiReflectionResult(null);
+  };
+
+  const handleDelete = () => {
+    if (!db) return;
+    deleteReflection(db, lesson.id);
+    setReflection('');
+    setSaved(false);
+    setAiReflectionResult(null);
+    setReflectedLessons(prev => {
+      const next = new Set(prev);
+      next.delete(lesson.id);
+      return next;
+    });
+  };
+
+  const handleRequestAIReflection = async () => {
+    setAiReflectionLoading(true);
+    try {
+      const result = await getAIReflectionFeedback(reflection, lesson);
+      setAiReflectionResult(result);
+    } catch (err) {
+      console.error('AI reflection feedback error:', err);
+      setAiReflectionResult(null);
+    } finally {
+      setAiReflectionLoading(false);
+    }
   };
 
   const toggleTier = (tier) => {
@@ -150,21 +197,71 @@ export default function LearnMode() {
 
         <div className="reflection-section">
           <h3>Your Reflection</h3>
-          <p className="reflection-prompt">What stood out to you? How does this connect to your life?</p>
+          <p className="reflection-prompt">
+            {REFLECTION_PROMPTS[lesson.skillCategory] || "What stood out to you? How does this connect to your life?"}
+          </p>
           <textarea
             value={reflection}
             onChange={(e) => { setReflection(e.target.value); setSaved(false); }}
             placeholder="Write your reflection here..."
             rows={5}
           />
-          <Button
-            variant="mode"
-            modeColor={theme.primary}
-            onClick={handleSave}
-            disabled={!reflection.trim()}
-          >
-            {saved ? 'Saved!' : 'Save Reflection'}
-          </Button>
+          <div className="reflection-actions">
+            <Button
+              variant="mode"
+              modeColor={theme.primary}
+              onClick={handleSave}
+              disabled={!reflection.trim()}
+            >
+              {saved ? 'Saved!' : 'Save Reflection'}
+            </Button>
+            {saved && (
+              <button className="reflection-delete" onClick={handleDelete}>
+                <Trash size={14} /> Delete Reflection
+              </button>
+            )}
+          </div>
+
+          {aiReflectionLoading && (
+            <div className="reflection-ai-feedback">
+              <Skeleton height="14px" width="50%" />
+              <Skeleton height="40px" />
+              <Skeleton height="14px" width="70%" />
+            </div>
+          )}
+
+          {aiReflectionResult && !aiReflectionLoading && (
+            <div className="reflection-ai-feedback animate-fade-in">
+              <div className="reflection-ai-header">
+                <Sparkle size={18} weight="fill" color="#F59E0B" />
+                <span>AI Reflection Coaching</span>
+              </div>
+              <div className="reflection-ai-group">
+                <label>Insight</label>
+                <p>{aiReflectionResult.insight}</p>
+              </div>
+              <div className="reflection-ai-question">
+                <label>Go Deeper</label>
+                <p>{aiReflectionResult.deeperQuestion}</p>
+              </div>
+              <div className="reflection-ai-group">
+                <label>Connection</label>
+                <p>{aiReflectionResult.connection}</p>
+              </div>
+            </div>
+          )}
+
+          {saved && !aiReflectionResult && !aiReflectionLoading && hasApiKey() && (
+            <button className="reflection-ai-btn" onClick={handleRequestAIReflection}>
+              <Sparkle size={16} weight="fill" /> Get AI Feedback
+            </button>
+          )}
+
+          {saved && !hasApiKey() && !aiReflectionResult && !aiReflectionLoading && (
+            <p className="reflection-ai-upsell">
+              Add an API key in Settings to get AI feedback on your reflections.
+            </p>
+          )}
         </div>
 
         <div className="lesson-nav-buttons">
