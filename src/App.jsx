@@ -39,6 +39,14 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+function SuspenseWrap({ children }) {
+  return (
+    <Suspense fallback={<div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading...</div>}>
+      {children}
+    </Suspense>
+  );
+}
+
 export default function App() {
   return (
     <ErrorBoundary>
@@ -50,13 +58,11 @@ export default function App() {
           <Route path="/journal" element={<JournalPage />} />
           <Route path="/me" element={<ProfilePage />} />
         </Route>
-        <Suspense fallback={<div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading...</div>}>
-          <Route path="/mode/learn" element={<LearnMode />} />
-          <Route path="/mode/practice" element={<PracticeMode />} />
-          <Route path="/mode/daily" element={<DailyChallenge />} />
-          <Route path="/mode/simulate" element={<SimulateMode />} />
-          <Route path="/mode/review" element={<ReviewMode />} />
-        </Suspense>
+        <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
+        <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
+        <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
+        <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
+        <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
       </Routes>
     </ErrorBoundary>
   );
