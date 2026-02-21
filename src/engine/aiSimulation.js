@@ -7,6 +7,7 @@
  */
 
 import { callClaude, extractText } from '../services/claudeApi';
+import { sanitizeForPrompt } from './sanitize';
 
 const QUALITY_TAG_REGEX = /<!--BISA:(.*?)-->/s;
 
@@ -83,8 +84,8 @@ function buildMessages(chatHistory, userInput) {
     });
   }
 
-  // Add the new user input
-  messages.push({ role: 'user', content: userInput });
+  // Add the new user input (sanitized)
+  messages.push({ role: 'user', content: sanitizeForPrompt(userInput) });
 
   return messages;
 }

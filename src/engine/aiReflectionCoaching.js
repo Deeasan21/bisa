@@ -6,6 +6,7 @@
  */
 
 import { callClaude, extractText } from '../services/claudeApi';
+import { sanitizeForPrompt } from './sanitize';
 
 const SYSTEM_PROMPT = `You are Bisa, a warm and encouraging questioning coach. Your name means "to ask" in Twi/Akan.
 
@@ -37,7 +38,7 @@ export async function getAIReflectionFeedback(reflection, lesson) {
     `Lesson: "${lesson.title}"`,
     `Skill category: ${lesson.skillCategory || 'General'}`,
     '',
-    `Learner's reflection: "${reflection}"`,
+    `Learner's reflection: "${sanitizeForPrompt(reflection)}"`,
   ].join('\n');
 
   const response = await callClaude({

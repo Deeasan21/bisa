@@ -7,6 +7,7 @@
  */
 
 import { callClaude, extractText } from '../services/claudeApi';
+import { sanitizeForPrompt } from './sanitize';
 
 const SYSTEM_PROMPT = `You are Bisa, a warm and encouraging questioning coach. Your name means "to ask" in Twi/Akan.
 
@@ -41,7 +42,7 @@ export async function getAIFeedback(userQuestion, scenario) {
     `Skill category: ${scenario.skillCategory || 'General'}`,
     `Difficulty: ${scenario.difficultyTier || 'intermediate'}`,
     '',
-    `Learner's rewritten question: "${userQuestion}"`,
+    `Learner's rewritten question: "${sanitizeForPrompt(userQuestion)}"`,
   ].join('\n');
 
   const response = await callClaude({

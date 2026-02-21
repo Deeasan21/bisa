@@ -4,15 +4,28 @@
  * Forwards requests to Anthropic's Messages API.
  * Uses the caller's own API key if provided, otherwise falls back
  * to the server-side ANTHROPIC_API_KEY environment variable.
- * Rate limits server-key usage to 10 calls per IP per day.
+ *
+ * Security:
+ * - Origin validation (only accepts requests from Bisa domains)
+ * - Message structure validation (role + string content only)
+ * - Per-IP daily rate limit (10/day) for server-key usage
+ * - Global daily cap (500/day) as billing safety net
+ * - Sanitized error responses (no Anthropic error leaking)
  */
 
-// In-memory rate limit store (resets on cold start — acceptable soft limit)
+// --- Rate limiting ---
+
 const rateLimitMap = new Map();
 const DAILY_LIMIT = 10;
+const GLOBAL_DAILY_LIMIT = 500;
+let globalCount = 0;
+let globalDate = new Date().toISOString().split('T')[0];
 
 function getRateLimitKey(req) {
-  const ip = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
+  // x-real-ip is set by Vercel and cannot be spoofed by the client
+  const ip = req.headers['x-real-ip']
+    || (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    || 'unknown';
   const date = new Date().toISOString().split('T')[0];
   return `${ip}:${date}`;
 }
@@ -24,15 +37,64 @@ function checkRateLimit(key) {
   return true;
 }
 
+function checkGlobalLimit() {
+  const today = new Date().toISOString().split('T')[0];
+  if (today !== globalDate) {
+    globalDate = today;
+    globalCount = 0;
+  }
+  if (globalCount >= GLOBAL_DAILY_LIMIT) return false;
+  globalCount++;
+  return true;
+}
+
+// --- Origin validation ---
+
+const ALLOWED_ORIGINS = [
+  'https://bisa-eta.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
+
+function isAllowedOrigin(req) {
+  const origin = req.headers.origin || '';
+  const referer = req.headers.referer || '';
+  return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
+}
+
+// --- Message validation ---
+
+const VALID_ROLES = new Set(['user', 'assistant']);
+
+function validateMessages(messages) {
+  if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
+    return false;
+  }
+  for (const msg of messages) {
+    if (!VALID_ROLES.has(msg.role) || typeof msg.content !== 'string') {
+      return false;
+    }
+  }
+  return true;
+}
+
+// --- Handler ---
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Origin check — block requests not from Bisa
+  if (!isAllowedOrigin(req)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
   const { messages, system, apiKey, max_tokens = 1024 } = req.body || {};
 
-  if (!messages || !Array.isArray(messages) || messages.length === 0) {
-    return res.status(400).json({ error: 'Messages array is required' });
+  // Validate message structure
+  if (!validateMessages(messages)) {
+    return res.status(400).json({ error: 'Invalid request' });
   }
 
   // Determine which API key to use
@@ -46,6 +108,13 @@ export default async function handler(req, res) {
 
   // Rate limit only when using the server key
   if (!userKey && serverKey) {
+    // Global safety cap
+    if (!checkGlobalLimit()) {
+      return res.status(429).json({
+        error: 'Service temporarily unavailable. Please try again tomorrow.',
+      });
+    }
+    // Per-IP limit
     const key = getRateLimitKey(req);
     if (!checkRateLimit(key)) {
       return res.status(429).json({
@@ -73,13 +142,18 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(response.status).json({
-        error: data.error?.message || data.error || `Anthropic API error ${response.status}`,
-      });
+      // Sanitized errors — don't leak Anthropic internals
+      if (response.status === 401) {
+        return res.status(401).json({ error: 'Invalid API key' });
+      }
+      if (response.status === 429) {
+        return res.status(429).json({ error: 'AI service rate limit. Please wait a moment and try again.' });
+      }
+      return res.status(response.status).json({ error: 'AI service error' });
     }
 
     return res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to reach Anthropic API' });
+    return res.status(500).json({ error: 'Failed to reach AI service' });
   }
 }

@@ -8,6 +8,7 @@
  */
 
 import { callClaude, extractText } from '../services/claudeApi';
+import { sanitizeForPrompt } from './sanitize';
 
 const SYSTEM_PROMPT = `You are Bisa, a warm and encouraging questioning coach. Your name means "to ask" in Twi/Akan.
 
@@ -42,7 +43,7 @@ Guidelines:
  */
 export async function getAIBurstCoaching(questions, scenario, burstResults) {
   const questionsWithScores = burstResults.scoredQuestions
-    .map((q, i) => `${i + 1}. "${q.text}" (score: ${q.score}, techniques: ${q.techniques.join(', ') || 'none'})`)
+    .map((q, i) => `${i + 1}. "${sanitizeForPrompt(q.text)}" (score: ${q.score}, techniques: ${q.techniques.join(', ') || 'none'})`)
     .join('\n');
 
   const userMessage = [
