@@ -44,6 +44,16 @@ export const XP_RULES = {
     return 20;
   },
 
+  /** Pattern Recognition: 25 base + (score% × 25 bonus). Perfect = 50, 50% ≈ 38 */
+  pattern(score) {
+    return 25 + Math.round((score / 100) * 25);
+  },
+
+  /** Pattern Mirror: flat 20 XP (self-awareness, no scoring) */
+  patternMirror() {
+    return 20;
+  },
+
   /** Streak bonus: streak_days × 5, capped at 50 XP (10-day streak) */
   streakBonus(streakDays) {
     return Math.min(50, streakDays * 5);

@@ -228,6 +228,23 @@ export function initializeSchema(db) {
     db.run("INSERT INTO user_stats (id) VALUES (1)");
   }
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS pattern_attempts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sub_mode TEXT NOT NULL,
+      scenario_id INTEGER NOT NULL,
+      user_response TEXT,
+      selected_option INTEGER,
+      score INTEGER NOT NULL DEFAULT 0,
+      dimension_scores TEXT,
+      feedback TEXT,
+      difficulty_tier TEXT DEFAULT 'beginner',
+      session_id TEXT,
+      round_number INTEGER DEFAULT 1,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // ---- Phase 2: Question Burst schema migration ----
   try { db.run("ALTER TABLE challenge_history ADD COLUMN score INTEGER DEFAULT 0"); } catch(e) { /* column already exists */ }
   try { db.run("ALTER TABLE challenge_history ADD COLUMN questions_json TEXT"); } catch(e) { /* column already exists */ }
@@ -737,6 +754,51 @@ export function updateProfile(db, data) {
 }
 
 // ============================================
+// PATTERN RECOGNITION FUNCTIONS
+// ============================================
+
+export function savePatternAttempt(db, subMode, scenarioId, userResponse, selectedOption, score, dimensionScores, feedback, difficultyTier, sessionId, roundNumber) {
+  runStmt(db,
+    `INSERT INTO pattern_attempts (sub_mode, scenario_id, user_response, selected_option, score, dimension_scores, feedback, difficulty_tier, session_id, round_number, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
+    [subMode, scenarioId, userResponse || null, selectedOption ?? null, score,
+     dimensionScores ? JSON.stringify(dimensionScores) : null,
+     feedback ? JSON.stringify(feedback) : null,
+     difficultyTier || 'beginner', sessionId || null, roundNumber || 1]
+  );
+  saveDatabase(db);
+}
+
+export function getPatternStats(db) {
+  if (!db) return { total: 0 };
+  const results = query(db,
+    "SELECT sub_mode, COUNT(*) as count, AVG(CASE WHEN score > 0 THEN score ELSE NULL END) as avg FROM pattern_attempts GROUP BY sub_mode"
+  );
+  const stats = { total: 0 };
+  for (const r of results) {
+    stats[r.sub_mode] = { count: r.count, average: Math.round(r.avg || 0) };
+    stats.total += r.count;
+  }
+  return stats;
+}
+
+export function getPatternMirrorInsights(db) {
+  if (!db) return [];
+  const results = query(db,
+    "SELECT feedback, COUNT(*) as count FROM pattern_attempts WHERE sub_mode = 'pattern_mirror' GROUP BY feedback ORDER BY count DESC"
+  );
+  return results;
+}
+
+export function getPatternSessionResults(db, sessionId) {
+  if (!db) return [];
+  return queryStmt(db,
+    "SELECT * FROM pattern_attempts WHERE session_id = ? ORDER BY round_number ASC",
+    [sessionId]
+  );
+}
+
+// ============================================
 // OVERALL PROGRESS
 // ============================================
 
@@ -746,6 +808,7 @@ export function getOverallProgress(db) {
   const challenges = query(db, "SELECT COUNT(*) as count FROM challenge_history");
   const journal = query(db, "SELECT COUNT(*) as count FROM journal_entries");
   const simulations = query(db, "SELECT COUNT(*) as count FROM simulation_attempts");
+  const patternAttempts = query(db, "SELECT COUNT(*) as count FROM pattern_attempts");
   const streak = getStreakInfo(db);
   const reviewStats = getReviewStats(db);
   const totalXP = getTotalXP(db);
@@ -757,6 +820,7 @@ export function getOverallProgress(db) {
     challengesCompleted: challenges.length > 0 ? challenges[0].count : 0,
     journalEntries: journal.length > 0 ? journal[0].count : 0,
     simulationsCompleted: simulations.length > 0 ? simulations[0].count : 0,
+    patternAttempts: patternAttempts.length > 0 ? patternAttempts[0].count : 0,
     currentStreak: streak.currentStreak,
     longestStreak: streak.longestStreak,
     cardsLearned: reviewStats.cardsLearned,

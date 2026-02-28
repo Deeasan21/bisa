@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CaretDown, CaretRight, CheckCircle, Trash, Sparkle } from '@phosphor-icons/react';
+import { Trash, Sparkle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { LESSONS } from '../../data/lessons';
 import { useDatabase } from '../../hooks/useDatabase';
@@ -55,14 +55,13 @@ export default function LearnMode() {
   const [selectedLesson, setSelectedLesson] = useState(initialLesson);
   const [reflection, setReflection] = useState('');
   const [saved, setSaved] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [collapsedTiers, setCollapsedTiers] = useState({});
   const [reflectedLessons, setReflectedLessons] = useState(new Set());
   const [aiReflectionResult, setAiReflectionResult] = useState(null);
   const [aiReflectionLoading, setAiReflectionLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
 
   const lesson = LESSONS[selectedLesson];
+  const pillStripRef = useRef(null);
 
   // Group lessons by tier
   const tierGroups = useMemo(() => {
@@ -74,6 +73,16 @@ export default function LearnMode() {
     });
     return groups;
   }, []);
+
+  // Auto-scroll pill strip to keep active lesson centered
+  useEffect(() => {
+    if (pillStripRef.current) {
+      const activeEl = pillStripRef.current.querySelector('.lesson-pill.active');
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }, [selectedLesson]);
 
   useEffect(() => {
     if (!isReady || !db || !lesson) return;
@@ -135,58 +144,45 @@ export default function LearnMode() {
     }
   };
 
-  const toggleTier = (tier) => {
-    setCollapsedTiers(prev => ({ ...prev, [tier]: !prev[tier] }));
-  };
-
   return (
     <div className="learn-mode">
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle={`${LESSONS.length} lessons`} />
 
-      <button className="lesson-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-        {sidebarOpen ? 'Close' : 'Lessons'} ({selectedLesson + 1}/{LESSONS.length})
-      </button>
+      <select
+        className="lesson-select"
+        value={selectedLesson}
+        onChange={(e) => setSelectedLesson(Number(e.target.value))}
+      >
+        {Object.entries(tierGroups).map(([tier, lessons]) => (
+          <optgroup key={tier} label={`Tier ${tier}: ${TIER_LABELS[tier]}`}>
+            {lessons.map((l) => (
+              <option key={l.index} value={l.index}>
+                {l.id}. {l.title}{reflectedLessons.has(l.id) ? ' ✓' : ''}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
 
-      {sidebarOpen && (
-        <div className="lesson-sidebar animate-fade-in">
-          {Object.entries(tierGroups).map(([tier, lessons]) => (
-            <div key={tier} className="tier-group">
+      <div className="lesson-pill-strip" ref={pillStripRef}>
+        {Object.entries(tierGroups).map(([tier, lessons], tierIdx) => (
+          <div key={tier} className="pill-tier-group">
+            {tierIdx > 0 && <span className="pill-tier-divider" />}
+            {lessons.map((l) => (
               <button
-                className="tier-header"
-                onClick={() => toggleTier(tier)}
-                style={{ '--tier-color': TIER_COLORS[tier] }}
+                key={l.id}
+                className={`lesson-pill${l.index === selectedLesson ? ' active' : ''}${reflectedLessons.has(l.id) ? ' completed' : ''}`}
+                style={{ '--pill-color': TIER_COLORS[l.tier || 1] }}
+                onClick={() => setSelectedLesson(l.index)}
+                aria-label={`Lesson ${l.id}: ${l.title}`}
               >
-                {collapsedTiers[tier] ? <CaretRight size={14} weight="bold" /> : <CaretDown size={14} weight="bold" />}
-                <span className="tier-label">Tier {tier}: {TIER_LABELS[tier]}</span>
-                <Badge
-                  text={`${lessons.filter(l => reflectedLessons.has(l.id)).length}/${lessons.length}`}
-                  color={TIER_COLORS[tier]}
-                  variant="soft"
-                  size="sm"
-                />
+                {l.id}
               </button>
-              {!collapsedTiers[tier] && (
-                <div className="tier-lessons">
-                  {lessons.map((l) => (
-                    <button
-                      key={l.id}
-                      className={`lesson-nav-item${l.index === selectedLesson ? ' active' : ''}`}
-                      onClick={() => { setSelectedLesson(l.index); setSidebarOpen(false); }}
-                    >
-                      <span className="lesson-num">{l.id}</span>
-                      <span className="lesson-title-text">{l.title}</span>
-                      {reflectedLessons.has(l.id) && (
-                        <CheckCircle size={16} weight="fill" color="#10B981" className="lesson-done" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        ))}
+      </div>
 
       <div className="learn-content animate-slide-fade-in" key={selectedLesson}>
         {lesson.tier && (

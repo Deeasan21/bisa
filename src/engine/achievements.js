@@ -68,14 +68,32 @@ export const ACHIEVEMENT_DEFS = {
     description: 'Try all modes at least once',
     xp: 50,
     check: (db, progress) => {
-      // Check if user has activity in learn, practice, daily, simulate, review, journal
       return progress.lessonsWithReflections >= 1 &&
         progress.totalPracticeAttempts >= 1 &&
         progress.challengesCompleted >= 1 &&
         progress.simulationsCompleted >= 1 &&
         progress.cardsLearned >= 1 &&
-        progress.journalEntries >= 1;
+        progress.journalEntries >= 1 &&
+        progress.patternAttempts >= 1;
     },
+  },
+  first_pattern: {
+    title: 'Pattern Spotter',
+    description: 'Complete your first Pattern Recognition round',
+    xp: 25,
+    check: (db, progress) => progress.patternAttempts >= 1,
+  },
+  pattern_25: {
+    title: 'Keen Observer',
+    description: 'Complete 25 Pattern Recognition rounds',
+    xp: 50,
+    check: (db, progress) => progress.patternAttempts >= 25,
+  },
+  pattern_100: {
+    title: 'Pattern Master',
+    description: 'Complete 100 Pattern Recognition rounds',
+    xp: 100,
+    check: (db, progress) => progress.patternAttempts >= 100,
   },
   reflector: {
     title: 'Reflector',

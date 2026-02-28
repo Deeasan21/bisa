@@ -1,4 +1,4 @@
-import { BookOpen, Target, Sun, ChatsCircle, Notebook, Brain, TrendUp } from '@phosphor-icons/react';
+import { BookOpen, Target, Sun, ChatsCircle, Notebook, Brain, TrendUp, Eye } from '@phosphor-icons/react';
 
 export const MODE_THEMES = {
   learn: {
@@ -60,6 +60,21 @@ export const MODE_THEMES = {
     category: 'Immersion',
     description: '15 immersive conversations',
     path: '/mode/simulate',
+  },
+  pattern: {
+    key: 'pattern',
+    name: 'Pattern Hub',
+    icon: Eye,
+    primary: '#EC4899',
+    secondary: '#DB2777',
+    gradient: 'linear-gradient(135deg, #EC4899 0%, #DB2777 50%, #BE185D 100%)',
+    bgGradient: 'linear-gradient(180deg, #FCE7F3 0%, #FBCFE8 100%)',
+    cardBg: '#FDF2F8',
+    textOnGradient: '#FFFFFF',
+    accent: '#9D174D',
+    category: 'Perception',
+    description: '5 pattern recognition drills',
+    path: '/mode/pattern',
   },
   journal: {
     key: 'journal',

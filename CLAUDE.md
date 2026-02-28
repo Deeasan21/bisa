@@ -38,6 +38,7 @@
 - **Deep-linking** — Daily Insight card navigates directly to the relevant lesson in Learn mode
 - **Code splitting** — Route-level `React.lazy()` for all 5 mode routes to reduce initial bundle
 - **Dead code cleanup** — Removed unused XPToast import from TodayPage
+- **Learn Mode lesson nav** — Replaced toggle sidebar with native `<select>` dropdown (grouped by tier) + scrollable pill strip for quick lesson jumping (`src/components/modes/LearnMode.jsx`)
 
 ## Security
 - Prompt input sanitization across all AI engines (`src/engine/sanitize.js`)

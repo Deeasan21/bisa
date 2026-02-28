@@ -53,6 +53,13 @@ const QUEST_TEMPLATES = [
     mode: 'simulate',
   },
   {
+    type: 'pattern',
+    template: 'Complete a Pattern Recognition session',
+    xp: 45,
+    goal: 1,
+    mode: 'pattern',
+  },
+  {
     type: 'streak',
     template: 'Extend your streak',
     xp: 15,
@@ -121,7 +128,7 @@ export function generateDailyQuests(db) {
   }
 
   // Quest 2: Something medium — simulation, lesson, or challenge
-  const mediumTypes = ['simulation', 'lesson', 'daily_challenge'];
+  const mediumTypes = ['simulation', 'lesson', 'daily_challenge', 'pattern'];
   const mediumTemplates = shuffle(QUEST_TEMPLATES.filter(t => mediumTypes.includes(t.type)));
   if (mediumTemplates.length > 0) {
     const t = mediumTemplates[0];
@@ -221,5 +228,6 @@ export const QUEST_TYPE_TO_MODE = {
   daily_challenge: 'daily',
   review: 'review',
   simulation: 'simulate',
+  pattern: 'pattern',
   streak: null,
 };
