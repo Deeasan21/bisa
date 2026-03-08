@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Barbell } from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
 import { getStreakInfo, isChallengeCompletedToday, getOverallProgress } from '../utils/database';
@@ -18,6 +18,7 @@ import './TodayPage.css';
 export default function TodayPage() {
   const { db, isReady } = useDatabase();
   const navigate = useNavigate();
+  const location = useLocation();
   const [streak, setStreak] = useState(0);
   const [lastDate, setLastDate] = useState(null);
   const [engineQuests, setEngineQuests] = useState([]);
@@ -42,7 +43,7 @@ export default function TodayPage() {
     if (checkAllQuests(db)) {
       setShowConfetti(true);
     }
-  }, [db, isReady]);
+  }, [db, isReady, location.key]);
 
   const greeting = getTimeOfDayGreeting();
   const hoursLeft = getHoursUntilMidnight();

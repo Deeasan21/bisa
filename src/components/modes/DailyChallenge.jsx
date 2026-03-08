@@ -150,12 +150,26 @@ export default function DailyChallenge() {
     const results = scoreBurst(questions, scenario);
     setBurstResults(results);
 
-    // Save and award XP
+    // Save completion and update streak (isolated so one failure doesn't break the other)
     const todayStr = getTodayString();
     let newStreak = 0;
+
+    // 1. Save the burst to challenge_history
     try {
       saveBurstCompletion(db, todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), questions, results.totalScore);
+    } catch (err) {
+      console.error('Failed to save burst completion:', err);
+    }
+
+    // 2. Update streak (must succeed independently)
+    try {
       newStreak = updateStreak(db, todayStr);
+    } catch (err) {
+      console.error('Failed to update streak:', err);
+    }
+
+    // 3. Award XP and check achievements
+    try {
       const xp = XP_RULES.dailyChallenge(results.totalScore);
       awardXP(db, 'daily_challenge', xp, `Burst: ${scenario.character} (${results.totalScore})`);
       setXpAwarded(xp);
@@ -167,7 +181,7 @@ export default function DailyChallenge() {
       const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
       if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
-      console.error('Engine error during burst completion:', err);
+      console.error('Engine error during XP/achievement processing:', err);
     }
 
     setStreak(newStreak);
