@@ -14,6 +14,8 @@ import Card from '../common/Card';
 import Badge from '../common/Badge';
 import ProgressBar from '../common/ProgressBar';
 import AchievementToast from '../common/AchievementToast';
+import FloatingOrbs from '../common/FloatingOrbs';
+import BisaBalloon from '../common/BisaBalloon';
 import './ReviewMode.css';
 
 const theme = MODE_THEMES.review;
@@ -76,14 +78,15 @@ export default function ReviewMode() {
     }
   };
 
+  const [transitioning, setTransitioning] = useState(false);
+
   const handleRate = (quality) => {
     const card = cards[currentIndex];
-    if (!card || !db) return;
+    if (!card || !db || transitioning) return;
 
     submitReview(db, card.id, QUALITY_MAP[quality]);
     setReviewed(prev => {
       const newCount = prev + 1;
-      // Award XP for every card, update quest for every 10 reviewed
       if (newCount % 10 === 0) {
         awardXP(db, 'review', XP_RULES.reviewSession(), `Reviewed ${newCount} cards`);
         updateQuestProgress(db, 'review', 10);
@@ -93,26 +96,31 @@ export default function ReviewMode() {
       return newCount;
     });
 
-    // Track good/easy streak
     if (quality === 'good' || quality === 'easy') {
       setGoodStreak(prev => prev + 1);
     } else {
       setGoodStreak(0);
     }
 
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < cards.length) {
-      setCurrentIndex(nextIndex);
-      setShowAnswer(false);
-    } else {
-      loadCards();
-    }
+    // Animate card out then bring next in
+    setTransitioning(true);
+    setTimeout(() => {
+      const nextIndex = currentIndex + 1;
+      if (nextIndex < cards.length) {
+        setCurrentIndex(nextIndex);
+        setShowAnswer(false);
+      } else {
+        loadCards();
+      }
+      setTransitioning(false);
+    }, 280);
   };
 
   const currentCard = cards[currentIndex];
 
   return (
     <div className="review-mode">
+      <FloatingOrbs color={theme.primary} count={6} />
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle="Spaced repetition" />
 
@@ -136,7 +144,7 @@ export default function ReviewMode() {
 
         {!currentCard && (!stats || stats.totalCards === 0) ? (
           <div className="review-empty animate-fade-in">
-            <Cards size={56} weight="duotone" color={theme.primary} />
+            <BisaBalloon color={theme.primary} size={56} />
             <h2>No Review Cards Yet</h2>
             <p>Create cards from your practice scenarios and daily challenges to start reviewing.</p>
             <Button
@@ -144,30 +152,33 @@ export default function ReviewMode() {
               modeColor={theme.primary}
               onClick={handleSeed}
               loading={seeding}
+              className="pulse-glow-btn"
             >
               Create Review Cards
             </Button>
           </div>
         ) : !currentCard ? (
           <div className="review-empty animate-fade-in">
-            <CheckCircle size={56} weight="fill" color="#10B981" />
+            <BisaBalloon color="#10B981" size={48} />
             <h2>All Caught Up!</h2>
-            <p>No cards due for review right now. Come back later!</p>
+            <p>No cards due right now. Bisa will have more for you later!</p>
           </div>
         ) : (
           <div className="review-card-area animate-fade-in">
-            {/* Session progress bar */}
+            {/* Session progress */}
             <div className="review-session">
+              <div className="review-progress-dots">
+                {cards.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`progress-pip${i < currentIndex ? ' done' : i === currentIndex ? ' current' : ''}`}
+                    style={{ '--pip-color': theme.primary }}
+                  />
+                ))}
+              </div>
               <span className="review-progress-info">
                 Card {currentIndex + 1} of {cards.length}
               </span>
-              <ProgressBar
-                value={reviewed}
-                max={cards.length}
-                color={theme.primary}
-                size="sm"
-                animate
-              />
             </div>
 
             {/* Good streak counter */}
@@ -180,8 +191,8 @@ export default function ReviewMode() {
 
             {/* 3D Flip Card */}
             <div
-              className={`review-card-3d${showAnswer ? ' flipped' : ''}`}
-              onClick={() => !showAnswer && setShowAnswer(true)}
+              className={`review-card-3d${showAnswer ? ' flipped' : ''}${transitioning ? ' card-exit' : ''}`}
+              onClick={() => !showAnswer && !transitioning && setShowAnswer(true)}
             >
               <div className="review-card-inner">
                 <div className="review-card-front-face">

@@ -6,6 +6,7 @@ import { useDatabase } from '../../hooks/useDatabase';
 import { savePracticeAttempt } from '../../utils/database';
 import { getRandomScenario } from '../../utils/scoring';
 import { scoreResponse } from '../../engine/responseScorer';
+import { aiScoreQuestion } from '../../engine/aiScorer';
 import { recordScore } from '../../engine/adaptiveDifficulty';
 import { awardXP, XP_RULES } from '../../engine/xpSystem';
 import { updateQuestProgress } from '../../engine/dailyQuests';
@@ -19,6 +20,7 @@ import Button from '../common/Button';
 import Badge from '../common/Badge';
 import Skeleton from '../common/Skeleton';
 import AchievementToast from '../common/AchievementToast';
+import FloatingOrbs from '../common/FloatingOrbs';
 import './PracticeMode.css';
 
 const theme = MODE_THEMES.practice;
@@ -76,7 +78,18 @@ export default function PracticeMode() {
 
   const handleSubmit = async () => {
     if (!scenario || !userQuestion.trim()) return;
-    const scored = scoreResponse(userQuestion, scenario);
+
+    // AI-first scoring: try Haiku for fast, context-aware scoring
+    // Falls back to rule-based if AI fails
+    setAiLoading(true);
+    let scored;
+    try {
+      scored = await aiScoreQuestion(userQuestion, scenario);
+    } catch {
+      scored = scoreResponse(userQuestion, scenario);
+    }
+    setAiLoading(false);
+
     setResult(scored);
     setCompletedIds([...completedIds, scenario.id]);
 
@@ -96,22 +109,8 @@ export default function PracticeMode() {
       }
     }
 
-    // Trigger AI review if flagged and API key available
-    if (scored.needsAIReview && hasApiKey()) {
-      setAiLoading(true);
-      setAiError(null);
-      try {
-        const aiFeedback = await getAIFeedback(userQuestion, scenario);
-        setAiResult(aiFeedback);
-      } catch (err) {
-        setAiError(err.message);
-      } finally {
-        setAiLoading(false);
-      }
-    }
-
-    // For scores outside auto-trigger range: show manual AI coaching button
-    if (!scored.needsAIReview && hasApiKey() && scored.score > 0) {
+    // Show AI coaching button for deeper feedback (uses Sonnet)
+    if (hasApiKey() && scored.score > 0) {
       setShowAiButton(true);
     }
   };
@@ -143,6 +142,7 @@ export default function PracticeMode() {
 
   return (
     <div className="practice-mode">
+      <FloatingOrbs color={theme.primary} count={4} />
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <ModeHeader theme={theme} subtitle={`${PRACTICE_SCENARIOS.length} scenarios`} />
 
@@ -198,7 +198,7 @@ export default function PracticeMode() {
               <p>"{scenario.weakQuestion}"</p>
             </div>
 
-            {!result ? (
+            {!result && !aiLoading ? (
               <div className="practice-input">
                 <label>Write a better question:</label>
                 <textarea
@@ -217,6 +217,13 @@ export default function PracticeMode() {
                 >
                   Submit
                 </Button>
+              </div>
+            ) : !result && aiLoading ? (
+              <div className="practice-scoring animate-fade-in" style={{ textAlign: 'center', padding: '40px 20px' }}>
+                <Robot size={32} weight="duotone" color={theme.primary} style={{ marginBottom: 12 }} />
+                <p style={{ fontWeight: 600, marginBottom: 8 }}>Evaluating your question...</p>
+                <Skeleton height={14} width="70%" />
+                <Skeleton height={14} width="50%" />
               </div>
             ) : (
               <div className="practice-result animate-fade-in">

@@ -1,6 +1,8 @@
 .practice-mode {
   min-height: 100dvh;
   background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
 }
 
 .practice-content {

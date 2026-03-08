@@ -12,6 +12,8 @@ import Button from '../components/common/Button';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import AchievementToast from '../components/common/AchievementToast';
+import FloatingOrbs from '../components/common/FloatingOrbs';
+import BisaBalloon from '../components/common/BisaBalloon';
 import './JournalPage.css';
 
 const QUESTION_TYPES = ['Open', 'Clarifying', 'Probing', 'Reflective', 'Hypothetical', 'Follow-up', 'Other'];
@@ -127,6 +129,7 @@ export default function JournalPage() {
 
   return (
     <div className="journal-page animate-fade-in">
+      <FloatingOrbs color="#8B5CF6" count={5} />
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <div className="journal-header">
         <div>
@@ -291,6 +294,7 @@ export default function JournalPage() {
           <div className="journal-entries">
             {entries.length === 0 && !showForm ? (
               <div className="journal-empty">
+                <BisaBalloon color="#8B5CF6" size={52} />
                 <MascotMessage
                   message="Your journal is waiting! Tap + to log your first real-world question. Every great questioner starts by noticing."
                   emotion="encouraging"

@@ -1,10 +1,14 @@
 .review-mode {
   min-height: 100dvh;
   background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
 }
 
 .review-content {
   padding: var(--space-md);
+  position: relative;
+  z-index: 1;
 }
 
 .review-stats-row {
@@ -211,4 +215,78 @@
 [data-theme="dark"] .rate-easy {
   background: rgba(37, 99, 235, 0.1);
   border-color: rgba(37, 99, 235, 0.3);
+}
+
+/* ---- Progress Pips ---- */
+.review-progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.progress-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.progress-pip.done {
+  background: #10B981;
+  transform: scale(0.85);
+}
+
+.progress-pip.current {
+  background: var(--pip-color, #3B82F6);
+  transform: scale(1.25);
+  animation: pipPulse 2s ease-in-out infinite;
+}
+
+@keyframes pipPulse {
+  0%, 100% { opacity: 1; transform: scale(1.25); }
+  50%      { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* ---- Card Exit Transition ---- */
+.review-card-3d.card-exit {
+  animation: cardSwipeOut 0.28s ease-in forwards;
+}
+
+@keyframes cardSwipeOut {
+  to {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.95);
+  }
+}
+
+/* ---- Rating Button Lift ---- */
+.rate-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rate-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* ---- Pulse Glow CTA ---- */
+.pulse-glow-btn {
+  animation: ctaGlow 2.5s ease-in-out infinite;
+}
+
+.pulse-glow-btn:hover {
+  animation: none;
+}
+
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.35); }
+  50%      { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+}
+
+/* ---- Tap hint breathing ---- */
+.tap-hint {
+  animation: float 3s ease-in-out infinite;
 }

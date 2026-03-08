@@ -104,15 +104,22 @@ export default function TodayPage() {
   const getStreakCalendar = () => {
     const days = [];
     const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    // Streak counts backward from the last challenge date
+    const streakEndDate = lastDate ? new Date(lastDate) : null;
     for (let i = 6; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
       const dayLabel = d.toLocaleDateString('en', { weekday: 'narrow' });
       const isToday = i === 0;
-      // Simple heuristic: active if within streak range
-      const isActive = lastDate && i < streak;
-      days.push({ dateStr, dayLabel, isToday, isActive: isActive || isToday });
+      // Active if this day falls within the streak range ending at lastDate
+      let isActive = false;
+      if (streakEndDate && streak > 0) {
+        const daysFromEnd = Math.floor((streakEndDate - d) / (1000 * 60 * 60 * 24));
+        isActive = daysFromEnd >= 0 && daysFromEnd < streak;
+      }
+      days.push({ dateStr, dayLabel, isToday, isActive });
     }
     return days;
   };

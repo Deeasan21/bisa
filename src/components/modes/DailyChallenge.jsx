@@ -27,6 +27,7 @@ import ProgressBar from '../common/ProgressBar';
 import XPToast from '../common/XPToast';
 import Skeleton from '../common/Skeleton';
 import AchievementToast from '../common/AchievementToast';
+import FloatingOrbs from '../common/FloatingOrbs';
 import './DailyChallenge.css';
 
 const theme = MODE_THEMES.daily;
@@ -170,6 +171,7 @@ export default function DailyChallenge() {
     }
 
     setStreak(newStreak);
+    setLongestStreak(prev => Math.max(prev, newStreak));
     setPhase('results');
     setShowXPToast(true);
     if (results.totalScore >= 70) {
@@ -215,7 +217,7 @@ export default function DailyChallenge() {
       d.setDate(d.getDate() - i);
       const dayLabel = d.toLocaleDateString('en', { weekday: 'narrow' });
       const isToday = i === 0;
-      const isActive = i < info.currentStreak || (isToday && phase === 'completed');
+      const isActive = i < info.currentStreak || (isToday && (phase === 'completed' || phase === 'results'));
       days.push({ dayLabel, isToday, isActive });
     }
     return days;
@@ -223,14 +225,15 @@ export default function DailyChallenge() {
 
   return (
     <div className="daily-mode">
+      <FloatingOrbs color={theme.primary} count={4} />
       <ModeHeader theme={theme} title="Daily Challenge" subtitle="Question Burst" />
       <Confetti active={showConfetti} />
       <XPToast amount={xpAwarded} visible={showXPToast} onDone={() => setShowXPToast(false)} />
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
 
       <div className="daily-content">
-        {/* Streak display — always visible in ready + completed */}
-        {(phase === 'ready' || phase === 'completed') && (
+        {/* Streak display — visible in ready, results, and completed */}
+        {(phase === 'ready' || phase === 'results' || phase === 'completed') && (
           <>
             <div className="streak-display">
               <div className="streak-current">

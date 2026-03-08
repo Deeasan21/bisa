@@ -1,5 +1,8 @@
 .journal-page {
   padding: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  min-height: 100dvh;
 }
 
 .journal-header {

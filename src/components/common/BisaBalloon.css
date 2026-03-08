@@ -1,0 +1,27 @@
+.bisa-balloon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  animation: balloonBob 4s ease-in-out infinite;
+}
+
+.balloon-svg {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.balloon-string-path {
+  animation: stringWiggle 3.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes balloonBob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  30%      { transform: translateY(-14px) rotate(2deg); }
+  60%      { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes stringWiggle {
+  0%, 100% { transform: scaleX(1); }
+  25%      { transform: scaleX(1.15) skewX(1.5deg); }
+  75%      { transform: scaleX(0.85) skewX(-1.5deg); }
+}

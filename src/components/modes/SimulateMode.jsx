@@ -19,6 +19,7 @@ import Badge from '../common/Badge';
 import ProgressBar from '../common/ProgressBar';
 import Skeleton from '../common/Skeleton';
 import AchievementToast from '../common/AchievementToast';
+import FloatingOrbs from '../common/FloatingOrbs';
 import './SimulateMode.css';
 
 const theme = MODE_THEMES.simulate;
@@ -316,6 +317,7 @@ export default function SimulateMode() {
   if (!activeSim) {
     return (
       <div className="simulate-mode">
+        <FloatingOrbs color={theme.primary} count={4} />
         <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
         <ModeHeader theme={theme} subtitle={`${SIMULATIONS.length} conversations`} />
         <div className="sim-content">
