@@ -14,6 +14,7 @@
 4. Gamification is core — XP, streaks, progress bars, achievements must feel satisfying
 5. The app should feel warm and encouraging, never cold or clinical
 6. Phosphor Icons is the icon library — use it consistently
+7. Always commit AND push to origin/master after making changes — Vercel auto-deploys from master
 
 ## Tech Stack
 - React + Vite

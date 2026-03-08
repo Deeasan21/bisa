@@ -77,7 +77,7 @@ export default function JournalPage() {
     if (!isReady || !db) return;
     setEntries(getJournalEntries(db));
     setReflections(getAllReflections(db));
-  }, [db, isReady]);
+  }, [db, isReady, activeTab]);
 
   const handleSubmit = () => {
     if (!db || !form.question.trim()) return;
