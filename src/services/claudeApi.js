@@ -42,10 +42,11 @@ export function hasPersonalApiKey() {
  * @param {{ system?: string, messages: Array<{role: string, content: string}>, max_tokens?: number }} opts
  * @returns {Promise<{ content: Array<{type: string, text: string}>, model: string, usage: object }>}
  */
-export async function callClaude({ system, messages, max_tokens = 1024 }) {
+export async function callClaude({ system, messages, max_tokens = 1024, model }) {
   const apiKey = getApiKey();
 
   const body = { system, messages, max_tokens };
+  if (model) body.model = model;
   if (apiKey) {
     body.apiKey = apiKey;
   }

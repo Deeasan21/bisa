@@ -90,7 +90,7 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
-  const { messages, system, apiKey, max_tokens = 1024 } = req.body || {};
+  const { messages, system, apiKey, max_tokens = 1024, model } = req.body || {};
 
   // Validate message structure
   if (!validateMessages(messages)) {
@@ -132,7 +132,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: model === 'haiku' ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-20250514',
         max_tokens: Math.min(Number(max_tokens) || 1024, 1024),
         ...(system ? { system } : {}),
         messages,
