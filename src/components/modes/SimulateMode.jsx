@@ -11,6 +11,7 @@ import { hasApiKey } from '../../services/claudeApi';
 import { getAISimResponse } from '../../engine/aiSimulation';
 import { getAISimSummary } from '../../engine/aiSimSummary';
 import { scoreSimResponse } from '../../engine/simResponseScorer';
+import { recordScore } from '../../engine/adaptiveDifficulty';
 import { getRuleBasedResponse } from '../../engine/simRuleFeedback';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
@@ -72,9 +73,16 @@ export default function SimulateMode() {
   }, []);
 
   const filteredSims = useMemo(() => {
-    if (!categoryFilter) return SIMULATIONS;
-    return SIMULATIONS.filter(s => s.skillCategory === categoryFilter);
-  }, [categoryFilter]);
+    let filtered = SIMULATIONS;
+    if (categoryFilter) {
+      filtered = filtered.filter(s => s.skillCategory === categoryFilter);
+    }
+    if (db && categoryFilter) {
+      const adapted = filterByDifficulty(filtered, db, categoryFilter);
+      if (adapted.length > 0) return adapted;
+    }
+    return filtered;
+  }, [categoryFilter, db]);
 
   const startSimulation = (sim) => {
     setActiveSim(sim);
@@ -260,6 +268,8 @@ export default function SimulateMode() {
     try {
       saveSimulationAttempt(db, activeSim.id, choicesMade, scores, endingNode.id || 'ending');
       const qualityPercent = Math.round((greatCount / Math.max(1, scores.length)) * 100);
+      const category = activeSim.skillCategory || 'Open vs. Closed';
+      recordScore(db, 'simulation', category, qualityPercent);
       awardXP(db, 'simulation', XP_RULES.simulation(qualityPercent), `Simulation: ${activeSim.title}`);
       updateQuestProgress(db, 'simulation');
       const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));

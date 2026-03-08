@@ -4,7 +4,7 @@ import { MODE_THEMES } from '../../themes/modeThemes';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { BURST_CHALLENGES, getTodaysBurst } from '../../data/burstChallenges';
 import { scoreBurst } from '../../engine/burstScorer';
-import { getCurrentTier } from '../../engine/adaptiveDifficulty';
+import { getCurrentTier, recordScore } from '../../engine/adaptiveDifficulty';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIBurstCoaching } from '../../engine/aiBurstCoaching';
 import { useDatabase } from '../../hooks/useDatabase';
@@ -168,7 +168,15 @@ export default function DailyChallenge() {
       console.error('Failed to update streak:', err);
     }
 
-    // 3. Award XP and check achievements
+    // 3. Record score for adaptive difficulty
+    try {
+      const category = scenario.skillCategory || 'Open vs. Closed';
+      recordScore(db, 'daily_challenge', category, results.totalScore);
+    } catch (err) {
+      console.error('Failed to record adaptive difficulty score:', err);
+    }
+
+    // 4. Award XP and check achievements
     try {
       const xp = XP_RULES.dailyChallenge(results.totalScore);
       awardXP(db, 'daily_challenge', xp, `Burst: ${scenario.character} (${results.totalScore})`);

@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Barbell } from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
-import { getStreakInfo, isChallengeCompletedToday, getOverallProgress } from '../utils/database';
+import { getStreakInfo, isChallengeCompletedToday, getOverallProgress, queryStmt } from '../utils/database';
 import { getTimeOfDayGreeting, getTodayString, getHoursUntilMidnight } from '../utils/dateHelpers';
 import { generateDailyQuests, allQuestsCompleted as checkAllQuests, QUEST_TYPE_TO_MODE } from '../engine/dailyQuests';
+import { awardXP, XP_RULES } from '../engine/xpSystem';
 import { getRecommendedMode, getRecommendations } from '../engine/recommendations';
 import { getDailyInsight, CATEGORY_COLORS } from '../data/dailyInsights';
 import { LESSONS } from '../data/lessons';
@@ -39,9 +40,21 @@ export default function TodayPage() {
     // Get recommendations
     setRecommendations(getRecommendations(db));
 
-    // Check if all quests are done for confetti
+    // Check if all quests are done for confetti + bonus XP (once per day)
     if (checkAllQuests(db)) {
       setShowConfetti(true);
+      try {
+        const today = getTodayString();
+        const alreadyAwarded = queryStmt(db,
+          "SELECT 1 FROM xp_log WHERE activity_type = 'all_quests_completed' AND date(created_at) = ?",
+          [today]
+        );
+        if (alreadyAwarded.length === 0) {
+          awardXP(db, 'all_quests_completed', XP_RULES.allQuestsBonus(), 'Completed all daily quests');
+        }
+      } catch (err) {
+        console.error('Failed to award quest bonus XP:', err);
+      }
     }
   }, [db, isReady, location.key]);
 

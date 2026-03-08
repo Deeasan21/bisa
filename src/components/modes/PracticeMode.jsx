@@ -7,7 +7,7 @@ import { savePracticeAttempt } from '../../utils/database';
 import { getRandomScenario } from '../../utils/scoring';
 import { scoreResponse } from '../../engine/responseScorer';
 import { aiScoreQuestion } from '../../engine/aiScorer';
-import { recordScore } from '../../engine/adaptiveDifficulty';
+import { recordScore, filterByDifficulty } from '../../engine/adaptiveDifficulty';
 import { awardXP, XP_RULES } from '../../engine/xpSystem';
 import { updateQuestProgress } from '../../engine/dailyQuests';
 import { checkAchievements } from '../../engine/achievements';
@@ -59,11 +59,18 @@ export default function PracticeMode() {
     return Array.from(cats).sort();
   }, []);
 
-  // Filtered scenarios
+  // Filtered scenarios (category + adaptive difficulty)
   const filteredScenarios = useMemo(() => {
-    if (!categoryFilter) return PRACTICE_SCENARIOS;
-    return PRACTICE_SCENARIOS.filter(s => (s.skillCategory || s.skill) === categoryFilter);
-  }, [categoryFilter]);
+    let filtered = PRACTICE_SCENARIOS;
+    if (categoryFilter) {
+      filtered = filtered.filter(s => (s.skillCategory || s.skill) === categoryFilter);
+    }
+    if (db && categoryFilter) {
+      const adapted = filterByDifficulty(filtered, db, categoryFilter);
+      if (adapted.length > 0) return adapted;
+    }
+    return filtered;
+  }, [categoryFilter, db]);
 
   const loadScenario = () => {
     const next = getRandomScenario(filteredScenarios, completedIds);
