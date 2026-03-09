@@ -31,6 +31,20 @@ export const LESSONS = [
         <h3>Questions for Self-Discovery</h3>
         <p>When turned inward, questions become tools for self-discovery. The unexamined life, as Socrates said, is not worth living—and examination requires questions.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Questions</h3>
+        <ul>
+          <li>When you want to connect with someone rather than just exchange information</li>
+          <li>When you sense someone has more to share but hasn't been invited to</li>
+          <li>When you want to understand, not just respond</li>
+        </ul>
+        <h3>When NOT to Use Questions</h3>
+        <ul>
+          <li>When someone needs solidarity, not inquiry — "I'm here for you" sometimes beats "What happened?"</li>
+          <li>When asking is really about satisfying your curiosity at someone else's emotional expense</li>
+          <li>When the moment calls for action, not exploration — sometimes the answer is already clear</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -62,6 +76,23 @@ export const LESSONS = [
         <p><strong>Probing:</strong> "What specifically triggered that frustration?"</p>
         <p><strong>Hypothetical:</strong> "If you could redesign this from scratch...?"</p>
         <p><strong>Reflective:</strong> "You said you felt 'invisible'—what does that mean to you?"</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Each Type</h3>
+        <ul>
+          <li><strong>Open questions:</strong> When you want depth, exploration, or connection. Conversations, coaching, brainstorming.</li>
+          <li><strong>Closed questions:</strong> When you need specific facts, confirmation, or a decision. Triage, logistics, diagnostics.</li>
+          <li><strong>Clarifying:</strong> When something is ambiguous and you need shared understanding before moving forward.</li>
+          <li><strong>Probing:</strong> When you sense there's more beneath the surface and trust has been established.</li>
+          <li><strong>Hypothetical:</strong> When you want to unlock imagination, explore possibilities, or reduce the stakes of answering.</li>
+        </ul>
+        <h3>When NOT to Use Each Type</h3>
+        <ul>
+          <li><strong>Avoid open questions</strong> when someone is overwhelmed and needs simple, clear choices — not a blank canvas.</li>
+          <li><strong>Avoid probing questions</strong> early in a relationship before trust is built — it feels invasive.</li>
+          <li><strong>Avoid hypotheticals</strong> when someone needs practical, concrete guidance right now — not imagination.</li>
+          <li><strong>Avoid leading questions</strong> always — they masquerade as inquiry but are really statements in disguise.</li>
+        </ul>
       </section>
     `
   },
@@ -96,6 +127,21 @@ export const LESSONS = [
         <p><strong>Sam:</strong> "So by capability and results—do you qualify?"</p>
         <p><strong>Alex:</strong> "Yeah, actually, I think I do."</p>
       </div>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use the Socratic Method</h3>
+        <ul>
+          <li>When you want to help someone think through a problem themselves rather than handing them an answer</li>
+          <li>In coaching, mentoring, or teaching — when ownership of the insight matters</li>
+          <li>When someone is stuck in a belief that doesn't serve them and needs to examine it</li>
+        </ul>
+        <h3>When NOT to Use the Socratic Method</h3>
+        <ul>
+          <li>When someone is in crisis and needs direct, clear guidance — not a thinking exercise</li>
+          <li>When it would feel condescending — Socratic questioning a subject-matter expert about their own domain comes across as patronizing</li>
+          <li>When someone explicitly asks for your opinion or advice — honor that request before switching to questions</li>
+          <li>When time is short and a direct answer would be more respectful of the moment</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -136,6 +182,20 @@ export const LESSONS = [
         <p><strong>If you can't explain it simply, you don't truly understand it.</strong></p>
         <p>1. Explain it as if teaching a beginner. 2. Find where you get stuck. 3. Go back and fill gaps. 4. Simplify further.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Learning Questions</h3>
+        <ul>
+          <li>Before, during, and after any learning experience — reading, lectures, workshops, podcasts</li>
+          <li>When studying or preparing for something new and you want active engagement, not passive absorption</li>
+          <li>When you realize you can't explain something simply — that's your signal to question deeper</li>
+        </ul>
+        <h3>When NOT to Use Learning Questions</h3>
+        <ul>
+          <li>When the priority is emotional processing, not intellectual understanding — don't turn someone's story into a study session</li>
+          <li>When you're in the middle of a conversation and shift into "learning mode" instead of staying present with the person</li>
+          <li>When over-questioning kills the flow of creative work — sometimes you need to create first and analyze later</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -164,6 +224,21 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>The Balance</h3>
         <p>Real conversations aren't interviews. Aim for roughly 50/50 exchange. If you're always asking and never sharing, people feel interrogated.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Conversational Questions</h3>
+        <ul>
+          <li>When you want to move past small talk into genuine connection</li>
+          <li>When you sense the conversation is staying superficial and both people want more depth</li>
+          <li>In networking, building friendships, or getting to know someone new</li>
+        </ul>
+        <h3>When NOT to Use Conversational Questions</h3>
+        <ul>
+          <li>When the other person is signaling they want to keep things light — respect that boundary</li>
+          <li>When the context calls for brevity — a quick work check-in doesn't need a soul-searching question</li>
+          <li>When you're only asking and never sharing — imbalance makes people feel studied, not seen</li>
+          <li>When the depth of your question exceeds the trust level of the relationship — match depth to closeness</li>
+        </ul>
       </section>
     `
   },
@@ -194,6 +269,21 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>When to Stop</h3>
         <p>Signs: answers getting shorter, repeating themselves, energy dropping, "I don't know" twice. Instead: summarize, reflect, or pause.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Follow-ups</h3>
+        <ul>
+          <li>When someone gives a vague answer that hints at something deeper — "It was fine" usually isn't the whole story</li>
+          <li>When their energy shifts — voice rises, body leans in, eyes light up — follow that thread</li>
+          <li>When you sense they have more to say but haven't been given permission to continue</li>
+        </ul>
+        <h3>When NOT to Use Follow-ups</h3>
+        <ul>
+          <li>When answers are getting shorter and energy is dropping — they've reached their depth for now</li>
+          <li>When someone says "I don't know" twice — they may genuinely not know, or they're signaling they don't want to go further</li>
+          <li>When following up would feel like pressing on a bruise — especially after vulnerability or grief</li>
+          <li>When you're following up to satisfy your curiosity, not because it serves them</li>
+        </ul>
       </section>
     `
   },
@@ -227,6 +317,21 @@ export const LESSONS = [
         <p>Instead of: "Don't you think you should talk to your manager?"</p>
         <p>Try: "I think you'd feel better if you talked to your manager."</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Silence or Statements Instead of Questions</h3>
+        <ul>
+          <li>After someone shares something vulnerable — hold space before asking anything</li>
+          <li>When someone is grieving, overwhelmed, or in crisis — presence beats inquiry</li>
+          <li>When a clear, direct statement of support is what the moment needs</li>
+          <li>When you've already asked and the answer is silence — honor it</li>
+        </ul>
+        <h3>When NOT to Stay Silent</h3>
+        <ul>
+          <li>When your silence is avoidance, not compassion — sometimes hard questions need to be asked</li>
+          <li>When someone is waiting for you to engage — silence can feel like abandonment if misread</li>
+          <li>When the issue is urgent and clarity is needed — a well-timed question can cut through confusion faster than waiting</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -255,6 +360,21 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>The XY Problem</h3>
         <p>Asking about your attempted solution instead of the actual problem. Always state what you're ultimately trying to accomplish.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Ask for Help</h3>
+        <ul>
+          <li>When you've genuinely tried to solve it yourself and hit a wall</li>
+          <li>When someone has specific expertise you need and you can be specific about what you need</li>
+          <li>When the cost of figuring it out alone exceeds the cost of asking — time, quality, or safety</li>
+        </ul>
+        <h3>When NOT to Ask for Help</h3>
+        <ul>
+          <li>When you haven't done basic research first — people respect effort before asking</li>
+          <li>When you're really asking someone to do the work for you, not guide you</li>
+          <li>When the timing is wrong — interrupting someone in their own urgent task is a poor trade</li>
+          <li>When you're asking the wrong person — match the question to someone who actually has context</li>
+        </ul>
       </section>
     `
   },
@@ -290,6 +410,21 @@ export const LESSONS = [
         <p><strong>True reflection:</strong> "What can I learn from this?"</p>
         <p>Reflection should feel curious, not cruel.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Self-Reflection Questions</h3>
+        <ul>
+          <li>At the end of the day, after significant experiences, or before big decisions</li>
+          <li>When you notice recurring patterns, emotions, or reactions in your life</li>
+          <li>In journaling, meditation, or quiet moments — reflection needs space</li>
+        </ul>
+        <h3>When NOT to Use Self-Reflection Questions</h3>
+        <ul>
+          <li>When reflection becomes rumination — replaying the same thoughts without new insight</li>
+          <li>When you're using self-reflection to avoid taking action — analysis paralysis disguised as introspection</li>
+          <li>When the questions turn cruel instead of curious — "Why am I such a failure?" is judgment, not reflection</li>
+          <li>When you need external perspective, not internal processing — sometimes you need another person's questions, not just your own</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -321,6 +456,23 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>Pre-Mortem Questions</h3>
         <p>"It's six months from now and this failed. What went wrong?" This gives permission to voice concerns before it's too late.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Each Technique</h3>
+        <ul>
+          <li><strong>5 Whys:</strong> For root cause analysis of problems and systems — especially in teams and processes.</li>
+          <li><strong>Reframing:</strong> When someone (or you) is stuck in a limiting perspective and needs a new angle.</li>
+          <li><strong>Miracle Question:</strong> In coaching, therapy, or personal planning — when someone can't see past the current problem.</li>
+          <li><strong>Scaling:</strong> When you need to measure progress or commitment and make the abstract concrete.</li>
+          <li><strong>Pre-Mortem:</strong> Before launching a project, plan, or big decision — to surface hidden risks.</li>
+        </ul>
+        <h3>When NOT to Use Each Technique</h3>
+        <ul>
+          <li><strong>5 Whys:</strong> With people, not problems — asking "why?" five times to a person's face feels like interrogation, not curiosity.</li>
+          <li><strong>Reframing:</strong> When someone needs validation first — reframing too early dismisses their experience.</li>
+          <li><strong>Miracle Question:</strong> When someone needs practical, immediate next steps — not visioning.</li>
+          <li><strong>Pre-Mortem:</strong> When a team is already anxious and demoralized — imagining failure can crush momentum at the wrong time.</li>
+        </ul>
       </section>
       <div class="story-box">
         <h3>Your Graduation</h3>
@@ -396,6 +548,20 @@ export const LESSONS = [
         <p>Every question technique you've learned so far—open vs. closed, Socratic, probing, clarifying—is <em>dramatically</em> more effective when asked from the Learner mindset. The same question can land completely differently depending on the mindset it comes from.</p>
         <p><strong>"What were you thinking?"</strong> from a Judger sounds like an accusation. From a Learner, it sounds like genuine curiosity.</p>
         <p>Your mindset isn't just the context for your question—it <em>is</em> the question.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use the ABCC Switch</h3>
+        <ul>
+          <li>When you notice yourself getting reactive, defensive, or blaming — the Judger path feels urgent and righteous</li>
+          <li>When conflict is escalating and you're about to ask a question rooted in blame</li>
+          <li>When you're making assumptions about someone's motives without checking</li>
+        </ul>
+        <h3>When NOT to Use It</h3>
+        <ul>
+          <li>When you're using "Learner mode" to suppress legitimate anger or boundaries — sometimes anger is information that deserves expression</li>
+          <li>When someone has genuinely wronged you and you need to address it directly, not just "get curious" about their perspective</li>
+          <li>When it becomes a tool for emotional bypassing — the goal is awareness, not suppressing every critical thought</li>
+        </ul>
       </section>
     `
   },
@@ -474,6 +640,21 @@ export const LESSONS = [
         </ul>
         <p><strong>Important:</strong> Never say "your body language tells me you're lying" or call out specific cues. That's interrogation, not conversation. Instead, create a safe space for them to share what their body is already trying to tell you.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Read Body Language</h3>
+        <ul>
+          <li>Before asking a sensitive question — check their state first so you can calibrate your approach</li>
+          <li>In meetings, to notice who's disengaged or uncomfortable and create space for their voice</li>
+          <li>When words and body don't match — the gap is where the real story lives</li>
+        </ul>
+        <h3>When NOT to Read Body Language</h3>
+        <ul>
+          <li>To call someone out — "Your body language says you disagree" makes people defensive, not open</li>
+          <li>To diagnose or stereotype — one signal is a data point, not a verdict</li>
+          <li>When you're so focused on reading signals that you stop actually listening to their words</li>
+          <li>Across cultural contexts you don't understand — eye contact norms, personal space, and gestures vary enormously</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -549,6 +730,20 @@ export const LESSONS = [
         <p>Over time, this becomes instinct. You'll stop missing the signals that were always there—and your questions will land with a precision that feels almost effortless to the other person.</p>
         <p><em>They won't know why talking to you feels different. They'll just know it does.</em></p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Read the Room</h3>
+        <ul>
+          <li>In every conversation with stakes — before you ask, observe</li>
+          <li>In group settings, to notice dynamics and direct your attention where it's needed most</li>
+          <li>When you sense a gap between what someone says and how they seem — that gap is your cue to ask differently</li>
+        </ul>
+        <h3>When NOT to Read the Room</h3>
+        <ul>
+          <li>As an excuse to avoid asking hard questions — sometimes the room needs disruption, not comfort</li>
+          <li>When you over-calibrate and never say what needs to be said because you're "waiting for the right moment"</li>
+          <li>When reading the room becomes people-pleasing — the goal is awareness, not avoidance</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -613,6 +808,21 @@ export const LESSONS = [
         <p><strong>3.</strong> Use echo-and-expand to go deeper.</p>
         <p><strong>4.</strong> Ladder down once more with a "why does that matter to you?" question.</p>
         <p>Four exchanges. That is all it takes to move from small talk to a conversation both of you will remember.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Follow-Up Techniques</h3>
+        <ul>
+          <li><strong>Laddering:</strong> When someone gives a surface answer and you sense deeper meaning beneath it. In coaching, interviews, and meaningful conversations.</li>
+          <li><strong>Mirroring:</strong> When someone says something emotionally charged or vague. When you want to encourage without steering.</li>
+          <li><strong>Echo-and-expand:</strong> When you want to show you were listening and invite them to go further.</li>
+        </ul>
+        <h3>When NOT to Use Follow-Up Techniques</h3>
+        <ul>
+          <li><strong>Don't ladder</strong> when their answers are getting shorter — you've reached their current depth. Honor that.</li>
+          <li><strong>Don't mirror</strong> when someone just shared something definitive and clear — mirroring can feel like you're questioning their certainty.</li>
+          <li><strong>Don't echo-and-expand</strong> when the conversation needs to move forward — these techniques slow things down by design.</li>
+          <li>Don't use any of these mechanically — if it feels like a technique rather than genuine curiosity, it will land as manipulation.</li>
+        </ul>
       </section>
     `
   },
@@ -679,6 +889,21 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>Practice Exercise</h3>
         <p>This week, in one conversation per day, pause before asking a question and ask yourself: <em>"Am I about to ask this for me, or for them?"</em> If the answer is "for me," reframe the question to center their experience. Notice how the conversation shifts when you do.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Empathetic Questions</h3>
+        <ul>
+          <li>When someone is sharing something difficult and needs to feel heard before anything else</li>
+          <li>When you sense emotions beneath the surface that haven't been acknowledged</li>
+          <li>When the relationship matters more than the information — lead with empathy to build trust</li>
+        </ul>
+        <h3>When NOT to Use Empathetic Questions</h3>
+        <ul>
+          <li>When empathy becomes a way to avoid directness — sometimes people need honest feedback, not just validation</li>
+          <li>When the situation calls for action, not processing — in emergencies, "What do you need right now?" beats "How are you feeling about this?"</li>
+          <li>When your empathetic questions are really projections — "That must be devastating" assumes an emotion they may not feel</li>
+          <li>When constant empathetic inquiry becomes exhausting for the other person — sometimes they just want a normal conversation, not to be analyzed</li>
+        </ul>
       </section>
     `
   },
@@ -753,6 +978,21 @@ export const LESSONS = [
         <p><strong>3.</strong> Ask "What do you need from me?" and truly listen to the answer.</p>
         <p>Trust is built in moments. These three questions can create three of those moments.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Trust-Building Questions</h3>
+        <ul>
+          <li>When you want to deepen a relationship — professional or personal</li>
+          <li>When building a new team or entering a new group — trust is the foundation for everything</li>
+          <li>When someone seems guarded — vulnerability-based questions show it's safe to be honest</li>
+        </ul>
+        <h3>When NOT to Use Trust-Building Questions</h3>
+        <ul>
+          <li>When trust hasn't been earned yet — asking "What are you not telling me?" too early feels intrusive, not inviting</li>
+          <li>When the vulnerability isn't genuine — fake vulnerability to extract honesty is manipulation</li>
+          <li>When you ask trust-building questions but don't follow through — remembering what someone shared and then ignoring it erodes trust faster than never asking</li>
+          <li>When power dynamics make the question feel coercive — a boss asking "What do you need from me?" while punishing honesty builds cynicism, not trust</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -816,6 +1056,20 @@ export const LESSONS = [
         <h3>Practice Exercise</h3>
         <p>For one day, write down five questions you ask people. After each one, identify the assumption embedded in it. Then rewrite the question assumption-free. Over time, this audit becomes automatic — and your questions become cleaner, more respectful, and far more effective.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Run an Assumption Audit</h3>
+        <ul>
+          <li>Before any high-stakes conversation — interviews, feedback sessions, negotiations</li>
+          <li>When asking questions about someone's identity, background, or personal life</li>
+          <li>When you notice yourself feeling certain about someone's motives before asking</li>
+        </ul>
+        <h3>When NOT to Over-Audit</h3>
+        <ul>
+          <li>When you're so worried about assumptions that you stop asking anything at all — imperfect questions asked with genuine curiosity are better than silence</li>
+          <li>When the assumption is reasonable and shared — "How was your weekend?" assumes they had one, and that's fine</li>
+          <li>When auditing every word becomes performative rather than genuine — the point is cleaner thinking, not linguistic perfection</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -869,6 +1123,20 @@ export const LESSONS = [
         <h3>Practice Exercise</h3>
         <p>Think of a recent situation where you felt certain about someone else's motives. Write down the observable facts (what they actually said or did), then trace your reasoning up each rung. Where did you add meaning? Where did you make assumptions? What questions could you have asked to check your interpretation?</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use the Ladder of Inference</h3>
+        <ul>
+          <li>When you have a strong reaction — anger, certainty, defensiveness — and want to check if it's based on reality or interpretation</li>
+          <li>In conflict, when both sides are working from different interpretations of the same events</li>
+          <li>On yourself — when you catch yourself saying "They obviously did it because..." and realize you're at the top of the ladder</li>
+        </ul>
+        <h3>When NOT to Use the Ladder of Inference</h3>
+        <ul>
+          <li>To gaslight someone's valid perception — "You're just climbing the ladder of inference" can dismiss legitimate concerns</li>
+          <li>When speed matters — descending the ladder takes time, and in emergencies you need to act on your best read</li>
+          <li>When you use it to second-guess every thought until you can't trust your own judgment — the ladder is for checking, not for paralysis</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -913,6 +1181,21 @@ export const LESSONS = [
         <h3>The Empathy Bridge</h3>
         <p>Before you can resolve a conflict, you must build an empathy bridge — a moment where both people feel the other person genuinely understands their experience. This does not mean you agree. It means you can say: "I hear that you feel overlooked, and that matters to me."</p>
         <p>The question that builds this bridge: <strong>"How has this been affecting you?"</strong> This simple question invites the other person to share their emotional experience, not just their logical position. And that is where healing begins.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Conflict Resolution Questions</h3>
+        <ul>
+          <li>When both sides are stuck defending positions instead of exploring interests</li>
+          <li>When emotions are high and the conversation is escalating — curiosity breaks the cycle</li>
+          <li>When you want resolution, not victory — these questions prioritize understanding over winning</li>
+        </ul>
+        <h3>When NOT to Use Conflict Resolution Questions</h3>
+        <ul>
+          <li>When safety is at risk — if someone is being abused or harmed, the priority is protection, not curiosity about the other person's perspective</li>
+          <li>When the other person is acting in bad faith — curiosity requires that both sides are willing to engage honestly</li>
+          <li>When you need to set a firm boundary — sometimes the answer is a clear statement ("This is not acceptable"), not a question</li>
+          <li>When using questions to avoid taking a stand — conflict resolution is not conflict avoidance</li>
+        </ul>
       </section>
     `
   },
@@ -960,6 +1243,21 @@ export const LESSONS = [
         </ul>
         <p>The key is to ask with genuine curiosity, not to trap or embarrass. Socrates may have been executed for his questions, but his intention was always to help people think more clearly — not to prove them wrong.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Socratic Questioning</h3>
+        <ul>
+          <li>When you want to help someone examine their beliefs without telling them what to think</li>
+          <li>In teaching, coaching, or mentoring — when the insight needs to come from them</li>
+          <li>When you disagree but want to explore rather than argue — "Help me understand your evidence" beats "You're wrong"</li>
+        </ul>
+        <h3>When NOT to Use Socratic Questioning</h3>
+        <ul>
+          <li>When it becomes a trap — leading someone through questions where you already know the "right" answer is manipulation, not Socratic inquiry</li>
+          <li>When someone needs support, not examination — Socratic questioning a grieving person is tone-deaf</li>
+          <li>When the power dynamic makes it feel like a test — a boss Socratically questioning an employee can feel like an interrogation</li>
+          <li>When you're using it to feel intellectually superior — if your goal is to make someone look foolish, you've missed the point entirely</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1004,6 +1302,21 @@ export const LESSONS = [
         </ul>
         <p>When people feel safe to question, the quality of every decision in the organization improves.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Be Mindful of Power Dynamics</h3>
+        <ul>
+          <li>Whenever you hold positional authority — your questions carry more weight than you think</li>
+          <li>When questioning someone above you — frame your intent and make it about quality, not challenge</li>
+          <li>When you notice people giving you the answers they think you want instead of what they actually think</li>
+        </ul>
+        <h3>When NOT to Let Power Dynamics Silence You</h3>
+        <ul>
+          <li>When important concerns go unvoiced because everyone is afraid to question the leader</li>
+          <li>When "reading the room" becomes code for never challenging authority</li>
+          <li>When your question could prevent a serious mistake — the cost of staying silent exceeds the discomfort of asking</li>
+          <li>When you're a leader who avoids questions to protect your ego — that's the moment your team needs your curiosity most</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1044,6 +1357,21 @@ export const LESSONS = [
           <li><strong>Slow down:</strong> Pauses that feel uncomfortable in one culture are thinking time in another.</li>
           <li><strong>Ask about preferences:</strong> "Would you prefer to discuss this now or think about it and follow up later?"</li>
           <li><strong>Lead with humility:</strong> "I know my communication style might be different from what you're used to. Please let me know if I can adjust."</li>
+        </ul>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Adjust for Culture</h3>
+        <ul>
+          <li>When working with people from different cultural backgrounds — even within the same country</li>
+          <li>When you notice that direct questions are being met with discomfort, avoidance, or overly agreeable answers</li>
+          <li>When entering a new cultural context — observe first, then ask about norms rather than assuming your style is universal</li>
+        </ul>
+        <h3>When NOT to Adjust</h3>
+        <ul>
+          <li>When "cultural sensitivity" becomes an excuse to never ask uncomfortable but necessary questions</li>
+          <li>When you stereotype an entire culture — people within any culture vary enormously in their communication preferences</li>
+          <li>When adjusting means suppressing your authentic communication style entirely — the goal is bridge-building, not self-erasure</li>
+          <li>When the person has explicitly told you they prefer direct communication — trust what they tell you over your cultural assumptions</li>
         </ul>
       </section>
     `
@@ -1095,6 +1423,21 @@ export const LESSONS = [
           <li><strong>Humanize it:</strong> "Forget the data — what is the person experiencing this actually feeling?"</li>
         </ul>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Innovation Questions</h3>
+        <ul>
+          <li>In brainstorming sessions — "How might we?" opens creative space that narrow problem statements close</li>
+          <li>When a team is stuck in conventional thinking and needs permission to think bigger</li>
+          <li>When you suspect you're solving the wrong problem and need to reframe before jumping to solutions</li>
+        </ul>
+        <h3>When NOT to Use Innovation Questions</h3>
+        <ul>
+          <li>When execution, not ideation, is what's needed — teams can brainstorm endlessly to avoid the hard work of building</li>
+          <li>When the problem is clear and the solution is known — innovation questions in that context waste time and frustrate people who want to act</li>
+          <li>When "challenging constraints" ignores real limitations — budget, safety, and ethics aren't constraints to question away</li>
+          <li>When people need validation that their current approach is working, not a prompt to rethink everything from scratch</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1140,6 +1483,21 @@ export const LESSONS = [
         </ul>
         <p>Next time someone asks for advice, try this: ask three questions before offering a single suggestion. Often, by the third question, they will have found their own answer — and it will be better than anything you would have said.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Coaching Questions</h3>
+        <ul>
+          <li>When someone is capable of finding their own answer but needs help thinking it through</li>
+          <li>When you want to build someone's confidence and autonomy, not just solve their problem</li>
+          <li>In mentoring, managing, parenting — whenever ownership of the solution matters more than speed</li>
+        </ul>
+        <h3>When NOT to Use Coaching Questions</h3>
+        <ul>
+          <li>When someone genuinely needs information you have — withholding it to "coach" them is frustrating and disrespectful</li>
+          <li>When they've explicitly asked for advice — coaching when someone wants direction feels dismissive</li>
+          <li>In emergencies or time-critical situations — coaching takes time, and sometimes a direct answer is what the moment demands</li>
+          <li>When the person lacks the context or experience to find their own answer — coaching works best when they have the raw material inside them</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1183,6 +1541,21 @@ export const LESSONS = [
           <li>"What would make us reverse this decision?"</li>
         </ul>
         <p>Clarity on criteria makes difficult decisions dramatically easier — and dramatically better.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Decision-Making Questions</h3>
+        <ul>
+          <li>Before any high-stakes, hard-to-reverse decision — career moves, investments, organizational strategy</li>
+          <li>When the team agrees too quickly — consensus without questioning is groupthink, not alignment</li>
+          <li>When you're choosing between options and need clarity on what actually matters</li>
+        </ul>
+        <h3>When NOT to Use Decision-Making Questions</h3>
+        <ul>
+          <li>When the decision is easily reversible — don't pre-mortem what you can just try and learn from</li>
+          <li>When over-analysis is the real enemy — some decisions need momentum, not more questioning</li>
+          <li>When devil's advocate questioning is used to block action, not improve it — chronic skepticism kills progress</li>
+          <li>When the decision has already been made and people need commitment, not more deliberation</li>
+        </ul>
       </section>
     `
   },
@@ -1232,6 +1605,21 @@ export const LESSONS = [
         </ul>
         <p>These phrases give permission to be vulnerable without pressure. And often, when you take the pressure off, people share more deeply than any question could have prompted.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Emotionally Intelligent Questions</h3>
+        <ul>
+          <li>When the emotional stakes are high — feedback conversations, after setbacks, during personal disclosures</li>
+          <li>When you notice a mismatch between someone's words and their energy — pause and calibrate before probing</li>
+          <li>When timing matters more than technique — the right question at the wrong moment still lands wrong</li>
+        </ul>
+        <h3>When NOT to Use Emotionally Intelligent Questions</h3>
+        <ul>
+          <li>When emotional attunement becomes over-caution — sometimes people are ready for a hard question and your hesitation holds them back</li>
+          <li>When you use "not the right time" as a permanent excuse to avoid difficult conversations</li>
+          <li>When emotional intelligence becomes emotional control — managing someone's feelings through your questions is subtle manipulation</li>
+          <li>When the person has told you directly they're fine and you keep probing their emotions — trust what they say</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1275,6 +1663,21 @@ export const LESSONS = [
           <li>"How can we prevent this in the future?"</li>
         </ul>
         <p>When people know that mistakes lead to learning questions rather than blame, they take bigger risks, report problems earlier, and innovate more freely.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Strategic Leadership Questions</h3>
+        <ul>
+          <li>When setting direction — vision questions align people around a shared future, not just shared tasks</li>
+          <li>After meetings — alignment questions catch misunderstandings before they become expensive mistakes</li>
+          <li>After failures — accountability questions focused on learning build resilience and honesty</li>
+        </ul>
+        <h3>When NOT to Use Strategic Leadership Questions</h3>
+        <ul>
+          <li>When people need clear direction, not another open-ended question — sometimes leaders need to lead, not inquire</li>
+          <li>When "What do you think?" is abdication disguised as empowerment — leaders must still make the hard calls</li>
+          <li>When accountability questions become an interrogation ritual — if the tone is blame, the words don't matter</li>
+          <li>When the team is exhausted and needs reassurance, not more strategic inquiry — read the room before asking the big questions</li>
+        </ul>
       </section>
     `
   },
@@ -1323,6 +1726,21 @@ export const LESSONS = [
           <li>"If everyone adopted this behavior, what would the world look like?"</li>
         </ul>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Systems Thinking Questions</h3>
+        <ul>
+          <li>When a problem keeps coming back no matter how many times you fix it — you're treating symptoms, not causes</li>
+          <li>Before implementing a major change — map the ripple effects before they surprise you</li>
+          <li>When the "obvious" solution feels too simple — systems problems rarely have simple fixes</li>
+        </ul>
+        <h3>When NOT to Use Systems Thinking Questions</h3>
+        <ul>
+          <li>When the problem is genuinely simple and local — not everything is a system. Sometimes the fix is just the fix.</li>
+          <li>When systems analysis becomes paralysis — understanding the whole system doesn't mean you need to fix the whole system at once</li>
+          <li>When "unintended consequences" is used to block all action — every action has consequences, but inaction has consequences too</li>
+          <li>When the team needs to focus and execute, not zoom out further — systems thinking at the wrong time kills momentum</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1366,6 +1784,21 @@ export const LESSONS = [
         </ul>
         <p>Resistance is not an obstacle — it is information about what the person needs to feel safe enough to change.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Motivational Interviewing</h3>
+        <ul>
+          <li>When someone wants to change but is ambivalent — they're torn and need help finding their own reasons</li>
+          <li>When direct advice has failed — if telling them what to do worked, they'd have done it already</li>
+          <li>In health, coaching, parenting, or management — anywhere behavior change is the goal</li>
+        </ul>
+        <h3>When NOT to Use Motivational Interviewing</h3>
+        <ul>
+          <li>When someone is in immediate danger — if the building is on fire, you don't ask "What would your best self do?" You say "Get out now."</li>
+          <li>When they've already decided and need practical support, not more exploration of motivation</li>
+          <li>When MI becomes a tool to push your agenda — if you're only "evoking change talk" toward the change you want, that's manipulation dressed as therapy</li>
+          <li>When someone is not ambivalent — they genuinely don't want to change, and that's their right</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1403,6 +1836,21 @@ export const LESSONS = [
           <p>The label validates their feeling. The question invites them to solve the problem.</p>
         </div>
         <p>When you combine labeling with calibrated questions, people feel <em>heard</em> and <em>empowered</em> simultaneously. That is when creative deals emerge.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Negotiation Questions</h3>
+        <ul>
+          <li>When you need something from someone and want them to feel empowered, not pressured</li>
+          <li>When both sides are stuck on positions — calibrated questions reveal the interests underneath</li>
+          <li>When silence would serve you — after asking, let the question work</li>
+        </ul>
+        <h3>When NOT to Use Negotiation Questions</h3>
+        <ul>
+          <li>When the relationship is more important than the outcome — constant calibrated questioning in personal relationships feels cold and tactical</li>
+          <li>When used to manipulate people who have less power — calibrated questions from a position of dominance can be coercive</li>
+          <li>When the other person recognizes the technique — if they've read the same book, authenticity matters more than tactics</li>
+          <li>When you need to be direct — "This is my final offer" is sometimes more honest and respectful than another calibrated question</li>
+        </ul>
       </section>
     `
   },
@@ -1449,6 +1897,21 @@ export const LESSONS = [
         </ul>
         <p>Shadow work is not about self-criticism. It is about self-honesty. The parts of yourself that you bring into the light lose their power to control you from the darkness.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Self-Transformation Questions</h3>
+        <ul>
+          <li>When you notice a painful thought that keeps returning — Byron Katie's four questions can create space between you and it</li>
+          <li>In journaling — these questions work best on paper where you can be fully honest without an audience</li>
+          <li>When you sense you're projecting — shadow work questions help you own what you're seeing in others</li>
+        </ul>
+        <h3>When NOT to Use Self-Transformation Questions</h3>
+        <ul>
+          <li>When they become a substitute for professional help — self-inquiry is powerful, but trauma and mental health conditions need trained support</li>
+          <li>When "Who would I be without this thought?" is used to bypass real, valid emotions — grief, anger, and pain deserve to be felt, not questioned away</li>
+          <li>When shadow work becomes self-punishment — the goal is compassionate honesty, not another way to beat yourself up</li>
+          <li>When you're using deep self-inquiry to avoid engaging with the outside world — at some point, you need to act, not just reflect</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1480,6 +1943,21 @@ export const LESSONS = [
         <h3>The Question Behind the Question</h3>
         <p>Every question we ask is motivated by a deeper question we may not be aware of. "Where should I live?" might really be asking "Where do I belong?" "Should I change careers?" might really be asking "Who am I?"</p>
         <p>Philosophy teaches us to pursue the question behind the question — to keep asking until we reach the bedrock of what we truly need to know. This is not navel-gazing; it is the practice that leads to a life of genuine meaning.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use Philosophical Questioning</h3>
+        <ul>
+          <li>When someone (or you) is stuck and the real issue is not the surface problem but the question beneath it</li>
+          <li>When you want to live more intentionally — philosophical questions clarify values and purpose</li>
+          <li>When conversations need more depth — asking "What question is this person trying to answer with their life?" transforms how you listen</li>
+        </ul>
+        <h3>When NOT to Use Philosophical Questioning</h3>
+        <ul>
+          <li>When it's used as intellectual posturing — quoting Gadamer in a team standup is not helpful</li>
+          <li>When practical problems need practical solutions — philosophy doesn't fix a leaking pipe</li>
+          <li>When philosophical depth becomes an excuse to avoid clarity — "What is a question, really?" is not useful when someone needs a simple answer</li>
+          <li>When sitting with unanswered questions becomes inaction disguised as wisdom — at some point, you have to decide and move</li>
+        </ul>
       </section>
     `
   },
@@ -1517,6 +1995,21 @@ export const LESSONS = [
           <li><strong>Closing:</strong> Reflect (5) → Ask one final question (3) → Listen (4)</li>
         </ul>
         <p>With practice, moving between pillars becomes as natural as breathing. That is mastery.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Use the Bisa Framework</h3>
+        <ul>
+          <li>In any meaningful conversation — coaching, conflict, feedback, deep personal discussions</li>
+          <li>When you feel lost in a conversation and need a structure to ground you</li>
+          <li>When you're preparing for a difficult conversation — mentally rehearse the five pillars</li>
+        </ul>
+        <h3>When NOT to Use the Bisa Framework</h3>
+        <ul>
+          <li>When the framework becomes rigid — real conversations are messy, and forcing them into five neat pillars kills authenticity</li>
+          <li>In light, casual conversation — not every chat with a friend needs a Listen-Frame-Ask-Listen-Reflect sequence</li>
+          <li>When you're thinking about the framework more than the person in front of you — the pillars are training wheels, not the destination</li>
+          <li>When presence alone is what's needed — sometimes the most masterful thing is to put away all frameworks and simply be there</li>
+        </ul>
       </section>
     `
   },
@@ -1557,6 +2050,20 @@ export const LESSONS = [
         <p>The poet Rainer Maria Rilke wrote: "Be patient toward all that is unsolved in your heart and try to love the questions themselves, like locked rooms and like books that are now written in a very foreign tongue."</p>
         <p>Most people are uncomfortable with unanswered questions. They rush to close them, to find certainty, to know. The master questioner does the opposite — they learn to <em>love</em> the open question, to sit with uncertainty, to trust that living with the question is more valuable than any premature answer.</p>
         <p>This is the final frontier: not just asking good questions, but becoming the kind of person for whom curiosity is as natural as breathing.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Live in Questions</h3>
+        <ul>
+          <li>As a daily practice — morning questions set intention, evening questions consolidate learning</li>
+          <li>When you feel stuck, certain, or complacent — a single powerful question can crack open new territory</li>
+          <li>When facing transitions, loss, or uncertainty — living with open questions is more productive than grasping for premature answers</li>
+        </ul>
+        <h3>When NOT to Live in Questions</h3>
+        <ul>
+          <li>When perpetual questioning becomes avoidance of commitment — "What do I truly want?" asked for the 500th time without action is procrastination, not wisdom</li>
+          <li>When open questions create chronic indecisiveness — at some point you must close the question and choose</li>
+          <li>When question meditation replaces engagement with the real world — inner inquiry is powerful, but life is lived in action and relationship, not just contemplation</li>
+        </ul>
       </section>
     `
   },
@@ -1602,6 +2109,21 @@ export const LESSONS = [
         </ul>
         <p>The best question coaches do not critique — they ask questions about the questions. "What were you hoping to learn when you asked that?" "How did the other person react?" "What question might have opened them up more?"</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Teach Others to Ask</h3>
+        <ul>
+          <li>When you're in a leadership, mentoring, or parenting role — your biggest impact is developing questioners, not answering questions</li>
+          <li>When a team or group defaults to statements and arguments instead of inquiry</li>
+          <li>When someone shows curiosity about their own questioning habits — that's your opening</li>
+        </ul>
+        <h3>When NOT to Teach Others to Ask</h3>
+        <ul>
+          <li>When someone hasn't asked for coaching — unsolicited "You should have asked a better question" is condescending</li>
+          <li>When you use teaching as a way to avoid doing your own questioning work — teach from practice, not theory</li>
+          <li>When your feedback on their questions comes from judgment, not curiosity — model what you teach</li>
+          <li>When the other person needs your expertise, not your coaching — sometimes the most helpful thing is giving a clear answer, not teaching them to find it themselves</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1643,6 +2165,20 @@ export const LESSONS = [
         </ul>
         <p>The ethical questioner remembers: every person you speak with may be carrying wounds you cannot see. Ask gently. Listen carefully. And always, always respect the courage it takes to answer.</p>
       </section>
+      <section class="lesson-section when-to-use">
+        <h3>When Ethics Matter Most</h3>
+        <ul>
+          <li>When you have power over someone — their "yes" to your question may not be freely given</li>
+          <li>When the topic is sensitive — identity, trauma, health, relationships — consent before inquiry</li>
+          <li>When you catch yourself wanting a specific answer — that's the line between inquiry and manipulation</li>
+        </ul>
+        <h3>When NOT to Let Ethics Become Paralysis</h3>
+        <ul>
+          <li>When fear of asking the "wrong" question silences you entirely — most questions asked with genuine care will be received well, even if imperfect</li>
+          <li>When "respecting boundaries" becomes never asking anything meaningful — people often want to be asked, they just want to feel safe saying no</li>
+          <li>When ethical caution prevents addressing real harm — sometimes the most ethical question is the uncomfortable one that nobody else will ask</li>
+        </ul>
+      </section>
     `
   },
   {
@@ -1681,6 +2217,20 @@ export const LESSONS = [
         <h3>Middle Eastern Hospitality Questions</h3>
         <p>In Arab, Persian, and Turkish cultures, questions about health, family, and wellbeing are essential rituals that must be completed before any business discussion. Rushing past these questions is not efficiency — it is disrespect.</p>
         <p>This tradition teaches us that sometimes the most important questions are not about the topic at hand. They are about establishing the human connection that makes all other questions possible.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Draw on Global Traditions</h3>
+        <ul>
+          <li>When your default questioning style isn't working — another tradition might offer the approach this moment needs</li>
+          <li>When working in diverse groups — understanding different cultural relationships with questions prevents miscommunication</li>
+          <li>When you want to deepen your practice — each tradition holds wisdom that enriches your toolkit</li>
+        </ul>
+        <h3>When NOT to Draw on Global Traditions</h3>
+        <ul>
+          <li>When borrowing practices without understanding their context — using a talking circle as a "meeting hack" strips it of its sacred meaning</li>
+          <li>When you treat cultural practices as interchangeable techniques — each tradition comes with values, history, and context that matter</li>
+          <li>When you use cultural knowledge to perform sensitivity rather than practice it — knowing about ubuntu is not the same as living it</li>
+        </ul>
       </section>
     `
   },
@@ -1729,6 +2279,20 @@ export const LESSONS = [
         <p>Ask bigger questions, and you will live a bigger life. Ask deeper questions, and you will have deeper relationships. Ask braver questions, and you will discover courage you did not know you had.</p>
         <p>So here is my final question for you: <em>What is the most important question you need to ask today?</em></p>
         <p>Go ask it.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When to Walk the Grand Questioner's Path</h3>
+        <ul>
+          <li>Every day — questioning is not a skill you "complete," it's a practice you return to</li>
+          <li>When you revert to old habits — that's not failure, that's the moment the practice matters most</li>
+          <li>When you notice the quality of your life improving because the quality of your questions improved</li>
+        </ul>
+        <h3>When NOT to Walk the Path</h3>
+        <ul>
+          <li>When questioning becomes your identity rather than your practice — being a "great questioner" is not the goal; being a great listener, friend, leader, and human is</li>
+          <li>When you judge others for not questioning like you do — the path is personal, and everyone walks it differently</li>
+          <li>When the pursuit of perfect questions prevents you from asking imperfect ones — a stumbling, genuine question will always outperform a polished, hollow one</li>
+        </ul>
       </section>
     `
   }
