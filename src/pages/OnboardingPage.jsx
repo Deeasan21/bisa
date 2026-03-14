@@ -68,7 +68,7 @@ function WelcomeScreen() {
       <div className="onboarding-welcome-top">
         <p className="onboarding-eyebrow">ask · learn · grow</p>
         <div className="onboarding-headline-row">
-          <NeaOnnim size={52} variant="full" />
+          <NeaOnnim size={52} />
           <h1 className="onboarding-headline">Bisa</h1>
         </div>
       </div>
