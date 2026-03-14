@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 /**
  * Dev middleware plugin: handles /api/claude requests locally
@@ -63,6 +64,11 @@ function claudeProxyPlugin() {
 
 export default defineConfig({
   plugins: [react(), claudeProxyPlugin()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   optimizeDeps: {
     exclude: ['sql.js']
   },

@@ -45,10 +45,32 @@
 
   /* Dark mode overlay */
   --overlay-bg: rgba(0, 0, 0, 0.5);
+
+  /* shadcn/ui CSS variables — mapped to Bisa design tokens */
+  --background: #FAFAF9;
+  --foreground: #1C1917;
+  --card: #FFFFFF;
+  --card-foreground: #1C1917;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1917;
+  --primary: #1C1917;
+  --primary-foreground: #FAFAF9;
+  --secondary: #F5F5F4;
+  --secondary-foreground: #1C1917;
+  --muted: #F5F5F4;
+  --muted-foreground: #A8A29E;
+  --accent: #F5F5F4;
+  --accent-foreground: #1C1917;
+  --destructive: #EF4444;
+  --destructive-foreground: #FAFAF9;
+  /* --border already defined above as #E7E5E4 — shared */
+  --input: #E7E5E4;
+  --ring: #1C1917;
+  --radius: 0.75rem;
 }
 
-/* Dark mode */
-[data-theme="dark"] {
+/* Dark mode — covers both Bisa's data-theme and Tailwind's .dark class */
+[data-theme="dark"], .dark {
   --bg-primary: #0C0A09;
   --bg-secondary: #1C1917;
   --bg-card: #292524;
@@ -63,6 +85,26 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
 
   --overlay-bg: rgba(0, 0, 0, 0.7);
+
+  /* shadcn/ui dark mode vars */
+  --background: #0C0A09;
+  --foreground: #FAFAF9;
+  --card: #292524;
+  --card-foreground: #FAFAF9;
+  --popover: #292524;
+  --popover-foreground: #FAFAF9;
+  --primary: #FAFAF9;
+  --primary-foreground: #1C1917;
+  --secondary: #1C1917;
+  --secondary-foreground: #FAFAF9;
+  --muted: #1C1917;
+  --muted-foreground: #78716C;
+  --accent: #1C1917;
+  --accent-foreground: #FAFAF9;
+  --destructive: #EF4444;
+  --destructive-foreground: #FAFAF9;
+  --input: #44403C;
+  --ring: #FAFAF9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,5 +123,24 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
 
     --overlay-bg: rgba(0, 0, 0, 0.7);
+
+    --background: #0C0A09;
+    --foreground: #FAFAF9;
+    --card: #292524;
+    --card-foreground: #FAFAF9;
+    --popover: #292524;
+    --popover-foreground: #FAFAF9;
+    --primary: #FAFAF9;
+    --primary-foreground: #1C1917;
+    --secondary: #1C1917;
+    --secondary-foreground: #FAFAF9;
+    --muted: #1C1917;
+    --muted-foreground: #78716C;
+    --accent: #1C1917;
+    --accent-foreground: #FAFAF9;
+    --destructive: #EF4444;
+    --destructive-foreground: #FAFAF9;
+    --input: #44403C;
+    --ring: #FAFAF9;
   }
 }
