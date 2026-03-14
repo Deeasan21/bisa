@@ -10,10 +10,11 @@ import { useId } from 'react';
  * Props:
  *   size        — rendered width/height in px (default 64)
  *   color       — override stroke color (default: currentColor / gradient for "full")
- *   variant     — "full" | "standard" | "minimal"
+ *   variant     — "full" | "standard" | "minimal" | "icon"
  *                  full     : warm gold gradient + soft drop shadow
  *                  standard : currentColor, all elements, clean
  *                  minimal  : currentColor, core structure only (for tiny sizes)
+ *                  icon     : gold gradient, 3 elements only — optimised for ≤48px
  *   withAnimation — boolean, enables draw-on stroke animation (~1.2s)
  *   className   — additional CSS classes
  */
@@ -30,14 +31,14 @@ export default function NeaOnnim({
 
   // Resolve stroke color
   const strokeColor =
-    variant === 'full' && !color
+    (variant === 'full' || variant === 'icon') && !color
       ? `url(#${gradientId})`
       : color || 'currentColor';
 
-  // Drop shadow for "full" variant
+  // Drop shadow for "full" / "icon" variants
   const dropShadow =
-    variant === 'full'
-      ? { filter: 'drop-shadow(0 3px 10px rgba(196, 138, 26, 0.28))' }
+    variant === 'full' || variant === 'icon'
+      ? { filter: 'drop-shadow(0 2px 6px rgba(196, 138, 26, 0.35))' }
       : {};
 
   // Animation helpers
@@ -83,7 +84,7 @@ export default function NeaOnnim({
       role="img"
     >
       <defs>
-        {variant === 'full' && (
+        {(variant === 'full' || variant === 'icon') && (
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor={color || '#E8C260'} />
             <stop offset="100%" stopColor={color ? color : '#9A6B1F'} />
@@ -91,7 +92,17 @@ export default function NeaOnnim({
         )}
       </defs>
 
-      {/* ── Core structure ── */}
+      {/* ── Icon variant: 3 elements only, readable at ≤48px ── */}
+      {variant === 'icon' && (
+        <>
+          <rect x="15" y="135" width="360" height="120" {...sq(0)} />
+          <line x1="255" y1="15" x2="255" y2="375" {...sq(1)} />
+          <line x1="135" y1="15" x2="135" y2="375" {...sq(2)} />
+        </>
+      )}
+
+      {/* ── Full / standard / minimal geometry ── */}
+      {variant !== 'icon' && (<>
 
       {/* Central horizontal band */}
       <rect x="15" y="135" width="360" height="120" {...sq(0)} />
@@ -138,6 +149,8 @@ export default function NeaOnnim({
       <line x1="255" y1="375" x2="375" y2="375" {...sq(14)} />
       {/* Bottom-right inner stub */}
       <line x1="255" y1="315" x2="360" y2="315" {...bt(15)} />
+
+      </>)}
     </svg>
   );
 }

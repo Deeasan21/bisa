@@ -217,7 +217,7 @@ export default function TodayPage() {
 
       <div className="today-header">
         <div className="today-header-left">
-          <NeaOnnim size={40} variant="full" className="today-brand-mark" />
+          <NeaOnnim size={40} variant="icon" className="today-brand-mark" />
           <div>
             <h1>{greeting}</h1>
             <p className="today-subtitle">Your daily quests await</p>
