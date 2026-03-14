@@ -62,7 +62,7 @@ const NEW_USER_MODES = [
 
 export default function TodayPage() {
   const { db, isReady } = useDatabase();
-  const { level } = useXP();
+  const { level, totalXP } = useXP();
   const navigate = useNavigate();
   const location = useLocation();
   const [streak, setStreak] = useState(0);
@@ -206,7 +206,7 @@ export default function TodayPage() {
   };
 
   // XP numbers for progress card
-  const xpCurrent = level.totalXP - (level.xpRequired || 0);
+  const xpCurrent = totalXP - (level.xpRequired || 0);
   const xpNeeded = level.nextLevel
     ? level.nextLevel.xpRequired - (level.xpRequired || 0)
     : null;
