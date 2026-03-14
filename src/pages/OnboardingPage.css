@@ -60,10 +60,6 @@
   margin-bottom: var(--space-sm);
 }
 
-.onboarding-brand-mark {
-  margin-bottom: var(--space-lg);
-}
-
 .onboarding-eyebrow {
   font-size: 0.75rem;
   font-weight: 600;
@@ -73,22 +69,19 @@
   margin-bottom: var(--space-sm);
 }
 
+.onboarding-headline-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: var(--space-sm);
+}
+
 .onboarding-headline {
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 4.5rem;
   line-height: 1;
   color: var(--text-primary);
-  margin-bottom: 6px;
-}
-
-.onboarding-meaning {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-}
-
-.onboarding-meaning em {
-  font-style: italic;
-  color: var(--text-secondary);
+  margin: 0;
 }
 
 .onboarding-welcome-body {
@@ -202,12 +195,42 @@
   background: var(--text-primary);
 }
 
+.onboarding-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.onboarding-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.onboarding-back:hover {
+  background: var(--border);
+}
+
+.onboarding-back:active {
+  transform: scale(0.95);
+}
+
 .onboarding-cta {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  width: 100%;
+  flex: 1;
   padding: 16px var(--space-lg);
   border-radius: var(--radius-full);
   background: var(--text-primary);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lightning, Eye, ArrowCounterClockwise, ArrowRight } from '@phosphor-icons/react';
+import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
 import Card from '../components/common/Card';
 import './OnboardingPage.css';
@@ -19,7 +19,11 @@ export default function OnboardingPage() {
     else finish();
   };
 
-  const CTA_LABELS = ['How it works', 'One more thing', "Let's go"];
+  const back = () => {
+    if (slide > 0) setSlide(s => s - 1);
+  };
+
+  const CTA_LABELS = ['How it works', 'One more thing', "Let's begin"];
 
   return (
     <div className="onboarding">
@@ -39,10 +43,20 @@ export default function OnboardingPage() {
             <div key={i} className={`onboarding-dot${i === slide ? ' active' : ''}`} />
           ))}
         </div>
-        <button className="onboarding-cta" onClick={next}>
-          {CTA_LABELS[slide]}
-          <ArrowRight size={18} weight="bold" />
-        </button>
+        <div className="onboarding-nav">
+          <button
+            className="onboarding-back"
+            onClick={back}
+            style={{ visibility: slide === 0 ? 'hidden' : 'visible' }}
+            aria-hidden={slide === 0}
+          >
+            <ArrowLeft size={18} weight="bold" />
+          </button>
+          <button className="onboarding-cta" onClick={next}>
+            {CTA_LABELS[slide]}
+            <ArrowRight size={18} weight="bold" />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -52,19 +66,18 @@ function WelcomeScreen() {
   return (
     <div className="onboarding-screen">
       <div className="onboarding-welcome-top">
-        <div className="onboarding-brand-mark">
-          <NeaOnnim size={96} variant="full" withAnimation />
-        </div>
         <p className="onboarding-eyebrow">ask · learn · grow</p>
-        <h1 className="onboarding-headline">Bisa</h1>
-        <p className="onboarding-meaning">Twi for <em>"to ask"</em></p>
+        <div className="onboarding-headline-row">
+          <NeaOnnim size={52} variant="full" withAnimation />
+          <h1 className="onboarding-headline">Bisa</h1>
+        </div>
       </div>
       <div className="onboarding-welcome-body">
         <p className="onboarding-body">
-          Most people are never taught how to communicate — how to ask the right questions, read what people actually mean, and respond in a way that lands.
+          There's a skill most of us were never taught — how to ask the kind of questions that actually open things up. Not interrogate. Not perform. Just genuinely understand.
         </p>
         <p className="onboarding-body">
-          Bisa trains that.
+          Bisa is a quiet space to practice that.
         </p>
       </div>
     </div>
@@ -77,22 +90,22 @@ function ModesScreen() {
       Icon: Lightning,
       color: '#F59E0B',
       name: 'Question Burst',
-      tagline: 'Train your instinct to ask better questions.',
-      desc: "Timed scenarios that push you to ask instead of assume. The faster you get, the more natural it becomes.",
+      tagline: 'Build the instinct before the words.',
+      desc: "Short timed rounds that train you to ask instead of assume. The goal isn't speed — it's making curiosity feel natural.",
     },
     {
       Icon: Eye,
       color: '#8B5CF6',
       name: 'Pattern Recognition',
-      tagline: 'Learn to read people and situations accurately.',
-      desc: "Five training modes that sharpen how you read tone, subtext, body language, and your own defaults — before you respond.",
+      tagline: 'Learn to hear what isn\'t being said.',
+      desc: "Five training modes that help you read tone, subtext, and your own defaults — before you respond.",
     },
     {
       Icon: ArrowCounterClockwise,
       color: '#3B82F6',
       name: 'Review',
-      tagline: 'Make sure what you learn actually sticks.',
-      desc: "Spaced repetition that tests application, not memorization. Quick drills that adapt to what you're getting right and where you're slipping.",
+      tagline: 'Let what you learn actually land.',
+      desc: "Spaced repetition that tests how you apply ideas, not just whether you remember them.",
     },
   ];
 
@@ -127,7 +140,10 @@ function PhilosophyScreen() {
         Before you can say the right thing, you have to see the right thing.
       </h2>
       <p className="onboarding-body">
-        Bisa trains the skill underneath every conversation — the ability to read what's really happening before you act. That's what separates people who communicate from people who just talk.
+        Most conversations go sideways before anyone opens their mouth — because nobody stopped to ask what was actually needed. Bisa helps you slow down just enough to notice.
+      </p>
+      <p className="onboarding-body">
+        It's a small skill. It changes a lot.
       </p>
     </div>
   );
