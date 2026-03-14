@@ -82,14 +82,6 @@ export default function NeaOnnim({
       aria-label="Nea Onnim — Adinkra symbol for lifelong learning"
       role="img"
     >
-      {withAnimation && (
-        <style>{`
-          @keyframes neaOnnimDraw {
-            to { stroke-dashoffset: 0; }
-          }
-        `}</style>
-      )}
-
       <defs>
         {variant === 'full' && (
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">

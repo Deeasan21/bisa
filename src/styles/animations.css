@@ -157,3 +157,8 @@
 .stagger-6 { animation-delay: 0.3s; }
 .stagger-7 { animation-delay: 0.35s; }
 .stagger-8 { animation-delay: 0.4s; }
+
+
+@keyframes neaOnnimDraw {
+  to { stroke-dashoffset: 0; }
+}
