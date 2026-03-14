@@ -59,6 +59,7 @@ export default function DailyChallenge() {
   const [phase, setPhase] = useState('ready');        // ready | burst | results | completed
   const [scenario, setScenario] = useState(null);      // today's burst scenario
   const [questions, setQuestions] = useState([]);       // submitted question strings
+  const questionsRef = useRef([]);                       // mirror for stale-closure-safe access
   const [currentInput, setCurrentInput] = useState('');
   const [timeLeft, setTimeLeft] = useState(0);
   const [burstResults, setBurstResults] = useState(null);
@@ -105,18 +106,13 @@ export default function DailyChallenge() {
 
   // Burst timer countdown
   useEffect(() => {
-    if (phase !== 'burst' || timeLeft <= 0) return;
-    const interval = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          handleBurstEnd();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
+    if (phase !== 'burst') return;
+    if (timeLeft === 0) {
+      handleBurstEnd();
+      return;
+    }
+    const timer = setTimeout(() => setTimeLeft(t => t - 1), 1000);
+    return () => clearTimeout(timer);
   }, [phase, timeLeft]);
 
   // Auto-scroll question stream
@@ -131,23 +127,27 @@ export default function DailyChallenge() {
     const duration = getTimerDuration(tier);
     setTimeLeft(duration);
     setQuestions([]);
+    questionsRef.current = [];
     setPhase('burst');
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
   const handleSubmitQuestion = () => {
     if (!currentInput.trim()) return;
-    setQuestions(prev => [...prev, currentInput.trim()]);
+    const updated = [...questionsRef.current, currentInput.trim()];
+    questionsRef.current = updated;
+    setQuestions(updated);
     setCurrentInput('');
     inputRef.current?.focus();
   };
 
   const handleBurstEnd = () => {
-    if (questions.length === 0) {
+    const currentQuestions = questionsRef.current;
+    if (currentQuestions.length === 0) {
       setPhase('ready');
       return;
     }
-    const results = scoreBurst(questions, scenario);
+    const results = scoreBurst(currentQuestions, scenario);
     setBurstResults(results);
 
     // Save completion and update streak (isolated so one failure doesn't break the other)
@@ -156,7 +156,7 @@ export default function DailyChallenge() {
 
     // 1. Save the burst to challenge_history
     try {
-      saveBurstCompletion(db, todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), questions, results.totalScore);
+      saveBurstCompletion(db, todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore);
     } catch (err) {
       console.error('Failed to save burst completion:', err);
     }

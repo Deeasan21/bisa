@@ -39,6 +39,82 @@
   color: #F59E0B;
 }
 
+/* Progress Card */
+.progress-card {
+  margin-bottom: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.progress-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.progress-level-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.progress-level-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--xp-color);
+}
+
+.progress-level-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'DM Serif Display', Georgia, serif;
+}
+
+.progress-xp-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+
+.progress-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.progress-last-activity {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.progress-continue-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.progress-continue-btn:hover {
+  background: var(--border);
+}
+
 /* Streak Calendar */
 .streak-calendar {
   display: flex;
