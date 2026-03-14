@@ -1,11 +1,18 @@
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import TodayPage from './pages/TodayPage';
 import ModesPage from './pages/ModesPage';
 import ProgressPage from './pages/ProgressPage';
 import JournalPage from './pages/JournalPage';
 import ProfilePage from './pages/ProfilePage';
+import OnboardingPage from './pages/OnboardingPage';
+
+function OnboardingGuard() {
+  const done = localStorage.getItem('bisa-onboarding-done');
+  if (!done) return <Navigate to="/onboarding" replace />;
+  return <Outlet />;
+}
 
 const LearnMode = lazy(() => import('./components/modes/LearnMode'));
 const PracticeMode = lazy(() => import('./components/modes/PracticeMode'));
@@ -52,12 +59,15 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Routes>
-        <Route element={<AppShell />}>
-          <Route path="/" element={<TodayPage />} />
-          <Route path="/modes" element={<ModesPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/journal" element={<JournalPage />} />
-          <Route path="/me" element={<ProfilePage />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route element={<OnboardingGuard />}>
+          <Route element={<AppShell />}>
+            <Route path="/" element={<TodayPage />} />
+            <Route path="/modes" element={<ModesPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="/me" element={<ProfilePage />} />
+          </Route>
         </Route>
         <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
         <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />

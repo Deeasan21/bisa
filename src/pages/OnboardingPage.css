@@ -1,0 +1,224 @@
+.onboarding {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Skip */
+.onboarding-skip {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.onboarding-skip:hover {
+  color: var(--text-secondary);
+}
+
+/* Slides area */
+.onboarding-slides {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.onboarding-slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 64px var(--space-lg) 0;
+}
+
+.onboarding-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.onboarding-screen--center {
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+/* Screen 1 — Welcome */
+.onboarding-welcome-top {
+  margin-bottom: var(--space-sm);
+}
+
+.onboarding-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.onboarding-headline {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.onboarding-meaning {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.onboarding-meaning em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.onboarding-welcome-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.onboarding-body {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Screen 2 — Modes */
+.onboarding-subtitle {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.75rem;
+  color: var(--text-primary);
+}
+
+.onboarding-modes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.onboarding-mode-row {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.onboarding-mode-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.onboarding-mode-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onboarding-mode-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.onboarding-mode-tagline {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.onboarding-mode-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* Screen 3 — Philosophy */
+.onboarding-quote-mark {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 6rem;
+  line-height: 0.8;
+  color: var(--border);
+}
+
+.onboarding-philosophy {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.65rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+/* Footer */
+.onboarding-footer {
+  padding: var(--space-lg);
+  padding-bottom: max(var(--space-xl), env(safe-area-inset-bottom, 24px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.onboarding-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.onboarding-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--border);
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.onboarding-dot.active {
+  width: 20px;
+  background: var(--text-primary);
+}
+
+.onboarding-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 16px var(--space-lg);
+  border-radius: var(--radius-full);
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.onboarding-cta:hover {
+  opacity: 0.88;
+}
+
+.onboarding-cta:active {
+  transform: scale(0.97);
+}
