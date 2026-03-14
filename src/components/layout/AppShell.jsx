@@ -1,28 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Moon, Sun } from '@phosphor-icons/react';
 import BottomTabBar from './BottomTabBar';
 import { useXP } from '../../hooks/useXP';
 import './AppShell.css';
 
-function getInitialTheme() {
-  const stored = localStorage.getItem('bisa-theme');
-  if (stored) return stored;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
 export default function AppShell() {
-  const [theme, setTheme] = useState(getInitialTheme);
   const { level } = useXP();
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('bisa-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('bisa-theme', 'light');
+  }, []);
 
   return (
     <div className="app-shell">
@@ -33,9 +21,6 @@ export default function AppShell() {
             <div className="xp-bar-fill" style={{ width: `${Math.round(level.progress * 100)}%` }} />
           </div>
         </div>
-        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">
-          {theme === 'dark' ? <Sun size={20} weight="bold" /> : <Moon size={20} weight="bold" />}
-        </button>
       </div>
       <main className="app-content">
         <Outlet />
