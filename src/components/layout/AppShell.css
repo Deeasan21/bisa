@@ -7,9 +7,55 @@
 .app-top-bar {
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
   z-index: 50;
   padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.app-top-bar > * {
+  pointer-events: auto;
+}
+
+/* XP progress pill */
+.xp-progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 5px 10px 5px 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.xp-level-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.xp-bar-track {
+  width: 72px;
+  height: 4px;
+  background: var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: var(--xp-color);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+  min-width: 4px;
 }
 
 .theme-toggle {
