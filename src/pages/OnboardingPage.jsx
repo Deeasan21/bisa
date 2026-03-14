@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight } from '@phosphor-icons/react';
+import { NeaOnnim } from '../components/brand';
 import Card from '../components/common/Card';
 import './OnboardingPage.css';
 
@@ -51,6 +52,9 @@ function WelcomeScreen() {
   return (
     <div className="onboarding-screen">
       <div className="onboarding-welcome-top">
+        <div className="onboarding-brand-mark">
+          <NeaOnnim size={96} variant="full" withAnimation />
+        </div>
         <p className="onboarding-eyebrow">ask · learn · grow</p>
         <h1 className="onboarding-headline">Bisa</h1>
         <p className="onboarding-meaning">Twi for <em>"to ask"</em></p>

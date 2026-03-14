@@ -14,6 +14,7 @@ import ProgressBar from '../components/common/ProgressBar';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Confetti from '../components/common/Confetti';
+import { NeaOnnim } from '../components/brand';
 import './TodayPage.css';
 
 const MODE_PATHS = {
@@ -215,9 +216,12 @@ export default function TodayPage() {
       <Confetti active={showConfetti} />
 
       <div className="today-header">
-        <div>
-          <h1>{greeting}</h1>
-          <p className="today-subtitle">Your daily quests await</p>
+        <div className="today-header-left">
+          <NeaOnnim size={32} variant="standard" className="today-brand-mark" />
+          <div>
+            <h1>{greeting}</h1>
+            <p className="today-subtitle">Your daily quests await</p>
+          </div>
         </div>
         <div className="streak-pill">
           <Fire size={18} weight="fill" color="#F59E0B" />

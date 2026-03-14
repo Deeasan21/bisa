@@ -5,8 +5,26 @@
 .today-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: var(--space-md);
+}
+
+.today-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.today-brand-mark {
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.today-brand-mark:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .today-header h1 {

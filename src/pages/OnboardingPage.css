@@ -60,6 +60,10 @@
   margin-bottom: var(--space-sm);
 }
 
+.onboarding-brand-mark {
+  margin-bottom: var(--space-lg);
+}
+
 .onboarding-eyebrow {
   font-size: 0.75rem;
   font-weight: 600;
