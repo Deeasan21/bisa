@@ -11,4 +11,12 @@
   padding-bottom: var(--nav-height);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-content > * {
+  width: 100%;
+  max-width: 720px;
 }
