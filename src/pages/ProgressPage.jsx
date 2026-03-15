@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Fire, Target, Notebook, ChatsCircle, Brain, TrendUp, ArrowUp, ArrowDown } from '@phosphor-icons/react';
+import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle } from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
 import { getOverallProgress, getTotalXP } from '../utils/database';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
@@ -15,16 +15,16 @@ import ScoreGauge from '../components/common/ScoreGauge';
 import './ProgressPage.css';
 
 const SKILL_CATEGORIES = [
-  { key: 'Open vs. Closed', color: '#EF4444' },
-  { key: 'Clarifying', color: '#F59E0B' },
-  { key: 'Probing', color: '#8B5CF6' },
-  { key: 'Empathy', color: '#EC4899' },
+  { key: 'Open vs. Closed', color: '#10B981' },
+  { key: 'Clarifying', color: '#10B981' },
+  { key: 'Probing', color: '#10B981' },
+  { key: 'Empathy', color: '#10B981' },
   { key: 'Framing', color: '#10B981' },
-  { key: 'Follow-up', color: '#3B82F6' },
-  { key: 'Self-Reflection', color: '#06B6D4' },
-  { key: 'Body Language', color: '#F97316' },
-  { key: 'Cultural Awareness', color: '#14B8A6' },
-  { key: 'Leadership', color: '#6366F1' },
+  { key: 'Follow-up', color: '#10B981' },
+  { key: 'Self-Reflection', color: '#10B981' },
+  { key: 'Body Language', color: '#10B981' },
+  { key: 'Cultural Awareness', color: '#10B981' },
+  { key: 'Leadership', color: '#10B981' },
 ];
 
 export default function ProgressPage() {
@@ -135,10 +135,10 @@ export default function ProgressPage() {
             </div>
           </div>
           <div className="skill-callout weak">
-            <ArrowDown size={16} weight="bold" color="#EF4444" />
+            <ArrowDown size={16} weight="bold" color="#78716C" />
             <div>
               <span className="callout-label">Needs Work</span>
-              <span className="callout-value" style={{ color: weakest.color }}>{weakest.key}</span>
+              <span className="callout-value" style={{ color: '#78716C' }}>{weakest.key}</span>
             </div>
           </div>
         </div>
@@ -150,12 +150,12 @@ export default function ProgressPage() {
 
           <div className="stats-grid">
             <div className="stat-card">
-              <Target size={24} color="#EF4444" />
+              <Target size={24} color="#10B981" />
               <span className="stat-value">{progress.totalPracticeAttempts}</span>
               <span className="stat-label">Practice Attempts</span>
             </div>
             <div className="stat-card">
-              <span className="stat-icon-text" style={{ color: '#EF4444' }}>
+              <span className="stat-icon-text" style={{ color: '#10B981' }}>
                 {progress.averagePracticeScore}
               </span>
               <span className="stat-value-sm">avg score</span>
@@ -177,36 +177,36 @@ export default function ProgressPage() {
 
           <div className="activity-list">
             <div className="activity-row">
-              <div className="activity-icon" style={{ background: '#FEF3C7' }}>
-                <span style={{ fontSize: '1rem' }}>📖</span>
+              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                <BookOpen size={18} color="#10B981" />
               </div>
               <span className="activity-label">Lessons Reflected</span>
               <span className="activity-value">{progress.lessonsWithReflections} / {LESSONS.length}</span>
             </div>
             <div className="activity-row">
-              <div className="activity-icon" style={{ background: '#D1FAE5' }}>
-                <span style={{ fontSize: '1rem' }}>✅</span>
+              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                <CheckCircle size={18} color="#10B981" />
               </div>
               <span className="activity-label">Challenges Completed</span>
               <span className="activity-value">{progress.challengesCompleted}</span>
             </div>
             <div className="activity-row">
-              <div className="activity-icon" style={{ background: '#CFFAFE' }}>
-                <Notebook size={18} color="#06B6D4" />
+              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                <Notebook size={18} color="#10B981" />
               </div>
               <span className="activity-label">Journal Entries</span>
               <span className="activity-value">{progress.journalEntries}</span>
             </div>
             <div className="activity-row">
-              <div className="activity-icon" style={{ background: '#EDE9FE' }}>
-                <ChatsCircle size={18} color="#8B5CF6" />
+              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                <ChatsCircle size={18} color="#10B981" />
               </div>
               <span className="activity-label">Simulations</span>
               <span className="activity-value">{progress.simulationsCompleted}</span>
             </div>
             <div className="activity-row">
-              <div className="activity-icon" style={{ background: '#DBEAFE' }}>
-                <Brain size={18} color="#3B82F6" />
+              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                <Brain size={18} color="#10B981" />
               </div>
               <span className="activity-label">Cards Learned</span>
               <span className="activity-value">{progress.cardsLearned}</span>

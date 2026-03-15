@@ -6,16 +6,16 @@
  */
 
 export const CATEGORY_COLORS = {
-  'Open vs. Closed': '#EF4444',
-  'Clarifying': '#F59E0B',
-  'Probing': '#8B5CF6',
-  'Empathy': '#EC4899',
-  'Framing': '#10B981',
-  'Follow-up': '#3B82F6',
-  'Self-Reflection': '#06B6D4',
-  'Body Language': '#F97316',
-  'Cultural Awareness': '#14B8A6',
-  'Leadership': '#6366F1',
+  'Open vs. Closed': '#78716C',
+  'Clarifying': '#78716C',
+  'Probing': '#78716C',
+  'Empathy': '#78716C',
+  'Framing': '#78716C',
+  'Follow-up': '#78716C',
+  'Self-Reflection': '#78716C',
+  'Body Language': '#78716C',
+  'Cultural Awareness': '#78716C',
+  'Leadership': '#78716C',
 };
 
 export const DAILY_INSIGHTS = [

@@ -47,14 +47,14 @@ const NEW_USER_MODES = [
   {
     title: 'Pattern Mode',
     reason: 'Discover how you read people and situations',
-    color: '#8B5CF6',
+    color: '#10B981',
     Icon: Eye,
     path: '/mode/pattern',
   },
   {
     title: 'Practice Mode',
     reason: 'Rewrite real questions and get instant AI feedback',
-    color: '#EF4444',
+    color: '#10B981',
     Icon: Target,
     path: '/mode/practice',
   },
@@ -139,13 +139,13 @@ export default function TodayPage() {
   };
 
   const QUEST_COLORS = {
-    practice: '#EF4444',
-    lesson: '#F59E0B',
-    journal: '#06B6D4',
+    practice: '#10B981',
+    lesson: '#10B981',
+    journal: '#10B981',
     daily_challenge: '#10B981',
-    review: '#3B82F6',
-    simulation: '#8B5CF6',
-    streak: '#F97316',
+    review: '#10B981',
+    simulation: '#10B981',
+    streak: '#F59E0B',
   };
 
   const QUEST_PATHS = {
