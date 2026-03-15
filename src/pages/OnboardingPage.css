@@ -1,50 +1,39 @@
+/* Onboarding — card-centered layout */
 .onboarding {
   min-height: 100dvh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
+  padding: var(--space-md);
 }
 
-/* Skip */
-.onboarding-skip {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: var(--radius-full);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.onboarding-skip:hover {
-  color: var(--text-secondary);
-}
-
-/* Slides area */
-.onboarding-slides {
-  flex: 1;
+/* Card */
+.onboarding-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(28, 25, 23, 0.10);
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  max-height: 92dvh;
 }
 
+.onboarding-card-body {
+  flex: 1;
+  padding: 40px 36px 24px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Slide animation wrapper */
 .onboarding-slide {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 64px var(--space-lg) 0;
 }
 
 .onboarding-screen {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -55,30 +44,27 @@
   gap: var(--space-lg);
 }
 
-/* Screen 1 — Welcome */
-.onboarding-welcome-top {
-  margin-bottom: var(--space-sm);
-}
-
+/* Eyebrow */
 .onboarding-eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: var(--space-sm);
+  color: #F59E0B;
+  margin-bottom: 4px;
 }
 
+/* Screen 1 — Welcome */
 .onboarding-headline-row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: var(--space-sm);
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .onboarding-headline {
   font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 4.5rem;
+  font-size: 4rem;
   line-height: 1;
   color: var(--text-primary);
   margin: 0;
@@ -88,97 +74,103 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  margin-top: var(--space-lg);
+  margin-top: var(--space-sm);
 }
 
 .onboarding-body {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
 
-/* Screen 2 — Modes */
+/* Screen 2 — How it works */
 .onboarding-subtitle {
   font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.75rem;
+  font-size: 1.6rem;
+  line-height: 1.25;
   color: var(--text-primary);
+  margin: 0;
 }
 
-.onboarding-modes {
+.onboarding-features {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 18px;
+  margin-top: 4px;
 }
 
-.onboarding-mode-row {
+.onboarding-feature-row {
   display: flex;
-  gap: var(--space-md);
   align-items: flex-start;
+  gap: 14px;
 }
 
-.onboarding-mode-icon {
-  width: 42px;
-  height: 42px;
+.onboarding-feature-icon {
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md);
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.onboarding-mode-content {
+.onboarding-feature-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding-top: 2px;
 }
 
-.onboarding-mode-name {
-  font-size: 0.95rem;
+.onboarding-feature-name {
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.onboarding-mode-tagline {
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--text-secondary);
-}
-
-.onboarding-mode-desc {
+.onboarding-feature-desc {
   font-size: 0.82rem;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin-top: 2px;
+  line-height: 1.45;
 }
 
 /* Screen 3 — Philosophy */
 .onboarding-quote-mark {
   font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 6rem;
+  font-size: 5rem;
   line-height: 0.8;
   color: var(--border);
 }
 
 .onboarding-philosophy {
   font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.65rem;
+  font-size: 1.55rem;
   line-height: 1.3;
   color: var(--text-primary);
+  margin: 0;
 }
 
 /* Footer */
-.onboarding-footer {
-  padding: var(--space-lg);
-  padding-bottom: max(var(--space-xl), env(safe-area-inset-bottom, 24px));
+.onboarding-card-footer {
+  padding: 18px 28px 24px;
+  border-top: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.onboarding-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .onboarding-dots {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   align-items: center;
 }
 
@@ -191,55 +183,57 @@
 }
 
 .onboarding-dot.active {
-  width: 20px;
-  background: var(--text-primary);
-}
-
-.onboarding-nav {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  width: 100%;
+  width: 18px;
+  background: #F59E0B;
 }
 
 .onboarding-back {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius-full);
   background: var(--bg-secondary);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   border: none;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.15s;
+  flex-shrink: 0;
 }
 
 .onboarding-back:hover {
   background: var(--border);
 }
 
-.onboarding-back:active {
-  transform: scale(0.95);
+.onboarding-skip {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.onboarding-skip:hover {
+  color: var(--text-secondary);
 }
 
 .onboarding-cta {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  flex: 1;
-  padding: 16px var(--space-lg);
+  gap: 8px;
+  padding: 12px 22px;
   border-radius: var(--radius-full);
   background: var(--text-primary);
   color: var(--bg-primary);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
+  transition: opacity 0.15s, transform 0.12s;
+  white-space: nowrap;
 }
 
 .onboarding-cta:hover {
@@ -248,4 +242,14 @@
 
 .onboarding-cta:active {
   transform: scale(0.97);
+}
+
+/* Mobile: let card fill vertically on small screens */
+@media (max-height: 640px) {
+  .onboarding-card-body {
+    padding: 28px 24px 16px;
+  }
+  .onboarding-card-footer {
+    padding: 14px 20px 18px;
+  }
 }

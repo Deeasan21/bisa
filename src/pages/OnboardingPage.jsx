@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
-import Card from '../components/common/Card';
 import './OnboardingPage.css';
 
 export default function OnboardingPage() {
@@ -27,34 +26,32 @@ export default function OnboardingPage() {
 
   return (
     <div className="onboarding">
-      <button className="onboarding-skip" onClick={finish}>Skip</button>
-
-      <div className="onboarding-slides">
-        <div key={slide} className="onboarding-slide animate-slide-fade-in">
-          {slide === 0 && <WelcomeScreen />}
-          {slide === 1 && <ModesScreen />}
-          {slide === 2 && <PhilosophyScreen />}
+      <div className="onboarding-card animate-fade-in">
+        <div className="onboarding-card-body">
+          <div key={slide} className="onboarding-slide animate-slide-fade-in">
+            {slide === 0 && <WelcomeScreen />}
+            {slide === 1 && <ModesScreen />}
+            {slide === 2 && <PhilosophyScreen />}
+          </div>
         </div>
-      </div>
 
-      <div className="onboarding-footer">
-        <div className="onboarding-dots">
-          {[0, 1, 2].map(i => (
-            <div key={i} className={`onboarding-dot${i === slide ? ' active' : ''}`} />
-          ))}
-        </div>
-        <div className="onboarding-nav">
-          <button
-            className="onboarding-back"
-            onClick={back}
-            style={{ visibility: slide === 0 ? 'hidden' : 'visible' }}
-            aria-hidden={slide === 0}
-          >
-            <ArrowLeft size={18} weight="bold" />
-          </button>
+        <div className="onboarding-card-footer">
+          <div className="onboarding-footer-left">
+            {slide > 0 && (
+              <button className="onboarding-back" onClick={back} aria-label="Go back">
+                <ArrowLeft size={15} weight="bold" />
+              </button>
+            )}
+            <div className="onboarding-dots">
+              {[0, 1, 2].map(i => (
+                <div key={i} className={`onboarding-dot${i === slide ? ' active' : ''}`} />
+              ))}
+            </div>
+            <button className="onboarding-skip" onClick={finish}>Skip</button>
+          </div>
           <button className="onboarding-cta" onClick={next}>
             {CTA_LABELS[slide]}
-            <ArrowRight size={18} weight="bold" />
+            <ArrowRight size={15} weight="bold" />
           </button>
         </div>
       </div>
@@ -65,12 +62,10 @@ export default function OnboardingPage() {
 function WelcomeScreen() {
   return (
     <div className="onboarding-screen">
-      <div className="onboarding-welcome-top">
-        <p className="onboarding-eyebrow">ask · learn · grow</p>
-        <div className="onboarding-headline-row">
-          <NeaOnnim size={52} />
-          <h1 className="onboarding-headline">Bisa</h1>
-        </div>
+      <p className="onboarding-eyebrow">ask · learn · grow</p>
+      <div className="onboarding-headline-row">
+        <NeaOnnim size={48} />
+        <h1 className="onboarding-headline">Bisa</h1>
       </div>
       <div className="onboarding-welcome-body">
         <p className="onboarding-body">
@@ -88,44 +83,39 @@ function ModesScreen() {
   const modes = [
     {
       Icon: Lightning,
-      color: '#F59E0B',
-      name: 'Question Burst',
-      tagline: 'Build the instinct before the words.',
-      desc: "Short timed rounds that train you to ask instead of assume. The goal isn't speed — it's making curiosity feel natural.",
+      name: 'Daily prompts',
+      desc: 'Short scenarios to reframe how you ask',
     },
     {
       Icon: Eye,
-      color: '#8B5CF6',
-      name: 'Pattern Recognition',
-      tagline: 'Learn to hear what isn\'t being said.',
-      desc: "Five training modes that help you read tone, subtext, and your own defaults — before you respond.",
+      name: 'Reflection modes',
+      desc: 'See the difference a better question makes',
     },
     {
       Icon: ArrowCounterClockwise,
-      color: '#3B82F6',
-      name: 'Review',
-      tagline: 'Let what you learn actually land.',
-      desc: "Spaced repetition that tests how you apply ideas, not just whether you remember them.",
+      name: 'Growth tracking',
+      desc: 'Watch your question instincts evolve over time',
     },
   ];
 
   return (
     <div className="onboarding-screen">
-      <h2 className="onboarding-subtitle">Three ways to train</h2>
-      <div className="onboarding-modes">
-        {modes.map(({ Icon, color, name, tagline, desc }) => (
-          <Card key={name} padding="md" className="onboarding-mode-card">
-            <div className="onboarding-mode-row">
-              <div className="onboarding-mode-icon" style={{ background: `${color}18` }}>
-                <Icon size={22} weight="duotone" color={color} />
-              </div>
-              <div className="onboarding-mode-content">
-                <span className="onboarding-mode-name">{name}</span>
-                <span className="onboarding-mode-tagline">{tagline}</span>
-                <span className="onboarding-mode-desc">{desc}</span>
-              </div>
+      <p className="onboarding-eyebrow">How it works</p>
+      <h2 className="onboarding-subtitle">A quiet space to practice asking well.</h2>
+      <p className="onboarding-body">
+        Bisa gives you small, thoughtful exercises to sharpen the questions you bring to conversations, work, and life.
+      </p>
+      <div className="onboarding-features">
+        {modes.map(({ Icon, name, desc }) => (
+          <div key={name} className="onboarding-feature-row">
+            <div className="onboarding-feature-icon">
+              <Icon size={18} weight="duotone" color="#78716C" />
             </div>
-          </Card>
+            <div className="onboarding-feature-text">
+              <span className="onboarding-feature-name">{name}</span>
+              <span className="onboarding-feature-desc">{desc}</span>
+            </div>
+          </div>
         ))}
       </div>
     </div>
