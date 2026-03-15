@@ -397,13 +397,38 @@ export function getPracticeStats(db) {
 // STREAK & CHALLENGE FUNCTIONS
 // ============================================
 
+const STREAK_KEY = 'bisa-streak';
+
+function loadStreakFromStorage() {
+  try {
+    const raw = localStorage.getItem(STREAK_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function saveStreakToStorage(current, longest, lastDate) {
+  try {
+    localStorage.setItem(STREAK_KEY, JSON.stringify({ current, longest, lastDate }));
+  } catch { /* storage full — ignore */ }
+}
+
 export function getStreakInfo(db) {
+  // localStorage is the authoritative streak source — it's synchronous and can't race.
+  // Fall back to SQL (loaded from IDB) if localStorage has nothing.
+  const stored = loadStreakFromStorage();
+  if (stored) {
+    return {
+      currentStreak: stored.current || 0,
+      longestStreak: stored.longest || 0,
+      lastChallengeDate: stored.lastDate || null,
+    };
+  }
   const results = query(db, "SELECT current_streak, longest_streak, last_challenge_date FROM streak_data WHERE id = 1");
   if (results.length > 0) {
     return {
       currentStreak: results[0].current_streak || 0,
       longestStreak: results[0].longest_streak || 0,
-      lastChallengeDate: results[0].last_challenge_date
+      lastChallengeDate: results[0].last_challenge_date,
     };
   }
   return { currentStreak: 0, longestStreak: 0, lastChallengeDate: null };
@@ -428,6 +453,11 @@ export function updateStreak(db, dateStr) {
   }
 
   const newLongest = Math.max(newStreak, info.longestStreak);
+
+  // Write to localStorage synchronously first — this is the reliable path.
+  saveStreakToStorage(newStreak, newLongest, dateStr);
+
+  // Also write to SQL so other queries (getOverallProgress, etc.) stay consistent.
   runStmt(db, "UPDATE streak_data SET current_streak = ?, longest_streak = ?, last_challenge_date = ? WHERE id = 1",
     [newStreak, newLongest, dateStr]);
   saveDatabase(db);

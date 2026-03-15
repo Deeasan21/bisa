@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import { initializeSchema, loadFromIDB, saveToIDB, saveDatabaseNow } from '../utils/database';
+import { initializeSchema, loadFromIDB, saveToIDB, saveDatabaseNow, getStreakInfo } from '../utils/database';
 
 const DatabaseContext = createContext(null);
 
@@ -22,6 +22,18 @@ export function DatabaseProvider({ children }) {
           : new SQL.Database();
 
         initializeSchema(database);
+
+        // One-time migration: seed localStorage streak from SQL if not already there
+        if (!localStorage.getItem('bisa-streak')) {
+          const info = getStreakInfo(database);
+          if (info.currentStreak > 0) {
+            localStorage.setItem('bisa-streak', JSON.stringify({
+              current: info.currentStreak,
+              longest: info.longestStreak,
+              lastDate: info.lastChallengeDate,
+            }));
+          }
+        }
 
         if (mounted) {
           dbRef.current = database;
