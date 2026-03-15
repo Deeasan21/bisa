@@ -305,11 +305,28 @@ export function queryStmt(db, sql, params = []) {
 // Save Database
 // ============================================
 
+// Debounced save — all writes in a batch get one snapshot
+let _saveTimer = null;
+let _pendingDb = null;
+
 export function saveDatabase(db) {
-  if (db) {
-    const data = db.export();
+  if (!db) return;
+  _pendingDb = db;
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    const data = _pendingDb.export();
     saveToIDB(data.buffer);
-  }
+    _pendingDb = null;
+  }, 200);
+}
+
+export function saveDatabaseNow(db) {
+  if (!db) return;
+  clearTimeout(_saveTimer);
+  _saveTimer = null;
+  _pendingDb = null;
+  const data = db.export();
+  saveToIDB(data.buffer);
 }
 
 // ============================================

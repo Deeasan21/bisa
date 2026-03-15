@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import { initializeSchema, loadFromIDB, saveToIDB } from '../utils/database';
+import { initializeSchema, loadFromIDB, saveToIDB, saveDatabaseNow } from '../utils/database';
 
 const DatabaseContext = createContext(null);
 
@@ -41,7 +41,7 @@ export function DatabaseProvider({ children }) {
 
     const handleUnload = () => {
       if (dbRef.current) {
-        saveToIDB(dbRef.current.export().buffer);
+        saveDatabaseNow(dbRef.current);
       }
     };
 
