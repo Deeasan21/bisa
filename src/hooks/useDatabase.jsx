@@ -15,7 +15,7 @@ export function DatabaseProvider({ children }) {
     async function init() {
       try {
         const initSqlJs = (await import('sql.js')).default;
-        const SQL = await initSqlJs({ locateFile: file => `/${file}` });
+        const SQL = await initSqlJs({ locateFile: () => '/sql-wasm.wasm' });
         const savedData = await loadFromIDB();
         const database = savedData
           ? new SQL.Database(new Uint8Array(savedData))
