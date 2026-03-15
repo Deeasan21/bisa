@@ -164,6 +164,8 @@ export default function DailyChallenge() {
     // 2. Update streak (must succeed independently)
     try {
       newStreak = updateStreak(db, todayStr);
+      setStreak(newStreak);
+      setLongestStreak(prev => Math.max(prev, newStreak));
     } catch (err) {
       console.error('Failed to update streak:', err);
     }
