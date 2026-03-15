@@ -266,9 +266,10 @@ export function initializeSchema(db) {
 export function query(db, sql) {
   if (!db) return [];
   const result = db.exec(sql);
-  if (result.length === 0) return [];
+  if (!result || result.length === 0 || !result[0] || !result[0].columns) return [];
   const columns = result[0].columns;
-  return result[0].values.map(row => {
+  const values = result[0].values || [];
+  return values.map(row => {
     const obj = {};
     columns.forEach((col, i) => obj[col] = row[i]);
     return obj;
