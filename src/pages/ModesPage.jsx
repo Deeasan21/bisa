@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star } from '@phosphor-icons/react';
 import { PLAYABLE_MODES } from '../themes/modeThemes';
-import { useDatabase } from '../hooks/useDatabase';
-import { getOverallProgress } from '../utils/database';
-import { getRecommendedMode } from '../engine/recommendations';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { LESSONS } from '../data/lessons';
 import { PRACTICE_SCENARIOS } from '../data/practiceScenarios';
 import { SIMULATIONS } from '../data/simulations';
@@ -13,12 +11,17 @@ import './ModesPage.css';
 
 export default function ModesPage() {
   const navigate = useNavigate();
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [progress, setProgress] = useState(null);
+  const [recommended, setRecommended] = useState(null);
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setProgress(getOverallProgress(db));
+    (async () => {
+      setProgress(await db.getOverallProgress());
+      const rec = await db.getRecommendedMode();
+      setRecommended(rec?.mode || null);
+    })();
   }, [db, isReady]);
 
   // Calculate completion percentage per mode
@@ -34,15 +37,6 @@ export default function ModesPage() {
       default: return 0;
     }
   };
-
-  // Find recommended mode using engine
-  const getRecommended = () => {
-    if (!db) return null;
-    const rec = getRecommendedMode(db);
-    return rec?.mode || null;
-  };
-
-  const recommended = getRecommended();
 
   return (
     <div className="modes-page animate-fade-in">

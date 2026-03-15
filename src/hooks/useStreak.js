@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useDatabase } from './useDatabase';
-import { getStreakInfo } from '../utils/database';
+import { useSupabaseDB } from './useSupabaseDB';
 
 export function useStreak() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [streak, setStreak] = useState({ currentStreak: 0, longestStreak: 0, lastChallengeDate: null });
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setStreak(getStreakInfo(db));
+    db.getStreakInfo().then(setStreak).catch(console.error);
   }, [db, isReady]);
 
-  const refresh = () => {
-    if (db) setStreak(getStreakInfo(db));
+  const refresh = async () => {
+    if (db) setStreak(await db.getStreakInfo());
   };
 
   return { ...streak, refresh };

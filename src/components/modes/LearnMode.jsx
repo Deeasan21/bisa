@@ -3,11 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { Trash, Sparkle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { LESSONS } from '../../data/lessons';
-import { useDatabase } from '../../hooks/useDatabase';
-import { getReflection, saveReflection, deleteReflection, getOverallProgress } from '../../utils/database';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
+import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIReflectionFeedback } from '../../engine/aiReflectionCoaching';
 import ModeHeader from '../layout/ModeHeader';
@@ -49,7 +46,7 @@ const REFLECTION_PROMPTS = {
 };
 
 export default function LearnMode() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const location = useLocation();
   const initialLesson = location.state?.lessonIndex ?? 0;
   const [selectedLesson, setSelectedLesson] = useState(initialLesson);
@@ -86,28 +83,28 @@ export default function LearnMode() {
 
   useEffect(() => {
     if (!isReady || !db || !lesson) return;
-    const existing = getReflection(db, lesson.id);
-    setReflection(existing || '');
-    setSaved(!!existing);
-    setAiReflectionResult(null);
-    setAiReflectionLoading(false);
+    (async () => {
+      const existing = await db.getReflection(lesson.id);
+      setReflection(existing || '');
+      setSaved(!!existing);
+      setAiReflectionResult(null);
+      setAiReflectionLoading(false);
 
-    // Check which lessons have reflections
-    const reflected = new Set();
-    LESSONS.forEach(l => {
-      if (getReflection(db, l.id)) reflected.add(l.id);
-    });
-    setReflectedLessons(reflected);
+      // Check which lessons have reflections
+      const allRef = await db.getAllReflections();
+      const reflected = new Set(allRef.map(r => r.lessonId));
+      setReflectedLessons(reflected);
+    })();
   }, [db, isReady, selectedLesson, lesson]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!db || !reflection.trim()) return;
-    saveReflection(db, lesson.id, reflection);
+    await db.saveReflection(lesson.id, reflection);
     if (!saved) {
       try {
-        awardXP(db, 'lesson', XP_RULES.lesson(), `Reflection on Lesson ${lesson.id}`);
-        updateQuestProgress(db, 'lesson');
-        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        await db.awardXP('lesson', XP_RULES.lesson(), `Reflection on Lesson ${lesson.id}`);
+        await db.updateQuestProgress('lesson');
+        const { newlyUnlocked } = await db.checkAchievements();
         if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       } catch (err) {
         console.error('Engine error during lesson save:', err);
@@ -118,9 +115,9 @@ export default function LearnMode() {
     setAiReflectionResult(null);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!db) return;
-    deleteReflection(db, lesson.id);
+    await db.deleteReflection(lesson.id);
     setReflection('');
     setSaved(false);
     setAiReflectionResult(null);

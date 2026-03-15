@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, X, Star, Trash, MagnifyingGlass, BookOpen } from '@phosphor-icons/react';
-import { useDatabase } from '../hooks/useDatabase';
-import { addJournalEntry, getJournalEntries, deleteJournalEntry, getAllReflections, getOverallProgress } from '../utils/database';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { LESSONS } from '../data/lessons';
-import { awardXP, XP_RULES } from '../engine/xpSystem';
-import { updateQuestProgress } from '../engine/dailyQuests';
-import { checkAchievements } from '../engine/achievements';
+import { XP_RULES } from '../engine/xpSystem';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
@@ -59,7 +56,7 @@ const defaultForm = {
 };
 
 export default function JournalPage() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
   const [reflections, setReflections] = useState([]);
@@ -73,32 +70,34 @@ export default function JournalPage() {
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setEntries(getJournalEntries(db));
-    setReflections(getAllReflections(db));
+    (async () => {
+      setEntries(await db.getJournalEntries());
+      setReflections(await db.getAllReflections());
+    })();
   }, [db, isReady, activeTab]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!db || !form.question.trim()) return;
     try {
-      addJournalEntry(db, form);
-      awardXP(db, 'journal', XP_RULES.journal(), 'Journal entry');
-      updateQuestProgress(db, 'journal');
-      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      await db.addJournalEntry(form);
+      await db.awardXP('journal', XP_RULES.journal(), 'Journal entry');
+      await db.updateQuestProgress('journal');
+      const { newlyUnlocked } = await db.checkAchievements();
       if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during journal submission:', err);
     }
     setForm(defaultForm);
     setShowForm(false);
-    setEntries(getJournalEntries(db));
+    setEntries(await db.getJournalEntries());
   };
 
   const handleDelete = (id) => {
     setDeletingId(id);
-    setTimeout(() => {
+    setTimeout(async () => {
       if (!db) return;
-      deleteJournalEntry(db, id);
-      setEntries(getJournalEntries(db));
+      await db.deleteJournalEntry(id);
+      setEntries(await db.getJournalEntries());
       setDeletingId(null);
     }, 400);
   };

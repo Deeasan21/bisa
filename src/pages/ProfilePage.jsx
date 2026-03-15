@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, GearSix } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, GearSix, SignOut } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
-import { useDatabase } from '../hooks/useDatabase';
-import { getOrCreateProfile, updateProfile, getTotalXP, getStreakInfo, getUnlockedAchievements, getOverallProgress } from '../utils/database';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
+import { useAuth } from '../hooks/useAuth';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
-import { getLeague, getNextLeague, getLeagueProgress, getWeeklyXP, getSimulatedRanking } from '../engine/leagues';
+import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
 import Card from '../components/common/Card';
 import ApiKeySettings from '../components/settings/ApiKeySettings';
@@ -41,29 +41,35 @@ function getPhosphorIcon(name) {
 }
 
 export default function ProfilePage() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
+  const { signOut } = useAuth();
   const [profile, setProfile] = useState(null);
   const [xp, setXp] = useState(0);
   const [streak, setStreak] = useState(0);
   const [unlocked, setUnlocked] = useState([]);
+  const [weekXP, setWeekXP] = useState(0);
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
     if (!isReady || !db) return;
-    const p = getOrCreateProfile(db);
-    setProfile(p);
-    setNameInput(p.display_name || 'Learner');
-    setXp(getTotalXP(db));
-    setStreak(getStreakInfo(db).currentStreak);
-    setUnlocked(getUnlockedAchievements(db).map(a => a.achievement_id));
-    setProgress(getOverallProgress(db));
+    (async () => {
+      const p = await db.getProfile();
+      setProfile(p);
+      setNameInput(p?.display_name || 'Learner');
+      setXp(await db.getTotalXP());
+      const streakInfo = await db.getStreakInfo();
+      setStreak(streakInfo.currentStreak);
+      setUnlocked((await db.getUnlockedAchievements()).map(a => a.achievement_id));
+      setProgress(await db.getOverallProgress());
+      setWeekXP(await db.getWeeklyXP());
+    })();
   }, [db, isReady]);
 
-  const handleSaveName = () => {
+  const handleSaveName = async () => {
     if (!db || !nameInput.trim()) return;
-    updateProfile(db, { displayName: nameInput.trim() });
+    await db.updateProfile({ displayName: nameInput.trim() });
     setProfile(prev => ({ ...prev, display_name: nameInput.trim() }));
     setEditing(false);
   };
@@ -73,11 +79,10 @@ export default function ProfilePage() {
   const displayName = profile?.display_name || 'Learner';
   const initial = displayName.charAt(0).toUpperCase();
 
-  // Use engine league system
+  // Use engine league system (pure XP calc, no db needed)
   const engineLeague = getLeague(xp);
   const nextLeague = getNextLeague(xp);
   const leagueProgressVal = getLeagueProgress(xp);
-  const weekXP = db ? getWeeklyXP(db) : 0;
   const ranking = getSimulatedRanking(xp);
 
   // Weekly summary
@@ -87,7 +92,7 @@ export default function ProfilePage() {
     xp: weekXP,
   } : null;
 
-  // Recommended next activity (using engine)
+  // Recommended next activity
   const getRecommendation = () => {
     if (!progress) return null;
     if (progress.lessonsWithReflections < 5) return { label: 'Continue learning', path: '/mode/learn', color: '#F59E0B' };
@@ -98,6 +103,14 @@ export default function ProfilePage() {
   };
 
   const recommendation = getRecommendation();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (e) {
+      console.error('Sign out failed:', e);
+    }
+  };
 
   return (
     <div className="profile-page animate-fade-in">
@@ -195,11 +208,26 @@ export default function ProfilePage() {
           );
         })}
       </div>
+
       <h2 className="profile-section-title">
         <GearSix size={18} weight="duotone" />
         Settings
       </h2>
       <ApiKeySettings />
+
+      <button
+        onClick={handleSignOut}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          margin: '24px auto 8px', padding: '10px 20px',
+          background: 'transparent', border: '1.5px solid var(--border)',
+          borderRadius: 'var(--radius-md)', color: 'var(--text-secondary)',
+          fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer',
+        }}
+      >
+        <SignOut size={16} />
+        Sign out
+      </button>
     </div>
   );
 }

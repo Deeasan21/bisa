@@ -3,16 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import { Robot, Sparkle, Eye } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
-import { useDatabase } from '../../hooks/useDatabase';
-import { savePracticeAttempt } from '../../utils/database';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { getRandomScenario } from '../../utils/scoring';
 import { scoreResponse } from '../../engine/responseScorer';
 import { aiScoreQuestion } from '../../engine/aiScorer';
-import { recordScore, filterByDifficulty } from '../../engine/adaptiveDifficulty';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
-import { getOverallProgress } from '../../utils/database';
+import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIFeedback } from '../../engine/aiFeedback';
 import { generateObservationClues } from '../../engine/observationClues';
@@ -60,7 +55,7 @@ const DIFFICULTY_COLORS = {
 };
 
 export default function PracticeMode() {
-  const { db } = useDatabase();
+  const { db } = useSupabaseDB();
   const [scenario, setScenario] = useState(null);
   const [userQuestion, setUserQuestion] = useState('');
   const [result, setResult] = useState(null);
@@ -88,18 +83,14 @@ export default function PracticeMode() {
     return Array.from(cats).sort();
   }, []);
 
-  // Filtered scenarios (category + adaptive difficulty)
+  // Filtered scenarios by category (adaptive difficulty tier filtering removed for Supabase migration)
   const filteredScenarios = useMemo(() => {
     let filtered = PRACTICE_SCENARIOS;
     if (categoryFilter) {
       filtered = filtered.filter(s => (s.skillCategory || s.skill) === categoryFilter);
     }
-    if (db && categoryFilter) {
-      const adapted = filterByDifficulty(filtered, db, categoryFilter);
-      if (adapted.length > 0) return adapted;
-    }
     return filtered;
-  }, [categoryFilter, db]);
+  }, [categoryFilter]);
 
   // Auto-start when arriving from Progress page with a skill param
   useEffect(() => {
@@ -141,13 +132,13 @@ export default function PracticeMode() {
     if (db) {
       try {
         const feedbackText = scored.feedback.join(' ');
-        savePracticeAttempt(db, scenario.id, userQuestion, scored.score, feedbackText);
+        await db.savePracticeAttempt(scenario.id, userQuestion, scored.score, feedbackText);
         const category = scenario.skillCategory || scenario.skill || 'Open vs. Closed';
-        recordScore(db, 'practice', category, scored.score);
+        await db.recordScore('practice', category, scored.score);
         const xpAmount = XP_RULES.practice(scored.score);
-        awardXP(db, 'practice', xpAmount, `Practiced: ${category}`);
-        updateQuestProgress(db, 'practice');
-        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        await db.awardXP('practice', xpAmount, `Practiced: ${category}`);
+        await db.updateQuestProgress('practice');
+        const { newlyUnlocked } = await db.checkAchievements();
         if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       } catch (err) {
         console.error('Engine error during practice submission:', err);

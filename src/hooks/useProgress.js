@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useDatabase } from './useDatabase';
-import { getOverallProgress } from '../utils/database';
+import { useSupabaseDB } from './useSupabaseDB';
 
 export function useProgress() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setProgress(getOverallProgress(db));
+    db.getOverallProgress().then(setProgress).catch(console.error);
   }, [db, isReady]);
 
-  const refresh = () => {
-    if (db) setProgress(getOverallProgress(db));
+  const refresh = async () => {
+    if (db) setProgress(await db.getOverallProgress());
   };
 
   return { progress, refresh, isReady };

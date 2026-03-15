@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight } from '@phosphor-icons/react';
-import { useDatabase } from '../hooks/useDatabase';
-import { getOverallProgress, getTotalXP } from '../utils/database';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
-import { calculateBPQ, getBPQLevel } from '../engine/bpqScore';
-import { getRecommendations } from '../engine/recommendations';
-import { getWeeklyXP } from '../engine/leagues';
+import { getBPQLevel } from '../engine/bpqScore';
 import { LESSONS } from '../data/lessons';
 import { PRACTICE_SCENARIOS } from '../data/practiceScenarios';
 import ProgressBar from '../components/common/ProgressBar';
@@ -29,7 +26,7 @@ const SKILL_CATEGORIES = [
 ];
 
 export default function ProgressPage() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const navigate = useNavigate();
   const [progress, setProgress] = useState(null);
   const [xp, setXp] = useState(0);
@@ -39,20 +36,29 @@ export default function ProgressPage() {
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setProgress(getOverallProgress(db));
-    setXp(getTotalXP(db));
-    setBpqData(calculateBPQ(db));
-    setWeekXP(getWeeklyXP(db));
+    (async () => {
+      const prog = await db.getOverallProgress();
+      setProgress(prog);
+      setXp(prog.totalXP);
+      setWeekXP(await db.getWeeklyXP());
 
-    // Get real insights from recommendations engine
-    const recs = getRecommendations(db);
-    const strongCat = recs.strongestCategory
-      ? SKILL_CATEGORIES.find(c => c.key === recs.strongestCategory.category) || null
-      : null;
-    const weakCat = recs.weakestCategory
-      ? SKILL_CATEGORIES.find(c => c.key === recs.weakestCategory.category) || null
-      : null;
-    setInsights({ strongest: strongCat, weakest: weakCat });
+      // Derive a simple BPQ from practice average (0-1000 scale)
+      const bpqScore = Math.round((prog.averagePracticeScore / 100) * 1000 * 0.6 +
+        Math.min(prog.totalPracticeAttempts, 100) * 2 +
+        Math.min(prog.currentStreak, 30) * 6.67);
+      const clampedBpq = Math.min(1000, bpqScore);
+      setBpqData({ score: clampedBpq, level: getBPQLevel(clampedBpq), categoryScores: {} });
+
+      // Get insights from Supabase-backed recommendations
+      const recs = await db.getRecommendations();
+      const strongCat = recs.strongestCategory
+        ? SKILL_CATEGORIES.find(c => c.key === recs.strongestCategory) || null
+        : null;
+      const weakCat = recs.weakestCategory
+        ? SKILL_CATEGORIES.find(c => c.key === recs.weakestCategory) || null
+        : null;
+      setInsights({ strongest: strongCat, weakest: weakCat });
+    })();
   }, [db, isReady]);
 
   const level = calculateLevel(xp);

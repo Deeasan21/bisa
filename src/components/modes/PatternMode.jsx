@@ -8,14 +8,10 @@ import {
   MICRO_EXPRESSION_SCENARIOS,
   SITUATIONAL_SCENARIOS,
 } from '../../data/patternScenarios';
-import { useDatabase } from '../../hooks/useDatabase';
-import { savePatternAttempt, getPatternStats, getOverallProgress } from '../../utils/database';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { getRandomScenario } from '../../utils/scoring';
 import { scoreReadReact, scoreMCQuestion, recordPatternChoice, calculatePRS, getRandomPrinciple } from '../../engine/patternScorer';
-import { recordScore } from '../../engine/adaptiveDifficulty';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
+import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIPatternFeedback } from '../../engine/aiPatternFeedback';
 import ModeHeader from '../layout/ModeHeader';
@@ -50,7 +46,7 @@ const SUB_MODE_NAMES = {
 };
 
 export default function PatternMode() {
-  const { db } = useDatabase();
+  const { db } = useSupabaseDB();
 
   // Phase: hub | round | feedback | summary
   const [phase, setPhase] = useState('hub');
@@ -167,8 +163,8 @@ export default function PatternMode() {
     // Database + gamification
     if (db) {
       try {
-        savePatternAttempt(
-          db, activeSubMode, currentScenario.id,
+        await db.savePatternAttempt(
+          activeSubMode, currentScenario.id,
           activeSubMode === 'read_react' ? userResponse : null,
           selectedOption,
           result.score,
@@ -181,14 +177,14 @@ export default function PatternMode() {
 
         const category = currentScenario.category || 'Empathy';
         if (result.score > 0) {
-          recordScore(db, 'pattern', category, result.score);
+          await db.recordScore('pattern', category, result.score);
         }
 
-        awardXP(db, 'pattern', xpAmount, `Pattern: ${SUB_MODE_NAMES[activeSubMode]}`);
+        await db.awardXP('pattern', xpAmount, `Pattern: ${SUB_MODE_NAMES[activeSubMode]}`);
 
-        updateQuestProgress(db, 'pattern');
+        await db.updateQuestProgress('pattern');
 
-        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+        const { newlyUnlocked } = await db.checkAchievements();
         if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
       } catch (err) {
         console.error('Engine error during pattern submission:', err);

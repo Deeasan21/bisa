@@ -1,26 +1,28 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useDatabase } from './useDatabase';
-import { addXP as dbAddXP, getTotalXP, getXPHistory } from '../utils/database';
+import { useSupabaseDB } from './useSupabaseDB';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 
 export function useXP() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [totalXP, setTotalXP] = useState(0);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     if (!isReady || !db) return;
-    setTotalXP(getTotalXP(db));
+    (async () => {
+      setTotalXP(await db.getTotalXP());
+      setHistory(await db.getXPHistory(20));
+    })();
   }, [db, isReady]);
 
-  const awardXP = useCallback((type, amount, description) => {
+  const awardXP = useCallback(async (type, amount, description) => {
     if (!db) return;
-    dbAddXP(db, type, amount, description);
-    setTotalXP(getTotalXP(db));
+    await db.addXP(type, amount, description);
+    setTotalXP(await db.getTotalXP());
   }, [db]);
 
   const level = calculateLevel(totalXP);
   const league = calculateLeague(totalXP);
-  const history = db ? getXPHistory(db, 20) : [];
 
   return { totalXP, level, league, history, awardXP };
 }

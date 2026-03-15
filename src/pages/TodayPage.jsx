@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Eye, SquaresFour } from '@phosphor-icons/react';
-import { useDatabase } from '../hooks/useDatabase';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useXP } from '../hooks/useXP';
-import { getStreakInfo, isChallengeCompletedToday, getOverallProgress, getChallengeHistory, queryStmt } from '../utils/database';
 import { getTimeOfDayGreeting, getTodayString, getHoursUntilMidnight, daysAgo } from '../utils/dateHelpers';
-import { generateDailyQuests, allQuestsCompleted as checkAllQuests } from '../engine/dailyQuests';
-import { awardXP, XP_RULES } from '../engine/xpSystem';
-import { getRecommendations, getRecommendedMode } from '../engine/recommendations';
+import { XP_RULES } from '../engine/xpSystem';
 import { getDailyInsight, CATEGORY_COLORS } from '../data/dailyInsights';
 import { LESSONS } from '../data/lessons';
 import ProgressBar from '../components/common/ProgressBar';
@@ -61,7 +58,7 @@ const NEW_USER_MODES = [
 ];
 
 export default function TodayPage() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const { level, totalXP } = useXP();
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,40 +73,39 @@ export default function TodayPage() {
   useEffect(() => {
     if (!isReady || !db) return;
 
-    try {
-      const info = getStreakInfo(db);
-      setStreak(info.currentStreak);
-      setLastDate(info.lastChallengeDate);
-    } catch (e) { console.error('streak read failed:', e); }
+    (async () => {
+      try {
+        const info = await db.getStreakInfo();
+        setStreak(info.currentStreak);
+        setLastDate(info.lastChallengeDate);
+      } catch (e) { console.error('streak read failed:', e); }
 
-    try {
-      const history = getChallengeHistory(db, 1);
-      setLastActivity(history.length > 0 ? history[0] : null);
-    } catch (e) { console.error('history read failed:', e); }
+      try {
+        const history = await db.getChallengeHistory(1);
+        setLastActivity(history.length > 0 ? history[0] : null);
+      } catch (e) { console.error('history read failed:', e); }
 
-    try { setNextMode(getRecommendedMode(db)); } catch (e) { console.error('nextMode failed:', e); }
+      try { setNextMode(await db.getRecommendedMode()); } catch (e) { console.error('nextMode failed:', e); }
 
-    try {
-      const quests = generateDailyQuests(db);
-      setEngineQuests(quests);
-    } catch (e) { console.error('quest gen failed:', e); }
+      try {
+        const quests = await db.generateDailyQuests();
+        setEngineQuests(quests);
+      } catch (e) { console.error('quest gen failed:', e); }
 
-    try { setRecommendations(getRecommendations(db)); } catch (e) { console.error('recommendations failed:', e); }
+      try { setRecommendations(await db.getRecommendations()); } catch (e) { console.error('recommendations failed:', e); }
 
-    // Check if all quests are done for confetti + bonus XP (once per day)
-    try {
-      if (checkAllQuests(db)) {
-        setShowConfetti(true);
-        const today = getTodayString();
-        const alreadyAwarded = queryStmt(db,
-          "SELECT 1 FROM xp_log WHERE activity_type = 'all_quests_completed' AND date(created_at) = ?",
-          [today]
-        );
-        if (alreadyAwarded.length === 0) {
-          awardXP(db, 'all_quests_completed', XP_RULES.allQuestsBonus(), 'Completed all daily quests');
+      // Check if all quests are done for confetti + bonus XP (once per day)
+      try {
+        const allDone = await db.allQuestsCompleted();
+        if (allDone) {
+          setShowConfetti(true);
+          const shouldAward = await db.checkAllQuestsXP();
+          if (shouldAward) {
+            await db.awardXP('all_quests_completed', XP_RULES.allQuestsBonus(), 'Completed all daily quests');
+          }
         }
-      }
-    } catch (err) { console.error('Failed to award quest bonus XP:', err); }
+      } catch (err) { console.error('Failed to award quest bonus XP:', err); }
+    })();
   }, [db, isReady, location.key]);
 
   const isNewUser = isReady && totalXP === 0 && !lastActivity;
@@ -168,7 +164,7 @@ export default function TodayPage() {
     xp: q.xp_reward,
     color: QUEST_COLORS[q.quest_type] || '#6B7280',
     path: QUEST_PATHS[q.quest_type] || '/mode/practice',
-    completed: q.completed === 1,
+    completed: q.completed === 1 || q.completed === true,
   }));
 
   const allQuestsDone = dailyQuests.length > 0 && dailyQuests.every(q => q.completed);

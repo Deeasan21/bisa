@@ -4,18 +4,11 @@ import { MODE_THEMES } from '../../themes/modeThemes';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { BURST_CHALLENGES, getTodaysBurst } from '../../data/burstChallenges';
 import { scoreBurst } from '../../engine/burstScorer';
-import { getCurrentTier, recordScore } from '../../engine/adaptiveDifficulty';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIBurstCoaching } from '../../engine/aiBurstCoaching';
-import { useDatabase } from '../../hooks/useDatabase';
-import {
-  getStreakInfo, updateStreak, isChallengeCompletedToday,
-  saveBurstCompletion, getChallengeHistory, getOverallProgress
-} from '../../utils/database';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { getTodayString, getHoursUntilMidnight } from '../../utils/dateHelpers';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
+import { XP_RULES } from '../../engine/xpSystem';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import Card from '../common/Card';
@@ -55,7 +48,7 @@ function getTimerDuration(tier) {
 }
 
 export default function DailyChallenge() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [phase, setPhase] = useState('ready');        // ready | burst | results | completed
   const [scenario, setScenario] = useState(null);      // today's burst scenario
   const [questions, setQuestions] = useState([]);       // submitted question strings
@@ -83,17 +76,17 @@ export default function DailyChallenge() {
 
     if (!isReady || !db) return;
 
-    const todayStr = getTodayString();
-    const done = isChallengeCompletedToday(db, todayStr);
-    if (done) {
-      setPhase('completed');
-    }
+    (async () => {
+      const todayStr = getTodayString();
+      const done = await db.isChallengeCompletedToday(todayStr);
+      if (done) setPhase('completed');
 
-    const info = getStreakInfo(db);
-    setStreak(info.currentStreak);
-    setLongestStreak(info.longestStreak);
+      const info = await db.getStreakInfo();
+      setStreak(info.currentStreak);
+      setLongestStreak(info.longestStreak);
 
-    setHistory(getChallengeHistory(db, 7));
+      setHistory(await db.getChallengeHistory(7));
+    })();
   }, [db, isReady]);
 
   // Update countdown every minute
@@ -122,8 +115,8 @@ export default function DailyChallenge() {
     }
   }, [questions]);
 
-  const handleStartBurst = () => {
-    const tier = db ? getCurrentTier(db, scenario?.skillCategory || 'Open vs. Closed') : 1;
+  const handleStartBurst = async () => {
+    const tier = db ? await db.getCurrentTier(scenario?.skillCategory || 'Open vs. Closed') : 1;
     const duration = getTimerDuration(tier);
     setTimeLeft(duration);
     setQuestions([]);
@@ -141,7 +134,7 @@ export default function DailyChallenge() {
     inputRef.current?.focus();
   };
 
-  const handleBurstEnd = () => {
+  const handleBurstEnd = async () => {
     const currentQuestions = questionsRef.current;
     if (currentQuestions.length === 0) {
       setPhase('ready');
@@ -156,14 +149,14 @@ export default function DailyChallenge() {
 
     // 1. Save the burst to challenge_history
     try {
-      saveBurstCompletion(db, todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore);
+      await db.saveBurstCompletion(todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore);
     } catch (err) {
       console.error('Failed to save burst completion:', err);
     }
 
     // 2. Update streak (must succeed independently)
     try {
-      newStreak = updateStreak(db, todayStr);
+      newStreak = await db.updateStreak(todayStr);
       setStreak(newStreak);
       setLongestStreak(prev => Math.max(prev, newStreak));
     } catch (err) {
@@ -173,7 +166,7 @@ export default function DailyChallenge() {
     // 3. Record score for adaptive difficulty
     try {
       const category = scenario.skillCategory || 'Open vs. Closed';
-      recordScore(db, 'daily_challenge', category, results.totalScore);
+      await db.recordScore('daily_challenge', category, results.totalScore);
     } catch (err) {
       console.error('Failed to record adaptive difficulty score:', err);
     }
@@ -181,14 +174,14 @@ export default function DailyChallenge() {
     // 4. Award XP and check achievements
     try {
       const xp = XP_RULES.dailyChallenge(results.totalScore);
-      awardXP(db, 'daily_challenge', xp, `Burst: ${scenario.character} (${results.totalScore})`);
+      await db.awardXP('daily_challenge', xp, `Burst: ${scenario.character} (${results.totalScore})`);
       setXpAwarded(xp);
       if (newStreak > 0) {
-        awardXP(db, 'streak', XP_RULES.streakBonus(newStreak), `${newStreak}-day streak`);
+        await db.awardXP('streak', XP_RULES.streakBonus(newStreak), `${newStreak}-day streak`);
       }
-      updateQuestProgress(db, 'daily_challenge');
-      updateQuestProgress(db, 'streak');
-      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      await db.updateQuestProgress('daily_challenge');
+      await db.updateQuestProgress('streak');
+      const { newlyUnlocked } = await db.checkAchievements();
       if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during XP/achievement processing:', err);
@@ -201,7 +194,7 @@ export default function DailyChallenge() {
     if (results.totalScore >= 70) {
       setShowConfetti(true);
     }
-    setHistory(getChallengeHistory(db, 7));
+    setHistory(await db.getChallengeHistory(7));
 
     // Trigger AI coaching if available
     if (hasApiKey()) {
@@ -231,11 +224,11 @@ export default function DailyChallenge() {
     return 'thinking';
   };
 
-  // Build streak calendar
+  // Build streak calendar (uses streak state already loaded)
   const getStreakCalendar = () => {
     const days = [];
     const today = new Date();
-    const info = db ? getStreakInfo(db) : { lastChallengeDate: null, currentStreak: 0 };
+    const info = { currentStreak: streak };
     for (let i = 6; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
@@ -305,7 +298,7 @@ export default function DailyChallenge() {
               <p className="burst-situation">{scenario.situation}</p>
               <div className="burst-timer-preview">
                 <Timer size={16} color="#10B981" />
-                <span>You'll have {getTimerDuration(db ? getCurrentTier(db, scenario.skillCategory) : 1)}s to ask as many questions as you can</span>
+                <span>You'll have {getTimerDuration(1)}s to ask as many questions as you can</span>
               </div>
             </Card>
             <Button variant="mode" modeColor="#10B981" onClick={handleStartBurst}>

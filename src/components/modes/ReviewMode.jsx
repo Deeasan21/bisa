@@ -3,11 +3,8 @@ import { Cards, CheckCircle, Fire } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
-import { useDatabase } from '../../hooks/useDatabase';
-import { seedReviewCards, seedFlashcards, getDueCards, submitReview, getReviewStats, getOverallProgress } from '../../utils/database';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
+import { XP_RULES } from '../../engine/xpSystem';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import Card from '../common/Card';
@@ -28,7 +25,7 @@ const QUALITY_MAP = {
 };
 
 export default function ReviewMode() {
-  const { db, isReady } = useDatabase();
+  const { db, isReady } = useSupabaseDB();
   const [cards, setCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -43,58 +40,50 @@ export default function ReviewMode() {
     loadCards();
   }, [db, isReady]);
 
-  const loadCards = () => {
-    const due = getDueCards(db, 20);
+  const loadCards = async () => {
+    if (!db) return;
+    const due = await db.getDueCards(20);
     setCards(due);
     setCurrentIndex(0);
     setShowAnswer(false);
-    setStats(getReviewStats(db));
+    setStats(await db.getReviewStats());
     setReviewed(0);
     setGoodStreak(0);
   };
 
-  const handleSeed = () => {
+  const handleSeed = async () => {
     if (!db) return;
     setSeeding(true);
 
-    // Seed from practice scenarios and challenges
-    seedReviewCards(db, PRACTICE_SCENARIOS, DAILY_CHALLENGES);
+    await db.seedReviewCards(PRACTICE_SCENARIOS, DAILY_CHALLENGES);
 
-    // Also seed from flashcards data if available
     try {
-      import('../../data/flashcards.js').then(module => {
-        if (module.FLASHCARDS) {
-          seedFlashcards(db, module.FLASHCARDS);
-        }
-        setSeeding(false);
-        loadCards();
-      }).catch(() => {
-        setSeeding(false);
-        loadCards();
-      });
-    } catch (e) {
-      setSeeding(false);
-      loadCards();
-    }
+      const module = await import('../../data/flashcards.js');
+      if (module.FLASHCARDS) {
+        await db.seedFlashcards(module.FLASHCARDS);
+      }
+    } catch { /* flashcards optional */ }
+
+    setSeeding(false);
+    loadCards();
   };
 
   const [transitioning, setTransitioning] = useState(false);
 
-  const handleRate = (quality) => {
+  const handleRate = async (quality) => {
     const card = cards[currentIndex];
     if (!card || !db || transitioning) return;
 
-    submitReview(db, card.id, QUALITY_MAP[quality]);
-    setReviewed(prev => {
-      const newCount = prev + 1;
-      if (newCount % 10 === 0) {
-        awardXP(db, 'review', XP_RULES.reviewSession(), `Reviewed ${newCount} cards`);
-        updateQuestProgress(db, 'review', 10);
-        const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
-        if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
-      }
-      return newCount;
-    });
+    await db.submitReview(card.id, QUALITY_MAP[quality]);
+    const newCount = reviewed + 1;
+    setReviewed(newCount);
+
+    if (newCount % 10 === 0) {
+      await db.awardXP('review', XP_RULES.reviewSession(), `Reviewed ${newCount} cards`);
+      await db.updateQuestProgress('review', 10);
+      const { newlyUnlocked } = await db.checkAchievements();
+      if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
+    }
 
     if (quality === 'good' || quality === 'easy') {
       setGoodStreak(prev => prev + 1);

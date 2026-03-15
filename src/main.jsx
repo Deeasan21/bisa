@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { DatabaseProvider } from './hooks/useDatabase';
+import { AuthProvider } from './hooks/useAuth';
+import { SupabaseDBProvider } from './hooks/useSupabaseDB';
 import App from './App.jsx';
 import './styles/global.css';
 
@@ -11,9 +12,11 @@ document.documentElement.setAttribute('data-theme', 'light');
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <DatabaseProvider>
-        <App />
-      </DatabaseProvider>
+      <AuthProvider>
+        <SupabaseDBProvider>
+          <App />
+        </SupabaseDBProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

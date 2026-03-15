@@ -2,16 +2,12 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { PencilSimple, Sparkle, Robot } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { SIMULATIONS } from '../../data/simulations';
-import { useDatabase } from '../../hooks/useDatabase';
-import { saveSimulationAttempt, getOverallProgress } from '../../utils/database';
-import { awardXP, XP_RULES } from '../../engine/xpSystem';
-import { updateQuestProgress } from '../../engine/dailyQuests';
-import { checkAchievements } from '../../engine/achievements';
+import { useSupabaseDB } from '../../hooks/useSupabaseDB';
+import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAISimResponse } from '../../engine/aiSimulation';
 import { getAISimSummary } from '../../engine/aiSimSummary';
 import { scoreSimResponse } from '../../engine/simResponseScorer';
-import { recordScore } from '../../engine/adaptiveDifficulty';
 import { getRuleBasedResponse } from '../../engine/simRuleFeedback';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
@@ -36,7 +32,7 @@ const DIFFICULTY_COLORS = {
 };
 
 export default function SimulateMode() {
-  const { db } = useDatabase();
+  const { db } = useSupabaseDB();
   const [activeSim, setActiveSim] = useState(null);
   const [currentNode, setCurrentNode] = useState(null);
   const [chatHistory, setChatHistory] = useState([]);
@@ -261,18 +257,18 @@ export default function SimulateMode() {
     }
   };
 
-  const handleEnding = (endingNode, scores) => {
+  const handleEnding = async (endingNode, scores) => {
     if (!db) return;
     const greatCount = scores.filter(q => q === 'great' || q === 'high').length;
 
     try {
-      saveSimulationAttempt(db, activeSim.id, choicesMade, scores, endingNode.id || 'ending');
+      await db.saveSimulationAttempt(activeSim.id, choicesMade, scores, endingNode.id || 'ending');
       const qualityPercent = Math.round((greatCount / Math.max(1, scores.length)) * 100);
       const category = activeSim.skillCategory || 'Open vs. Closed';
-      recordScore(db, 'simulation', category, qualityPercent);
-      awardXP(db, 'simulation', XP_RULES.simulation(qualityPercent), `Simulation: ${activeSim.title}`);
-      updateQuestProgress(db, 'simulation');
-      const { newlyUnlocked } = checkAchievements(db, getOverallProgress(db));
+      await db.recordScore('simulation', category, qualityPercent);
+      await db.awardXP('simulation', XP_RULES.simulation(qualityPercent), `Simulation: ${activeSim.title}`);
+      await db.updateQuestProgress('simulation');
+      const { newlyUnlocked } = await db.checkAchievements();
       if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     } catch (err) {
       console.error('Engine error during simulation ending:', err);
