@@ -86,7 +86,6 @@ export default function App() {
               <Route path="/journal" element={<JournalPage />} />
               <Route path="/me" element={<ProfilePage />} />
             </Route>
-          </Route>
             <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
             <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
             <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
