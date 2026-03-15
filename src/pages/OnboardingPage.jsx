@@ -10,7 +10,7 @@ export default function OnboardingPage() {
 
   const finish = () => {
     localStorage.setItem('bisa-onboarding-done', 'true');
-    navigate('/');
+    navigate('/auth');
   };
 
   const next = () => {

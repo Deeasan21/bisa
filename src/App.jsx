@@ -16,6 +16,13 @@ function OnboardingGuard() {
   return <Outlet />;
 }
 
+function AuthGuardAfterOnboarding() {
+  const { user, loading } = useAuth();
+  if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
+  if (!user) return <Navigate to="/auth" replace />;
+  return <Outlet />;
+}
+
 function AuthGuard() {
   const { user, loading } = useAuth();
   if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
@@ -68,10 +75,10 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Routes>
-        <Route path="/auth" element={<AuthPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route element={<AuthGuard />}>
-          <Route element={<OnboardingGuard />}>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route element={<OnboardingGuard />}>
+          <Route element={<AuthGuardAfterOnboarding />}>
             <Route element={<AppShell />}>
               <Route path="/" element={<TodayPage />} />
               <Route path="/modes" element={<ModesPage />} />
@@ -80,12 +87,13 @@ export default function App() {
               <Route path="/me" element={<ProfilePage />} />
             </Route>
           </Route>
-          <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
-          <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
-          <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
-          <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
-          <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
-          <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
+            <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
+            <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
+            <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
+            <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
+            <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
+            <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
+          </Route>
         </Route>
       </Routes>
     </ErrorBoundary>
