@@ -76,28 +76,30 @@ export default function TodayPage() {
   useEffect(() => {
     if (!isReady || !db) return;
 
-    const info = getStreakInfo(db);
-    setStreak(info.currentStreak);
-    setLastDate(info.lastChallengeDate);
+    try {
+      const info = getStreakInfo(db);
+      setStreak(info.currentStreak);
+      setLastDate(info.lastChallengeDate);
+    } catch (e) { console.error('streak read failed:', e); }
 
-    // Last activity for progress card
-    const history = getChallengeHistory(db, 1);
-    setLastActivity(history.length > 0 ? history[0] : null);
+    try {
+      const history = getChallengeHistory(db, 1);
+      setLastActivity(history.length > 0 ? history[0] : null);
+    } catch (e) { console.error('history read failed:', e); }
 
-    // Next recommended mode
-    setNextMode(getRecommendedMode(db));
+    try { setNextMode(getRecommendedMode(db)); } catch (e) { console.error('nextMode failed:', e); }
 
-    // Generate daily quests from engine
-    const quests = generateDailyQuests(db);
-    setEngineQuests(quests);
+    try {
+      const quests = generateDailyQuests(db);
+      setEngineQuests(quests);
+    } catch (e) { console.error('quest gen failed:', e); }
 
-    // Get recommendations
-    setRecommendations(getRecommendations(db));
+    try { setRecommendations(getRecommendations(db)); } catch (e) { console.error('recommendations failed:', e); }
 
     // Check if all quests are done for confetti + bonus XP (once per day)
-    if (checkAllQuests(db)) {
-      setShowConfetti(true);
-      try {
+    try {
+      if (checkAllQuests(db)) {
+        setShowConfetti(true);
         const today = getTodayString();
         const alreadyAwarded = queryStmt(db,
           "SELECT 1 FROM xp_log WHERE activity_type = 'all_quests_completed' AND date(created_at) = ?",
@@ -106,10 +108,8 @@ export default function TodayPage() {
         if (alreadyAwarded.length === 0) {
           awardXP(db, 'all_quests_completed', XP_RULES.allQuestsBonus(), 'Completed all daily quests');
         }
-      } catch (err) {
-        console.error('Failed to award quest bonus XP:', err);
       }
-    }
+    } catch (err) { console.error('Failed to award quest bonus XP:', err); }
   }, [db, isReady, location.key]);
 
   const greeting = getTimeOfDayGreeting();
