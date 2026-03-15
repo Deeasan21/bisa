@@ -46,7 +46,7 @@ export default function AuthPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-brand">
-          <div className="auth-logo-mark">B</div>
+          <img src="/icon.svg" alt="Bisa" className="auth-logo-mark" />
           <h1 className="auth-brand-name">Bisa</h1>
           <p className="auth-brand-tagline">Learn to ask better questions</p>
         </div>

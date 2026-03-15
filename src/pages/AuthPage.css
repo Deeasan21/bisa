@@ -23,18 +23,11 @@
 }
 
 .auth-logo-mark {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   margin: 0 auto var(--space-md);
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -1px;
 }
 
 .auth-brand-name {
