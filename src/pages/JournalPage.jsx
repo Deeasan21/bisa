@@ -7,13 +7,11 @@ import { LESSONS } from '../data/lessons';
 import { awardXP, XP_RULES } from '../engine/xpSystem';
 import { updateQuestProgress } from '../engine/dailyQuests';
 import { checkAchievements } from '../engine/achievements';
-import MascotMessage from '../components/common/MascotMessage';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import AchievementToast from '../components/common/AchievementToast';
-import FloatingOrbs from '../components/common/FloatingOrbs';
-import BisaBalloon from '../components/common/BisaBalloon';
+import { NeaOnnim } from '../components/brand';
 import './JournalPage.css';
 
 const QUESTION_TYPES = ['Open', 'Clarifying', 'Probing', 'Reflective', 'Hypothetical', 'Follow-up', 'Other'];
@@ -129,7 +127,6 @@ export default function JournalPage() {
 
   return (
     <div className="journal-page animate-fade-in">
-      <FloatingOrbs color="#8B5CF6" count={5} />
       <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
       <div className="journal-header">
         <div>
@@ -294,11 +291,10 @@ export default function JournalPage() {
           <div className="journal-entries">
             {entries.length === 0 && !showForm ? (
               <div className="journal-empty">
-                <BisaBalloon color="#8B5CF6" size={52} />
-                <MascotMessage
-                  message="Your journal is waiting! Tap + to log your first real-world question. Every great questioner starts by noticing."
-                  emotion="encouraging"
-                />
+                <NeaOnnim size={44} />
+                <p className="journal-empty-proverb">Nea onnim no sua a, ohu.</p>
+                <p className="journal-empty-translation">"He who does not know can know from learning."</p>
+                <p className="journal-empty-prompt">Tap + to log a question from your day.</p>
               </div>
             ) : filteredEntries.length === 0 && searchQuery ? (
               <div className="journal-empty">
@@ -345,10 +341,10 @@ export default function JournalPage() {
         <div className="journal-entries">
           {reflections.length === 0 ? (
             <div className="journal-empty">
-              <MascotMessage
-                message="No lesson reflections yet! Visit Learn mode to start reflecting on lessons."
-                emotion="encouraging"
-              />
+              <NeaOnnim size={44} />
+              <p className="journal-empty-proverb">Nea onnim no sua a, ohu.</p>
+              <p className="journal-empty-translation">"He who does not know can know from learning."</p>
+              <p className="journal-empty-prompt">Visit Learn mode to start reflecting on lessons.</p>
             </div>
           ) : (
             reflections.map(r => {
