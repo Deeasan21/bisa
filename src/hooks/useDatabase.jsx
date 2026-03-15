@@ -17,11 +17,21 @@ export function DatabaseProvider({ children }) {
         const initSqlJs = (await import('sql.js')).default;
         const SQL = await initSqlJs({ locateFile: file => `/${file}` });
         const savedData = await loadFromIDB();
-        const database = savedData
-          ? new SQL.Database(new Uint8Array(savedData))
-          : new SQL.Database();
-
-        initializeSchema(database);
+        let database;
+        if (savedData) {
+          try {
+            database = new SQL.Database(new Uint8Array(savedData));
+            initializeSchema(database);
+          } catch (corruptErr) {
+            console.warn('Stored database corrupt, starting fresh:', corruptErr);
+            database = new SQL.Database();
+            initializeSchema(database);
+            saveToIDB(database.export().buffer);
+          }
+        } else {
+          database = new SQL.Database();
+          initializeSchema(database);
+        }
 
         // One-time migration: seed localStorage streak from SQL if not already there
         if (!localStorage.getItem('bisa-streak')) {
