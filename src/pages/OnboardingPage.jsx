@@ -74,6 +74,17 @@ function WelcomeScreen() {
         <p className="onboarding-body">
           Bisa is a quiet space to practice that.
         </p>
+        <div className="onboarding-example">
+          <div className="onboarding-example-before">
+            <span className="onboarding-example-label before">Before</span>
+            <span className="onboarding-example-text">"Was that a good meeting?"</span>
+          </div>
+          <div className="onboarding-example-arrow">↓</div>
+          <div className="onboarding-example-after">
+            <span className="onboarding-example-label after">After</span>
+            <span className="onboarding-example-text">"What would have made that meeting more useful for you?"</span>
+          </div>
+        </div>
       </div>
     </div>
   );
