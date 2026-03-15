@@ -112,6 +112,8 @@ export default function TodayPage() {
     } catch (err) { console.error('Failed to award quest bonus XP:', err); }
   }, [db, isReady, location.key]);
 
+  const isNewUser = isReady && totalXP === 0 && !lastActivity;
+
   const greeting = getTimeOfDayGreeting();
   const hoursLeft = getHoursUntilMidnight();
   const dailyInsight = getDailyInsight();
@@ -265,6 +267,21 @@ export default function TodayPage() {
           )}
         </div>
       </Card>
+
+      {/* First-session start card */}
+      {isNewUser && (
+        <div className="first-session-card animate-fade-in">
+          <div className="first-session-body">
+            <span className="first-session-eyebrow">Start here</span>
+            <h2 className="first-session-headline">Your first 60 seconds</h2>
+            <p className="first-session-body">Complete today's Daily Challenge to start your streak and earn your first XP. It takes under a minute.</p>
+          </div>
+          <button className="first-session-cta" onClick={() => navigate('/mode/daily')}>
+            Begin Daily Challenge
+            <ArrowRight size={16} weight="bold" />
+          </button>
+        </div>
+      )}
 
       {/* Daily Insight */}
       <Card className="daily-insight-card" padding="md" onClick={handleInsightTap}>

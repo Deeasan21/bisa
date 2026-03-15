@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import BottomTabBar from './BottomTabBar';
+import InstallPrompt from '../common/InstallPrompt';
 import './AppShell.css';
 
 export default function AppShell() {
@@ -15,6 +16,7 @@ export default function AppShell() {
         <Outlet />
       </main>
       <BottomTabBar />
+      <InstallPrompt />
     </div>
   );
 }

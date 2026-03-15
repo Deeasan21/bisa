@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
+import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight } from '@phosphor-icons/react';
 import { useDatabase } from '../hooks/useDatabase';
 import { getOverallProgress, getTotalXP } from '../utils/database';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
@@ -29,6 +30,7 @@ const SKILL_CATEGORIES = [
 
 export default function ProgressPage() {
   const { db, isReady } = useDatabase();
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(null);
   const [xp, setXp] = useState(0);
   const [bpqData, setBpqData] = useState({ score: 0, level: 'Curious Beginner', categoryScores: {} });
@@ -117,6 +119,13 @@ export default function ProgressPage() {
                     />
                   </div>
                   <span className="skill-bar-value">{catScore}%</span>
+                  <button
+                    className="skill-bar-practice-btn"
+                    onClick={() => navigate(`/mode/practice?skill=${encodeURIComponent(cat.key)}`)}
+                    title={`Practice ${cat.key}`}
+                  >
+                    <ArrowRight size={12} weight="bold" />
+                  </button>
                 </div>
               );
             })}
@@ -134,12 +143,18 @@ export default function ProgressPage() {
               <span className="callout-value" style={{ color: strongest.color }}>{strongest.key}</span>
             </div>
           </div>
-          <div className="skill-callout weak">
+          <div
+            className="skill-callout weak skill-callout--clickable"
+            onClick={() => navigate(`/mode/practice?skill=${encodeURIComponent(weakest.key)}`)}
+            role="button"
+            title={`Practice ${weakest.key}`}
+          >
             <ArrowDown size={16} weight="bold" color="#78716C" />
             <div>
               <span className="callout-label">Needs Work</span>
               <span className="callout-value" style={{ color: '#78716C' }}>{weakest.key}</span>
             </div>
+            <ArrowRight size={14} weight="bold" color="#78716C" style={{ marginLeft: 'auto' }} />
           </div>
         </div>
       )}

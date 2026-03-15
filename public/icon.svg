@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#1C1917"/>
+  <g transform="translate(56, 56) scale(4)">
+    <path fill="#FAFAF9" fill-rule="nonzero" d="
+      M0 30.8h100v7.7h-100Z
+      M0 61.5h100v7.7h-100Z
+      M0 38.5h7.7v23.1h-7.7Z
+      M92.3 38.5h7.7v23.1h-7.7Z
+      M30.8 0h7.7v100h-7.7Z
+      M61.5 0h7.7v100h-7.7Z
+      M46.2 0h7.7v38.5h-7.7Z
+      M46.2 61.5h7.7v38.5h-7.7Z
+      M15.4 30.8h7.7v38.5h-7.7Z
+      M76.9 30.8h7.7v38.5h-7.7Z
+      M30.8 46.2h38.5v7.7h-38.5Z
+      M0 0h38.5v7.7h-38.5Z
+      M7.7 15.4h26.9v7.7h-26.9Z
+      M61.5 0h38.5v7.7h-38.5Z
+      M65.4 15.4h26.9v7.7h-26.9Z
+      M0 92.3h38.5v7.7h-38.5Z
+      M7.7 76.9h26.9v7.7h-26.9Z
+      M61.5 92.3h38.5v7.7h-38.5Z
+      M65.4 76.9h26.9v7.7h-26.9Z
+    "/>
+  </g>
+</svg>

@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Robot, Sparkle, Eye } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
@@ -64,7 +65,8 @@ export default function PracticeMode() {
   const [userQuestion, setUserQuestion] = useState('');
   const [result, setResult] = useState(null);
   const [completedIds, setCompletedIds] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState('');
+  const [searchParams] = useSearchParams();
+  const [categoryFilter, setCategoryFilter] = useState(() => searchParams.get('skill') || '');
 
   const [newAchievement, setNewAchievement] = useState(null);
 
@@ -98,6 +100,14 @@ export default function PracticeMode() {
     }
     return filtered;
   }, [categoryFilter, db]);
+
+  // Auto-start when arriving from Progress page with a skill param
+  useEffect(() => {
+    if (searchParams.get('skill') && !scenario) {
+      loadScenario();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadScenario = () => {
     const next = getRandomScenario(filteredScenarios, completedIds);

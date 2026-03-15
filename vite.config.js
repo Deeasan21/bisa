@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { VitePWA } from 'vite-plugin-pwa'
 
 /**
  * Dev middleware plugin: handles /api/claude requests locally
@@ -63,7 +64,52 @@ function claudeProxyPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react(), claudeProxyPlugin()],
+  plugins: [
+    react(),
+    claudeProxyPlugin(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'icon.svg', 'sql-wasm.wasm'],
+      manifest: {
+        name: 'Bisa — Ask Better Questions',
+        short_name: 'Bisa',
+        description: 'Practice the skill of asking better questions.',
+        theme_color: '#1C1917',
+        background_color: '#FAFAF9',
+        display: 'standalone',
+        orientation: 'portrait',
+        start_url: '/',
+        scope: '/',
+        icons: [
+          {
+            src: '/icon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any',
+          },
+          {
+            src: '/icon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'maskable',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api\//],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: { cacheName: 'google-fonts', expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 } },
+          },
+        ],
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
