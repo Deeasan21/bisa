@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#1C1917"/>
-  <!-- Nea Onnim symbol, upper portion -->
-  <g transform="translate(141, 28) scale(2.3)">
-    <path fill="#FAFAF9" fill-rule="nonzero" d="
+  <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
+  <g transform="translate(56, 56) scale(4)">
+    <path fill="#F59E0B" fill-rule="nonzero" d="
       M0 30.8h100v7.7h-100Z
       M0 61.5h100v7.7h-100Z
       M0 38.5h7.7v23.1h-7.7Z
@@ -24,6 +23,4 @@
       M65.4 76.9h26.9v7.7h-26.9Z
     "/>
   </g>
-  <!-- Bold B, lower portion -->
-  <text x="256" y="438" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="168" fill="#F59E0B">B</text>
 </svg>
