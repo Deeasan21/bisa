@@ -1,9 +1,9 @@
 # Bisa — Session State
 
 ## Last Session
-- **Date:** 2026-02-18
-- **What was done:** Phase 2 — Claude API Integration for AI-powered feedback
-- **Current focus:** Phase 2 complete, all core features built
+- **Date:** 2026-03-14
+- **What was done:** Phase 2.5 polish + brand identity work
+- **Current focus:** Brand mark complete, onboarding polished, UI cleaned up
 
 ## Phase 1 — Completed
 1. ✅ Scaffold React + Vite project with folder structure
@@ -96,14 +96,66 @@
 - ✅ SimulateMode: free-text textarea with send button, AI NPC responses, turn counter
 - ✅ ProfilePage: API key settings section with GearSix icon
 
+## Phase 2.5 — Completed (Polish, AI Security, Gamification)
+- ✅ AchievementToast — gold popup on unlock, wired into all 6 modes
+- ✅ Daily Insight card — 30 rotating micro-lessons, one per day
+- ✅ Recommendations engine — personalized suggestions by weak/stale/new categories
+- ✅ Enhanced mascot — context-aware greetings (streak, absence, strongest/weakest skill)
+- ✅ Daily Insight deep-links to relevant lesson in Learn mode
+- ✅ Code splitting — route-level React.lazy() on all 5 mode routes
+- ✅ Learn mode lesson nav — native select dropdown + scrollable pill strip
+- ✅ Server-side API key — 10 free AI calls/day per user, 500/day global cap
+- ✅ Prompt sanitization, origin validation, rate limiting, error scrubbing (api/claude.js)
+- ✅ FloatingOrbs + BisaBalloon empty-state components wired into all modes
+- ✅ Streak bugs fixed — longestStreak updates on burst, calendar calculates correctly
+
+## Phase 2.6 — Completed (This Session, 2026-03-14)
+
+### Tailwind + shadcn/ui
+- ✅ Tailwind CSS v3 installed with PostCSS + Autoprefixer
+- ✅ Preflight disabled (preserves existing global.css reset)
+- ✅ Dark mode selector: `[data-theme="dark"]` (matches Bisa's existing system)
+- ✅ shadcn/ui configured (new-york style, stone base, cssVariables)
+- ✅ `cn()` helper in src/lib/utils.js
+- ✅ `@/*` path alias in jsconfig.json + vite.config.js
+- ✅ shadcn CSS vars mapped to Bisa tokens in variables.css
+- ✅ First shadcn component: src/components/ui/button.jsx
+
+### UI / UX
+- ✅ Dark mode toggle removed — app locked to light theme
+- ✅ XP pill removed from top bar — moved to TodayPage as progress card
+- ✅ Progress card: level name, XP bar, last activity, "Continue: [Mode]" button
+- ✅ NaN/100 XP bug fixed — was using level.totalXP (undefined); now uses totalXP from useXP()
+- ✅ "Play Next" section — new users see mode cards (not hardcoded Lesson 1 links)
+- ✅ Daily Quests: quest type colors + paths wired correctly
+
+### Brand Mark — Nea Onnim Adinkra Symbol
+- ✅ NeaOnnim component built (src/components/brand/NeaOnnim.jsx)
+- ✅ Rebuilt as single compound `<path>` — 19 filled rectangles, no overlapping strokes
+- ✅ viewBox 0 0 100 100, gold gradient fill, drop-shadow
+- ✅ Scales cleanly from 16px to 200px with no variant system
+- ✅ withAnimation: CSS scale+fade reveal (keyframe in global animations.css)
+- ✅ favicon.svg updated to same path geometry
+- ✅ Placed inline beside "Bisa" headline on onboarding screen 1 (size 52)
+- ✅ Placed in TodayPage header beside greeting (size 40)
+
+### Onboarding
+- ✅ Back navigation — arrow button lets users move freely between slides
+- ✅ "Twi for to ask" subtitle removed (redundant)
+- ✅ Copy rewritten with humble, warm tone throughout all 3 screens
+- ✅ CTA labels updated: "How it works" → "One more thing" → "Let's begin"
+
+### Tools
+- ✅ tools/photo-upload.js — zero-dependency local HTTP server for phone→laptop photo transfer
+  - Random one-time session token, local network only, 100MB limit, filename sanitization
+
 ## Build Stats
 - Build: 5,698KB JS (1,256KB gzipped), 52KB CSS (9KB gzipped)
 - npm run build: ✅ succeeds with no errors
 
 ## Remaining Work
+- Daily Quests section showing empty — needs investigation (generateDailyQuests may be silently failing)
 - Phase 3: User accounts via Supabase, real leaderboards, cloud sync
-- Code splitting to reduce bundle size
-- Vercel deployment
 
 ## Architecture Notes
 - Engine layer (src/engine/) handles all intelligence/personalization with pure math
