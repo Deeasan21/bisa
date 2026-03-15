@@ -241,6 +241,112 @@
   padding-bottom: 0;
 }
 
+/* Observation Cards */
+.observation-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.observation-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.observation-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.obs-card {
+  min-height: 96px;
+  perspective: 800px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.obs-card-inner {
+  width: 100%;
+  min-height: 96px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.obs-card.flipped .obs-card-inner {
+  transform: rotateY(180deg);
+}
+
+.obs-card-front,
+.obs-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  padding: 10px;
+}
+
+.obs-card-front {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.obs-card-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.obs-card-hint {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.obs-card-back {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+[data-theme="dark"] .obs-card-back {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.obs-card-back-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #D97706;
+}
+
+.obs-card-back p {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0;
+}
+
 /* AI Feedback Section */
 .ai-feedback-section {
   width: 100%;

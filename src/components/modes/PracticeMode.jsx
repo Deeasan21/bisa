@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Robot, Sparkle } from '@phosphor-icons/react';
+import { Robot, Sparkle, Eye } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { useDatabase } from '../../hooks/useDatabase';
@@ -14,6 +14,7 @@ import { checkAchievements } from '../../engine/achievements';
 import { getOverallProgress } from '../../utils/database';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIFeedback } from '../../engine/aiFeedback';
+import { generateObservationClues } from '../../engine/observationClues';
 import ModeHeader from '../layout/ModeHeader';
 import ScoreGauge from '../common/ScoreGauge';
 import Button from '../common/Button';
@@ -24,6 +25,30 @@ import FloatingOrbs from '../common/FloatingOrbs';
 import './PracticeMode.css';
 
 const theme = MODE_THEMES.practice;
+
+function ObservationCard({ label, clue }) {
+  const [flipped, setFlipped] = useState(false);
+  return (
+    <div
+      className={`obs-card${flipped ? ' flipped' : ''}`}
+      onClick={() => setFlipped(f => !f)}
+      role="button"
+      aria-label={`${label}: tap to reveal`}
+    >
+      <div className="obs-card-inner">
+        <div className="obs-card-front">
+          <Eye size={16} weight="duotone" color="#78716C" />
+          <span className="obs-card-label">{label}</span>
+          <span className="obs-card-hint">tap to reveal</span>
+        </div>
+        <div className="obs-card-back">
+          <span className="obs-card-back-label">{label}</span>
+          <p>{clue}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const DIFFICULTY_COLORS = {
   beginner: '#10B981',
@@ -42,6 +67,8 @@ export default function PracticeMode() {
   const [categoryFilter, setCategoryFilter] = useState('');
 
   const [newAchievement, setNewAchievement] = useState(null);
+
+  const [observationClues, setObservationClues] = useState([]);
 
   // AI feedback state
   const [aiResult, setAiResult] = useState(null);
@@ -81,6 +108,7 @@ export default function PracticeMode() {
     setAiLoading(false);
     setAiError(null);
     setShowAiButton(false);
+    setObservationClues(next ? generateObservationClues(next) : []);
   };
 
   const handleSubmit = async () => {
@@ -204,6 +232,20 @@ export default function PracticeMode() {
               <span className="weak-label">Weak question:</span>
               <p>"{scenario.weakQuestion}"</p>
             </div>
+
+            {!result && observationClues.length > 0 && (
+              <div className="observation-section">
+                <div className="observation-header">
+                  <Eye size={13} weight="duotone" />
+                  <span>Notice before you ask</span>
+                </div>
+                <div className="observation-cards">
+                  {observationClues.map((c, i) => (
+                    <ObservationCard key={i} label={c.label} clue={c.clue} />
+                  ))}
+                </div>
+              </div>
+            )}
 
             {!result && !aiLoading ? (
               <div className="practice-input">
