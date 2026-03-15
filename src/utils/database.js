@@ -74,9 +74,17 @@ export function initializeSchema(db) {
       challenge_type TEXT NOT NULL,
       challenge_title TEXT NOT NULL,
       response TEXT NOT NULL,
+      score INTEGER DEFAULT 0,
+      questions_json TEXT,
+      challenge_format TEXT DEFAULT 'journal',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  // Migration: add columns that were added after initial release
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN score INTEGER DEFAULT 0"); } catch(e) { /* already exists */ }
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN questions_json TEXT"); } catch(e) { /* already exists */ }
+  try { db.run("ALTER TABLE challenge_history ADD COLUMN challenge_format TEXT DEFAULT 'journal'"); } catch(e) { /* already exists */ }
 
   db.run(`
     CREATE TABLE IF NOT EXISTS streak_data (
