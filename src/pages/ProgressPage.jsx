@@ -43,9 +43,9 @@ export default function ProgressPage() {
       setWeekXP(await db.getWeeklyXP());
 
       // Derive a simple BPQ from practice average (0-1000 scale)
-      const bpqScore = Math.round((prog.averagePracticeScore / 100) * 1000 * 0.6 +
-        Math.min(prog.totalPracticeAttempts, 100) * 2 +
-        Math.min(prog.currentStreak, 30) * 6.67);
+      const bpqScore = Math.round(((prog.averagePracticeScore || 0) / 100) * 1000 * 0.6 +
+        Math.min(prog.totalPracticeAttempts || 0, 100) * 2 +
+        Math.min(prog.currentStreak || 0, 30) * 6.67);
       const clampedBpq = Math.min(1000, bpqScore);
       setBpqData({ score: clampedBpq, level: getBPQLevel(clampedBpq), categoryScores: {} });
 
