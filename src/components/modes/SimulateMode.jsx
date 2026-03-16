@@ -51,6 +51,7 @@ export default function SimulateMode() {
   const [aiSummary, setAiSummary] = useState(null);
   const [aiSummaryLoading, setAiSummaryLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [currentTier, setCurrentTier] = useState(1);
   const aiAvailable = hasApiKey();
 
   useEffect(() => {
@@ -58,6 +59,11 @@ export default function SimulateMode() {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
   }, [chatHistory, isTyping]);
+
+  useEffect(() => {
+    if (!db || !categoryFilter) { setCurrentTier(1); return; }
+    db.getCurrentTier(categoryFilter).then(setCurrentTier);
+  }, [db, categoryFilter]);
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -70,15 +76,21 @@ export default function SimulateMode() {
 
   const filteredSims = useMemo(() => {
     let filtered = SIMULATIONS;
+    if (categoryFilter) filtered = filtered.filter(s => s.skillCategory === categoryFilter);
     if (categoryFilter) {
-      filtered = filtered.filter(s => s.skillCategory === categoryFilter);
-    }
-    if (db && categoryFilter) {
-      const adapted = filterByDifficulty(filtered, db, categoryFilter);
+      const tierMap = { beginner: 1, developing: 2, intermediate: 3, advanced: 4, expert: 5, master: 5 };
+      const adapted = filtered.filter(item => {
+        const t = item.tier || tierMap[item.difficultyTier] || 1;
+        return Math.abs(t - currentTier) <= 1;
+      }).sort((a, b) => {
+        const at = a.tier || tierMap[a.difficultyTier] || 1;
+        const bt = b.tier || tierMap[b.difficultyTier] || 1;
+        return Math.abs(at - currentTier) - Math.abs(bt - currentTier);
+      });
       if (adapted.length > 0) return adapted;
     }
     return filtered;
-  }, [categoryFilter, db]);
+  }, [categoryFilter, currentTier]);
 
   const startSimulation = (sim) => {
     setActiveSim(sim);

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ChatCircleText, MagnifyingGlass, UserFocus, Eye, Binoculars, Sparkle, Robot, CheckCircle, XCircle, ArrowRight, Lightning } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import {
@@ -79,9 +79,10 @@ export default function PatternMode() {
   const [newAchievement, setNewAchievement] = useState(null);
 
   // Stats for hub display
-  const stats = useMemo(() => {
-    if (!db) return { total: 0 };
-    try { return getPatternStats(db); } catch { return { total: 0 }; }
+  const [stats, setStats] = useState({ total: 0 });
+  useEffect(() => {
+    if (!db) return;
+    db.getPatternStats().then(setStats).catch(() => {});
   }, [db, phase]);
 
   // ===== SESSION MANAGEMENT =====

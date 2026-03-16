@@ -58,13 +58,6 @@
 - Mascot/character that reacts to user behavior
 - Light theme for navigation/dashboard, unique themes per mode
 
-## Current Limitation
-- **No user accounts** — all data lives in browser localStorage/IndexedDB
-- Switching browsers or devices = starting fresh
-- Clearing browser data = losing all progress
-- No way to track user count or usage analytics
-- This is fine for beta but must be solved before B2B
-
 ---
 
 ## Future Roadmap

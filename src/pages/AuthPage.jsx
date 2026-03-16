@@ -10,6 +10,7 @@ export default function AuthPage() {
   const [tab, setTab] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -31,7 +32,7 @@ export default function AuthPage() {
         await signIn(email, password);
         navigate('/', { replace: true });
       } else {
-        await signUp(email, password);
+        await signUp(email, password, displayName.trim());
         setSuccess('Account created! Check your email to confirm your address, then sign in.');
         setTab('signin');
       }
@@ -85,6 +86,21 @@ export default function AuthPage() {
               autoComplete="email"
             />
           </div>
+
+          {tab === 'signup' && (
+            <div className="auth-field">
+              <label className="auth-label" htmlFor="auth-name">Your name</label>
+              <input
+                id="auth-name"
+                className="auth-input"
+                type="text"
+                placeholder="How should we call you?"
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+                autoComplete="name"
+              />
+            </div>
+          )}
 
           <div className="auth-field">
             <label className="auth-label" htmlFor="auth-password">Password</label>
