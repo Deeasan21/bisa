@@ -95,7 +95,7 @@ function buildDb(userId) {
       const { data, error } = await supabase
         .from('user_stats')
         .select('current_streak, longest_streak, last_challenge_date')
-        .eq('user_id', userId)
+        .eq('id', userId)
         .maybeSingle();
       if (error) throw error;
       if (!data) return { currentStreak: 0, longestStreak: 0, lastChallengeDate: null };
@@ -127,8 +127,8 @@ function buildDb(userId) {
 
       const { data: existing } = await supabase
         .from('user_stats')
-        .select('user_id')
-        .eq('user_id', userId)
+        .select('id')
+        .eq('id', userId)
         .maybeSingle();
 
       if (existing) {
@@ -136,10 +136,10 @@ function buildDb(userId) {
           current_streak: newStreak,
           longest_streak: newLongest,
           last_challenge_date: dateStr,
-        }).eq('user_id', userId);
+        }).eq('id', userId);
       } else {
         await supabase.from('user_stats').insert({
-          user_id: userId,
+          id: userId,
           current_streak: newStreak,
           longest_streak: newLongest,
           last_challenge_date: dateStr,
@@ -776,9 +776,9 @@ function buildDb(userId) {
   async function getProfile() {
     try {
       const { data, error } = await supabase
-        .from('user_profiles')
+        .from('profiles')
         .select('id, display_name, avatar_id, created_at')
-        .eq('user_id', userId)
+        .eq('id', userId)
         .maybeSingle();
       if (error) throw error;
       if (!data) return { id: null, display_name: 'Learner', avatar_id: 'default', created_at: new Date().toISOString() };
@@ -789,9 +789,9 @@ function buildDb(userId) {
   async function updateProfile({ displayName, avatarId }) {
     try {
       const { data: existing } = await supabase
-        .from('user_profiles')
+        .from('profiles')
         .select('id')
-        .eq('user_id', userId)
+        .eq('id', userId)
         .maybeSingle();
 
       const payload = {};
@@ -799,9 +799,9 @@ function buildDb(userId) {
       if (avatarId !== undefined) payload.avatar_id = avatarId;
 
       if (existing) {
-        await supabase.from('user_profiles').update(payload).eq('user_id', userId);
+        await supabase.from('profiles').update(payload).eq('id', userId);
       } else {
-        await supabase.from('user_profiles').insert({ user_id: userId, ...payload });
+        await supabase.from('profiles').insert({ id: userId, ...payload });
       }
     } catch (e) { console.error('updateProfile:', e); }
   }
