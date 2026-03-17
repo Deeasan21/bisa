@@ -12,6 +12,7 @@ import Button from '../common/Button';
 import Badge from '../common/Badge';
 import Skeleton from '../common/Skeleton';
 import AchievementToast from '../common/AchievementToast';
+import LessonPlayer from '../learn/LessonPlayer';
 import './LearnMode.css';
 
 const theme = MODE_THEMES.learn;
@@ -90,7 +91,6 @@ export default function LearnMode() {
       setAiReflectionResult(null);
       setAiReflectionLoading(false);
 
-      // Check which lessons have reflections
       const allRef = await db.getAllReflections();
       const reflected = new Set(allRef.map(r => r.lessonId));
       setReflectedLessons(reflected);
@@ -139,6 +139,15 @@ export default function LearnMode() {
     } finally {
       setAiReflectionLoading(false);
     }
+  };
+
+  const handleReflectionChange = (val) => {
+    setReflection(val);
+    setSaved(false);
+  };
+
+  const goNextLesson = () => {
+    setSelectedLesson(i => Math.min(LESSONS.length - 1, i + 1));
   };
 
   return (
@@ -190,97 +199,120 @@ export default function LearnMode() {
             size="sm"
           />
         )}
-        <div
-          className="lesson-content"
-          dangerouslySetInnerHTML={{ __html: lesson.content }}
-        />
 
-        <div className="reflection-section">
-          <h3>Your Reflection</h3>
-          <p className="reflection-prompt">
-            {REFLECTION_PROMPTS[lesson.skillCategory] || "What stood out to you? How does this connect to your life?"}
-          </p>
-          <textarea
-            value={reflection}
-            onChange={(e) => { setReflection(e.target.value); setSaved(false); }}
-            placeholder="Write your reflection here..."
-            rows={5}
+        {/* New interactive format — only when lesson has sections */}
+        {lesson.sections ? (
+          <LessonPlayer
+            key={selectedLesson}
+            lesson={lesson}
+            themeColor={TIER_COLORS[lesson.tier] || theme.primary}
+            reflection={reflection}
+            onReflectionChange={handleReflectionChange}
+            onSaveReflection={handleSave}
+            onDeleteReflection={handleDelete}
+            saved={saved}
+            aiReflectionResult={aiReflectionResult}
+            aiReflectionLoading={aiReflectionLoading}
+            onRequestAI={handleRequestAIReflection}
+            hasApiKey={hasApiKey()}
+            onLessonComplete={goNextLesson}
           />
-          <div className="reflection-actions">
-            <Button
-              variant="mode"
-              modeColor={theme.primary}
-              onClick={handleSave}
-              disabled={!reflection.trim()}
-            >
-              {saved ? 'Saved!' : 'Save Reflection'}
-            </Button>
-            {saved && (
-              <button className="reflection-delete" onClick={handleDelete}>
-                <Trash size={14} /> Delete Reflection
-              </button>
-            )}
-          </div>
+        ) : (
+          /* Legacy HTML renderer — used until a lesson gets converted */
+          <>
+            <div
+              className="lesson-content"
+              dangerouslySetInnerHTML={{ __html: lesson.content }}
+            />
 
-          {aiReflectionLoading && (
-            <div className="reflection-ai-feedback">
-              <Skeleton height="14px" width="50%" />
-              <Skeleton height="40px" />
-              <Skeleton height="14px" width="70%" />
+            <div className="reflection-section">
+              <h3>Your Reflection</h3>
+              <p className="reflection-prompt">
+                {REFLECTION_PROMPTS[lesson.skillCategory] || "What stood out to you? How does this connect to your life?"}
+              </p>
+              <textarea
+                value={reflection}
+                onChange={(e) => { setReflection(e.target.value); setSaved(false); }}
+                placeholder="Write your reflection here..."
+                rows={5}
+              />
+              <div className="reflection-actions">
+                <Button
+                  variant="mode"
+                  modeColor={theme.primary}
+                  onClick={handleSave}
+                  disabled={!reflection.trim()}
+                >
+                  {saved ? 'Saved!' : 'Save Reflection'}
+                </Button>
+                {saved && (
+                  <button className="reflection-delete" onClick={handleDelete}>
+                    <Trash size={14} /> Delete Reflection
+                  </button>
+                )}
+              </div>
+
+              {aiReflectionLoading && (
+                <div className="reflection-ai-feedback">
+                  <Skeleton height="14px" width="50%" />
+                  <Skeleton height="40px" />
+                  <Skeleton height="14px" width="70%" />
+                </div>
+              )}
+
+              {aiReflectionResult && !aiReflectionLoading && (
+                <div className="reflection-ai-feedback animate-fade-in">
+                  <div className="reflection-ai-header">
+                    <Sparkle size={18} weight="fill" color="#F59E0B" />
+                    <span>AI Reflection Coaching</span>
+                  </div>
+                  <div className="reflection-ai-group">
+                    <label>Insight</label>
+                    <p>{aiReflectionResult.insight}</p>
+                  </div>
+                  <div className="reflection-ai-question">
+                    <label>Go Deeper</label>
+                    <p>{aiReflectionResult.deeperQuestion}</p>
+                  </div>
+                  <div className="reflection-ai-group">
+                    <label>Connection</label>
+                    <p>{aiReflectionResult.connection}</p>
+                  </div>
+                </div>
+              )}
+
+              {saved && !aiReflectionResult && !aiReflectionLoading && hasApiKey() && (
+                <button className="reflection-ai-btn" onClick={handleRequestAIReflection}>
+                  <Sparkle size={16} weight="fill" /> Get AI Feedback
+                </button>
+              )}
+
+              {saved && !hasApiKey() && !aiReflectionResult && !aiReflectionLoading && (
+                <p className="reflection-ai-upsell">
+                  Add an API key in Settings to get AI feedback on your reflections.
+                </p>
+              )}
             </div>
-          )}
 
-          {aiReflectionResult && !aiReflectionLoading && (
-            <div className="reflection-ai-feedback animate-fade-in">
-              <div className="reflection-ai-header">
-                <Sparkle size={18} weight="fill" color="#F59E0B" />
-                <span>AI Reflection Coaching</span>
-              </div>
-              <div className="reflection-ai-group">
-                <label>Insight</label>
-                <p>{aiReflectionResult.insight}</p>
-              </div>
-              <div className="reflection-ai-question">
-                <label>Go Deeper</label>
-                <p>{aiReflectionResult.deeperQuestion}</p>
-              </div>
-              <div className="reflection-ai-group">
-                <label>Connection</label>
-                <p>{aiReflectionResult.connection}</p>
-              </div>
+            <div className="lesson-nav-buttons">
+              <Button
+                variant="secondary"
+                onClick={() => setSelectedLesson(Math.max(0, selectedLesson - 1))}
+                disabled={selectedLesson === 0}
+              >
+                Previous
+              </Button>
+              <Button
+                variant="mode"
+                modeColor={theme.primary}
+                onClick={() => setSelectedLesson(Math.min(LESSONS.length - 1, selectedLesson + 1))}
+                disabled={selectedLesson === LESSONS.length - 1}
+              >
+                Next Lesson
+              </Button>
             </div>
-          )}
-
-          {saved && !aiReflectionResult && !aiReflectionLoading && hasApiKey() && (
-            <button className="reflection-ai-btn" onClick={handleRequestAIReflection}>
-              <Sparkle size={16} weight="fill" /> Get AI Feedback
-            </button>
-          )}
-
-          {saved && !hasApiKey() && !aiReflectionResult && !aiReflectionLoading && (
-            <p className="reflection-ai-upsell">
-              Add an API key in Settings to get AI feedback on your reflections.
-            </p>
-          )}
-        </div>
-
-        <div className="lesson-nav-buttons">
-          <Button
-            variant="secondary"
-            onClick={() => setSelectedLesson(Math.max(0, selectedLesson - 1))}
-            disabled={selectedLesson === 0}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="mode"
-            modeColor={theme.primary}
-            onClick={() => setSelectedLesson(Math.min(LESSONS.length - 1, selectedLesson + 1))}
-            disabled={selectedLesson === LESSONS.length - 1}
-          >
-            Next Lesson
-          </Button>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,123 @@
+/* ─── Lesson Player container ───────────────────────────────── */
+.lesson-player {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ─── Progress dots ─────────────────────────────────────────── */
+.lp-progress {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) 0;
+}
+
+.lp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.lp-dot.done {
+  background: var(--text-muted);
+  width: 5px;
+  height: 5px;
+}
+
+.lp-dot.active {
+  background: #F59E0B;
+  width: 9px;
+  height: 9px;
+}
+
+/* ─── Section ───────────────────────────────────────────────── */
+.lp-section {
+  min-height: 180px;
+}
+
+.lp-section-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-md);
+}
+
+/* ─── Navigation ────────────────────────────────────────────── */
+.lp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+}
+
+.lp-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.lp-btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.lp-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.lp-btn:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.lp-btn--next {
+  background: #F59E0B;
+  border-color: #F59E0B;
+  color: #fff;
+}
+
+.lp-btn--next:hover:not(:disabled) {
+  background: #D97706;
+  border-color: #D97706;
+  color: #fff;
+}
+
+.lp-btn--next.locked {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.lp-btn--next.locked:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+/* ─── Lesson complete state ─────────────────────────────────── */
+.lp-done-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-xs) 0;
+}

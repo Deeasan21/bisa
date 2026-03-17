@@ -45,7 +45,75 @@ export const LESSONS = [
           <li>When the moment calls for action, not exploration — sometimes the answer is already clear</li>
         </ul>
       </section>
-    `
+    `,
+    sections: [
+      {
+        id: 'engine',
+        title: 'The Engine of Discovery',
+        content: `
+          <p>Before we dive in, something worth noticing: the fact that you want to learn about questions already says something important about you. Most people never think about <em>how</em> they ask questions — they just ask them, or worse, they stop asking altogether somewhere around age seven.</p>
+          <p><strong>Questions are the engine of all learning and connection.</strong> Every discovery in human history started with someone asking "why?" or "what if?" or "how does this work?" Penicillin, gravity, electricity — none of these were <em>found</em>. They were <em>questioned into existence.</em></p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'relationships',
+        title: 'Questions Change Relationships',
+        content: `
+          <p>Questions don't just help us learn facts. They change our <em>relationships</em>.</p>
+          <p>Imagine two people meeting at a dinner party. One spends the evening making statements — sharing opinions, telling stories about himself. The other asks questions with genuine curiosity. By the end of the night, the question-asker is the one everyone wants to keep talking to — even though he's shared almost nothing about himself.</p>
+          <p>The difference shows up even in small moments. Here's a common one:</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"Did you have a good weekend?"',
+          after: '"What was the highlight of your weekend?"',
+          explanation: 'The first invites a shrug or a "fine." The second signals you actually want to know something real — and that changes how the other person feels seen.',
+        },
+      },
+      {
+        id: 'generous',
+        title: 'Questions Are Generous',
+        content: `
+          <p>There's a reason great conversationalists tend to be great questioners. When you ask well, you're communicating something beyond the words: <em>you matter, your thoughts matter, I want to understand your world.</em></p>
+          <p>When turned inward, questions become tools for self-discovery. The unexamined life, as Socrates put it, is not worth living — and examination requires questions.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'In most conversations, your natural instinct is more to…',
+          options: [
+            {
+              text: 'Share your own thoughts and experiences',
+              insight: 'Sharing builds rapport too — the skill is learning when to pause and ask instead of respond. The question "What about you?" changes the whole energy of a conversation.',
+            },
+            {
+              text: 'Ask about the other person',
+              insight: 'Your instinct is already a gift. The next level is making your questions more specific — not "How was your day?" but "What was the hardest part of your day?"',
+            },
+            {
+              text: 'Match the other person\'s energy',
+              insight: 'Reading the room well is a real skill. The next step is finding moments where a well-placed question would open something up — even in a light conversation.',
+            },
+            {
+              text: 'Listen more than you do either',
+              insight: 'Deep listening is underrated. Questions and silence work together — the pause after you ask is often where the real answer lives.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of someone in your life who asks great questions. What do they do that makes their questions feel different? And where do you tend to make statements when a question might open things up more?',
+        },
+      },
+    ],
   },
   {
     id: 2,
@@ -94,7 +162,66 @@ export const LESSONS = [
           <li><strong>Avoid leading questions</strong> always — they masquerade as inquiry but are really statements in disguise.</li>
         </ul>
       </section>
-    `
+    `,
+    sections: [
+      {
+        id: 'toolkit',
+        title: 'Your Question Toolkit',
+        content: `
+          <p>In Lesson 1, we discovered that questions are the engine of learning and connection. But here's what separates a good questioner from a great one: knowing which <em>type</em> of question to use, and when.</p>
+          <p>Think of questions like tools. A hammer is perfect for nails, useless for screws.</p>
+          <p><strong>Closed questions</strong> have limited answers — often yes or no. "Did you finish the report?" "Are you coming?" Useful for facts, logistics, and confirmation. <strong>Open questions</strong> invite exploration: "What was most challenging about this?" "How do you feel about the direction?" Useful when you want depth, connection, or real thinking.</p>
+          <p><strong>The common mistake:</strong> using closed questions when you want connection. The fix is usually simple — swap "Did you…?" for "What…?" or "How…?"</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'leading',
+        title: 'The Leading Question Trap',
+        content: `
+          <p>A leading question nudges — or shoves — toward a particular answer. The problem isn't that it's rude. The problem is that it cuts off genuine thinking. The other person either agrees to avoid conflict, or pushes back defensively. Either way, you've stopped a real conversation before it started.</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"Don\'t you think the deadline is unrealistic?"',
+          after: '"What\'s your honest assessment of this deadline?"',
+          explanation: 'The first signals the answer you want and makes disagreement feel unsafe. The second opens the door to a real perspective — including one that might change your mind.',
+        },
+      },
+      {
+        id: 'four-tools',
+        title: 'Four More Tools',
+        content: `
+          <p>Beyond open and closed, four more question types are worth building into your instincts:</p>
+          <p><strong>Clarifying:</strong> "What do you mean by 'soon'?" — Use when something is ambiguous and you need shared understanding before moving forward.</p>
+          <p><strong>Probing:</strong> "What specifically triggered that frustration?" — Use when you sense there's more beneath the surface and trust has been established.</p>
+          <p><strong>Hypothetical:</strong> "If you could redesign this from scratch, what would you change?" — Use to unlock imagination or reduce the stakes of answering.</p>
+          <p><strong>Reflective:</strong> "You said you felt 'invisible' — what does that mean to you?" — Use to help someone examine their own words and what they reveal.</p>
+          <p>Now try applying this:</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A colleague seems quiet and disengaged in your 1:1. You want to understand what\'s going on. Which question works better?',
+          options: [
+            { text: '"Are you okay?"', isCorrect: false },
+            { text: '"What\'s been on your mind lately?"', isCorrect: true },
+          ],
+          explanation: '"Are you okay?" is closed — it invites "yes" and shuts down. "What\'s been on your mind lately?" is open and non-threatening, signaling you\'re genuinely curious rather than checking a box.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think about a question type you tend to overuse. Do you reach for closed questions when you want connection? Do you probe before trust is there? Think of one situation this week where a different type of question might have served you better.',
+        },
+      },
+    ],
   },
   {
     id: 3,
@@ -142,7 +269,63 @@ export const LESSONS = [
           <li>When time is short and a direct answer would be more respectful of the moment</li>
         </ul>
       </section>
-    `
+    `,
+    sections: [
+      {
+        id: 'what-is-it',
+        title: 'Learning Through Questions',
+        content: `
+          <p>Imagine a teacher who never gives you answers. Instead, they ask questions that make you think deeper about what you believe and why. That teacher is practicing the Socratic method — named for the ancient Greek philosopher who made it famous.</p>
+          <p>The core idea: <strong>questions, not statements, stimulate real thinking.</strong> When we arrive at a realization through our own reasoning, we <em>own</em> that realization in a way we never can when someone just hands us the answer.</p>
+          <p>This is why great coaches, therapists, and mentors ask more than they tell. They're not withholding — they're giving you the chance to find it yourself.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'sequence',
+        title: 'The Five-Step Sequence',
+        content: `
+          <p>Socratic questioning follows a predictable pattern. You don't need all five steps every time — think of them as moves available to you, not a script to follow.</p>
+          <p><strong>1. Clarify:</strong> "What do you mean by that?" — Pin down what someone actually means before going deeper.</p>
+          <p><strong>2. Probe Assumptions:</strong> "What are you assuming here?" — Surface the beliefs underneath the claim.</p>
+          <p><strong>3. Explore Evidence:</strong> "What makes you say that?" — Examine whether the belief is actually supported.</p>
+          <p><strong>4. Consider Alternatives:</strong> "What's another way to look at this?" — Open the possibility that other views have merit.</p>
+          <p><strong>5. Examine Consequences:</strong> "If that's true, what would it mean?" — Follow the logic to its conclusion.</p>
+        `,
+        diagram: {
+          type: 'escalation-flow',
+          props: {
+            steps: ['Clarify', 'Probe Assumptions', 'Explore Evidence', 'Consider Alternatives', 'Examine Consequences'],
+          },
+        },
+        interaction: null,
+      },
+      {
+        id: 'story',
+        title: 'Watch It Work',
+        content: `
+          <p>Here's the Socratic method in a real conversation. Alex says: <em>"I don't think I should go for that promotion. I'm probably not ready."</em></p>
+          <p>Notice how the questioner never argues, never reassures — only asks. Compare two approaches:</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"You\'d be great at it — you should definitely apply."',
+          after: '"When you say not ready, what specifically makes you feel that way?"',
+          explanation: 'The first forecloses thinking with reassurance. The second — followed by questions about assumptions and evidence — guided Alex to realize he was measuring readiness by seniority, not capability. He applied.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of someone in your life who holds a belief that limits them. What Socratic question would you ask — not to challenge them, but to genuinely help them examine it? What stops you from asking it?',
+        },
+      },
+    ],
   },
   {
     id: 4,
