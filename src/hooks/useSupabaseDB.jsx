@@ -125,26 +125,13 @@ function buildDb(userId) {
       }
       const newLongest = Math.max(newStreak, info.longestStreak);
 
-      const { data: existing } = await supabase
-        .from('user_stats')
-        .select('id')
-        .eq('id', userId)
-        .maybeSingle();
-
-      if (existing) {
-        await supabase.from('user_stats').update({
-          current_streak: newStreak,
-          longest_streak: newLongest,
-          last_challenge_date: dateStr,
-        }).eq('id', userId);
-      } else {
-        await supabase.from('user_stats').insert({
-          id: userId,
-          current_streak: newStreak,
-          longest_streak: newLongest,
-          last_challenge_date: dateStr,
-        });
-      }
+      const { error } = await supabase.from('user_stats').upsert({
+        id: userId,
+        current_streak: newStreak,
+        longest_streak: newLongest,
+        last_challenge_date: dateStr,
+      }, { onConflict: 'id' });
+      if (error) throw error;
 
       return newStreak;
     } catch (e) { console.error('updateStreak:', e); return 0; }

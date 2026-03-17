@@ -37,8 +37,13 @@ export default function AuthPage() {
           setLoading(false);
           return;
         }
-        await signUp(email, password);
-        navigate('/onboarding', { replace: true });
+        const result = await signUp(email, password);
+        if (result.session) {
+          navigate('/onboarding', { replace: true });
+        } else {
+          // Email confirmation required — session won't exist until confirmed
+          setError('Account created! Check your email to confirm, then sign in.');
+        }
       }
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.');
