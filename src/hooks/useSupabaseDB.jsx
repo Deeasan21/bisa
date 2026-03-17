@@ -110,10 +110,9 @@ function buildDb(userId) {
   async function updateStreak(dateStr) {
     try {
       const info = await getStreakInfo();
-      const today = new Date(dateStr);
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const [y, m, day] = dateStr.split('-').map(Number);
+      const yesterday = new Date(y, m - 1, day - 1);
+      const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
 
       let newStreak;
       if (info.lastChallengeDate === yesterdayStr) {
