@@ -305,3 +305,25 @@
     padding: 14px 20px 18px;
   }
 }
+
+.onboarding-name-input {
+  margin-top: var(--space-lg);
+  width: 100%;
+  padding: 14px var(--space-md);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+.onboarding-name-input:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+.onboarding-name-input::placeholder {
+  color: var(--text-muted);
+}

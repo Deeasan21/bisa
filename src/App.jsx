@@ -10,24 +10,26 @@ import OnboardingPage from './pages/OnboardingPage';
 import AuthPage from './pages/AuthPage';
 import { useAuth } from './hooks/useAuth';
 
+function AuthGuard() {
+  const { user, loading } = useAuth();
+  if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
+  if (!user) return <Navigate to="/auth" replace />;
+  return <Outlet />;
+}
+
 function OnboardingGuard() {
   const done = localStorage.getItem('bisa-onboarding-done');
   if (!done) return <Navigate to="/onboarding" replace />;
   return <Outlet />;
 }
 
-function AuthGuardAfterOnboarding() {
+function AuthRedirect() {
   const { user, loading } = useAuth();
+  const done = localStorage.getItem('bisa-onboarding-done');
   if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
-  if (!user) return <Navigate to="/auth" replace />;
-  return <Outlet />;
-}
-
-function AuthGuard() {
-  const { user, loading } = useAuth();
-  if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
-  if (!user) return <Navigate to="/auth" replace />;
-  return <Outlet />;
+  if (user && done) return <Navigate to="/" replace />;
+  if (user && !done) return <Navigate to="/onboarding" replace />;
+  return <AuthPage />;
 }
 
 const LearnMode = lazy(() => import('./components/modes/LearnMode'));
@@ -75,10 +77,10 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Routes>
+        <Route path="/auth" element={<AuthRedirect />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route element={<OnboardingGuard />}>
-          <Route element={<AuthGuardAfterOnboarding />}>
+        <Route element={<AuthGuard />}>
+          <Route element={<OnboardingGuard />}>
             <Route element={<AppShell />}>
               <Route path="/" element={<TodayPage />} />
               <Route path="/modes" element={<ModesPage />} />

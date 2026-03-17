@@ -10,22 +10,21 @@ export default function AuthPage() {
   const [tab, setTab] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   function handleTabChange(newTab) {
     setTab(newTab);
     setError('');
-    setSuccess('');
+    setConfirmPassword('');
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
-    setSuccess('');
     setLoading(true);
 
     try {
@@ -33,9 +32,13 @@ export default function AuthPage() {
         await signIn(email, password);
         navigate('/', { replace: true });
       } else {
-        await signUp(email, password, displayName.trim());
-        setSuccess('Account created! Check your email to confirm your address, then sign in.');
-        setTab('signin');
+        if (password !== confirmPassword) {
+          setError('Passwords do not match.');
+          setLoading(false);
+          return;
+        }
+        await signUp(email, password);
+        navigate('/onboarding', { replace: true });
       }
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.');
@@ -71,7 +74,6 @@ export default function AuthPage() {
         </div>
 
         {error && <div className="auth-error">{error}</div>}
-        {success && <div className="auth-success">{success}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
@@ -87,21 +89,6 @@ export default function AuthPage() {
               autoComplete="email"
             />
           </div>
-
-          {tab === 'signup' && (
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="auth-name">Your name</label>
-              <input
-                id="auth-name"
-                className="auth-input"
-                type="text"
-                placeholder="How should we call you?"
-                value={displayName}
-                onChange={e => setDisplayName(e.target.value)}
-                autoComplete="name"
-              />
-            </div>
-          )}
 
           <div className="auth-field">
             <label className="auth-label" htmlFor="auth-password">Password</label>
@@ -128,10 +115,37 @@ export default function AuthPage() {
             </div>
           </div>
 
+          {tab === 'signup' && (
+            <div className="auth-field">
+              <label className="auth-label" htmlFor="auth-confirm">Confirm password</label>
+              <div className="auth-password-wrap">
+                <input
+                  id="auth-confirm"
+                  className="auth-input"
+                  type={showConfirm ? 'text' : 'password'}
+                  placeholder="Repeat your password"
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  required
+                  autoComplete="new-password"
+                  minLength={6}
+                />
+                <button
+                  type="button"
+                  className="auth-pw-toggle"
+                  onClick={() => setShowConfirm(v => !v)}
+                  aria-label={showConfirm ? 'Hide password' : 'Show password'}
+                >
+                  {showConfirm ? 'Hide' : 'Show'}
+                </button>
+              </div>
+            </div>
+          )}
+
           <button
             className="auth-submit"
             type="submit"
-            disabled={loading || !email || !password}
+            disabled={loading || !email || !password || (tab === 'signup' && !confirmPassword)}
           >
             {loading
               ? (tab === 'signin' ? 'Signing in…' : 'Creating account…')

@@ -2,27 +2,37 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import './OnboardingPage.css';
 
 export default function OnboardingPage() {
   const [slide, setSlide] = useState(0);
+  const [nameInput, setNameInput] = useState('');
   const navigate = useNavigate();
+  const { db } = useSupabaseDB();
 
-  const finish = () => {
+  const TOTAL_SLIDES = 4;
+
+  const finish = async (name) => {
+    if (db && name && name.trim()) {
+      await db.updateProfile({ displayName: name.trim() }).catch(() => {});
+    }
     localStorage.setItem('bisa-onboarding-done', 'true');
-    navigate('/auth');
+    navigate('/', { replace: true });
   };
 
   const next = () => {
-    if (slide < 2) setSlide(s => s + 1);
-    else finish();
+    if (slide < TOTAL_SLIDES - 1) setSlide(s => s + 1);
+    else finish(nameInput);
   };
 
   const back = () => {
     if (slide > 0) setSlide(s => s - 1);
   };
 
-  const CTA_LABELS = ['How it works', 'One more thing', "Let's begin"];
+  const skip = () => finish('');
+
+  const CTA_LABELS = ['How it works', 'One more thing', 'Almost there', "Let's go"];
 
   return (
     <div className="onboarding">
@@ -32,6 +42,7 @@ export default function OnboardingPage() {
             {slide === 0 && <WelcomeScreen />}
             {slide === 1 && <ModesScreen />}
             {slide === 2 && <PhilosophyScreen />}
+            {slide === 3 && <NameScreen name={nameInput} onChange={setNameInput} onSubmit={() => finish(nameInput)} />}
           </div>
         </div>
 
@@ -43,11 +54,13 @@ export default function OnboardingPage() {
               </button>
             )}
             <div className="onboarding-dots">
-              {[0, 1, 2].map(i => (
+              {Array.from({ length: TOTAL_SLIDES }, (_, i) => (
                 <div key={i} className={`onboarding-dot${i === slide ? ' active' : ''}`} />
               ))}
             </div>
-            <button className="onboarding-skip" onClick={finish}>Skip</button>
+            {slide < TOTAL_SLIDES - 1 && (
+              <button className="onboarding-skip" onClick={skip}>Skip</button>
+            )}
           </div>
           <button className="onboarding-cta" onClick={next}>
             {CTA_LABELS[slide]}
@@ -146,6 +159,29 @@ function PhilosophyScreen() {
       <p className="onboarding-body">
         It's a small skill. It changes a lot.
       </p>
+    </div>
+  );
+}
+
+function NameScreen({ name, onChange, onSubmit }) {
+  return (
+    <div className="onboarding-screen onboarding-screen--center">
+      <p className="onboarding-eyebrow">One last thing</p>
+      <h2 className="onboarding-subtitle">What should we call you?</h2>
+      <p className="onboarding-body">
+        This is how you'll appear in the app. You can change it anytime from your profile.
+      </p>
+      <input
+        className="onboarding-name-input"
+        type="text"
+        placeholder="Your name"
+        value={name}
+        onChange={e => onChange(e.target.value)}
+        onKeyDown={e => e.key === 'Enter' && name.trim() && onSubmit()}
+        autoFocus
+        autoComplete="name"
+        maxLength={40}
+      />
     </div>
   );
 }

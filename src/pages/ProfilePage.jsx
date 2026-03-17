@@ -106,7 +106,6 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem('bisa-onboarding-done');
       await signOut();
     } catch (e) {
       console.error('Sign out failed:', e);
