@@ -50,12 +50,6 @@ export default function AuthPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-brand">
-          <img src="/icon.svg" alt="Bisa" className="auth-logo-mark" />
-          <h1 className="auth-brand-name">Bisa</h1>
-          <p className="auth-brand-tagline">Learn to ask better questions</p>
-        </div>
-
         <div className="auth-tabs">
           <button
             className={`auth-tab${tab === 'signin' ? ' active' : ''}`}
