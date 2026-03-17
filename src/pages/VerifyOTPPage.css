@@ -33,8 +33,8 @@
 }
 
 .otp-input {
-  width: 48px;
-  height: 56px;
+  width: 44px;
+  height: 52px;
   border: 2px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--bg-primary);
@@ -124,14 +124,14 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   .otp-input {
-    width: 42px;
-    height: 50px;
-    font-size: 1.25rem;
+    width: 36px;
+    height: 44px;
+    font-size: 1.1rem;
   }
 
   .otp-boxes {
-    gap: 7px;
+    gap: 6px;
   }
 }
