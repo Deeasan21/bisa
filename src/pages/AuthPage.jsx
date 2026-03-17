@@ -11,6 +11,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,7 @@ export default function AuthPage() {
     setTab(newTab);
     setError('');
     setConfirmPassword('');
+    setDisplayName('');
   }
 
   async function handleSubmit(e) {
@@ -37,16 +39,17 @@ export default function AuthPage() {
           setLoading(false);
           return;
         }
-        const result = await signUp(email, password);
-        if (result.session) {
-          navigate('/onboarding', { replace: true });
-        } else {
-          // Email confirmation required — session won't exist until confirmed
-          setError('Account created! Check your email to confirm, then sign in.');
-        }
+        await signUp(email, password, displayName.trim());
+        // Email confirmation is ON — always go to OTP verify screen
+        navigate('/verify', { state: { email }, replace: true });
       }
     } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again.');
+      const msg = err.message || '';
+      if (msg.toLowerCase().includes('not confirmed')) {
+        setError('Please verify your email first. Check your inbox for the code, or sign up again to resend.');
+      } else {
+        setError(msg || 'Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -80,6 +83,21 @@ export default function AuthPage() {
         {error && <div className="auth-error">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          {tab === 'signup' && (
+            <div className="auth-field">
+              <label className="auth-label" htmlFor="auth-name">Your name</label>
+              <input
+                id="auth-name"
+                className="auth-input"
+                type="text"
+                placeholder="What should we call you?"
+                value={displayName}
+                onChange={e => setDisplayName(e.target.value)}
+                autoComplete="name"
+              />
+            </div>
+          )}
+
           <div className="auth-field">
             <label className="auth-label" htmlFor="auth-email">Email</label>
             <input

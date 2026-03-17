@@ -8,6 +8,7 @@ import JournalPage from './pages/JournalPage';
 import ProfilePage from './pages/ProfilePage';
 import OnboardingPage from './pages/OnboardingPage';
 import AuthPage from './pages/AuthPage';
+import VerifyOTPPage from './pages/VerifyOTPPage';
 import { useAuth } from './hooks/useAuth';
 
 function AuthGuard() {
@@ -78,6 +79,7 @@ export default function App() {
     <ErrorBoundary>
       <Routes>
         <Route path="/auth" element={<AuthRedirect />} />
+        <Route path="/verify" element={<VerifyOTPPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route element={<AuthGuard />}>
           <Route element={<OnboardingGuard />}>
