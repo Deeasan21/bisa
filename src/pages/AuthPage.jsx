@@ -11,6 +11,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -104,17 +105,27 @@ export default function AuthPage() {
 
           <div className="auth-field">
             <label className="auth-label" htmlFor="auth-password">Password</label>
-            <input
-              id="auth-password"
-              className="auth-input"
-              type="password"
-              placeholder={tab === 'signup' ? 'At least 6 characters' : 'Your password'}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              autoComplete={tab === 'signin' ? 'current-password' : 'new-password'}
-              minLength={6}
-            />
+            <div className="auth-password-wrap">
+              <input
+                id="auth-password"
+                className="auth-input"
+                type={showPassword ? 'text' : 'password'}
+                placeholder={tab === 'signup' ? 'At least 6 characters' : 'Your password'}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                autoComplete={tab === 'signin' ? 'current-password' : 'new-password'}
+                minLength={6}
+              />
+              <button
+                type="button"
+                className="auth-pw-toggle"
+                onClick={() => setShowPassword(v => !v)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
 
           <button
