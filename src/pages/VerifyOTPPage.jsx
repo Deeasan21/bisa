@@ -32,7 +32,7 @@ export default function VerifyOTPPage() {
     if (user) navigate('/', { replace: true });
   }, [user, navigate]);
 
-  const [digits, setDigits] = useState(['', '', '', '']);
+  const [digits, setDigits] = useState(['', '', '', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -55,7 +55,7 @@ export default function VerifyOTPPage() {
   }, [resendTimer]);
 
   const code = digits.join('');
-  const canVerify = code.length === 4 && !loading && !success;
+  const canVerify = code.length === 8 && !loading && !success;
 
   function handleDigitChange(index, value) {
     // Only allow digits
@@ -65,7 +65,7 @@ export default function VerifyOTPPage() {
     setDigits(next);
     setError('');
 
-    if (digit && index < 3) {
+    if (digit && index < 7) {
       inputRefs.current[index + 1]?.focus();
     }
   }
@@ -91,14 +91,14 @@ export default function VerifyOTPPage() {
 
   function handlePaste(e) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 8);
     if (!pasted) return;
-    const next = ['', '', '', ''];
+    const next = ['', '', '', '', '', '', '', ''];
     for (let i = 0; i < pasted.length; i++) next[i] = pasted[i];
     setDigits(next);
     setError('');
     // Focus the box after the last pasted digit, or the last box
-    const focusIdx = Math.min(pasted.length, 3);
+    const focusIdx = Math.min(pasted.length, 7);
     inputRefs.current[focusIdx]?.focus();
   }
 
@@ -122,7 +122,7 @@ export default function VerifyOTPPage() {
       } else {
         setError(error.message || 'Verification failed. Please try again.');
       }
-      setDigits(['', '', '', '']);
+      setDigits(['', '', '', '', '', '', '', '']);
       setLoading(false);
       inputRefs.current[0]?.focus();
       return;
@@ -173,7 +173,7 @@ export default function VerifyOTPPage() {
           <>
             <div className="verify-heading">
               <h2>Check your email</h2>
-              <p>We sent a 6-digit code to<br /><strong>{maskEmail(email)}</strong></p>
+              <p>We sent an 8-digit code to<br /><strong>{maskEmail(email)}</strong></p>
             </div>
 
             {error && <div className="auth-error">{error}</div>}
