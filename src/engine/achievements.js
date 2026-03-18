@@ -5,7 +5,6 @@
  * Each achievement has a condition check, XP reward, and celebration trigger.
  */
 
-import { queryStmt, runStmt, saveDatabase, query } from '../utils/database';
 import { getTotalXP } from './xpSystem';
 import { getLeague } from './leagues';
 

@@ -5,7 +5,6 @@
  * Simulated rankings until user accounts are added in Phase 3.
  */
 
-import { query, queryStmt, runStmt, saveDatabase } from '../utils/database';
 
 export const LEAGUES = [
   { name: 'Bronze', color: '#CD7F32', minXP: 0, maxXP: 499, icon: 'Shield' },

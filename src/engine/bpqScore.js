@@ -6,9 +6,6 @@
  * Overall BPQ = weighted average of all category scores.
  */
 
-import { query, queryStmt, runStmt, saveDatabase } from '../utils/database';
-import { SKILL_CATEGORIES } from './adaptiveDifficulty';
-
 export const BPQ_LEVELS = [
   { min: 0, max: 149, label: 'Curious Beginner' },
   { min: 150, max: 299, label: 'Active Listener' },

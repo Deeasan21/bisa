@@ -5,7 +5,6 @@
  * Replaces the simple XP_AWARDS constants with dynamic calculations.
  */
 
-import { runStmt, saveDatabase, query, queryStmt } from '../utils/database';
 import { checkLeaguePromotion, updateWeeklyTracking } from './leagues';
 import { saveBPQSnapshot } from './bpqScore';
 
