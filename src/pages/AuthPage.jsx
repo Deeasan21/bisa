@@ -40,12 +40,16 @@ export default function AuthPage() {
           return;
         }
         await signUp(email, password, displayName);
-        // Email confirmation OFF — session is live immediately
-        navigate('/onboarding', { replace: true });
+        // Email confirmation ON — go to OTP verify screen
+        navigate('/verify', { state: { email }, replace: true });
       }
     } catch (err) {
       const msg = err.message || '';
-      setError(msg || 'Something went wrong. Please try again.');
+      if (msg.toLowerCase().includes('not confirmed')) {
+        setError('Please verify your email first. Check your inbox for the code, or sign up again to resend.');
+      } else {
+        setError(msg || 'Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
