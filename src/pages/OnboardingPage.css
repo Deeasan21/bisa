@@ -55,6 +55,14 @@
 }
 
 /* Screen 1 — Welcome */
+.onboarding-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+}
+
 .onboarding-headline-row {
   display: flex;
   align-items: center;

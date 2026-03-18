@@ -18,18 +18,12 @@ function AuthGuard() {
   return <Outlet />;
 }
 
-function OnboardingGuard() {
-  const done = localStorage.getItem('bisa-onboarding-done');
-  if (!done) return <Navigate to="/onboarding" replace />;
-  return <Outlet />;
-}
-
 function AuthRedirect() {
   const { user, loading } = useAuth();
-  const done = localStorage.getItem('bisa-onboarding-done');
+  const introSeen = localStorage.getItem('bisa-intro-seen');
   if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
-  if (user && done) return <Navigate to="/" replace />;
-  if (user && !done) return <Navigate to="/onboarding" replace />;
+  if (user) return <Navigate to="/" replace />;
+  if (!introSeen) return <Navigate to="/onboarding" replace />;
   return <AuthPage />;
 }
 
@@ -82,21 +76,19 @@ export default function App() {
         <Route path="/verify" element={<VerifyOTPPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route element={<AuthGuard />}>
-          <Route element={<OnboardingGuard />}>
-            <Route element={<AppShell />}>
-              <Route path="/" element={<TodayPage />} />
-              <Route path="/modes" element={<ModesPage />} />
-              <Route path="/progress" element={<ProgressPage />} />
-              <Route path="/journal" element={<JournalPage />} />
-              <Route path="/me" element={<ProfilePage />} />
-            </Route>
-            <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
-            <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
-            <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
-            <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
-            <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
-            <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
+          <Route element={<AppShell />}>
+            <Route path="/" element={<TodayPage />} />
+            <Route path="/modes" element={<ModesPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="/me" element={<ProfilePage />} />
           </Route>
+          <Route path="/mode/learn" element={<SuspenseWrap><LearnMode /></SuspenseWrap>} />
+          <Route path="/mode/practice" element={<SuspenseWrap><PracticeMode /></SuspenseWrap>} />
+          <Route path="/mode/daily" element={<SuspenseWrap><DailyChallenge /></SuspenseWrap>} />
+          <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
+          <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
+          <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
         </Route>
       </Routes>
     </ErrorBoundary>

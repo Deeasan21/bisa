@@ -84,7 +84,7 @@ export default function VerifyOTPPage() {
       }
     } else if (e.key === 'ArrowLeft' && index > 0) {
       inputRefs.current[index - 1]?.focus();
-    } else if (e.key === 'ArrowRight' && index < 5) {
+    } else if (e.key === 'ArrowRight' && index < 7) {
       inputRefs.current[index + 1]?.focus();
     }
   }

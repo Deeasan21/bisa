@@ -2,37 +2,29 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
-import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import './OnboardingPage.css';
 
 export default function OnboardingPage() {
   const [slide, setSlide] = useState(0);
-  const [nameInput, setNameInput] = useState('');
   const navigate = useNavigate();
-  const { db } = useSupabaseDB();
 
-  const TOTAL_SLIDES = 4;
+  const TOTAL_SLIDES = 3;
 
-  const finish = async (name) => {
-    if (db && name && name.trim()) {
-      await db.updateProfile({ displayName: name.trim() }).catch(() => {});
-    }
-    localStorage.setItem('bisa-onboarding-done', 'true');
-    navigate('/', { replace: true });
+  const goToAuth = () => {
+    localStorage.setItem('bisa-intro-seen', 'true');
+    navigate('/auth', { replace: true });
   };
 
   const next = () => {
     if (slide < TOTAL_SLIDES - 1) setSlide(s => s + 1);
-    else finish(nameInput);
+    else goToAuth();
   };
 
   const back = () => {
     if (slide > 0) setSlide(s => s - 1);
   };
 
-  const skip = () => finish('');
-
-  const CTA_LABELS = ['How it works', 'One more thing', 'Almost there', "Let's go"];
+  const CTA_LABELS = ['How it works', 'Almost there', 'Get started'];
 
   return (
     <div className="onboarding">
@@ -42,7 +34,6 @@ export default function OnboardingPage() {
             {slide === 0 && <WelcomeScreen />}
             {slide === 1 && <ModesScreen />}
             {slide === 2 && <PhilosophyScreen />}
-            {slide === 3 && <NameScreen name={nameInput} onChange={setNameInput} onSubmit={() => finish(nameInput)} />}
           </div>
         </div>
 
@@ -59,7 +50,7 @@ export default function OnboardingPage() {
               ))}
             </div>
             {slide < TOTAL_SLIDES - 1 && (
-              <button className="onboarding-skip" onClick={skip}>Skip</button>
+              <button className="onboarding-skip" onClick={goToAuth}>Skip</button>
             )}
           </div>
           <button className="onboarding-cta" onClick={next}>
@@ -76,8 +67,8 @@ function WelcomeScreen() {
   return (
     <div className="onboarding-screen">
       <p className="onboarding-eyebrow">ask · learn · grow</p>
-      <div className="onboarding-headline-row">
-        <NeaOnnim size={48} />
+      <div className="onboarding-brand">
+        <NeaOnnim size={56} />
         <h1 className="onboarding-headline">Bisa</h1>
       </div>
       <div className="onboarding-welcome-body">
@@ -159,29 +150,6 @@ function PhilosophyScreen() {
       <p className="onboarding-body">
         It's a small skill. It changes a lot.
       </p>
-    </div>
-  );
-}
-
-function NameScreen({ name, onChange, onSubmit }) {
-  return (
-    <div className="onboarding-screen onboarding-screen--center">
-      <p className="onboarding-eyebrow">One last thing</p>
-      <h2 className="onboarding-subtitle">What should we call you?</h2>
-      <p className="onboarding-body">
-        This is how you'll appear in the app. You can change it anytime from your profile.
-      </p>
-      <input
-        className="onboarding-name-input"
-        type="text"
-        placeholder="Your name"
-        value={name}
-        onChange={e => onChange(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && name.trim() && onSubmit()}
-        autoFocus
-        autoComplete="name"
-        maxLength={40}
-      />
     </div>
   );
 }
