@@ -9,6 +9,7 @@ import ProfilePage from './pages/ProfilePage';
 import OnboardingPage from './pages/OnboardingPage';
 import AuthPage from './pages/AuthPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
+import WelcomePage from './pages/WelcomePage';
 import { useAuth } from './hooks/useAuth';
 
 function AuthGuard() {
@@ -76,6 +77,7 @@ export default function App() {
         <Route path="/verify" element={<VerifyOTPPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route element={<AuthGuard />}>
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route element={<AppShell />}>
             <Route path="/" element={<TodayPage />} />
             <Route path="/modes" element={<ModesPage />} />

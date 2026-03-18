@@ -1,0 +1,116 @@
+.welcome-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  padding: var(--space-md);
+}
+
+.welcome-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(28, 25, 23, 0.10);
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.welcome-brand {
+  margin-bottom: var(--space-xl);
+}
+
+.welcome-heading {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm);
+  line-height: 1.2;
+}
+
+.welcome-subtext {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-xl);
+  line-height: 1.6;
+}
+
+.welcome-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.welcome-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  text-align: center;
+}
+
+.welcome-input:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.welcome-input::placeholder {
+  color: var(--text-muted);
+}
+
+.welcome-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: var(--radius-full);
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.12s;
+  width: 100%;
+}
+
+.welcome-cta:hover {
+  opacity: 0.88;
+}
+
+.welcome-cta:active {
+  transform: scale(0.97);
+}
+
+.welcome-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.welcome-skip {
+  margin-top: var(--space-md);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.welcome-skip:hover {
+  color: var(--text-secondary);
+}

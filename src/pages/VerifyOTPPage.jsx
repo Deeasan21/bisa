@@ -129,7 +129,7 @@ export default function VerifyOTPPage() {
     }
 
     setSuccess(true);
-    setTimeout(() => navigate('/onboarding', { replace: true }), 1200);
+    setTimeout(() => navigate('/welcome', { replace: true }), 1200);
   }
 
   async function handleResend() {

@@ -9,7 +9,6 @@ export default function AuthPage() {
 
   const [tab, setTab] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
-  const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +20,6 @@ export default function AuthPage() {
     setTab(newTab);
     setError('');
     setConfirmPassword('');
-    setDisplayName('');
   }
 
   async function handleSubmit(e) {
@@ -39,7 +37,7 @@ export default function AuthPage() {
           setLoading(false);
           return;
         }
-        await signUp(email, password, displayName);
+        await signUp(email, password);
         // Email confirmation ON — go to OTP verify screen
         navigate('/verify', { state: { email }, replace: true });
       }
@@ -83,21 +81,6 @@ export default function AuthPage() {
         {error && <div className="auth-error">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          {tab === 'signup' && (
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="auth-name">Your name</label>
-              <input
-                id="auth-name"
-                className="auth-input"
-                type="text"
-                placeholder="What should we call you?"
-                value={displayName}
-                onChange={e => setDisplayName(e.target.value)}
-                autoComplete="name"
-              />
-            </div>
-          )}
-
           <div className="auth-field">
             <label className="auth-label" htmlFor="auth-email">Email</label>
             <input
