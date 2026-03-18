@@ -734,8 +734,9 @@ export const LESSONS = [
         <p><strong>2. Specific ask:</strong> What exactly do you need?</p>
         <p><strong>3. What you've tried:</strong> Show you've put in effort.</p>
         <div class="story-box">
-          <p><strong>Weak:</strong> "I need help with my code."</p>
-          <p><strong>Strong:</strong> "I'm building a login form. When I submit, I get a 401 error. I've checked my API key. Could you look at how I'm setting the auth header?"</p>
+          <p><strong>Weak:</strong> "Can you just help me? I don't know what's wrong."</p>
+          <p><strong>Strong:</strong> "My daughter has had a fever for two days. I've tried paracetamol and it keeps coming back. Could you check whether there might be something else going on?"</p>
+          <p><em>At work: "I've been trying to close this account for three weeks and sent two follow-ups. Could you listen to my last call and tell me what I'm missing?"</em></p>
         </div>
       </section>
       <section class="lesson-section">
