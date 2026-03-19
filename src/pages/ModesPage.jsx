@@ -55,15 +55,16 @@ export default function ModesPage() {
               style={{ '--mode-color': mode.primary }}
               onClick={() => navigate(mode.path)}
             >
-              <div className="mode-card-gradient" style={{ background: mode.gradient }} />
-              {isRecommended && (
-                <div className="mode-recommended">
-                  <Star size={10} weight="fill" />
-                  <span>Recommended</span>
-                </div>
-              )}
+              <div className="mode-card-header" style={{ background: mode.bgGradient }}>
+                <HexBadge icon={mode.icon} color={mode.primary} size="sm" />
+                {isRecommended && (
+                  <div className="mode-recommended">
+                    <Star size={10} weight="fill" />
+                    <span>Recommended</span>
+                  </div>
+                )}
+              </div>
               <div className="mode-card-content">
-                <HexBadge icon={mode.icon} color={mode.primary} size="md" />
                 <h3>{mode.name}</h3>
                 <span className="mode-card-category">{mode.category}</span>
                 <p className="mode-card-desc">{mode.description}</p>

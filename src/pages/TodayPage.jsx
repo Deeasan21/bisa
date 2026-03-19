@@ -137,12 +137,12 @@ export default function TodayPage() {
   };
 
   const QUEST_COLORS = {
-    practice: '#10B981',
-    lesson: '#10B981',
-    journal: '#10B981',
+    practice: '#D4A853',
+    lesson: '#3B82F6',
+    journal: '#8B5CF6',
     daily_challenge: '#10B981',
-    review: '#10B981',
-    simulation: '#10B981',
+    review: '#3B82F6',
+    simulation: '#8B5CF6',
     streak: '#F59E0B',
   };
 
@@ -280,7 +280,7 @@ export default function TodayPage() {
       )}
 
       {/* Daily Insight */}
-      <Card className="daily-insight-card" padding="md" onClick={handleInsightTap}>
+      <Card className="daily-insight-card" padding="md" onClick={handleInsightTap} style={{ '--insight-color': insightColor }}>
         <div className="insight-header">
           <Lightbulb size={20} weight="fill" color={insightColor} />
           <span className="insight-label">Daily Insight</span>
@@ -333,7 +333,7 @@ export default function TodayPage() {
                 {quest.completed ? (
                   <Gift size={24} weight="fill" color={quest.color} />
                 ) : (
-                  <span className="quest-xp">+{quest.xp} XP</span>
+                  <span className="quest-xp" style={{ color: quest.color, background: `${quest.color}14` }}>+{quest.xp} XP</span>
                 )}
               </div>
             </div>

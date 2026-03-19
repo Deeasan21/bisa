@@ -1,5 +1,7 @@
 .today-page {
   padding: var(--space-md);
+  background: radial-gradient(ellipse 100% 280px at 50% -30px, rgba(212, 168, 83, 0.07) 0%, transparent 100%);
+  min-height: 100%;
 }
 
 /* First session card */
@@ -121,6 +123,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  background: linear-gradient(135deg, #FFFCF5 0%, #FFFFFF 70%) !important;
+  border-color: rgba(212, 168, 83, 0.2) !important;
 }
 
 .progress-card-top {
@@ -226,16 +230,29 @@
   height: 12px;
   border-radius: var(--radius-full);
   background: var(--border);
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .streak-day.active .streak-dot {
   background: #D4A853;
-  transform: scale(1.15);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.22);
 }
 
-.streak-day.today .streak-dot {
+.streak-day.today:not(.active) .streak-dot {
   border: 2px solid var(--text-primary);
+}
+
+.streak-day.active.today .streak-dot {
+  background: #D4A853;
+  border: 2px solid #9A6B1F;
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.3);
+  animation: streakPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes streakPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(212, 168, 83, 0); }
 }
 
 /* Quests */
@@ -253,9 +270,12 @@
 }
 
 .quests-title h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-secondary);
   margin: 0;
   flex: 1;
 }
@@ -340,6 +360,9 @@
 /* ===== Daily Insight Card ===== */
 .daily-insight-card {
   margin-bottom: var(--space-md);
+  background: #FFFCF5 !important;
+  border-color: rgba(212, 168, 83, 0.25) !important;
+  border-left: 3px solid var(--insight-color, #D4A853) !important;
 }
 
 .insight-header {
@@ -420,9 +443,12 @@
 }
 
 .recommendations-title h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-secondary);
   margin: 0;
 }
 
