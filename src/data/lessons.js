@@ -128,15 +128,15 @@ export const LESSONS = [
       <section class="lesson-section">
         <h3>Open vs. Closed Questions</h3>
         <p><strong>Closed questions</strong> have limited answers—often yes or no.</p>
-        <ul><li>"Did you finish the report?"</li><li>"Are you coming to the meeting?"</li></ul>
+        <ul><li>"Did you enjoy the trip?"</li><li>"Are you happy with how things went?"</li></ul>
         <p><strong>Open questions</strong> invite exploration.</p>
-        <ul><li>"What was the most challenging part?"</li><li>"How do you feel about the direction?"</li></ul>
+        <ul><li>"What was the most surprising part?"</li><li>"How did that leave you feeling?"</li></ul>
         <p><strong>The common mistake:</strong> Using closed questions when you want connection. "Did you have a good weekend?" gets a shrug. "What was the highlight of your weekend?" starts a conversation.</p>
       </section>
       <section class="lesson-section">
         <h3>Leading Questions: Handle with Care</h3>
-        <p>A leading question pushes toward a particular answer: "Don't you think we should go with the safer option?"</p>
-        <p><strong>The fix:</strong> Instead of "Don't you think the deadline is unrealistic?" try "What's your honest assessment of this deadline?"</p>
+        <p>A leading question pushes toward a particular answer: "Don't you think you should just forgive them?"</p>
+        <p><strong>The fix:</strong> Instead of "Don't you think you're moving too fast?" try "What does your gut tell you about the pace?"</p>
       </section>
       <section class="lesson-section">
         <h3>Clarifying, Probing, Hypothetical, Reflective</h3>
@@ -184,8 +184,8 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"Don\'t you think the deadline is unrealistic?"',
-          after: '"What\'s your honest assessment of this deadline?"',
+          before: '"Don\'t you think you\'re moving too fast with this person?"',
+          after: '"What does your gut tell you about where things are heading?"',
           explanation: 'The first signals the answer you want and makes disagreement feel unsafe. The second opens the door to a real perspective — including one that might change your mind.',
         },
       },
@@ -475,9 +475,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"Do you like your job?"',
-          after: '"What\'s something about your work that genuinely excites you?"',
-          explanation: 'The first is a yes/no trap. Even "no" leads nowhere. The second presupposes there\'s something to find and invites the person to share something real. They might surprise both of you with the answer.',
+          before: '"Do you like where you live?"',
+          after: '"What do you love most about your neighborhood?"',
+          explanation: 'The first is a yes/no trap. Even "not really" leads nowhere. The second presupposes there\'s something to find and invites the person to share something real. They might surprise both of you with the answer.',
         },
       },
       {
@@ -588,12 +588,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'A colleague says: "The project is going fine. I mean, there are some challenges, but nothing I can\'t handle." What\'s the best follow-up?',
+          scenario: 'A friend says: "I\'m doing okay. I mean, things have been a lot lately, but I\'m managing." What\'s the best follow-up?',
           options: [
-            { text: '"Good to hear it\'s going well!"', isCorrect: false },
-            { text: '"What kind of challenges are coming up?"', isCorrect: true },
+            { text: '"I\'m glad you\'re handling it!"', isCorrect: false },
+            { text: '"What\'s been making it feel like a lot?"', isCorrect: true },
           ],
-          explanation: '"Good to hear" accepts the surface answer and closes the conversation. The real signal is "there are some challenges" — that\'s the thread worth pulling. Naming it invites them to share what they\'ve been downplaying.',
+          explanation: 'The first accepts the surface answer and closes the conversation. The real signal is "things have been a lot" — that\'s the thread worth pulling. Naming it invites them to share what they\'ve been downplaying.',
         },
       },
       {
@@ -771,9 +771,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"Hey, can you help me with this? I\'m stuck."',
-          after: '"I\'m building a login form. When I submit, I get a 401 error. I\'ve checked my API key and it looks correct. Could you look at how I\'m setting the auth header?"',
-          explanation: 'The first puts all the work on the helper — they have to extract the context before they can even start helping. The second respects their time, shows you\'ve made an effort, and gives them exactly what they need to be useful immediately.',
+          before: '"I don\'t know what to do. Can you help?"',
+          after: '"I\'ve been trying to decide whether to reach out to a family member I had a falling out with two years ago. I\'ve written a draft message but I\'m not sure if it sounds genuine or like I\'m just relieving my own guilt. Would you read it and tell me what you think?"',
+          explanation: 'The first puts all the work on the helper — they have to extract the context before they can even start. The second respects their time, shows you\'ve already thought it through, and gives them exactly what they need to actually help.',
         },
       },
       {
@@ -1134,9 +1134,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: 'Your colleague missed a deadline. Your reaction: "Why can\'t they get their act together? I should\'ve just done it myself."',
-          after: 'ABCC switch: [Aware] "I\'m blaming without knowing what happened." [Breathe] [Curious] "What might have gotten in the way?" [Choose] "Hey, I noticed the deadline passed. What\'s going on? How can I help?"',
-          explanation: 'Same situation, same colleague, completely different question and outcome. The Judger reaction produces resentment and distance. The Learner pivot opens the door to discovering what actually happened — and usually leads to a faster solution.',
+          before: 'Your friend canceled plans at the last minute again. Your reaction: "Why can\'t they ever follow through? I\'m done making plans with them."',
+          after: 'ABCC switch: [Aware] "I\'m blaming without knowing what happened." [Breathe] [Curious] "What might have gotten in the way for them?" [Choose] "Hey, I missed you today. Everything okay? Just wanted to check in."',
+          explanation: 'Same situation, same friend, completely different question and outcome. The Judger reaction produces resentment and distance. The Learner pivot opens the door to discovering what actually happened — and usually leads to something real.',
         },
       },
       {
@@ -1400,10 +1400,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'You ask your direct report how the project is going. They say "Great, everything\'s on track" — while avoiding eye contact, fidgeting, and pressing their lips together.',
-          before: 'Judger response: "I don\'t believe you. Tell me what\'s really happening." You\'ve named the gap — but now they\'re on the defensive.',
-          after: 'Learner response: "Glad to hear it. Is there anything that could make it go even better? Any risks I should know about so I can clear the path?"',
-          explanation: 'You noticed the gap. You checked your mindset. You asked a question that made it safe to tell the truth — without accusing them of lying. The Judger response gets defensiveness. The Learner response gets honesty.',
+          context: 'You ask a close friend how things have been going. They say "I\'m good — honestly, I\'m fine" — while their eyes drift away, their arms are crossed, and their smile doesn\'t quite land.',
+          before: 'Judger response: "I don\'t believe you. What\'s actually going on?" You\'ve named the gap — but now they feel accused.',
+          after: 'Learner response: "I\'m glad. And if anything comes up you want to think through — I\'m here. Is there anything on your mind that\'s been taking up space lately?"',
+          explanation: 'You noticed the gap. You checked your mindset. You asked a question that made it safe to tell the truth — without making them feel watched. The Judger response gets defensiveness. The Learner response gets honesty.',
         },
       },
       {
@@ -1519,7 +1519,7 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: 'Them: "I\'ve been feeling overwhelmed lately." You: "Yeah, work has been a lot for everyone. Anyway, about the project..."',
+          before: 'Them: "I\'ve been feeling overwhelmed lately." You: "Yeah, life gets that way. Hey, so what did you think of that place we went to last week?"',
           after: 'Them: "I\'ve been feeling overwhelmed lately." You: "Overwhelmed?" [pause] Them: "Yeah, like everything is piling up and I can\'t see a way through."',
           explanation: 'The first response validates their feeling with a generalization, then moves on. The second says one word — and they give you a paragraph. Mirroring works because it signals deep listening without steering. They stay in control of where they go next.',
         },
@@ -1661,7 +1661,7 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: 'Your friend says they\'re going through something hard at work. You immediately ask: "What happened? Who was involved? When did it start?"',
+          before: 'Your friend says they\'re going through something hard. You immediately ask: "What happened? Who did this? When did it start?"',
           after: '"That sounds really hard. I\'m glad you told me." [Pause.] "Would it help to talk about what happened?"',
           explanation: 'The first response treats their disclosure as the opening line of a case to investigate. The second says: I see that you\'re struggling, and that matters more than the facts right now. The acknowledgment creates safety. The pause gives them space. The question gives them control.',
         },
@@ -1808,9 +1808,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"I want honest feedback on how I\'m doing as a manager."',
-          after: '"I\'ve been trying to improve how I run our 1:1s, but I\'m not sure I\'m getting it right. What\'s one thing I could do differently that would make these more useful for you?"',
-          explanation: 'The first is a general ask that puts all the work on them — and "honest feedback on a boss" feels risky. The second admits imperfection first, is specific about what you\'re asking about, and makes it concrete. The vulnerability is the trust signal that makes honesty feel safer.',
+          before: '"I want honest feedback on how I\'ve been as a friend lately."',
+          after: '"I feel like I\'ve been checked out and not as present as I want to be. Is there a moment recently where you wished I\'d shown up differently?"',
+          explanation: 'The first is a broad ask that puts all the work on them — and "be honest about whether I\'m a good friend" feels loaded. The second admits imperfection first, is specific, and makes it concrete. The vulnerability is the trust signal that makes honesty feel safer.',
         },
       },
       {
@@ -2195,10 +2195,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'Your colleague insists: "I need this report by Friday." You can\'t deliver it that fast.',
-          before: 'You argue about the deadline — neither side moves. You offer Monday; they say it has to be Friday. Stalemate.',
-          after: 'You ask: "What happens on Friday that makes the deadline important?" They reveal: board meeting Monday, they need prep time. New solution: deliver the key data Thursday, the full report Monday morning.',
-          explanation: 'The position was "Friday." The interest was "enough time to prepare for Monday." Once you discovered the interest, a solution appeared that neither of you would have found by arguing about the position.',
+          context: 'Your partner insists you have to spend the holidays at their parents\' house this year. You already had different plans.',
+          before: 'You argue about the location — neither side moves. You say you made plans already; they say it has to be their parents\'. Stalemate.',
+          after: 'You ask: "What makes it so important to you to be there this year specifically?" They share: their dad had a health scare and they want the whole family together while they can. New solution: you spend Christmas Day at their parents\'; you carry through your original plans the following weekend.',
+          explanation: 'The position was "their parents\' house." The interest was "being with family at a vulnerable moment." Once you discovered the interest, a solution emerged that neither of you would have found by arguing about the position.',
         },
       },
       {
@@ -2319,10 +2319,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'You think your team member has been procrastinating on a project.',
-          before: '"We need to talk about why you haven\'t made progress. What\'s the delay?"',
-          after: '"Walk me through your process for this project." [They explain.] "What assumptions are you making about the deadline?" [They reveal a critical flaw they\'ve been quietly redesigning around.]',
-          explanation: 'The first question approaches from certainty — you\'ve decided the problem is procrastination. The Socratic approach approaches from genuine curiosity. In this case, what looked like procrastination was deep problem-solving. Beginner\'s mind found a truth that certainty would have missed.',
+          context: 'Your sibling told you months ago they wanted to have a hard conversation with a parent. Nothing has happened.',
+          before: '"You said you were going to deal with this ages ago. What\'s the holdup?"',
+          after: '"Walk me through where your head has been on this." [They explain.] "What do you think will happen if you actually bring it up?" [They reveal a fear they\'ve been quietly sitting with.]',
+          explanation: 'The first question approaches from certainty — you\'ve decided the problem is avoidance. The Socratic approach approaches from genuine curiosity. What looked like procrastination turned out to be a real, unexamined fear. Beginner\'s mind found a truth that certainty would have missed.',
         },
       },
       {
@@ -2438,9 +2438,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"I don\'t think this is the right decision. You haven\'t considered the risks."',
-          after: '"I want to make sure I understand the reasoning so I can support it with the team. What would we do if [specific assumption] turns out to be wrong?"',
-          explanation: 'The first reads as challenge or criticism — which makes the listener defensive regardless of whether you\'re right. The second signals alignment, frames your concern as a question about quality, and gives the leader room to think rather than defend. Same concern, very different landing.',
+          before: '"I don\'t think this is the right call. You haven\'t thought it through."',
+          after: '"I want to understand the thinking — I\'m with you on wanting this to work. What\'s the part you feel most uncertain about, and what\'s your plan if that piece doesn\'t hold?"',
+          explanation: 'The first reads as challenge or criticism — which makes the listener defensive regardless of whether you\'re right. The second signals alignment, frames your concern as a question about quality, and gives the other person room to think rather than defend. Same concern, very different landing.',
         },
       },
       {
@@ -2564,10 +2564,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'In a team meeting with colleagues from cultures that value harmony, you want to know if anyone disagrees with a decision.',
-          before: '"Does anyone disagree with this plan?" [Silence. Nods. The meeting moves on. Three people had concerns that never surfaced.]',
-          after: '"Before we finalize — I\'d love to hear if there are any parts of this that need more thought. Feel free to share now or follow up with me separately."',
-          explanation: 'The first puts people on the spot publicly — in face-conscious contexts, disagreeing in front of peers feels costly. The second offers a private channel, signals that concerns are welcome, and frames dissent as "needing more thought" rather than opposition. More concerns surface, better decisions result.',
+          context: 'In a group — a family gathering, a friend group, or a community — where some people value harmony over direct disagreement, you want to know if anyone has reservations about a shared plan.',
+          before: '"Does anyone disagree with this?" [Silence. Nods. The conversation moves on. Three people had concerns that never surfaced.]',
+          after: '"Before we commit — is there any part of this that needs more thought? You can bring it up now or come find me separately."',
+          explanation: 'The first puts people on the spot publicly — in face-conscious contexts, disagreeing in front of others feels costly. The second offers a private channel, signals that concerns are welcome, and frames dissent as "needing more thought" rather than opposition. More concerns surface, better decisions result.',
         },
       },
       {
@@ -2697,9 +2697,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"How do we reduce customer checkout abandonment?"',
-          after: '"How might we make the checkout experience so enjoyable that customers actually look forward to it?"',
-          explanation: 'The first question is solution-focused and narrow — it leads to incremental fixes (fewer clicks, faster loading). The second reframes the goal entirely and opens a different creative space. Same problem, completely different universe of possibilities.',
+          before: '"How do I get myself to exercise more?"',
+          after: '"How might I make moving my body feel so natural that skipping it would feel like the strange choice?"',
+          explanation: 'The first question is problem-focused and narrow — it leads to incremental fixes (set an alarm, try a new app). The second reframes the goal entirely and opens a different creative space. Same problem, completely different universe of possibilities.',
         },
       },
       {
@@ -2938,10 +2938,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'Your team has unanimously decided to move forward with a strategy. Everyone seems excited.',
-          before: 'You wrap up the meeting: "Great — we\'re aligned. Let\'s go." Three months later, a problem surfaces that someone had privately worried about but never voiced.',
-          after: '"Before we finalize — what\'s the strongest argument against this? Who would be hurt by this decision, and what would they say?" [Someone speaks up. The concern is real. You adjust the plan before launch.]',
-          explanation: 'Fast consensus often means people are agreeing to avoid conflict, not because they\'re genuinely aligned. Designating someone to play devil\'s advocate — or explicitly inviting dissent — creates space for the concerns that would otherwise only surface after it\'s too late.',
+          context: 'A group of friends has enthusiastically agreed on a big shared plan — moving in together, planning a major trip, committing to something. Everyone seems excited.',
+          before: 'You go along with the energy: "This is going to be amazing — let\'s make it happen." Months later, a problem surfaces that someone had quietly worried about but never said.',
+          after: '"Before we fully commit — what\'s the strongest argument against this? Who might be affected that we haven\'t thought about, and what would they say?" [Someone speaks up. The concern is real. You adjust the plan before it\'s too late.]',
+          explanation: 'Fast consensus often means people are agreeing to avoid conflict, not because they\'re genuinely aligned. Explicitly inviting dissent — or asking someone to steelman the opposition — creates space for concerns that would otherwise only surface after it\'s too late.',
         },
       },
       {
@@ -3190,10 +3190,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'A project missed its deadline by two weeks.',
-          before: '"What happened? Why didn\'t you flag this earlier? Who dropped the ball?"',
-          after: '"What happened?" [Listen.] "What did we learn from this?" "What support did you need that you didn\'t have?" "How can we prevent this in the future?"',
-          explanation: 'The first sequence — even if well-intentioned — creates a safe lie. People learn to have a clean explanation ready, not to surface problems early. The second sequence signals that mistakes lead to learning, not punishment. When people know that, they report problems earlier, take bigger risks, and innovate more freely.',
+          context: 'A close friend promised to handle something important and didn\'t follow through. It created real problems for you.',
+          before: '"What happened? Why didn\'t you say something earlier? I was counting on you."',
+          after: '"What happened?" [Listen.] "What got in the way?" "What would have made it easier to come to me sooner?" "What do we do from here?"',
+          explanation: 'The first sequence — even if well-intentioned — puts the other person on trial. They learn to have a clean explanation ready, not to come to you early when things go sideways. The second sequence signals that mistakes lead to conversation, not punishment — which means they\'ll actually tell you next time.',
         },
       },
       {
@@ -3508,10 +3508,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'Negotiating a deadline with a client who seems resistant.',
-          before: '"Can you be more flexible on the deadline? We\'re really stretched right now."',
-          after: '"It seems like the timeline matters a lot to you." [Let them confirm.] "What would need to be true about the timeline for you to feel comfortable moving it by two weeks?"',
-          explanation: 'The first ask puts your constraint on them and invites a "no." The second sequences label → calibrated question: the label shows you\'ve heard their concern, and the question invites them to help solve the problem. Creative solutions emerge from this sequence because both sides feel heard.',
+          context: 'You need to ask a family member to shift a plan they\'ve been firm about. They seem resistant.',
+          before: '"Can\'t you just be flexible on this? It\'s really hard for me to make that work."',
+          after: '"It sounds like this timing really matters to you." [Let them respond.] "What would need to be true for you to feel okay about shifting it — even just a little?"',
+          explanation: 'The first ask puts your constraint on them and invites a "no." The second sequences label → calibrated question: the label shows you\'ve heard their concern, and the question invites them to help solve it. Creative solutions emerge from this sequence because both sides feel heard.',
         },
       },
       {
@@ -4001,10 +4001,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'Running a team meeting where you want real input, not just compliance.',
-          before: '"Does anyone have any questions or concerns?" [Silence. Meeting ends. People walk out with unvoiced concerns.]',
-          after: '"Before we close — what\'s one thing that\'s still unclear, and one thing you\'re worried about that we haven\'t addressed?" [Multiple people speak. Real concerns surface. Plan improves.]',
-          explanation: 'The first question is easy to answer "no" to — and in most teams, people will. The second is structured to make voicing uncertainty feel normal and expected. Specific, low-stakes framing produces more honesty than open-ended invitations.',
+          context: 'You\'re wrapping up a group conversation — with family, friends, or a community — where you want honest input, not just agreement.',
+          before: '"Does everyone feel good about this?" [Nods. Silence. People leave with unvoiced concerns.]',
+          after: '"Before we wrap — what\'s one thing that\'s still unclear for anyone, and one thing you\'re quietly worried about?" [Multiple people speak. Real concerns surface. The plan gets better.]',
+          explanation: 'The first question is easy to answer "yes" to — and most people will, to keep the peace. The second is structured to make voicing uncertainty feel normal and expected. Specific, low-stakes framing produces more honesty than open-ended invitations.',
         },
       },
       {
