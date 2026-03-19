@@ -1,6 +1,6 @@
 .today-page {
   padding: var(--space-md);
-  background: radial-gradient(ellipse 100% 280px at 50% -30px, rgba(212, 168, 83, 0.07) 0%, transparent 100%);
+  background: radial-gradient(ellipse 110% 320px at 50% -20px, rgba(212, 168, 83, 0.13) 0%, transparent 100%);
   min-height: 100%;
 }
 
@@ -123,8 +123,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  background: linear-gradient(135deg, #FFFCF5 0%, #FFFFFF 70%) !important;
-  border-color: rgba(212, 168, 83, 0.2) !important;
+  background: linear-gradient(145deg, #FFF8E8 0%, #FFFFFF 65%) !important;
+  border-color: rgba(212, 168, 83, 0.35) !important;
 }
 
 .progress-card-top {
@@ -200,10 +200,11 @@
   display: flex;
   justify-content: space-between;
   background: var(--bg-card);
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(212, 168, 83, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--space-sm) var(--space-md);
   margin-bottom: var(--space-lg);
+  background: linear-gradient(to bottom, #FFFDF6, #FFFFFF);
 }
 
 .streak-day {
@@ -360,9 +361,9 @@
 /* ===== Daily Insight Card ===== */
 .daily-insight-card {
   margin-bottom: var(--space-md);
-  background: #FFFCF5 !important;
-  border-color: rgba(212, 168, 83, 0.25) !important;
+  background: #FFF9EE !important;
   border-left: 3px solid var(--insight-color, #D4A853) !important;
+  border-color: rgba(212, 168, 83, 0.3) !important;
 }
 
 .insight-header {
