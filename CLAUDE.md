@@ -3,8 +3,8 @@
 **Name:** Bisa ("to ask" in Twi/Akan, Ghana)
 **Purpose:** Teaches people how to ask better questions through interactive practice
 **Owner:** Derek Asante
-**Status:** Live — Phase 2.5 complete (AI features, security, polish, achievement notifications)
-**Live URL:** https://bisa-eta.vercel.app
+**Status:** Phase 3 in progress (Supabase user accounts — auth wired, email OTP working)
+**Live URL:** https://neaobisa.com (also https://bisa-eta.vercel.app)
 **Repo:** https://github.com/Deeasan21/bisa
 
 ## Key Rules
@@ -17,9 +17,11 @@
 7. Always commit AND push to origin/master after making changes — Vercel auto-deploys from master
 
 ## Tech Stack
-- React + Vite
+- React 19 + Vite 7 + React Router 7
 - Phosphor Icons (@phosphor-icons/react)
-- sql.js with IndexedDB persistence (client-side database)
+- Tailwind CSS v3 + shadcn/ui (new-york style, stone base) — `src/lib/utils.js` has `cn()` helper
+- Supabase — Auth (email/password + OTP) + Postgres DB (`src/lib/supabase.js`, `src/hooks/useSupabaseDB.js`)
+- sql.js with IndexedDB persistence (client-side, being migrated to Supabase)
 - Claude API (Sonnet) via Vercel serverless proxy (`api/claude.js`)
 - Vercel for hosting (auto-deploys on push to master)
 
@@ -62,14 +64,23 @@
 
 ## Future Roadmap
 
-### Phase 3: User Accounts & Cloud Sync
-The foundation for everything else. Without accounts, users lose data and we can't track anything.
-- Supabase Auth (email/password + Google OAuth)
-- Migrate from sql.js/IndexedDB to Supabase Postgres
-- Cross-device sync — progress follows the user
-- User profiles with display name and avatar
-- Data export (JSON/CSV) for users who want their data
-- Offline-first with sync — app still works without internet, syncs when reconnected
+### Phase 3: User Accounts & Cloud Sync — IN PROGRESS
+- [x] Supabase Auth — email/password signup with 8-digit OTP email verification
+- [x] Auth flow: `/auth` → `/verify` (OTP) → `/welcome` (display name) → `/`
+- [x] `useAuth` hook — signIn, signUp, signOut, user session
+- [x] `useSupabaseDB` hook — wraps all DB ops for Supabase Postgres
+- [x] Profile page wired to Supabase
+- [ ] Google OAuth
+- [ ] Full sql.js → Supabase migration (cross-device sync)
+- [ ] Data export (JSON/CSV)
+- [ ] Offline-first with sync
+
+**Known bugs (open):**
+- `SimulateMode.jsx` — calls `filterByDifficulty()` which isn't imported and doesn't work with async Supabase db; crashes on category filter
+- `PatternMode.jsx` — calls `getPatternStats(db)` in a `useMemo`; function doesn't exist as standalone export; should be `db.getPatternStats()` in a `useEffect`
+- `ProfilePage.jsx` — sign-out doesn't clear `bisa-onboarding-done` from localStorage; next user on same device skips onboarding
+- `AppShell.jsx` — dead `signOut` import from `useAuth` that's never used (ProfilePage calls `useAuth()` directly)
+- **Supabase email delivery** — free tier is rate-limited (3 emails/hour per address, 4/hour total) and unreliable; set up custom SMTP in Supabase → Project Settings → Auth → SMTP (use Resend or SendGrid)
 
 ### Phase 4: Analytics & Insights
 Understand who's using Bisa and how, so we can improve the product.
