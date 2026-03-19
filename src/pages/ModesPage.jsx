@@ -52,7 +52,7 @@ export default function ModesPage() {
             <button
               key={mode.key}
               className={`mode-card stagger-${i + 1}`}
-              style={{ '--mode-color': mode.primary, background: mode.cardBg }}
+              style={{ '--mode-color': mode.primary }}
               onClick={() => navigate(mode.path)}
             >
               <div className="mode-card-gradient" style={{ background: mode.gradient }} />

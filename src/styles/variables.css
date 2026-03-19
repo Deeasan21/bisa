@@ -27,8 +27,12 @@
   --score-developing: #F59E0B;
   --score-needs-work: #EF4444;
 
+  /* Brand accent */
+  --accent-gold: #D4A853;
+  --accent-gold-dark: #9A6B1F;
+
   /* Gamification */
-  --xp-color: #F59E0B;
+  --xp-color: #D4A853;
   --streak-color: #EF4444;
 
   /* Navigation */

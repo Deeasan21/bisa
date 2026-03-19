@@ -18,13 +18,7 @@
 
 .app-content > * {
   width: 100%;
-  max-width: 720px;
-}
-
-@media (min-width: 1024px) {
-  .app-content > * {
-    max-width: 960px;
-  }
+  max-width: 1024px;
 }
 
 /* Install prompt */

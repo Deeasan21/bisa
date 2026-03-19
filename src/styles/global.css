@@ -122,7 +122,7 @@ ul, ol {
 
 .lesson-content .story-box {
   background: var(--bg-secondary);
-  border-left: 4px solid var(--text-muted);
+  border-left: 4px solid #D4A853;
   padding: var(--space-md);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   margin: var(--space-md) 0;

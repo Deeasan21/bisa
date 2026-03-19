@@ -230,7 +230,7 @@
 }
 
 .streak-day.active .streak-dot {
-  background: #10B981;
+  background: #D4A853;
   transform: scale(1.15);
 }
 
@@ -328,9 +328,9 @@
 }
 
 .quick-practice-btn:hover {
-  border-color: #EF4444;
-  color: #EF4444;
-  background: rgba(239, 68, 68, 0.05);
+  border-color: #D4A853;
+  color: #9A6B1F;
+  background: rgba(212, 168, 83, 0.06);
 }
 
 .quick-practice-btn:active {
