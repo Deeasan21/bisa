@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, GearSix, SignOut } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useAuth } from '../hooks/useAuth';
@@ -7,7 +7,6 @@ import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
 import Card from '../components/common/Card';
-import ApiKeySettings from '../components/settings/ApiKeySettings';
 import './ProfilePage.css';
 
 function AnimatedNumber({ value, duration = 800 }) {
@@ -210,12 +209,6 @@ export default function ProfilePage() {
           );
         })}
       </div>
-
-      <h2 className="profile-section-title">
-        <GearSix size={18} weight="duotone" />
-        Settings
-      </h2>
-      <ApiKeySettings />
 
       <button
         onClick={handleSignOut}

@@ -21,6 +21,12 @@
   max-width: 720px;
 }
 
+@media (min-width: 1024px) {
+  .app-content > * {
+    max-width: 960px;
+  }
+}
+
 /* Install prompt */
 .install-prompt {
   position: fixed;
