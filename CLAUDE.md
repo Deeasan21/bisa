@@ -87,18 +87,15 @@
    - Fix: change to `db.getPatternStats()`, move from `useMemo` to `useEffect` with state (async)
    - Add Vitest regression test
 
-3. **Sign-out doesn't clear onboarding localStorage** (`src/components/ProfilePage.jsx`)
-   - `bisa-onboarding-done` persists after sign-out; next user on same device skips onboarding
-   - Fix: add `localStorage.removeItem('bisa-onboarding-done')` to sign-out handler
-   - Add Vitest test to verify localStorage cleared on sign-out
+3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (already in `src/pages/ProfilePage.jsx` line 109)
 
-4. **Dead signOut import in AppShell** (`src/components/AppShell.jsx`)
-   - Unused `signOut` import from `useAuth`; ProfilePage calls `useAuth()` directly
-   - Fix: remove the unused import
+4. ~~**Dead signOut import in AppShell**~~ — **FIXED** (no unused import in `src/components/layout/AppShell.jsx`)
 
 5. **Supabase email delivery** — free tier is rate-limited (3 emails/hour per address, 4/hour total) and unreliable; set up custom SMTP in Supabase → Project Settings → Auth → SMTP (use Resend or SendGrid)
 
-**TODO:** Create GitHub Issues for bugs 1–4 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
+**TODO:** Create GitHub Issues for bugs 1–2 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
+
+**Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
 
 ### Phase 4: Analytics & Insights
 Understand who's using Bisa and how, so we can improve the product.
