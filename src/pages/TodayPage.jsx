@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Eye, SquaresFour } from '@phosphor-icons/react';
+import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Eye, SquaresFour, CalendarBlank } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useXP } from '../hooks/useXP';
 import { getTimeOfDayGreeting, getTodayString, getHoursUntilMidnight, daysAgo } from '../utils/dateHelpers';
@@ -12,6 +12,7 @@ import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Confetti from '../components/common/Confetti';
 import { NeaOnnim } from '../components/brand';
+import MonthlyReport from '../components/common/MonthlyReport';
 import './TodayPage.css';
 
 const MODE_PATHS = {
@@ -298,6 +299,9 @@ export default function TodayPage() {
           <ArrowRight size={14} weight="bold" color={insightColor} />
         </div>
       </Card>
+
+      {/* Monthly Report */}
+      {!isNewUser && <MonthlyReport db={db} isReady={isReady} />}
 
       {/* Streak Calendar */}
       <div className="streak-calendar">

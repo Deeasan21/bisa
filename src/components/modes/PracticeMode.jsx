@@ -10,6 +10,8 @@ import { aiScoreQuestion } from '../../engine/aiScorer';
 import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIFeedback } from '../../engine/aiFeedback';
+import { getDefendChallenge } from '../../engine/aiDefendQuestion';
+import { getAdaptiveDifficulty } from '../../engine/adaptiveEngine';
 import { generateObservationClues } from '../../engine/observationClues';
 import ModeHeader from '../layout/ModeHeader';
 import ScoreGauge from '../common/ScoreGauge';
@@ -66,12 +68,19 @@ export default function PracticeMode() {
   const [newAchievement, setNewAchievement] = useState(null);
 
   const [observationClues, setObservationClues] = useState([]);
+  const [userScores, setUserScores] = useState([]);
 
   // AI feedback state
   const [aiResult, setAiResult] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState(null);
   const [showAiButton, setShowAiButton] = useState(false);
+
+  // Defend Your Question state
+  const [defendChallenge, setDefendChallenge] = useState(null);
+  const [defendLoading, setDefendLoading] = useState(false);
+  const [defendResponse, setDefendResponse] = useState('');
+  const [defendSubmitted, setDefendSubmitted] = useState(false);
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -83,14 +92,39 @@ export default function PracticeMode() {
     return Array.from(cats).sort();
   }, []);
 
-  // Filtered scenarios by category (adaptive difficulty tier filtering removed for Supabase migration)
+  // Filtered scenarios by category with adaptive difficulty
   const filteredScenarios = useMemo(() => {
     let filtered = PRACTICE_SCENARIOS;
     if (categoryFilter) {
       filtered = filtered.filter(s => (s.skillCategory || s.skill) === categoryFilter);
+      // Apply adaptive difficulty if we have user scores
+      if (userScores.length > 0) {
+        const adaptiveTier = getAdaptiveDifficulty(categoryFilter, userScores);
+        const tierOrder = ['beginner', 'intermediate', 'advanced', 'expert', 'master'];
+        const targetIdx = tierOrder.indexOf(adaptiveTier);
+        // Sort scenarios: matching tier first, then adjacent tiers
+        filtered = [...filtered].sort((a, b) => {
+          const aTier = tierOrder.indexOf(a.difficultyTier || 'intermediate');
+          const bTier = tierOrder.indexOf(b.difficultyTier || 'intermediate');
+          return Math.abs(aTier - targetIdx) - Math.abs(bTier - targetIdx);
+        });
+      }
     }
     return filtered;
-  }, [categoryFilter]);
+  }, [categoryFilter, userScores]);
+
+  // Load user scores for adaptive difficulty
+  useEffect(() => {
+    if (!db) return;
+    (async () => {
+      try {
+        const scores = await db.getScoresByCategory?.();
+        if (scores && scores.length > 0) {
+          setUserScores(scores.map(s => ({ category: s.category, score: s.avg_score || s.score || 0, date: s.date || new Date().toISOString() })));
+        }
+      } catch { /* scores not available yet */ }
+    })();
+  }, [db]);
 
   // Auto-start when arriving from Progress page with a skill param
   useEffect(() => {
@@ -110,6 +144,10 @@ export default function PracticeMode() {
     setAiError(null);
     setShowAiButton(false);
     setObservationClues(next ? generateObservationClues(next) : []);
+    setDefendChallenge(null);
+    setDefendLoading(false);
+    setDefendResponse('');
+    setDefendSubmitted(false);
   };
 
   const handleSubmit = async () => {
@@ -163,6 +201,19 @@ export default function PracticeMode() {
       setAiError(err.message);
     } finally {
       setAiLoading(false);
+    }
+  };
+
+  const handleDefendChallenge = async () => {
+    if (!scenario || !userQuestion.trim() || !aiResult) return;
+    setDefendLoading(true);
+    try {
+      const challenge = await getDefendChallenge(userQuestion, scenario, aiResult);
+      setDefendChallenge(challenge);
+    } catch (err) {
+      console.error('Defend challenge error:', err);
+    } finally {
+      setDefendLoading(false);
     }
   };
 
@@ -369,6 +420,68 @@ export default function PracticeMode() {
                   <div className="ai-upsell animate-fade-in">
                     <Robot size={16} weight="duotone" color="#8B5CF6" />
                     <p>Want more detailed feedback? Add your API key in <strong>Settings</strong> on your Profile page.</p>
+                  </div>
+                )}
+
+                {/* Defend Your Question — Socratic pushback challenge */}
+                {aiResult && !defendChallenge && !defendLoading && (
+                  <button className="defend-challenge-btn animate-fade-in" onClick={handleDefendChallenge}>
+                    <Sparkle size={16} weight="fill" color="#F59E0B" />
+                    <span>Defend Your Question</span>
+                  </button>
+                )}
+
+                {defendLoading && (
+                  <div className="defend-section animate-fade-in">
+                    <div className="defend-header">
+                      <Sparkle size={16} weight="fill" color="#F59E0B" />
+                      <span>Preparing challenge...</span>
+                    </div>
+                    <Skeleton height={14} width="85%" />
+                    <Skeleton height={14} width="60%" />
+                  </div>
+                )}
+
+                {defendChallenge && (
+                  <div className="defend-section animate-fade-in">
+                    <div className="defend-header">
+                      <Sparkle size={16} weight="fill" color="#F59E0B" />
+                      <span>Defend Your Question</span>
+                    </div>
+                    <p className="defend-challenge">{defendChallenge.challenge}</p>
+                    {!defendSubmitted ? (
+                      <div className="defend-input">
+                        <textarea
+                          value={defendResponse}
+                          onChange={(e) => setDefendResponse(e.target.value)}
+                          placeholder="Think about it... why IS your question better?"
+                          rows={3}
+                        />
+                        <button
+                          className="defend-submit-btn"
+                          onClick={() => setDefendSubmitted(true)}
+                          disabled={!defendResponse.trim()}
+                        >
+                          Submit Defense
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="defend-followup animate-fade-in">
+                        <div className="defend-your-answer">
+                          <span className="defend-label">Your defense:</span>
+                          <p>{defendResponse}</p>
+                        </div>
+                        {defendChallenge.followUp && (
+                          <div className="defend-deeper">
+                            <span className="defend-label">Go deeper:</span>
+                            <p>{defendChallenge.followUp}</p>
+                          </div>
+                        )}
+                        {defendChallenge.hint && (
+                          <p className="defend-hint">{defendChallenge.hint}</p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
 
