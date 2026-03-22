@@ -91,7 +91,11 @@
 
 4. ~~**Dead signOut import in AppShell**~~ — **FIXED** (no unused import in `src/components/layout/AppShell.jsx`)
 
-5. **Supabase email delivery** — free tier is rate-limited (3 emails/hour per address, 4/hour total) and unreliable; set up custom SMTP in Supabase → Project Settings → Auth → SMTP (use Resend or SendGrid)
+5. **Supabase email delivery — OTP emails not arriving** — Custom SMTP via Resend is configured and Resend dashboard shows emails as "delivered", but OTP codes never reach user inboxes. Likely causes:
+   - Missing/incomplete DNS records (SPF, DKIM, DMARC) on `neaobisa.com` — all must show **Verified** in Resend → Domains
+   - "From" address mismatch — Supabase Auth → SMTP sender email must match the Resend-verified domain (e.g. `noreply@neaobisa.com`)
+   - Emails landing in spam/junk folders (Gmail filters aggressively)
+   - Fix: verify all DNS records are green in Resend, confirm sender address matches domain, test with multiple email providers
 
 **TODO:** Create GitHub Issues for bugs 1–2 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
 
