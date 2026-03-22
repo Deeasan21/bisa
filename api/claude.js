@@ -51,6 +51,8 @@ function checkGlobalLimit() {
 // --- Origin validation ---
 
 const ALLOWED_ORIGINS = [
+  'https://neaobisa.com',
+  'https://www.neaobisa.com',
   'https://bisa-eta.vercel.app',
   'http://localhost:5173',
   'http://localhost:4173',
