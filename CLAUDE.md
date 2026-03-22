@@ -75,12 +75,30 @@
 - [ ] Data export (JSON/CSV)
 - [ ] Offline-first with sync
 
-**Known bugs (open):**
-- `SimulateMode.jsx` — calls `filterByDifficulty()` which isn't imported and doesn't work with async Supabase db; crashes on category filter
-- `PatternMode.jsx` — calls `getPatternStats(db)` in a `useMemo`; function doesn't exist as standalone export; should be `db.getPatternStats()` in a `useEffect`
-- `ProfilePage.jsx` — sign-out doesn't clear `bisa-onboarding-done` from localStorage; next user on same device skips onboarding
-- `AppShell.jsx` — dead `signOut` import from `useAuth` that's never used (ProfilePage calls `useAuth()` directly)
-- **Supabase email delivery** — free tier is rate-limited (3 emails/hour per address, 4/hour total) and unreliable; set up custom SMTP in Supabase → Project Settings → Auth → SMTP (use Resend or SendGrid)
+**Known bugs (open) — create GitHub Issues for each, then assign Claude to fix:**
+
+1. **SimulateMode crashes on category filter** (`src/components/modes/SimulateMode.jsx`)
+   - Calls `filterByDifficulty()` which isn't imported and doesn't work with async Supabase db
+   - Fix: remove/replace with proper async Supabase query, ensure category filter works with `useSupabaseDB`
+   - Add Vitest regression test
+
+2. **PatternMode calls non-existent getPatternStats(db)** (`src/components/modes/PatternMode.jsx`)
+   - Calls `getPatternStats(db)` in a `useMemo`; function doesn't exist as standalone export
+   - Fix: change to `db.getPatternStats()`, move from `useMemo` to `useEffect` with state (async)
+   - Add Vitest regression test
+
+3. **Sign-out doesn't clear onboarding localStorage** (`src/components/ProfilePage.jsx`)
+   - `bisa-onboarding-done` persists after sign-out; next user on same device skips onboarding
+   - Fix: add `localStorage.removeItem('bisa-onboarding-done')` to sign-out handler
+   - Add Vitest test to verify localStorage cleared on sign-out
+
+4. **Dead signOut import in AppShell** (`src/components/AppShell.jsx`)
+   - Unused `signOut` import from `useAuth`; ProfilePage calls `useAuth()` directly
+   - Fix: remove the unused import
+
+5. **Supabase email delivery** — free tier is rate-limited (3 emails/hour per address, 4/hour total) and unreliable; set up custom SMTP in Supabase → Project Settings → Auth → SMTP (use Resend or SendGrid)
+
+**TODO:** Create GitHub Issues for bugs 1–4 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
 
 ### Phase 4: Analytics & Insights
 Understand who's using Bisa and how, so we can improve the product.
