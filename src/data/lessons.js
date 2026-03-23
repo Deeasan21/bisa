@@ -212,6 +212,39 @@ export const LESSONS = [
         },
       },
       {
+        id: 'consequence-explorer',
+        title: 'See the Difference',
+        content: `<p>Words shape reactions. The same intent — wanting to understand someone — can land very differently depending on how you phrase it. Explore each phrasing below to see what happens:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'Your friend just told you they quit their job. You want to understand why.',
+          phrasings: [
+            {
+              text: 'Why did you do that?',
+              consequence: 'They get defensive. "Why" plus past tense often feels like an interrogation — like you\'re asking them to justify themselves rather than share their story.',
+              quality: 'poor',
+            },
+            {
+              text: 'Are you sure about this?',
+              consequence: 'They feel doubted. This closed question signals your concern more than your curiosity. They say "yes" and the conversation goes nowhere.',
+              quality: 'okay',
+            },
+            {
+              text: 'What led you to that decision?',
+              consequence: 'They open up. This open question is neutral and inviting — it asks for the story behind the choice without judging it. They share what\'s really going on.',
+              quality: 'great',
+            },
+            {
+              text: 'How are you feeling about it?',
+              consequence: 'They feel heard. This empathetic open question shows you care about their experience, not just the facts. It often unlocks emotions they haven\'t processed yet.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The same curiosity can land as judgment or as care depending on the words you choose. "Why did you?" interrogates. "What led you to?" invites. Small shifts in phrasing create big shifts in how safe someone feels to share.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -313,6 +346,25 @@ export const LESSONS = [
           before: '"You\'d be great at it — you should definitely apply."',
           after: '"When you say not ready, what specifically makes you feel that way?"',
           explanation: 'The first forecloses thinking with reassurance. The second — followed by questions about assumptions and evidence — guided Alex to realize he was measuring readiness by seniority, not capability. He applied.',
+        },
+      },
+      {
+        id: 'reorder',
+        title: 'Put It In Order',
+        content: `<p>The Socratic method works because each question builds on the last. Can you put these five steps in the right order?</p>`,
+        interaction: {
+          type: 'drag-reorder',
+          required: true,
+          instruction: 'Arrange the Socratic questioning steps in the correct sequence:',
+          items: [
+            'Examine Consequences — "If that\'s true, what would it mean?"',
+            'Clarify — "What do you mean by that?"',
+            'Consider Alternatives — "What\'s another way to look at this?"',
+            'Probe Assumptions — "What are you assuming here?"',
+            'Explore Evidence — "What makes you say that?"',
+          ],
+          correctOrder: [1, 3, 4, 2, 0],
+          explanation: 'Clarify first (understand what they mean), then probe assumptions (surface hidden beliefs), explore evidence (test those beliefs), consider alternatives (open new possibilities), and finally examine consequences (follow the logic). Each step deepens the inquiry.',
         },
       },
       {

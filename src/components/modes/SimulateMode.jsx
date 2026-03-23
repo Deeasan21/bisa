@@ -17,6 +17,7 @@ import ProgressBar from '../common/ProgressBar';
 import Skeleton from '../common/Skeleton';
 import AchievementToast from '../common/AchievementToast';
 import FloatingOrbs from '../common/FloatingOrbs';
+import RadarChart from '../common/RadarChart';
 import './SimulateMode.css';
 
 const theme = MODE_THEMES.simulate;
@@ -329,6 +330,25 @@ export default function SimulateMode() {
     return Math.round(total / qualityScores.length);
   };
 
+  // Build radar chart scores from conversation data
+  const getRadarScores = () => {
+    if (qualityScores.length === 0) return null;
+    const scoreMap = { great: 100, high: 100, good: 70, medium: 50, poor: 20, low: 20 };
+    const empathy = getEmpathyScore();
+    // Derive dimensions from conversation quality patterns
+    const openEnded = Math.min(100, empathy + (qualityScores.filter(q => q === 'great' || q === 'high').length * 10));
+    const depth = Math.min(100, qualityScores.length >= 4 ? empathy + 10 : empathy - 10);
+    const followUp = Math.min(100, Math.round(qualityScores.slice(1).reduce((s, q) => s + (scoreMap[q] || 50), 0) / Math.max(1, qualityScores.length - 1)));
+    const clarity = Math.min(100, Math.round((empathy + openEnded) / 2));
+    return {
+      'Open-ended': Math.max(0, openEnded),
+      'Empathy': Math.max(0, empathy),
+      'Depth': Math.max(0, depth),
+      'Follow-up': Math.max(0, followUp),
+      'Clarity': Math.max(0, clarity),
+    };
+  };
+
   const isConversationEnded = (currentNode && currentNode.isEnding) || aiEnded;
   const showChoices = currentNode && !currentNode.isEnding && currentNode.choices && !isTyping && !aiEnded;
 
@@ -499,6 +519,13 @@ export default function SimulateMode() {
                 showPercent
               />
             </div>
+
+            {/* Radar Chart Scorecard */}
+            {getRadarScores() && (
+              <div className="sim-radar-section">
+                <RadarChart scores={getRadarScores()} size={200} color="#8B5CF6" />
+              </div>
+            )}
 
             {/* Quality summary as progress bar */}
             <div className="quality-summary">

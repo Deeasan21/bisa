@@ -387,3 +387,10 @@
   line-height: 1.5;
   color: var(--text-primary);
 }
+
+/* Radar Chart Section */
+.sim-radar-section {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-sm) 0;
+}

@@ -3,6 +3,8 @@ import MicroChallenge from './MicroChallenge';
 import BeforeAfterReveal from './BeforeAfterReveal';
 import InlineReflection from './InlineReflection';
 import QuickPoll from './QuickPoll';
+import DragReorder from './DragReorder';
+import ConsequenceExplorer from './ConsequenceExplorer';
 import {
   ConversationFork,
   ToneScale,
@@ -212,6 +214,29 @@ function InteractionRenderer({
       <QuickPoll
         question={interaction.question}
         options={interaction.options}
+        onComplete={onComplete}
+      />
+    );
+  }
+
+  if (type === 'drag-reorder') {
+    return (
+      <DragReorder
+        instruction={interaction.instruction}
+        items={interaction.items}
+        correctOrder={interaction.correctOrder}
+        explanation={interaction.explanation}
+        onComplete={onComplete}
+      />
+    );
+  }
+
+  if (type === 'consequence-explorer') {
+    return (
+      <ConsequenceExplorer
+        scenario={interaction.scenario}
+        phrasings={interaction.phrasings}
+        takeaway={interaction.takeaway}
         onComplete={onComplete}
       />
     );
