@@ -8,8 +8,8 @@ export default function ModeHeader({ theme, title, subtitle, backTo = '/modes' }
 
   return (
     <div className="mode-header" style={{ background: theme.headerGradient || 'linear-gradient(135deg, #1C1917 0%, #292524 100%)' }}>
-      <button className="mode-header-back" onClick={() => navigate(backTo)}>
-        <ArrowLeft size={24} weight="bold" color="#FFFFFF" />
+      <button className="mode-header-back" onClick={() => navigate(backTo)} aria-label="Go back">
+        <ArrowLeft size={24} weight="bold" color="#FFFFFF" aria-hidden="true" />
       </button>
       <div className="mode-header-content">
         <HexBadge icon={theme.icon} color="#D4A853" size="lg" />

@@ -8,7 +8,9 @@
  * Users can optionally add their own key for unlimited access.
  */
 
-const STORAGE_KEY = 'bisa_api_key';
+import { STORAGE_KEYS } from '../lib/constants';
+
+const STORAGE_KEY = STORAGE_KEYS.API_KEY;
 
 export function getApiKey() {
   return localStorage.getItem(STORAGE_KEY) || '';

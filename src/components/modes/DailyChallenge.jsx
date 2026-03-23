@@ -351,8 +351,9 @@ export default function DailyChallenge() {
                 className="burst-send"
                 onClick={handleSubmitQuestion}
                 disabled={!currentInput.trim()}
+                aria-label="Submit question"
               >
-                <PaperPlaneTilt size={18} weight="bold" />
+                <PaperPlaneTilt size={18} weight="bold" aria-hidden="true" />
               </button>
             </div>
           </div>

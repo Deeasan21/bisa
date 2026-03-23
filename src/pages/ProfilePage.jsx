@@ -6,6 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
+import { STORAGE_KEYS } from '../lib/constants';
 import Card from '../components/common/Card';
 import './ProfilePage.css';
 
@@ -105,8 +106,8 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem('bisa-intro-seen');
-      localStorage.removeItem('bisa-onboarding-done');
+      localStorage.removeItem(STORAGE_KEYS.INTRO_SEEN);
+      localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
       await signOut();
     } catch (e) {
       console.error('Sign out failed:', e);

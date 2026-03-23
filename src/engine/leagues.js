@@ -1,10 +1,9 @@
 /**
  * System 6: League & Ranking System
  *
- * Progression based on total XP with weekly tracking.
- * Simulated rankings until user accounts are added in Phase 3.
+ * Pure league/ranking calculations based on total XP.
+ * Database operations are in useSupabaseDB.
  */
-
 
 export const LEAGUES = [
   { name: 'Bronze', color: '#CD7F32', minXP: 0, maxXP: 499, icon: 'Shield' },
@@ -48,43 +47,6 @@ export function getLeagueProgress(totalXP) {
 }
 
 /**
- * Check if user just promoted to a new league
- */
-export function checkLeaguePromotion(db, newTotalXP) {
-  if (!db) return null;
-  const stats = queryStmt(db, "SELECT current_league FROM user_stats WHERE id = 1", []);
-  const oldLeagueName = stats.length > 0 ? stats[0].current_league : 'Bronze';
-  const newLeague = getLeague(newTotalXP);
-
-  if (newLeague.name !== oldLeagueName) {
-    runStmt(db, "UPDATE user_stats SET current_league = ? WHERE id = 1", [newLeague.name]);
-    saveDatabase(db);
-    return newLeague; // Promoted!
-  }
-  return null; // No change
-}
-
-/**
- * Get weekly XP earned (Monday-Sunday)
- */
-export function getWeeklyXP(db) {
-  if (!db) return 0;
-
-  // Find start of current week (Monday)
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon, ...
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-  monday.setHours(0, 0, 0, 0);
-  const mondayStr = monday.toISOString();
-
-  const result = query(db,
-    `SELECT COALESCE(SUM(xp_amount), 0) as total FROM xp_log WHERE created_at >= '${mondayStr}'`
-  );
-  return result.length > 0 ? result[0].total : 0;
-}
-
-/**
  * Simulate a percentile ranking based on total XP
  * This is motivational, not competitive — always encouraging
  */
@@ -119,22 +81,3 @@ export function getSimulatedRanking(totalXP) {
   };
 }
 
-/**
- * Update weekly XP tracking
- */
-export function updateWeeklyTracking(db) {
-  if (!db) return;
-
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-  const weekStart = monday.toISOString().split('T')[0];
-
-  const stats = queryStmt(db, "SELECT week_start_date, weekly_xp FROM user_stats WHERE id = 1", []);
-  if (stats.length > 0 && stats[0].week_start_date !== weekStart) {
-    // New week — reset weekly XP
-    runStmt(db, "UPDATE user_stats SET weekly_xp = 0, week_start_date = ? WHERE id = 1", [weekStart]);
-    saveDatabase(db);
-  }
-}

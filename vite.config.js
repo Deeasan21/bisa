@@ -69,7 +69,7 @@ export default defineConfig({
     claudeProxyPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'icon.svg', 'sql-wasm.wasm'],
+      includeAssets: ['favicon.svg', 'icon.svg'],
       manifest: {
         name: 'Bisa — Ask Better Questions',
         short_name: 'Bisa',
@@ -114,9 +114,6 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
-  },
-  optimizeDeps: {
-    exclude: ['sql.js']
   },
   server: {
     headers: {
