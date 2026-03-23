@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { PencilSimple, Sparkle, Robot } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { SIMULATIONS } from '../../data/simulations';
+import { ROLE_PACKS } from '../../data/rolePacks';
+
+const ALL_SIMS = [...SIMULATIONS, ...ROLE_PACKS];
 import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { XP_RULES } from '../../engine/xpSystem';
 import { hasApiKey } from '../../services/claudeApi';
@@ -41,6 +44,7 @@ export default function SimulateMode() {
   const [qualityScores, setQualityScores] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [packFilter, setPackFilter] = useState('');
   const chatRef = useRef(null);
 
   // AI free-text state
@@ -66,7 +70,7 @@ export default function SimulateMode() {
     db.getCurrentTier(categoryFilter).then(setCurrentTier);
   }, [db, categoryFilter]);
 
-  // Get unique categories
+  // Get unique categories (from core sims only)
   const categories = useMemo(() => {
     const cats = new Set();
     SIMULATIONS.forEach(s => {
@@ -75,7 +79,19 @@ export default function SimulateMode() {
     return Array.from(cats).sort();
   }, []);
 
+  const PACK_META = [
+    { key: 'manager-1on1s', label: 'Manager 1-on-1s' },
+    { key: 'sales-discovery', label: 'Sales Discovery' },
+    { key: 'job-interviews', label: 'Job Interviews' },
+    { key: 'difficult-conversations', label: 'Difficult Conversations' },
+  ];
+
   const filteredSims = useMemo(() => {
+    // Pack filter takes priority
+    if (packFilter) {
+      return ROLE_PACKS.filter(s => s.pack === packFilter);
+    }
+    // Core sims with optional category filter
     let filtered = SIMULATIONS;
     if (categoryFilter) filtered = filtered.filter(s => s.skillCategory === categoryFilter);
     if (categoryFilter) {
@@ -91,7 +107,7 @@ export default function SimulateMode() {
       if (adapted.length > 0) return adapted;
     }
     return filtered;
-  }, [categoryFilter, currentTier]);
+  }, [packFilter, categoryFilter, currentTier]);
 
   const startSimulation = (sim) => {
     setActiveSim(sim);
@@ -357,10 +373,29 @@ export default function SimulateMode() {
       <div className="simulate-mode">
         <FloatingOrbs color={theme.primary} count={4} />
         <AchievementToast achievementId={newAchievement} visible={!!newAchievement} onDone={() => setNewAchievement(null)} />
-        <ModeHeader theme={theme} subtitle={`${SIMULATIONS.length} conversations`} />
+        <ModeHeader theme={theme} subtitle={`${ALL_SIMS.length} conversations`} />
         <div className="sim-content">
-          {/* Category/Difficulty Filters */}
-          {categories.length > 0 && (
+          {/* Pack Tabs */}
+          <div className="sim-pack-tabs">
+            <button
+              className={`sim-pack-tab${!packFilter ? ' active' : ''}`}
+              onClick={() => { setPackFilter(''); setCategoryFilter(''); }}
+            >
+              Core
+            </button>
+            {PACK_META.map(p => (
+              <button
+                key={p.key}
+                className={`sim-pack-tab${packFilter === p.key ? ' active' : ''}`}
+                onClick={() => { setPackFilter(p.key); setCategoryFilter(''); }}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Category filter — only shown on Core tab */}
+          {!packFilter && categories.length > 0 && (
             <div className="sim-filters">
               <button
                 className={`sim-filter-chip${!categoryFilter ? ' active' : ''}`}
@@ -385,6 +420,9 @@ export default function SimulateMode() {
                 <h3 className="sim-card-title">{sim.title}</h3>
                 <p className="sim-card-context">{sim.context}</p>
                 <div className="sim-card-badges">
+                  {sim.label && (
+                    <Badge text={sim.label} color="#6B7280" variant="soft" size="sm" />
+                  )}
                   <Badge text={sim.skillCategory || sim.category || 'Conversation'} color={theme.primary} variant="soft" />
                   {sim.difficultyTier && (
                     <Badge
