@@ -20,10 +20,10 @@
 - React 19 + Vite 7 + React Router 7
 - Phosphor Icons (@phosphor-icons/react)
 - Tailwind CSS v3 + shadcn/ui (new-york style, stone base) — `src/lib/utils.js` has `cn()` helper
-- Supabase — Auth (email/password + OTP) + Postgres DB (`src/lib/supabase.js`, `src/hooks/useSupabaseDB.js`)
-- sql.js with IndexedDB persistence (client-side, being migrated to Supabase)
+- Supabase — Auth (email/password + OTP) + Postgres DB (`src/lib/supabase.js`, `src/hooks/useSupabaseDB.jsx`)
 - Claude API (Sonnet) via Vercel serverless proxy (`api/claude.js`)
 - Vercel for hosting (auto-deploys on push to master)
+- Vitest — test infrastructure set up (`vitest.config.js`, `src/__tests__/`)
 
 ## AI Features (Phase 2 — Complete)
 - **Practice Mode** — AI-powered feedback on rewritten questions (`src/engine/aiFeedback.js`)
@@ -34,21 +34,38 @@
 - **Personal API key** — Users can add their own key in Settings for unlimited access
 
 ## Polish & Wiring (Phase 2.5 — Complete)
-- **AchievementToast** — Celebratory gold/amber popup when achievements unlock, wired into all 6 modes (`src/components/common/AchievementToast.jsx`)
+- **AchievementToast** — Celebratory gold/amber popup when achievements unlock, wired into all 6 modes
 - **Daily Insight card** — 30 rotating micro-lessons on the Today page, one per day (`src/data/dailyInsights.js`)
-- **Recommended for You** — Personalized suggestions based on weak/stale/new skill categories using the recommendations engine
+- **Recommended for You** — Personalized suggestions based on weak/stale/new skill categories
 - **Enhanced mascot** — Context-aware greetings based on streak, absence duration, strongest/weakest categories
 - **Deep-linking** — Daily Insight card navigates directly to the relevant lesson in Learn mode
 - **Code splitting** — Route-level `React.lazy()` for all 5 mode routes to reduce initial bundle
-- **Dead code cleanup** — Removed unused XPToast import from TodayPage
-- **Learn Mode lesson nav** — Replaced toggle sidebar with native `<select>` dropdown (grouped by tier) + scrollable pill strip for quick lesson jumping (`src/components/modes/LearnMode.jsx`)
+
+## Phase 2.6 Features (Merged 2026-03-23)
+These were in branch `claude/analyze-test-coverage-EYHat`, now in master:
+- **Monthly Report Card** — "Your Questions This Month" card on Today page (`src/components/common/MonthlyReport.jsx`) — shows sessions, avg score, streak, strongest skill, growth area. Requires activity data to appear.
+- **Radar Chart scorecards** — Shown after Simulate Mode conversation endings (`src/components/common/RadarChart.jsx`) — 5 dimensions: Open-ended, Empathy, Depth, Follow-up, Clarity
+- **"Defend Your Question" Socratic pushback** — In Practice Mode, after rewriting a question, AI challenges your reasoning (`src/engine/aiDefendQuestion.js`)
+- **Adaptive difficulty engine** — Anti-pattern detection, tier-based difficulty (`src/engine/adaptiveEngine.js`)
+- **Journal daily reflection prompts** — Rotating prompts + AI coaching (`src/data/journalPrompts.js`, `src/engine/aiJournalCoaching.js`)
+- **Interactive lesson elements** — DragReorder + ConsequenceExplorer in Lessons 2 & 3 (`src/components/learn/DragReorder.jsx`, `src/components/learn/ConsequenceExplorer.jsx`)
+
+## Professional Role Packs (Added 2026-03-23)
+12 new scenarios in `src/data/rolePacks.js`, wired into Simulate Mode with pack filter tabs:
+- **Manager 1-on-1s** — Tough performance review, career development, chronic underperformer
+- **Sales Discovery** — Qualifying the lead, handling objections, uncovering real pain
+- **Job Interviews** — Behavioral questions, salary negotiation, asking smart questions
+- **Difficult Conversations** — Peer conflict, delivering bad news, setting boundaries
+
+Pack tabs appear at the top of the Simulate Mode hub (Core / Manager 1-on-1s / Sales Discovery / Job Interviews / Difficult Conversations).
+All scenarios: `pack: "pack-key"` field, 4–6 node depth, branching with quality ratings, 3 endings.
 
 ## Security
 - Prompt input sanitization across all AI engines (`src/engine/sanitize.js`)
-- Origin validation on API proxy (only accepts requests from Bisa domains)
+- Origin validation on API proxy — allowed origins: `neaobisa.com`, `www.neaobisa.com`, `bisa-eta.vercel.app`, localhost
 - Message structure validation (role + string content only, max 20 messages)
 - Rate limiting via `x-real-ip` (Vercel-set, not spoofable)
-- Global daily cap as billing safety net
+- Global daily cap (500/day) as billing safety net
 - Sanitized error responses (no Anthropic internals leaked)
 - API keys stored in browser localStorage only, never on server
 
@@ -71,38 +88,28 @@
 - [x] `useSupabaseDB` hook — wraps all DB ops for Supabase Postgres
 - [x] Profile page wired to Supabase
 - [ ] Google OAuth
-- [ ] Full sql.js → Supabase migration (cross-device sync)
+- [ ] Full cross-device sync (data currently tied to account but not fully synced across devices)
 - [ ] Data export (JSON/CSV)
 - [ ] Offline-first with sync
 
-**Known bugs (open) — create GitHub Issues for each, then assign Claude to fix:**
+**Known bugs (open):**
 
-1. **SimulateMode crashes on category filter** (`src/components/modes/SimulateMode.jsx`)
-   - Calls `filterByDifficulty()` which isn't imported and doesn't work with async Supabase db
-   - Fix: remove/replace with proper async Supabase query, ensure category filter works with `useSupabaseDB`
-   - Add Vitest regression test
+1. ~~**SimulateMode crashes on category filter**~~ — **FIXED** (inline useMemo tier filtering, no filterByDifficulty call)
 
-2. **PatternMode calls non-existent getPatternStats(db)** (`src/components/modes/PatternMode.jsx`)
-   - Calls `getPatternStats(db)` in a `useMemo`; function doesn't exist as standalone export
-   - Fix: change to `db.getPatternStats()`, move from `useMemo` to `useEffect` with state (async)
-   - Add Vitest regression test
+2. ~~**PatternMode calls non-existent getPatternStats(db)**~~ — **FIXED** (now `db.getPatternStats()` in a useEffect)
 
-3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (already in `src/pages/ProfilePage.jsx` line 109)
+3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (`src/pages/ProfilePage.jsx` line 109)
 
-4. ~~**Dead signOut import in AppShell**~~ — **FIXED** (no unused import in `src/components/layout/AppShell.jsx`)
+4. ~~**Dead signOut import in AppShell**~~ — **FIXED**
 
-5. **Supabase email delivery — OTP emails not arriving** — Custom SMTP via Resend is configured and Resend dashboard shows emails as "delivered", but OTP codes never reach user inboxes. Likely causes:
-   - Missing/incomplete DNS records (SPF, DKIM, DMARC) on `neaobisa.com` — all must show **Verified** in Resend → Domains
-   - "From" address mismatch — Supabase Auth → SMTP sender email must match the Resend-verified domain (e.g. `noreply@neaobisa.com`)
-   - Emails landing in spam/junk folders (Gmail filters aggressively)
-   - Fix: verify all DNS records are green in Resend, confirm sender address matches domain, test with multiple email providers
+5. **OTP emails delivered but not received** — Resend shows "Delivered" but users report not getting codes. Root cause: Gmail spam/promotions filtering.
+   - Fix: Check SPF/DKIM/DMARC are all green in Resend → Domains for `neaobisa.com`
+   - Fix: Change email subject from "Your Bisa verification code" (spam trigger) to something like "Confirm your Bisa account" — edit in Supabase Dashboard → Authentication → Email Templates
+   - Workaround: Manually confirm users in Supabase → Authentication → Users
 
-**TODO:** Create GitHub Issues for bugs 1–2 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
-
-**Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
+6. **Skill area scores show 0%** on Progress page — `user_scores` table is empty for users who haven't used Practice Mode specifically. XP comes from all activities but category scores only record on practice attempts. Not a bug per se — users need to use Practice Mode to populate skill bars.
 
 ### Phase 4: Analytics & Insights
-Understand who's using Bisa and how, so we can improve the product.
 - Anonymous usage analytics (PostHog or Mixpanel)
 - Admin dashboard — total users, daily actives, retention, popular modes
 - User journey tracking — where people drop off, what modes are sticky
@@ -114,17 +121,14 @@ The revenue engine. Target: new managers, sales teams, leadership development pr
 - Organization accounts with admin roles
 - Team dashboards — aggregate progress, leaderboards, completion rates
 - Manager view — see which team members are active, what skills they're building
-- Custom content — organizations can add their own practice scenarios relevant to their industry
+- Custom content — organizations can add their own practice scenarios
 - SSO integration (SAML/OIDC) for enterprise customers
 - Usage reports (PDF/CSV export) for L&D departments to prove ROI
 - Bulk licensing and billing
 - API for LMS integrations (SCORM or xAPI)
 
 ### Phase 6: Growth & Marketing
-Get the product in front of the right people.
-- Landing page (bisa.app) with product demo, pricing, testimonials
-- Custom domain setup
-- Onboarding flow — guided first-time experience that hooks users immediately
+- Landing page with product demo, pricing, testimonials
 - Social sharing — share achievements, streaks, scores on LinkedIn/Twitter
 - Referral system — invite colleagues, earn rewards
 - App Store / Play Store via Capacitor or PWA
