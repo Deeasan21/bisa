@@ -554,6 +554,30 @@ function buildDb(userId) {
     } catch (e) { console.error('getUserScores:', e); return []; }
   }
 
+  async function getScoresByCategory() {
+    try {
+      const { data, error } = await supabase
+        .from('user_scores')
+        .select('category, score')
+        .eq('user_id', userId);
+      if (error) throw error;
+      const rows = data || [];
+      // Group and average by category
+      const map = {};
+      rows.forEach(r => {
+        if (!r.category) return;
+        if (!map[r.category]) map[r.category] = { sum: 0, count: 0 };
+        map[r.category].sum += (r.score || 0);
+        map[r.category].count += 1;
+      });
+      return Object.entries(map).map(([category, { sum, count }]) => ({
+        category,
+        avg_score: Math.round(sum / count),
+        count,
+      }));
+    } catch (e) { console.error('getScoresByCategory:', e); return []; }
+  }
+
   async function getDifficultyTier(category) {
     try {
       const { data, error } = await supabase
@@ -1142,7 +1166,7 @@ function buildDb(userId) {
     // Spaced Repetition
     seedReviewCards, seedFlashcards, getDueCards, submitReview, getReviewStats,
     // User Scores & Difficulty
-    saveUserScore, getUserScores, getDifficultyTier, updateDifficultyTier,
+    saveUserScore, getUserScores, getScoresByCategory, getDifficultyTier, updateDifficultyTier,
     // Pattern
     savePatternAttempt, getPatternStats, getPatternSessionResults,
     // Daily Quests

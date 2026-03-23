@@ -37,12 +37,13 @@ export default function MonthlyReport({ db, isReady }) {
         const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
         // Fetch all data in parallel
-        const [practiceStats, streakInfo, challengeHistory, categoryScores] =
+        const [practiceStats, streakInfo, challengeHistory, categoryScores, xpHistory] =
           await Promise.all([
             db.getPracticeStats().catch(() => ({ count: 0, average: 0 })),
             db.getStreakInfo().catch(() => ({ currentStreak: 0, longestStreak: 0 })),
             db.getChallengeHistory(30).catch(() => []),
             db.getScoresByCategory().catch(() => []),
+            db.getXPHistory(100).catch(() => []),
           ]);
 
         // Filter challenge history to current month only
@@ -52,8 +53,14 @@ export default function MonthlyReport({ db, isReady }) {
           return d >= monthStart;
         });
 
+        // Count XP events this month as fallback activity signal
+        const thisMonthXP = (xpHistory || []).filter((entry) => {
+          if (!entry.created_at) return false;
+          return new Date(entry.created_at) >= monthStart;
+        });
+
         const totalSessions =
-          (practiceStats?.count || 0) + thisMonthChallenges.length;
+          (practiceStats?.count || 0) + thisMonthChallenges.length + thisMonthXP.length;
 
         // Don't show for brand new users with no activity
         if (totalSessions === 0) {
