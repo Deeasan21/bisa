@@ -365,6 +365,50 @@ export function buildEngineFunctions(userId, deps) {
     } catch (e) { console.error('updateProfile:', e); }
   }
 
+  // ── Data Export ──────────────────────────────────────────────────────────
+
+  async function exportAllData() {
+    try {
+      const tables = [
+        { name: 'profile', table: 'profiles', select: 'display_name, avatar_id, created_at', key: 'id' },
+        { name: 'stats', table: 'user_stats', select: 'total_xp, current_level, current_streak, longest_streak, last_challenge_date, weekly_xp', key: 'id' },
+        { name: 'xp_log', table: 'xp_log', select: 'activity_type, xp_amount, description, created_at' },
+        { name: 'achievements', table: 'achievements', select: 'achievement_id, unlocked_at' },
+        { name: 'practice_attempts', table: 'practice_attempts', select: 'scenario_id, user_question, score, feedback, created_at' },
+        { name: 'challenge_history', table: 'challenge_history', select: 'challenge_date, challenge_type, challenge_title, response, score, questions_json, challenge_format, created_at' },
+        { name: 'journal_entries', table: 'journal_entries', select: 'situation, question, question_type, outcome, rating, reflection, created_at' },
+        { name: 'reflections', table: 'reflections', select: 'lesson_id, content, created_at, updated_at' },
+        { name: 'simulation_attempts', table: 'simulation_attempts', select: 'simulation_id, path, quality_scores, ending_node, created_at' },
+        { name: 'pattern_attempts', table: 'pattern_attempts', select: 'sub_mode, scenario_id, user_response, selected_option, score, dimension_scores, feedback, difficulty_tier, session_id, round_number, created_at' },
+        { name: 'user_scores', table: 'user_scores', select: 'mode, category, score, difficulty_tier, created_at' },
+        { name: 'difficulty_tiers', table: 'difficulty_tiers', select: 'category, current_tier, rolling_scores, updated_at' },
+        { name: 'sr_cards', table: 'sr_cards', select: 'card_type, source_id, front, back, ease_factor, interval, repetitions, next_review, last_review, created_at' },
+        { name: 'daily_quests', table: 'daily_quests', select: 'date, quest_type, quest_target, quest_description, xp_reward, completed, progress, goal, created_at' },
+      ];
+
+      const result = { exportedAt: new Date().toISOString(), version: 1 };
+
+      await Promise.all(tables.map(async ({ name, table, select, key }) => {
+        try {
+          const { data, error } = await supabase
+            .from(table)
+            .select(select)
+            .eq(key || 'user_id', userId)
+            .order('created_at', { ascending: true });
+          if (error) throw error;
+          result[name] = data || [];
+        } catch {
+          result[name] = [];
+        }
+      }));
+
+      return result;
+    } catch (e) {
+      console.error('exportAllData:', e);
+      return null;
+    }
+  }
+
   return {
     checkAchievements,
     getDailyQuests, saveDailyQuests, updateQuestProgress,
@@ -372,5 +416,6 @@ export function buildEngineFunctions(userId, deps) {
     getOverallProgress,
     getRecommendations, getRecommendedMode,
     getProfile, updateProfile,
+    exportAllData,
   };
 }

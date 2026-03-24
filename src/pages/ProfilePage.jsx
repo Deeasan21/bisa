@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
@@ -9,6 +9,7 @@ import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from
 import { ACHIEVEMENTS } from '../data/achievements';
 import { STORAGE_KEYS } from '../lib/constants';
 import Card from '../components/common/Card';
+import { downloadJSON, downloadCSV } from '../utils/exportData';
 import './ProfilePage.css';
 
 function AnimatedNumber({ value, duration = 800 }) {
@@ -46,6 +47,7 @@ export default function ProfilePage() {
   const { signOut } = useAuth();
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
+  const [exporting, setExporting] = useState(false);
 
   const enabled = isReady && !!db;
 
@@ -131,6 +133,21 @@ export default function ProfilePage() {
   };
 
   const recommendation = getRecommendation();
+
+  const handleExport = async (format) => {
+    if (!db || exporting) return;
+    setExporting(true);
+    try {
+      const data = await db.exportAllData();
+      if (!data) return;
+      if (format === 'json') downloadJSON(data, displayName);
+      else downloadCSV(data, displayName);
+    } catch (e) {
+      console.error('Export failed:', e);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handleSignOut = async () => {
     try {
@@ -238,6 +255,37 @@ export default function ProfilePage() {
           );
         })}
       </div>
+
+      {/* Data Export */}
+      <Card padding="md">
+        <div className="export-section">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+            <Export size={20} color="var(--text-secondary)" />
+            <h3 style={{ margin: 0 }}>Export Your Data</h3>
+          </div>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0 0 12px' }}>
+            Download all your progress, journal entries, and practice history.
+          </p>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button
+              onClick={() => handleExport('json')}
+              disabled={exporting}
+              className="export-btn"
+            >
+              <FileJs size={18} />
+              {exporting ? 'Exporting…' : 'JSON'}
+            </button>
+            <button
+              onClick={() => handleExport('csv')}
+              disabled={exporting}
+              className="export-btn"
+            >
+              <FileCsv size={18} />
+              {exporting ? 'Exporting…' : 'CSV'}
+            </button>
+          </div>
+        </div>
+      </Card>
 
       <button
         onClick={handleSignOut}

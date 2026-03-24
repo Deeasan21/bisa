@@ -71,8 +71,8 @@
 - [x] `useSupabaseDB` hook — wraps all DB ops for Supabase Postgres
 - [x] Profile page wired to Supabase
 - [x] Google OAuth — sign-in button on AuthPage, `signInWithGoogle()` in useAuth (requires Google provider enabled in Supabase dashboard)
-- [ ] Full sql.js → Supabase migration (cross-device sync)
-- [ ] Data export (JSON/CSV)
+- [x] Full sql.js → Supabase migration (cross-device sync) — completed March 18, commit fc52779
+- [x] Data export (JSON/CSV) — Profile page export buttons for all user data (`src/utils/exportData.js`, `db.exportAllData()`)
 - [ ] Offline-first with sync
 
 **Known bugs (open) — create GitHub Issues for each, then assign Claude to fix:**
