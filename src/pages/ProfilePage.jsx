@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
+import { useQuery } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useAuth } from '../hooks/useAuth';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
@@ -43,29 +44,56 @@ function getPhosphorIcon(name) {
 export default function ProfilePage() {
   const { db, isReady } = useSupabaseDB();
   const { signOut } = useAuth();
-  const [profile, setProfile] = useState(null);
-  const [xp, setXp] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [unlocked, setUnlocked] = useState([]);
-  const [weekXP, setWeekXP] = useState(0);
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
-  const [progress, setProgress] = useState(null);
+
+  const enabled = isReady && !!db;
+
+  const { data: profile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => db.getProfile(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: xp } = useQuery({
+    queryKey: ['totalXP'],
+    queryFn: () => db.getTotalXP(),
+    enabled,
+    placeholderData: 0,
+  });
+
+  const { data: streak } = useQuery({
+    queryKey: ['streak'],
+    queryFn: async () => (await db.getStreakInfo()).currentStreak,
+    enabled,
+    placeholderData: 0,
+  });
+
+  const { data: unlocked } = useQuery({
+    queryKey: ['unlockedAchievements'],
+    queryFn: async () => (await db.getUnlockedAchievements()).map(a => a.achievement_id),
+    enabled,
+    placeholderData: [],
+  });
+
+  const { data: progress } = useQuery({
+    queryKey: ['overallProgress'],
+    queryFn: () => db.getOverallProgress(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: weekXP } = useQuery({
+    queryKey: ['weeklyXP'],
+    queryFn: () => db.getWeeklyXP(),
+    enabled,
+    placeholderData: 0,
+  });
 
   useEffect(() => {
-    if (!isReady || !db) return;
-    (async () => {
-      const p = await db.getProfile();
-      setProfile(p);
-      setNameInput(p?.display_name || 'Learner');
-      setXp(await db.getTotalXP());
-      const streakInfo = await db.getStreakInfo();
-      setStreak(streakInfo.currentStreak);
-      setUnlocked((await db.getUnlockedAchievements()).map(a => a.achievement_id));
-      setProgress(await db.getOverallProgress());
-      setWeekXP(await db.getWeeklyXP());
-    })();
-  }, [db, isReady]);
+    if (profile && !nameInput) setNameInput(profile.display_name || 'Learner');
+  }, [profile]);
 
   const handleSaveName = async () => {
     if (!db || !nameInput.trim()) return;

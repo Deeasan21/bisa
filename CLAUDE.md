@@ -70,7 +70,7 @@
 - [x] `useAuth` hook — signIn, signUp, signOut, user session
 - [x] `useSupabaseDB` hook — wraps all DB ops for Supabase Postgres
 - [x] Profile page wired to Supabase
-- [ ] Google OAuth
+- [x] Google OAuth — sign-in button on AuthPage, `signInWithGoogle()` in useAuth (requires Google provider enabled in Supabase dashboard)
 - [ ] Full sql.js → Supabase migration (cross-device sync)
 - [ ] Data export (JSON/CSV)
 - [ ] Offline-first with sync
