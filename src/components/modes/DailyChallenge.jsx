@@ -491,11 +491,11 @@ export default function DailyChallenge() {
               return (
                 <Card key={i} padding="sm">
                   <div
-                    className={`history-item${hasQuestions ? ' expandable' : ''}`}
-                    onClick={() => hasQuestions && setExpandedHistory(isExpanded ? null : i)}
-                    role={hasQuestions ? 'button' : undefined}
-                    tabIndex={hasQuestions ? 0 : undefined}
-                    onKeyDown={hasQuestions ? (e) => e.key === 'Enter' && setExpandedHistory(isExpanded ? null : i) : undefined}
+                    className="history-item expandable"
+                    onClick={() => setExpandedHistory(isExpanded ? null : i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setExpandedHistory(isExpanded ? null : i)}
                   >
                     <div className="history-meta">
                       <Badge
@@ -511,30 +511,36 @@ export default function DailyChallenge() {
                     </div>
                     <div className="history-title-row">
                       <p className="history-title">{h.title}</p>
-                      {hasQuestions && (
-                        <CaretDown
-                          size={16}
-                          weight="bold"
-                          className={`history-caret${isExpanded ? ' expanded' : ''}`}
-                        />
-                      )}
+                      <CaretDown
+                        size={16}
+                        weight="bold"
+                        className={`history-caret${isExpanded ? ' expanded' : ''}`}
+                      />
                     </div>
-                    <p className="history-response">{h.response}</p>
+                    {!isExpanded && (
+                      <p className="history-response">{h.response}</p>
+                    )}
                   </div>
 
-                  {isExpanded && hasQuestions && (
+                  {isExpanded && (
                     <div className="history-details animate-fade-in">
-                      <div className="history-questions-header">
-                        <span>Questions asked ({h.questions.length})</span>
-                      </div>
-                      <div className="history-questions-list">
-                        {h.questions.map((q, qi) => (
-                          <div key={qi} className="history-question-item">
-                            <span className="history-question-number">{qi + 1}</span>
-                            <span className="history-question-text">{q}</span>
+                      <p className="history-response-full">{h.response}</p>
+
+                      {hasQuestions && (
+                        <>
+                          <div className="history-questions-header">
+                            <span>Questions asked ({h.questions.length})</span>
                           </div>
-                        ))}
-                      </div>
+                          <div className="history-questions-list">
+                            {h.questions.map((q, qi) => (
+                              <div key={qi} className="history-question-item">
+                                <span className="history-question-number">{qi + 1}</span>
+                                <span className="history-question-text">{q}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
                 </Card>
