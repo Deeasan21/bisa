@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { Lightning, Fire, Gift, Target, Sparkle, Lightbulb, BookOpen, ArrowRight, Eye, SquaresFour, CalendarBlank } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useXP } from '../hooks/useXP';
@@ -63,39 +64,53 @@ export default function TodayPage() {
   const { level, totalXP } = useXP();
   const navigate = useNavigate();
   const location = useLocation();
-  const [streak, setStreak] = useState(0);
-  const [lastDate, setLastDate] = useState(null);
-  const [lastActivity, setLastActivity] = useState(null);
-  const [nextMode, setNextMode] = useState(null);
-  const [engineQuests, setEngineQuests] = useState([]);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [recommendations, setRecommendations] = useState(null);
 
+  const enabled = isReady && !!db;
+
+  const { data: streakInfo } = useQuery({
+    queryKey: ['streak'],
+    queryFn: () => db.getStreakInfo(),
+    enabled,
+    placeholderData: { currentStreak: 0, longestStreak: 0, lastChallengeDate: null },
+  });
+
+  const { data: lastActivity } = useQuery({
+    queryKey: ['lastActivity'],
+    queryFn: async () => {
+      const history = await db.getChallengeHistory(1);
+      return history.length > 0 ? history[0] : null;
+    },
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: nextMode } = useQuery({
+    queryKey: ['recommendedMode'],
+    queryFn: () => db.getRecommendedMode(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: engineQuests } = useQuery({
+    queryKey: ['dailyQuests'],
+    queryFn: () => db.generateDailyQuests(),
+    enabled,
+    placeholderData: [],
+  });
+
+  const { data: recommendations } = useQuery({
+    queryKey: ['recommendations'],
+    queryFn: () => db.getRecommendations(),
+    enabled,
+    placeholderData: null,
+  });
+
+  // Check if all quests done for confetti + bonus XP (once per day)
   useEffect(() => {
-    if (!isReady || !db) return;
+    if (!enabled || !engineQuests || engineQuests.length === 0) return;
 
     (async () => {
-      try {
-        const info = await db.getStreakInfo();
-        setStreak(info.currentStreak);
-        setLastDate(info.lastChallengeDate);
-      } catch (e) { console.error('streak read failed:', e); }
-
-      try {
-        const history = await db.getChallengeHistory(1);
-        setLastActivity(history.length > 0 ? history[0] : null);
-      } catch (e) { console.error('history read failed:', e); }
-
-      try { setNextMode(await db.getRecommendedMode()); } catch (e) { console.error('nextMode failed:', e); }
-
-      try {
-        const quests = await db.generateDailyQuests();
-        setEngineQuests(quests);
-      } catch (e) { console.error('quest gen failed:', e); }
-
-      try { setRecommendations(await db.getRecommendations()); } catch (e) { console.error('recommendations failed:', e); }
-
-      // Check if all quests are done for confetti + bonus XP (once per day)
       try {
         const allDone = await db.allQuestsCompleted();
         if (allDone) {
@@ -107,7 +122,10 @@ export default function TodayPage() {
         }
       } catch (err) { console.error('Failed to award quest bonus XP:', err); }
     })();
-  }, [db, isReady, location.key]);
+  }, [engineQuests]);
+
+  const streak = streakInfo?.currentStreak || 0;
+  const lastDate = streakInfo?.lastChallengeDate || null;
 
   const isNewUser = isReady && totalXP === 0 && !lastActivity;
 

@@ -77,15 +77,9 @@
 
 **Known bugs (open) — create GitHub Issues for each, then assign Claude to fix:**
 
-1. **SimulateMode crashes on category filter** (`src/components/modes/SimulateMode.jsx`)
-   - Calls `filterByDifficulty()` which isn't imported and doesn't work with async Supabase db
-   - Fix: remove/replace with proper async Supabase query, ensure category filter works with `useSupabaseDB`
-   - Add Vitest regression test
+1. ~~**SimulateMode crashes on category filter**~~ — **FIXED** (category filter uses `useMemo` + `db.getCurrentTier()` in `useEffect`; no `filterByDifficulty()` call exists)
 
-2. **PatternMode calls non-existent getPatternStats(db)** (`src/components/modes/PatternMode.jsx`)
-   - Calls `getPatternStats(db)` in a `useMemo`; function doesn't exist as standalone export
-   - Fix: change to `db.getPatternStats()`, move from `useMemo` to `useEffect` with state (async)
-   - Add Vitest regression test
+2. ~~**PatternMode calls non-existent getPatternStats(db)**~~ — **FIXED** (already calls `db.getPatternStats()` in a proper `useEffect` with state)
 
 3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (already in `src/pages/ProfilePage.jsx` line 109)
 
@@ -97,7 +91,7 @@
    - Emails landing in spam/junk folders (Gmail filters aggressively)
    - Fix: verify all DNS records are green in Resend, confirm sender address matches domain, test with multiple email providers
 
-**TODO:** Create GitHub Issues for bugs 1–2 using `gh issue create` (gh CLI required). Once issues exist, use Claude Code on the web or a Claude PR agent to auto-fix them. The Vitest test infrastructure is already set up (`vitest.config.js`, `src/__tests__/`).
+**Note:** Bugs 1–4 are all resolved. Bug 5 (OTP email delivery) is an infrastructure issue requiring DNS verification in Resend dashboard. The Vitest test infrastructure is set up (`vitest.config.js`, `src/__tests__/`), including component tests.
 
 **Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
 
