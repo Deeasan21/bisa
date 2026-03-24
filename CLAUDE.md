@@ -85,13 +85,9 @@
 
 4. ~~**Dead signOut import in AppShell**~~ — **FIXED** (no unused import in `src/components/layout/AppShell.jsx`)
 
-5. **Supabase email delivery — OTP emails not arriving** — Custom SMTP via Resend is configured and Resend dashboard shows emails as "delivered", but OTP codes never reach user inboxes. Likely causes:
-   - Missing/incomplete DNS records (SPF, DKIM, DMARC) on `neaobisa.com` — all must show **Verified** in Resend → Domains
-   - "From" address mismatch — Supabase Auth → SMTP sender email must match the Resend-verified domain (e.g. `noreply@neaobisa.com`)
-   - Emails landing in spam/junk folders (Gmail filters aggressively)
-   - Fix: verify all DNS records are green in Resend, confirm sender address matches domain, test with multiple email providers
+5. ~~**Supabase email delivery — OTP emails not arriving**~~ — **FIXED** (DMARC DNS record was missing on `neaobisa.com`; added the record, domain fully verified in Resend, OTP emails now land in inbox via custom SMTP `hello@mail.neaobisa.com`)
 
-**Note:** Bugs 1–4 are all resolved. Bug 5 (OTP email delivery) is an infrastructure issue requiring DNS verification in Resend dashboard. The Vitest test infrastructure is set up (`vitest.config.js`, `src/__tests__/`), including component tests.
+**Note:** All 5 bugs are resolved. The Vitest test infrastructure is set up (`vitest.config.js`, `src/__tests__/`), including component tests.
 
 **Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
 
