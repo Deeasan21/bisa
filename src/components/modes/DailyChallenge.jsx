@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, CheckCircle, Clock, Timer, PaperPlaneTilt, Sparkle, Robot } from '@phosphor-icons/react';
+import { Fire, CheckCircle, Clock, Timer, PaperPlaneTilt, Sparkle, Robot, CaretDown } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { BURST_CHALLENGES, getTodaysBurst } from '../../data/burstChallenges';
@@ -66,6 +66,7 @@ export default function DailyChallenge() {
   const [aiCoaching, setAiCoaching] = useState(null);
   const [aiCoachingLoading, setAiCoachingLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [expandedHistory, setExpandedHistory] = useState(null);
   const inputRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -484,26 +485,61 @@ export default function DailyChallenge() {
         {(phase === 'ready' || phase === 'completed') && history.length > 0 && (
           <div className="challenge-history">
             <h3>Recent Challenges</h3>
-            {history.map((h, i) => (
-              <Card key={i} padding="sm">
-                <div className="history-item">
-                  <div className="history-meta">
-                    <Badge
-                      text={h.format === 'burst' ? 'Question Burst' : h.type}
-                      color={h.format === 'burst' ? '#10B981' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
-                      variant="soft"
-                      size="sm"
-                    />
-                    {h.format === 'burst' && h.score > 0 && (
-                      <Badge text={`${h.score}pts`} color="#10B981" variant="outlined" size="sm" />
-                    )}
-                    <span className="history-date">{h.date}</span>
+            {history.map((h, i) => {
+              const isExpanded = expandedHistory === i;
+              const hasQuestions = h.format === 'burst' && h.questions && h.questions.length > 0;
+              return (
+                <Card key={i} padding="sm">
+                  <div
+                    className={`history-item${hasQuestions ? ' expandable' : ''}`}
+                    onClick={() => hasQuestions && setExpandedHistory(isExpanded ? null : i)}
+                    role={hasQuestions ? 'button' : undefined}
+                    tabIndex={hasQuestions ? 0 : undefined}
+                    onKeyDown={hasQuestions ? (e) => e.key === 'Enter' && setExpandedHistory(isExpanded ? null : i) : undefined}
+                  >
+                    <div className="history-meta">
+                      <Badge
+                        text={h.format === 'burst' ? 'Question Burst' : h.type}
+                        color={h.format === 'burst' ? '#10B981' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
+                        variant="soft"
+                        size="sm"
+                      />
+                      {h.format === 'burst' && h.score > 0 && (
+                        <Badge text={`${h.score}pts`} color="#10B981" variant="outlined" size="sm" />
+                      )}
+                      <span className="history-date">{h.date}</span>
+                    </div>
+                    <div className="history-title-row">
+                      <p className="history-title">{h.title}</p>
+                      {hasQuestions && (
+                        <CaretDown
+                          size={16}
+                          weight="bold"
+                          className={`history-caret${isExpanded ? ' expanded' : ''}`}
+                        />
+                      )}
+                    </div>
+                    <p className="history-response">{h.response}</p>
                   </div>
-                  <p className="history-title">{h.title}</p>
-                  <p className="history-response">{h.response}</p>
-                </div>
-              </Card>
-            ))}
+
+                  {isExpanded && hasQuestions && (
+                    <div className="history-details animate-fade-in">
+                      <div className="history-questions-header">
+                        <span>Questions asked ({h.questions.length})</span>
+                      </div>
+                      <div className="history-questions-list">
+                        {h.questions.map((q, qi) => (
+                          <div key={qi} className="history-question-item">
+                            <span className="history-question-number">{qi + 1}</span>
+                            <span className="history-question-text">{q}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>
