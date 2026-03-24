@@ -64,7 +64,7 @@
 
 ## Future Roadmap
 
-### Phase 3: User Accounts & Cloud Sync — IN PROGRESS
+### Phase 3: User Accounts & Cloud Sync — COMPLETE
 - [x] Supabase Auth — email/password signup with 8-digit OTP email verification
 - [x] Auth flow: `/auth` → `/verify` (OTP) → `/welcome` (display name) → `/`
 - [x] `useAuth` hook — signIn, signUp, signOut, user session
@@ -73,7 +73,7 @@
 - [x] Google OAuth — sign-in button on AuthPage, `signInWithGoogle()` in useAuth (requires Google provider enabled in Supabase dashboard)
 - [x] Full sql.js → Supabase migration (cross-device sync) — completed March 18, commit fc52779
 - [x] Data export (JSON/CSV) — Profile page export buttons for all user data (`src/utils/exportData.js`, `db.exportAllData()`)
-- [ ] Offline-first with sync
+- [x] Offline-first with sync — React Query persisted to IndexedDB via `idb-keyval`, `onlineManager` wired to browser events, `OfflineBanner` component shows connectivity status, auto-refetch on reconnect
 
 **Known bugs (open) — create GitHub Issues for each, then assign Claude to fix:**
 
