@@ -2708,6 +2708,55 @@ export const LESSONS = [
         },
       },
       {
+        id: 'trust-explorer',
+        title: 'The Same Conversation, Three Ways',
+        content: `
+          <p>The words matter less than you think. Watch how the same moment plays out depending on how you enter it:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'Your direct report seems disengaged in meetings lately.',
+              response: '"Why have you been so checked out lately?"',
+              outcome: 'They get defensive. The phrase "checked out" is a judgment before you\'ve heard anything. Trust drops.',
+            },
+            {
+              label: 'okay',
+              situation: 'Your direct report seems disengaged in meetings lately.',
+              response: '"Is everything okay with you?"',
+              outcome: 'They say "yeah, fine." You\'ve offered care but in a closed form — the answer was almost predetermined.',
+            },
+            {
+              label: 'great',
+              situation: 'Your direct report seems disengaged in meetings lately.',
+              response: '"I\'ve noticed you\'ve seemed a bit quieter lately — I wanted to check in. What\'s going on for you?"',
+              outcome: 'They open up about a personal situation they\'d been hiding. The conversation builds real trust.',
+            },
+          ],
+          takeaway: 'Naming what you\'ve observed — without labeling it as a problem — creates the safest invitation to honesty.',
+        },
+      },
+      {
+        id: 'trust-challenge',
+        title: 'Test Your Trust Instincts',
+        content: `
+          <p>Sometimes the difference between a trust-building question and a trust-eroding one is a single word. Can you spot it?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A colleague made a call on a project without looping you in. You want to understand what happened — without creating resentment. Which question builds trust?',
+          options: [
+            { text: '"Why did you make that call without telling me?"', isCorrect: false },
+            { text: '"Help me understand the thinking behind that decision."', isCorrect: true },
+          ],
+          explanation: '"Why" questions — especially about decisions — can sound accusatory even when you don\'t mean them that way. The second question expresses the same curiosity but frames it as learning, not judgment. The other person stays open rather than going defensive.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -2848,6 +2897,68 @@ export const LESSONS = [
         },
       },
       {
+        id: 'assumption-explorer',
+        title: 'The Same Question, Three Levels of Assumption',
+        content: `
+          <p>Not all assumption-loaded questions are equally harmful. Some carry light assumptions, others are deeply loaded. See the spectrum:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A new team member is quieter than expected in their first month.',
+              response: '"Why are you so shy? You need to speak up more."',
+              outcome: 'The assumption that quietness = shyness = a problem. They feel judged before they\'ve had a chance to show who they are.',
+            },
+            {
+              label: 'okay',
+              situation: 'A new team member is quieter than expected in their first month.',
+              response: '"Are you feeling comfortable on the team?"',
+              outcome: 'Slightly better — it\'s warmer, but still assumes discomfort is the issue. A yes/no question limits what they can tell you.',
+            },
+            {
+              label: 'great',
+              situation: 'A new team member is quieter than expected in their first month.',
+              response: '"What\'s been your experience of the team so far?"',
+              outcome: 'Completely open. They might share that they\'re still calibrating, or that they process differently — and you learn something real.',
+            },
+          ],
+          takeaway: 'The assumption-free question doesn\'t just avoid offense — it actually gets you better information.',
+        },
+      },
+      {
+        id: 'assumption-poll',
+        title: 'Where Do Your Assumptions Come From?',
+        content: `
+          <p>We all carry assumptions — the question is which ones are most likely to sneak into our questions unexamined.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'Which type of assumption do you think most often affects your questions?',
+          options: [
+            {
+              text: 'Role assumptions — assuming people think or act a certain way because of their job or status',
+              insight: 'Role assumptions are pervasive in hierarchical settings. The antidote: treat every individual as if their job title tells you very little about their actual perspective.',
+            },
+            {
+              text: 'Emotional assumptions — assuming I know how someone feels before they tell me',
+              insight: 'Even well-meaning emotional assumptions ("you must be devastated") close down the conversation. Try naming what you observe instead: "You seem thoughtful — what\'s on your mind?"',
+            },
+            {
+              text: 'Cause assumptions — assuming I know why someone did something before I ask',
+              insight: 'These are especially risky in conflict. "You did X because Y" is almost always an inference, not a fact. The question "What was behind that decision?" tends to reveal a reality you didn\'t expect.',
+            },
+            {
+              text: 'Outcome assumptions — assuming the result of something before asking',
+              insight: '"What went wrong?" assumes something went wrong. "What went well?" assumes something did. Try: "How did it go?" and let them tell you the shape of the experience.',
+            },
+          ],
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -2967,6 +3078,61 @@ export const LESSONS = [
         },
       },
       {
+        id: 'ladder-explorer',
+        title: 'Climbing the Ladder: Three Paths',
+        content: `
+          <p>How quickly you climb the ladder — and how aware you are of it — makes all the difference. Watch three people encounter the same event:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'Your manager didn\'t include you in a key meeting this week.',
+              response: 'You immediately conclude: "They\'re pushing me out. I\'m going to be managed out." You start job searching.',
+              outcome: 'You\'ve leapt from observable data (absent from meeting) to action (job search) in seconds. The interpretation in between was entirely yours.',
+            },
+            {
+              label: 'okay',
+              situation: 'Your manager didn\'t include you in a key meeting this week.',
+              response: 'You feel hurt but wait. Later you mention it: "I noticed I wasn\'t in that meeting — can you help me understand why?"',
+              outcome: 'Better — you checked the interpretation. They explain the meeting was deliberately small to move fast. The story collapses.',
+            },
+            {
+              label: 'great',
+              situation: 'Your manager didn\'t include you in a key meeting this week.',
+              response: 'You notice your reaction, label it: "I\'m at rung 5 here." You ask yourself what else could explain the data. Then you ask them — calmly and without accusation.',
+              outcome: 'You get accurate information, preserve the relationship, and discover you\'d added three rungs of meaning to a simple scheduling decision.',
+            },
+          ],
+          takeaway: 'The ladder doesn\'t make you irrational — it makes you human. Awareness of the climb is what makes you wise.',
+        },
+      },
+      {
+        id: 'ladder-self-check',
+        title: 'A Ladder Self-Check for High-Stakes Moments',
+        content: `
+          <p>When you feel a strong reaction — certainty, anger, or the urge to act immediately — that's often a signal you've climbed fast. These four questions help you descend:</p>
+          <ul>
+            <li>"What did I actually observe? What were the exact words or actions?"</li>
+            <li>"What am I adding to that data that wasn't explicitly there?"</li>
+            <li>"What's another explanation that fits the same facts?"</li>
+            <li>"What question could I ask to find out what's actually true?"</li>
+          </ul>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A friend cancels plans with you for the third time this month with a short text. You feel dismissed. Which response stays closest to the observable data?',
+          options: [
+            { text: '"You obviously don\'t value this friendship anymore."', isCorrect: false },
+            { text: '"You\'ve cancelled three times — I\'m not sure what\'s going on. Is everything okay with you?"', isCorrect: true },
+          ],
+          explanation: 'The first response is at rung 6 or 7 — a belief about the relationship\'s value built from inference. The second names the observable data (three cancellations) and asks a genuine question rather than asserting a conclusion. That\'s descending the ladder in real time.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -3080,6 +3246,68 @@ export const LESSONS = [
             { text: '"It sounds like you\'ve been feeling overlooked. Can you tell me when that happened?"', isCorrect: true },
           ],
           explanation: 'The first response defends your position — which confirms to them that you\'re not listening, and escalates. The second acknowledges their emotional experience before addressing the facts. That sequence — feelings first, facts second — is what de-escalation actually looks like.',
+        },
+      },
+      {
+        id: 'conflict-explorer',
+        title: 'Conflict Approaches: Three Outcomes',
+        content: `
+          <p>The same conflict can go in very different directions depending on the first question you ask after tensions rise. See how the opening move shapes everything:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A roommate leaves dishes in the sink repeatedly. You\'ve reached your limit.',
+              response: '"Why do you always do this? You have zero consideration for other people."',
+              outcome: 'They get defensive. The word "always" and the character judgment make them dig in. The dishes remain. The tension compounds.',
+            },
+            {
+              label: 'okay',
+              situation: 'A roommate leaves dishes in the sink repeatedly. You\'ve reached your limit.',
+              response: '"Can we talk about the dishes? It\'s been bothering me."',
+              outcome: 'Better — you\'ve opened a conversation. But "it\'s been bothering me" still centers your frustration before their experience, so they may feel accused rather than invited.',
+            },
+            {
+              label: 'great',
+              situation: 'A roommate leaves dishes in the sink repeatedly. You\'ve reached your limit.',
+              response: '"I want to understand — when you leave dishes in the sink, what\'s usually going on for you? I want to figure out something that works for both of us."',
+              outcome: 'They explain they\'re overwhelmed with a deadline and meant to do them later. You discover their interest (flexibility on timing) and yours (knowing they\'ll get done). You find a solution neither of you would have reached from argument.',
+            },
+          ],
+          takeaway: 'Getting curious about the other side\'s experience before stating your own is how conflicts become conversations.',
+        },
+      },
+      {
+        id: 'conflict-poll',
+        title: 'What\'s Your Conflict Default?',
+        content: `
+          <p>We all have a pattern when things get tense. Knowing yours is the first step to changing it.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When a conflict arises, your first instinct is usually to:',
+          options: [
+            {
+              text: 'State my case clearly and directly',
+              insight: 'Directness is a strength — but in conflict, stating your case first tends to trigger the other person\'s defenses before they\'ve felt heard. Try one question before your first statement: "What\'s your take on this?" can change the entire arc.',
+            },
+            {
+              text: 'Try to smooth things over and avoid confrontation',
+              insight: 'Conflict avoidance keeps the peace short-term but leaves the underlying interest unaddressed. The question "What would need to be different for this to feel resolved?" — asked gently — is a way to address the root without escalating.',
+            },
+            {
+              text: 'Ask what happened from their point of view',
+              insight: 'This is the approach most likely to lead to real resolution. The key is making sure it\'s genuine curiosity, not tactical listening while you plan your counterargument.',
+            },
+            {
+              text: 'Withdraw and process before engaging',
+              insight: 'Processing first is wise — but when you return, lead with curiosity: "I\'ve been thinking about this. Can you help me understand your experience of what happened?" Coming back with a question signals you\'re ready to understand, not just respond.',
+            },
+          ],
         },
       },
       {
@@ -3203,6 +3431,75 @@ export const LESSONS = [
             { text: '"What evidence are we working from? And is price actually what customers tell us when they leave?"', isCorrect: true },
           ],
           explanation: 'The first question stays at the surface — it accepts the framing and just asks for data. The second probes the assumption (price = reason for loss) and the evidence, which could reveal that customers are actually leaving for service quality, onboarding, or something else entirely.',
+        },
+      },
+      {
+        id: 'socratic-explorer',
+        title: 'Socratic Questioning in Practice: Three Depths',
+        content: `
+          <p>Most people stop at the first answer. Socratic questioning goes deeper — each question peeling back another layer. Watch how this works in a real scenario:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A friend says: "I could never start my own business — it\'s too risky."',
+              response: 'You accept the statement at face value and change the subject.',
+              outcome: 'The belief goes unexamined. Years later they still wonder what would have happened if they\'d explored it.',
+            },
+            {
+              label: 'okay',
+              situation: 'A friend says: "I could never start my own business — it\'s too risky."',
+              response: '"What kind of risk worries you most about it?"',
+              outcome: 'You get one layer deeper. They talk about financial risk. But the conversation stays on the surface of that single concern.',
+            },
+            {
+              label: 'great',
+              situation: 'A friend says: "I could never start my own business — it\'s too risky."',
+              response: '"What exactly do you mean by risky?" [Financial, mostly.] "What\'s the evidence that the financial risk is as bad as you\'re imagining?" [They haven\'t actually researched it.] "What would you need to know to feel like you could make a real assessment?"',
+              outcome: 'Three questions in, they\'re no longer talking about risk in the abstract. They\'re talking about specific unknowns — which are actually researchable. The belief transformed into a plan.',
+            },
+          ],
+          takeaway: 'Socratic questioning is not about winning an argument. It\'s about helping someone think further than they could alone.',
+        },
+      },
+      {
+        id: 'socratic-self',
+        title: 'Turning It Inward',
+        content: `
+          <p>The most powerful application of Socratic questioning is on your own thinking — especially when you feel most certain. Try this sequence on any strong belief or plan you're holding:</p>
+          <ul>
+            <li>"What exactly do I mean by this?" (Clarification)</li>
+            <li>"What am I assuming that might not be true?" (Probing assumptions)</li>
+            <li>"What's the best evidence against my position?" (Exploring viewpoints)</li>
+            <li>"If I'm wrong about this, what follows?" (Exploring implications)</li>
+          </ul>
+          <p>You don't need to talk to anyone. The examined mind is its own dialogue partner.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'Which Socratic question type do you use least often in your thinking?',
+          options: [
+            {
+              text: 'Probing evidence — "How do I know this is actually true?"',
+              insight: 'Most people hold beliefs without ever demanding evidence of themselves. The simple act of asking "What am I basing this on?" can dissolve convictions that felt like bedrock.',
+            },
+            {
+              text: 'Exploring viewpoints — "What would a smart critic of my position say?"',
+              insight: 'Steel-manning the opposition is uncomfortable but powerful. If you can\'t articulate the best argument against your position, you don\'t fully understand your position.',
+            },
+            {
+              text: 'Questioning the question — "Is this even the right thing to be asking?"',
+              insight: 'Most people never question the question itself. Stepping back and asking "Is this the right frame?" often reveals that you\'ve been solving the wrong problem entirely.',
+            },
+            {
+              text: 'Exploring implications — "If this is true, what would follow from it?"',
+              insight: 'Following a belief to its logical conclusions often reveals hidden contradictions — or surprising wisdom. Tracing implications is how you discover what you actually believe vs. what you say you believe.',
+            },
+          ],
         },
       },
       {
@@ -3338,6 +3635,52 @@ export const LESSONS = [
         },
       },
       {
+        id: 'power-explorer',
+        title: 'Authority and Questions: Three Moments',
+        content: `
+          <p>The same question carries different weight depending on who's asking. Watch how authority changes everything:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
+              response: '"Why did you think you had the authority to do that without checking with me first?"',
+              outcome: 'The question makes them feel judged and small. They stop making independent decisions — and stop bringing you problems early, too.',
+            },
+            {
+              label: 'okay',
+              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
+              response: '"What made you decide to move forward on that?"',
+              outcome: 'Better — genuinely curious, no judgment baked in. But you\'ve missed a chance to also address what you\'re actually trying to solve: the coordination gap.',
+            },
+            {
+              label: 'great',
+              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
+              response: '"Walk me through your thinking on that decision. And separately — are there situations where you\'re unsure what calls are yours to make vs. mine to weigh in on?"',
+              outcome: 'You learn their reasoning (which may be excellent), and you address the real gap: unclear decision boundaries. Both of you leave knowing more. Trust is intact.',
+            },
+          ],
+          takeaway: 'When you hold power, the question behind the question often matters more than the question itself. What are you really trying to solve?',
+        },
+      },
+      {
+        id: 'power-reframe',
+        title: 'Reframing Upward: The Art of Questioning Your Boss',
+        content: `
+          <p>Questioning someone above you in a hierarchy is one of the most valuable skills in any organization — and one of the least practiced. The fear is real: you might seem insubordinate, unprepared, or difficult. But there's a powerful reframe available to you.</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"I have some concerns about this plan." [Your manager hears: criticism, resistance, problem employee.]',
+          after: '"I\'m fully on board with this direction. To make sure I can champion it effectively with my team — can you help me understand the reasoning behind the timeline? They\'ll ask."',
+          explanation: 'The second framing does three things: it signals alignment first (reducing perceived threat), frames your question as serving the mission (not challenging authority), and gives the manager a reason to answer that feels helpful rather than interrogative. Same concern, completely different reception.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -3470,6 +3813,55 @@ export const LESSONS = [
         },
       },
       {
+        id: 'cultural-explorer',
+        title: 'The Same Question Across Contexts',
+        content: `
+          <p>A question that feels natural in one cultural context can land very differently in another. Here's what that looks like in practice:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
+              response: '"Does anyone disagree with this direction?" [Direct, open floor, American-style.]',
+              outcome: 'Silence. Several team members with indirect communication styles feel that voicing disagreement publicly would be embarrassing to you — so they say nothing and comply with a plan they have real concerns about.',
+            },
+            {
+              label: 'okay',
+              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
+              response: '"Before we finalize — are there any concerns we haven\'t addressed?"',
+              outcome: 'Slightly more welcoming. But it\'s still a public, synchronous question where saying "yes" means disagreeing in front of peers.',
+            },
+            {
+              label: 'great',
+              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
+              response: '"Let\'s take five minutes. I\'d like everyone to write down one thing they\'re confident about and one thing they\'re still uncertain about — then we\'ll share."',
+              outcome: 'The written format equalizes participation. Individual reflection time removes the social cost of public dissent. Real concerns surface from everyone — not just the most vocal members.',
+            },
+          ],
+          takeaway: 'Designing for psychological safety across cultures often means changing the format of how you ask, not just the words.',
+        },
+      },
+      {
+        id: 'cultural-challenge',
+        title: 'Reading the Room Across Cultures',
+        content: `
+          <p>What signals tell you that your questioning style isn't landing? These cues are easy to miss — but once you know them, they're hard to ignore.</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'re working with a colleague from a context that values hierarchy and indirect communication. You ask their opinion in a group meeting and they say "That sounds good" immediately. What\'s the wisest next step?',
+          options: [
+            { text: 'Take the affirmation at face value and move on.', isCorrect: false },
+            { text: 'Follow up privately later: "I\'d love your fuller thoughts on that — any reservations I should know about?"', isCorrect: true },
+          ],
+          explanation: 'In high-context or hierarchy-aware communication styles, "that sounds good" in a public group setting is often an act of politeness, not a genuine endorsement. The private follow-up removes the social cost of honest input — and is often where the real answer lives.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -3582,6 +3974,55 @@ export const LESSONS = [
             { text: '"How might we make waiting feel so different that patients don\'t mind it — while we also find ways to reduce it?"', isCorrect: true },
           ],
           explanation: '"Process patients faster" is a narrow operational frame — it leads to efficiency improvements. The reframe adds a dimension that the first question couldn\'t see: the waiting experience itself. Real ER innovations (like transparent updates, distraction, waiting environment design) came from exactly this kind of question.',
+        },
+      },
+      {
+        id: 'hmw-explorer',
+        title: 'The Reframe Makes the Solution',
+        content: `
+          <p>The same problem can produce wildly different solutions depending on how the question is framed. Watch what happens when you keep reframing:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'People in your community rarely attend local meetings.',
+              response: '"How do we get more people to attend?"',
+              outcome: 'Solutions: better marketing, email reminders, raffles. Attendance ticks up slightly. The underlying problem — meetings feel irrelevant to most people\'s lives — goes untouched.',
+            },
+            {
+              label: 'okay',
+              situation: 'People in your community rarely attend local meetings.',
+              response: '"How might we make local meetings more appealing?"',
+              outcome: 'Better — "appealing" opens up aesthetic and social dimensions. Ideas emerge about food, timing, venue. Still improving the existing format, not questioning whether the format itself is the problem.',
+            },
+            {
+              label: 'great',
+              situation: 'People in your community rarely attend local meetings.',
+              response: '"How might we make community decisions feel so connected to people\'s daily lives that participation feels obvious rather than optional?"',
+              outcome: 'This frame breaks the assumption that attendance = participation. New ideas surface: async input, text polls, block-level representation. The solution space is transformed.',
+            },
+          ],
+          takeaway: '"How might we" unlocks possibility. But the real power is in what comes after "we" — the scope of the question sets the ceiling on the solutions.',
+        },
+      },
+      {
+        id: 'constraint-challenge',
+        title: 'The Question Behind the Constraint',
+        content: `
+          <p>Every constraint has a question hiding inside it. "We can't afford this" is really asking: "What would we need to do to make this affordable?" "There isn't time" is really asking: "What could we cut or phase?" Which question do you ask?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your team says: "We can\'t launch this feature — it would take six months to build properly." Which question opens the most creative space?',
+          options: [
+            { text: '"Can we build a simpler version instead?"', isCorrect: false },
+            { text: '"What\'s the smallest version of this that would let us test whether the idea is actually right?"', isCorrect: true },
+          ],
+          explanation: 'The first question accepts "build vs. don\'t build" as the frame. The second reframes the constraint entirely — questioning whether fully building it first is even necessary. This is the design thinking move: separate the learning from the building. A prototype, a manual process, or a single customer test might answer the core question in a week, not six months.',
         },
       },
       {
@@ -3712,6 +4153,68 @@ export const LESSONS = [
         },
       },
       {
+        id: 'coaching-explorer',
+        title: 'Coaching vs. Advising: The Same Problem, Two Paths',
+        content: `
+          <p>The impulse to give advice comes from a good place — you see the answer and want to help. But watch how different the outcomes are when you shift to coaching:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A friend says they\'re overwhelmed at work and don\'t know how to handle their manager.',
+              response: 'You spend ten minutes explaining exactly what they should say to their manager, based on what worked for you.',
+              outcome: 'They half-listen. The advice is good but doesn\'t fit their situation or personality. They don\'t use it, and feel vaguely guilty about that.',
+            },
+            {
+              label: 'okay',
+              situation: 'A friend says they\'re overwhelmed at work and don\'t know how to handle their manager.',
+              response: '"Have you tried being direct with them about your workload?"',
+              outcome: 'A question — but still leading. It implies the answer you think is right. They might say "yes" just to move on, or feel like they\'re being judged for not having done it already.',
+            },
+            {
+              label: 'great',
+              situation: 'A friend says they\'re overwhelmed at work and don\'t know how to handle their manager.',
+              response: '"What\'s the one thing that would make the biggest difference right now?" [They think.] "What\'s stopped you from doing that?" [They identify the real obstacle — it\'s not the manager at all.]',
+              outcome: 'By the second question, the real issue has surfaced: they haven\'t asked for help because they fear appearing weak. That\'s the conversation worth having — and you never would have found it with advice.',
+            },
+          ],
+          takeaway: 'Coaching finds the real problem. Advice solves the stated problem — which is often a symptom of something deeper.',
+        },
+      },
+      {
+        id: 'grow-poll',
+        title: 'Where in the GROW Model Do You Get Stuck?',
+        content: `
+          <p>Most people who try coaching conversations get stuck at the same point in the GROW sequence. Where do you tend to struggle?</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When you\'re trying to coach someone rather than advise, where do you most often lose the thread?',
+          options: [
+            {
+              text: 'Goal — I\'m not sure how to help them clarify what they actually want',
+              insight: 'Try: "If this conversation were really useful, what would you leave knowing or feeling?" This gets them to name the goal of the conversation itself, which often clarifies the deeper goal underneath.',
+            },
+            {
+              text: 'Reality — I give my interpretation of their situation instead of asking about theirs',
+              insight: 'The hardest move in coaching: holding your read of the situation and asking for theirs instead. "How would you describe where things stand right now?" is the cleanest reality question.',
+            },
+            {
+              text: 'Options — I jump in with my solutions when they say they don\'t know',
+              insight: 'When they say "I don\'t know," the coaching response is "If you did know — what would you say?" This sounds strange but almost always produces an answer. They usually do know.',
+            },
+            {
+              text: 'Will — I don\'t know how to close without it feeling like pressure',
+              insight: 'Try: "What feels most true to you right now about what you\'ll do?" — softer than "What will you do?" but still invites commitment. The scale question ("How committed are you, 1-10?") also helps without forcing.',
+            },
+          ],
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -3824,6 +4327,55 @@ export const LESSONS = [
             { text: '"What are the three things that matter most to me in a job right now?"', isCorrect: true },
           ],
           explanation: 'Starting with salary anchors your evaluation around one criterion — which may or may not be the most important one for where you are in your life. Setting your criteria first means you evaluate both options against what you actually care about, rather than defaulting to the most visible number.',
+        },
+      },
+      {
+        id: 'decision-explorer',
+        title: 'Three Approaches to the Same Decision',
+        content: `
+          <p>The quality of a decision often comes down to which questions you ask before you make it — not after. See how different approaches land:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'Your team is deciding which of two marketing campaigns to run.',
+              response: 'You vote on which concept you like better based on gut feel.',
+              outcome: 'The campaign you all liked performs poorly. In retrospect, nobody asked what the actual goal was or what success would look like.',
+            },
+            {
+              label: 'okay',
+              situation: 'Your team is deciding which of two marketing campaigns to run.',
+              response: '"Which one do we think will reach more people?"',
+              outcome: 'You\'ve introduced a criterion — reach. But you haven\'t established whether reach is the right criterion, or whether it matters more than conversion, brand fit, or cost.',
+            },
+            {
+              label: 'great',
+              situation: 'Your team is deciding which of two marketing campaigns to run.',
+              response: '"Before we evaluate the options — what are the three things this campaign needs to accomplish? And how will we know in 90 days whether it worked?" Then: "It\'s 6 months from now and we deeply regret this choice — what went wrong?"',
+              outcome: 'You\'ve defined criteria before evaluating options (reducing bias) and run a pre-mortem (surfacing hidden risks). The decision is better before you\'ve even looked at the creative.',
+            },
+          ],
+          takeaway: 'Defining criteria before evaluating options is the single most impactful change you can make to your decision-making process.',
+        },
+      },
+      {
+        id: 'decision-challenge',
+        title: 'Groupthink: The Hidden Danger',
+        content: `
+          <p>Fast consensus in a decision isn't a sign that everyone agrees — it's often a sign that nobody wants to be the one to slow things down. Can you tell the difference?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your group has quickly agreed on a plan and the energy is high. You have a quiet concern but don\'t want to kill the momentum. Which approach serves the group best?',
+          options: [
+            { text: 'Stay quiet — the group has decided and your concern might be wrong.', isCorrect: false },
+            { text: '"Before we finalize — what\'s the strongest argument against this plan? I want to make sure we\'ve stress-tested it."', isCorrect: true },
+          ],
+          explanation: 'Staying quiet is how every bad group decision gets made — someone in the room had the concern and didn\'t voice it. The framing matters: "I want to make sure we\'ve stress-tested it" frames your question as serving the decision\'s quality, not blocking it. You\'re not the skeptic; you\'re the quality control.',
         },
       },
       {
@@ -3964,6 +4516,55 @@ export const LESSONS = [
         },
       },
       {
+        id: 'eq-explorer',
+        title: 'Emotional Intelligence in Action: Three Moments',
+        content: `
+          <p>The same caring intention can land very differently depending on how well you've read the emotional room. See how timing and framing shift the outcome:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A friend calls you after a bad breakup. They\'re crying.',
+              response: '"You knew this was coming though, right? I mean, there were signs. What are you going to do now?"',
+              outcome: 'You\'ve moved to analysis before they feel heard. They feel judged, not supported. The questions are about your need to make sense of the situation, not their need to be witnessed.',
+            },
+            {
+              label: 'okay',
+              situation: 'A friend calls you after a bad breakup. They\'re crying.',
+              response: '"Are you okay? Do you want to talk about what happened?"',
+              outcome: 'Caring and appropriate — but the closed question "are you okay" after a breakup is almost unanswerable. And asking what happened puts the narrative burden on them immediately.',
+            },
+            {
+              label: 'great',
+              situation: 'A friend calls you after a bad breakup. They\'re crying.',
+              response: '[Silence. Let them cry.] "I\'m here." [More silence.] "What do you need right now — do you want to talk, or do you just want company?"',
+              outcome: 'You\'ve put them in control of what this conversation becomes. They feel safe, not managed. The question asks about their need rather than your curiosity.',
+            },
+          ],
+          takeaway: '"What do you need right now?" is almost always the highest-EQ question available to you in a moment of someone else\'s pain.',
+        },
+      },
+      {
+        id: 'eq-challenge',
+        title: 'Reading Emotional Signals',
+        content: `
+          <p>Emotional intelligence in questions is often about what you choose <em>not</em> to ask — and when you choose to ask nothing at all. Test your instincts:</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A colleague gives you a short, clipped response in a conversation that\'s usually warm. Which response shows the highest emotional intelligence?',
+          options: [
+            { text: '"What\'s wrong? You seem really off today."', isCorrect: false },
+            { text: '"Hey — everything okay with you? No pressure if you\'d rather not talk."', isCorrect: true },
+          ],
+          explanation: '"What\'s wrong" frames their behavior as a problem and may embarrass them if they\'re trying to hold it together. The second option names what you noticed without labeling it negatively, asks without pressure, and gives them an out. That combination — noticed, not judged, not pressured — is what makes someone feel safe enough to open up.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -4057,6 +4658,85 @@ export const LESSONS = [
           before: '"What happened? Why didn\'t you say something earlier? I was counting on you."',
           after: '"What happened?" [Listen.] "What got in the way?" "What would have made it easier to come to me sooner?" "What do we do from here?"',
           explanation: 'The first sequence — even if well-intentioned — puts the other person on trial. They learn to have a clean explanation ready, not to come to you early when things go sideways. The second sequence signals that mistakes lead to conversation, not punishment — which means they\'ll actually tell you next time.',
+        },
+      },
+      {
+        id: 'leadership-explorer',
+        title: 'Strategic Questions in Practice: Three Approaches',
+        content: `
+          <p>Leadership questions shape culture over time. Watch how the same moment — a team setback — plays out depending on how the leader questions:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'Your team missed an important deadline on a high-visibility project.',
+              response: '"Who is responsible for this? How did we let this happen?"',
+              outcome: 'People go into self-protection mode. The honest conversation about root causes never happens. Next time, problems get hidden longer before surfacing.',
+            },
+            {
+              label: 'okay',
+              situation: 'Your team missed an important deadline on a high-visibility project.',
+              response: '"What happened? Walk me through the timeline."',
+              outcome: 'Factual, non-accusatory. You get a chronology. But you haven\'t opened up the learning conversation — you\'ve just gathered information.',
+            },
+            {
+              label: 'great',
+              situation: 'Your team missed an important deadline on a high-visibility project.',
+              response: '"What happened — and what did we learn? What would have needed to be different for us to catch this earlier? What support was missing that I could have provided?"',
+              outcome: 'The leader included themselves as a variable in the failure. People open up honestly. Root causes surface. A real process change emerges — and the team trusts their leader more, not less.',
+            },
+          ],
+          takeaway: 'Leaders who include themselves in accountability questions ("What could I have done differently?") build more trust than leaders who only question others.',
+        },
+      },
+      {
+        id: 'vision-challenge',
+        title: 'Vision Questions That Actually Align',
+        content: `
+          <p>Not all vision questions work equally well. Some feel abstract; others create genuine shared direction. Can you tell the difference?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'re starting a new project with your team and want to create real alignment, not just enthusiasm. Which question achieves that better?',
+          options: [
+            { text: '"Are we all excited about this?"', isCorrect: false },
+            { text: '"What would it look like if we nailed this — what would our users/customers/community say about it a year from now?"', isCorrect: true },
+          ],
+          explanation: '"Are we excited?" invites performative agreement. Everyone says yes. The second question asks people to picture the future state in concrete terms — which immediately surfaces different visions, different success metrics, and different unstated assumptions that are worth aligning on before you start.',
+        },
+      },
+      {
+        id: 'leadership-poll',
+        title: 'Which Leadership Question Style Comes Most Naturally?',
+        content: `
+          <p>Great leaders use different types of questions at different moments. Which feels most natural to you right now?</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When leading a group, which type of question do you reach for most instinctively?',
+          options: [
+            {
+              text: 'Vision questions — painting a picture of where we\'re going',
+              insight: 'Vision is your strength. The growth edge: pair it with alignment questions. "What would success look like?" is powerful, but "In one sentence — what did we just agree to?" is what makes vision actionable.',
+            },
+            {
+              text: 'Accountability questions — understanding what happened and why',
+              insight: 'Accountability orientation is valuable. Watch for the tone — questions that sound like inquiries but carry implicit blame ("how did this happen?") undermine the psychological safety that makes honesty possible. Try leading with "What did we learn?" before "What went wrong?"',
+            },
+            {
+              text: 'Alignment questions — making sure we\'re all on the same page',
+              insight: 'This keeps groups from splintering on implementation. The next level: use alignment questions proactively before divergence happens, not just to correct it after.',
+            },
+            {
+              text: 'All three, depending on the situation',
+              insight: 'Situational fluency is the mark of a mature leader. The skill is reading which type of question the moment calls for — and resisting the one that feels most comfortable when it\'s not what\'s needed.',
+            },
+          ],
         },
       },
       {
@@ -4173,6 +4853,65 @@ export const LESSONS = [
           prompt: 'Think of a decision or policy you\'ve seen implemented that had unintended consequences. What second- or third-order questions could have surfaced those consequences before they happened?',
         },
       },
+      {
+        id: 'systems-explorer',
+        title: 'Solving the Wrong Problem: Three Paths',
+        content: `
+          <p>The most expensive mistakes happen when you solve the symptom instead of the system. Watch how three approaches to the same situation lead to very different places:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'Your team keeps having the same argument every week about priorities.',
+              response: 'You make a rule: all priority debates go through you before they\'re raised in meetings.',
+              outcome: 'Arguments go underground. People resent the bottleneck. The meetings get quieter but the dysfunction is now invisible — and harder to fix.',
+            },
+            {
+              label: 'okay',
+              situation: 'Your team keeps having the same argument every week about priorities.',
+              response: '"What\'s causing the disagreements? Let\'s talk through it."',
+              outcome: 'You\'re on the right track. But one conversation doesn\'t fix a recurring pattern — you\'ve addressed an instance, not the structure.',
+            },
+            {
+              label: 'great',
+              situation: 'Your team keeps having the same argument every week about priorities.',
+              response: '"This argument keeps coming up. What does that tell us about our system — what\'s missing in how we set and communicate priorities that makes this fight necessary?"',
+              outcome: 'The team realizes there\'s no single documented source of truth for priorities. Everyone is working from different signals. You build a simple system. The arguments stop.',
+            },
+          ],
+          takeaway: 'When a problem recurs, the real question isn\'t "what went wrong this time?" — it\'s "what in the system makes this keep happening?"',
+        },
+      },
+      {
+        id: 'systems-challenge',
+        title: 'Five Whys: Finding the Root',
+        content: `
+          <p>The Five Whys technique peels back layers until you reach something you can actually act on. Here's the test: can you tell when to stop asking?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your app\'s new users have low week-two retention. You\'ve asked "why" four times and reached: "Users don\'t understand the core value in their first session." What\'s the right fifth question?',
+          options: [
+            { text: '"Why don\'t users understand the value?"', isCorrect: false },
+            { text: '"What specifically in the onboarding flow leaves users unclear about the value — and what would need to change?"', isCorrect: true },
+          ],
+          explanation: 'After four "whys" you\'ve identified the root cause. The fifth question shouldn\'t ask "why" again — it should turn toward action: what specifically, and what would need to change. That\'s the transition from diagnosis to solution, and it\'s where the Five Whys technique earns its value.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of a recurring problem in your work or personal life — one that keeps coming back despite efforts to fix it. What is the system beneath it? What question could you ask to find the structural cause rather than the latest symptom?',
+        },
+      },
     ],
   },
   {
@@ -4279,6 +5018,68 @@ export const LESSONS = [
             { text: '"What would a better relationship with her look like for you — even partially?"', isCorrect: true },
           ],
           explanation: 'The advice might be good, but it puts you in the driver\'s seat of their change process. The MI question keeps them there — it asks them to imagine the goal state, which activates their own motivation and often reveals what matters most to them that you couldn\'t have guessed.',
+        },
+      },
+      {
+        id: 'mi-explorer',
+        title: 'Evoking Change Talk: Three Approaches',
+        content: `
+          <p>The difference between pushing someone toward change and helping them find their own motivation is subtle — but the outcomes are completely different. Watch how it plays out:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A close friend tells you they want to eat healthier but keep putting it off.',
+              response: '"You really need to prioritize this. You\'ll feel so much better and it\'s not even that hard once you start."',
+              outcome: 'They nod along but internally resist. The more you push, the more they defend their current habits — even to themselves. This is called "sustain talk": arguing for the status quo because they feel pushed.',
+            },
+            {
+              label: 'okay',
+              situation: 'A close friend tells you they want to eat healthier but keep putting it off.',
+              response: '"What\'s been getting in the way for you?"',
+              outcome: 'A genuine question, which is better. But it focuses on obstacles — which keeps attention on what\'s wrong rather than what\'s pulling them forward.',
+            },
+            {
+              label: 'great',
+              situation: 'A close friend tells you they want to eat healthier but keep putting it off.',
+              response: '"What would be different for you if you were eating the way you want to? What made you want to change in the first place?" [They articulate their own reasons.] "What\'s one thing that feels do-able?"',
+              outcome: 'By answering your questions, they\'ve argued for change in their own voice. That internal voice is far more persuasive than yours. They leave the conversation with their own motivation activated.',
+            },
+          ],
+          takeaway: 'Your job in MI is not to argue for change. It\'s to create conditions where the person argues for it themselves.',
+        },
+      },
+      {
+        id: 'mi-poll',
+        title: 'Ambivalence Is Normal — Which Side Do You Identify With?',
+        content: `
+          <p>Motivational Interviewing was built on a key insight: ambivalence isn't weakness or resistance. It's the natural human state when facing change. Where do you usually land?</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When you\'re ambivalent about a change you know you should make, what tends to tip you toward action?',
+          options: [
+            {
+              text: 'Someone asking me the right question at the right moment',
+              insight: 'You\'re already aware of the power of questions — which makes you naturally well-suited to use MI with others. The question "What made you want to change?" is often all it takes.',
+            },
+            {
+              text: 'Imagining a vivid picture of what life would look like if I changed',
+              insight: 'You\'re motivated by vision. In MI, this is called the "preferred future" — asking someone to describe it in detail activates their motivation in a way that talking about problems rarely does.',
+            },
+            {
+              text: 'Feeling understood rather than pushed',
+              insight: 'Reflective listening — one of the OARS skills — is the tool for this. Being mirrored back ("It sounds like you\'re pulled in two directions...") often creates the safety needed to lean into change.',
+            },
+            {
+              text: 'Identifying a specific first step that feels manageable',
+              insight: 'This is the "W" (Will) in GROW and the final move in MI: making the abstract concrete. "What\'s the smallest possible first step?" is often the question that converts intention into action.',
+            },
+          ],
         },
       },
       {
@@ -4389,6 +5190,65 @@ export const LESSONS = [
           prompt: 'Think of a negotiation or difficult conversation coming up — or one you recently had. What calibrated "How" or "What" question could you use? How would using that question change the dynamic compared to making a direct demand?',
         },
       },
+      {
+        id: 'negotiation-explorer',
+        title: 'Negotiation Questions: Three Moments That Change the Outcome',
+        content: `
+          <p>Negotiation isn't a single conversation — it's a sequence of moments. The question you ask in each one shapes what's possible next:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You\'re asking for a salary increase in a performance review.',
+              response: '"I want a 20% raise. I think I deserve it and I need it to stay motivated."',
+              outcome: 'Your manager is immediately in a defend-or-deny position. The conversation is about your number vs. their budget. You lose leverage and possibly the relationship.',
+            },
+            {
+              label: 'okay',
+              situation: 'You\'re asking for a salary increase in a performance review.',
+              response: '"I\'d like to discuss my compensation. I feel like I\'ve taken on a lot more responsibility this year."',
+              outcome: 'A softer opener — but you\'ve still put the ask on the table before understanding the landscape. You don\'t know what constraints your manager has or what they value.',
+            },
+            {
+              label: 'great',
+              situation: 'You\'re asking for a salary increase in a performance review.',
+              response: '"I\'d love to talk about my role here going forward. What does my career path look like from your perspective — and where do you see my biggest contributions?" [Learn their view.] "What would it take for compensation to reflect that level of impact?"',
+              outcome: 'You\'ve gathered intelligence, you know their frame before naming a number, and the final question invites them to define the terms rather than defend against yours. The conversation is collaborative, not combative.',
+            },
+          ],
+          takeaway: 'In negotiation, the person who asks more learns more — and usually does better.',
+        },
+      },
+      {
+        id: 'negotiation-challenge',
+        title: 'When to Ask vs. When to Demand',
+        content: `
+          <p>Calibrated questions are powerful — but there are moments when a direct statement is more honest and more effective. The skill is knowing which moment you're in.</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A contractor keeps missing your agreed deadlines. You\'ve had three gentle conversations that haven\'t changed the pattern. Which approach serves you best?',
+          options: [
+            { text: '"How do you think we could make this work better going forward?"', isCorrect: false },
+            { text: '"I need us to be direct: the pattern of missed deadlines isn\'t working. I need to know by end of week whether this can change — and what specifically will be different."', isCorrect: true },
+          ],
+          explanation: 'After multiple conversations that haven\'t produced change, another open-ended question signals that there are no real consequences. A clear, direct statement — naming the pattern, stating the need, and setting a timeframe — is the more honest and effective move. Calibrated questions are tools, not a philosophy. Sometimes you need to state your position clearly.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of an upcoming negotiation — with a manager, a partner, a service provider, anyone. What "How" or "What" question could you ask before naming what you want? What might you learn that would change your approach?',
+        },
+      },
     ],
   },
   {
@@ -4484,6 +5344,55 @@ export const LESSONS = [
         },
       },
       {
+        id: 'self-explorer',
+        title: 'Self-Inquiry: Three Ways to Face a Painful Pattern',
+        content: `
+          <p>When a painful pattern keeps repeating in your life, the questions you bring to it determine whether you get insight or just more suffering. See the difference:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You keep ending up in jobs where you feel undervalued.',
+              response: '"Why does this always happen to me? What\'s wrong with me?"',
+              outcome: 'These questions don\'t actually invite answers — they invite shame. The loop continues because you\'re interrogating your worth, not investigating the pattern.',
+            },
+            {
+              label: 'okay',
+              situation: 'You keep ending up in jobs where you feel undervalued.',
+              response: '"What pattern is showing up here?"',
+              outcome: 'Better — you\'ve separated the observation from the judgment. But it\'s still a surface question. You can name the pattern without understanding what\'s driving it.',
+            },
+            {
+              label: 'great',
+              situation: 'You keep ending up in jobs where you feel undervalued.',
+              response: '"What might I be getting from this pattern — even if it\'s painful? What belief about what I deserve might be making me choose or stay in these situations? Who would I be without that belief?"',
+              outcome: 'You\'ve reached the level of the belief — which is where patterns actually live. The question isn\'t what\'s wrong with you. It\'s what story you\'ve been operating from that you could choose to examine and revise.',
+            },
+          ],
+          takeaway: 'Self-transformation questions go beneath the pattern to the belief that generates it. That\'s where real change is possible.',
+        },
+      },
+      {
+        id: 'journaling-challenge',
+        title: 'The Question That Matters Most Right Now',
+        content: `
+          <p>Not all journaling questions are equal. Some open things up; others keep you circling. Which one serves your growth best?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'re feeling stuck and directionless. You sit down to journal. Which question is most likely to produce insight rather than rumination?',
+          options: [
+            { text: '"Why am I so stuck? What\'s wrong with me?"', isCorrect: false },
+            { text: '"What do I already know about what I need — that I\'ve been pretending not to know?"', isCorrect: true },
+          ],
+          explanation: '"Why am I stuck?" often spirals into self-criticism without producing answers. The second question assumes you already have the knowledge (which you usually do) and asks you to stop pretending you don\'t. It\'s one of the most reliably productive journaling prompts precisely because it bypasses the defense mechanism of "I don\'t know."',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -4566,6 +5475,55 @@ export const LESSONS = [
           before: 'Someone asks: "Should I take the new job offer?" You help them weigh the pros and cons. They decide, but still feel unsettled.',
           after: 'You ask: "What question do you think you\'re really trying to answer with this decision?" [Pause.] They realize the question isn\'t about this job — it\'s about whether they\'re on the right career path at all.',
           explanation: 'The surface question (take the job or not?) has a finite set of answers. The deeper question (am I on the right path?) opens a much bigger and more useful conversation. Philosophy teaches us to pursue the question behind the question — until we reach what we truly need to understand.',
+        },
+      },
+      {
+        id: 'philosophy-explorer',
+        title: 'Surface Question vs. Deep Question: The Gap That Changes Everything',
+        content: `
+          <p>Philosophical questioning is about noticing when you're asking the surface question and finding the courage to ask the one underneath it. Watch the transformation:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You\'ve been unhappy at your job for over a year.',
+              response: 'You research other job listings and update your resume.',
+              outcome: 'You find another job with a higher salary. Six months in, the same feeling returns. You were answering the surface question while the deeper one went unasked.',
+            },
+            {
+              label: 'okay',
+              situation: 'You\'ve been unhappy at your job for over a year.',
+              response: 'You ask yourself: "What would make this job better?"',
+              outcome: 'You try some changes — more autonomy, a different team. Things improve. But you still feel a background sense of wrongness. The question was too narrow.',
+            },
+            {
+              label: 'great',
+              situation: 'You\'ve been unhappy at your job for over a year.',
+              response: 'You ask: "What question is my unhappiness really trying to answer? What am I ultimately looking for in my work — and what does this job\'s inadequacy reveal about what I actually need?"',
+              outcome: 'A harder, longer inquiry. But it leads somewhere the surface questions couldn\'t — to a clarity about what work is for, in your life, that no job listing could provide.',
+            },
+          ],
+          takeaway: 'The question behind the question is almost always about identity or values — not logistics. That\'s where Gadamer\'s "fusion of horizons" actually happens.',
+        },
+      },
+      {
+        id: 'koan-challenge',
+        title: 'Sitting with the Unanswerable',
+        content: `
+          <p>One of philosophy's most counterintuitive gifts: some questions aren't supposed to be answered — they're supposed to be lived with. Can you tell the difference between a question that needs closing and one that needs holding?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'ve been asking yourself for months: "What should I do with my life?" — and feeling increasingly anxious about not having an answer. What\'s the wisest move?',
+          options: [
+            { text: 'Keep pushing to find the answer — the longer you wait the further behind you\'ll be.', isCorrect: false },
+            { text: 'Shift the question: "What is this period of not-knowing asking me to notice or develop?" Then live with that question instead.', isCorrect: true },
+          ],
+          explanation: '"What should I do with my life?" is often an anxiety question masquerading as a planning question. Pushing harder for a definitive answer usually produces anxiety, not clarity. The philosophical move is to reframe toward what the question is teaching you — which is almost always about presence, not destination. Rilke called it "loving the questions themselves."',
         },
       },
       {
@@ -4679,6 +5637,55 @@ export const LESSONS = [
         },
       },
       {
+        id: 'bisa-explorer',
+        title: 'The Five Pillars in a Real Conversation',
+        content: `
+          <p>The Bisa Framework becomes clear when you watch it applied — and when you watch what happens when a pillar is skipped:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A family member comes to you with a problem at work. You have 20 minutes.',
+              response: 'You skip straight to Ask: firing questions and offering solutions immediately.',
+              outcome: 'They feel processed rather than heard. Your questions — though well-intentioned — miss what they actually need. The conversation ends and they feel vaguely unsatisfied without knowing why.',
+            },
+            {
+              label: 'okay',
+              situation: 'A family member comes to you with a problem at work. You have 20 minutes.',
+              response: 'You listen, then ask one good question: "What would help most right now?"',
+              outcome: 'Much better. One pillar (Listen) + one pillar (Ask). But without framing or a closing reflection, the conversation ends abruptly and nothing is consolidated.',
+            },
+            {
+              label: 'great',
+              situation: 'A family member comes to you with a problem at work. You have 20 minutes.',
+              response: 'Listen (let them fully describe it). Frame ("I want to really understand — do you want help thinking through it, or mainly to vent?"). Ask with intention. Listen Again (notice what\'s not being said). Reflect ("What I\'m hearing is... does that sound right?").',
+              outcome: 'They leave feeling deeply understood. You leave knowing you actually helped. The five pillars made a 20-minute conversation worth a week of circling.',
+            },
+          ],
+          takeaway: 'The most important pillar to not skip is always the first: Listen. Everything built on it lands differently.',
+        },
+      },
+      {
+        id: 'bisa-challenge',
+        title: 'Which Pillar Is Missing?',
+        content: `
+          <p>Even experienced conversationalists consistently skip one pillar. Can you identify which one is missing in this scenario?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You have a coaching conversation with someone. You listen well, ask great questions, and listen again deeply. The conversation ends when time runs out. Something feels incomplete. Which pillar did you skip?',
+          options: [
+            { text: 'Frame the Space — you never set expectations or signaled safety at the start.', isCorrect: false },
+            { text: 'Reflect — you never consolidated what you heard or asked them what they were taking away.', isCorrect: true },
+          ],
+          explanation: 'Reflection is the most commonly skipped pillar — especially when conversations run long. But it\'s what turns a good conversation into a meaningful one. Ending with "What are you taking away from this?" or "Here\'s what I heard — does that resonate?" transforms a conversation into insight. Without it, much of what was said evaporates.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -4773,6 +5780,68 @@ export const LESSONS = [
           before: 'Facing a major life decision, you feel anxious until you find an answer. You read, research, ask everyone you know, trying to close the question as fast as possible.',
           after: 'You carry the question with you for a week — writing about it, noticing what arises, letting different answers surface and dissolve. When clarity comes, it feels like recognition, not decision.',
           explanation: 'Forced closure often produces decisions that feel right intellectually but wrong in your body. Living with a question lets it work on you — reveals context, reveals what you actually want, and produces answers that are genuinely yours rather than ones you manufactured under pressure.',
+        },
+      },
+      {
+        id: 'daily-explorer',
+        title: 'A Day With Questions: Three Modes',
+        content: `
+          <p>The difference between someone who uses questions as a skill and someone who lives in inquiry is visible across an entire day. See how it plays out:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A day without intentional questioning practice.',
+              response: 'You react to what comes at you. Conversations happen to you. You give opinions more than you ask questions. The day ends and you\'re not sure what you learned.',
+              outcome: 'A competent day. But the same as yesterday. No new insight, no deepened relationship, no unexpected discovery.',
+            },
+            {
+              label: 'okay',
+              situation: 'A day with occasional questioning awareness.',
+              response: 'You catch yourself a few times and ask a follow-up question when you would have made a statement. You feel the difference when you do it.',
+              outcome: 'Real progress. Three or four moments of genuine inquiry stand out. You remember them specifically because they led somewhere unexpected.',
+            },
+            {
+              label: 'great',
+              situation: 'A day with morning intention and evening reflection.',
+              response: '"What\'s the most important thing I could learn today?" [Morning.] ... "What question, if I\'d asked it, would have changed that conversation?" [Evening.]',
+              outcome: 'The morning question sets an orientation that subtly shapes how you listen all day. The evening question builds a compounding habit. Within weeks, questioning has become your default mode — not a technique you apply.',
+            },
+          ],
+          takeaway: 'The daily question practice works not because any single question is magical — but because the habit of asking trains your mind to stay in inquiry mode.',
+        },
+      },
+      {
+        id: 'daily-poll',
+        title: 'Your Questioning Rhythm',
+        content: `
+          <p>Everyone has a natural window in their day when they're most reflective. Knowing yours helps you build a practice that actually sticks.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When in your day do you feel most naturally reflective and open to inquiry?',
+          options: [
+            {
+              text: 'Morning — I like to set intention before the day takes over',
+              insight: 'Morning questioning works best with a single, forward-looking question. "What\'s the most important thing I could learn or do today?" primes your attention without overwhelming you before the day begins.',
+            },
+            {
+              text: 'Evening — I process better in hindsight',
+              insight: 'Evening reflection compounds your learning. "What was the most surprising moment today? What question would I ask differently?" can be done in two minutes — and builds a remarkable picture of your growth over time.',
+            },
+            {
+              text: 'In transit — commuting or walking is when I think most clearly',
+              insight: 'Motion and reflection pair well. Use your transit time to carry one open question with you rather than consuming content. Notice what surfaces when you\'re not filling the silence.',
+            },
+            {
+              text: 'Right before or after a significant conversation',
+              insight: 'Micro-reflection around key moments is highly effective. "What do I most need to understand in this conversation?" before, and "What did I learn? What would I ask differently?" after — this two-question practice multiplies the value of your most important conversations.',
+            },
+          ],
         },
       },
       {
@@ -4883,6 +5952,65 @@ export const LESSONS = [
           prompt: 'Think of someone in your life — a team member, child, friend — who would grow significantly from better questioning skills. What\'s one thing you could do this week to model or encourage that? Not by teaching — but by being.',
         },
       },
+      {
+        id: 'teaching-explorer',
+        title: 'Teaching Questioning: Three Approaches',
+        content: `
+          <p>The way you respond when someone asks a poor question shapes whether they feel safe to ask better ones. Watch how the same moment can go three ways:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              response: '"Actually, that\'s not quite right — here\'s the answer." [Corrects them directly in front of the group.]',
+              outcome: 'They feel embarrassed. The other students silently decide not to risk asking something they\'re unsure about. Fewer questions surface for the rest of the session.',
+            },
+            {
+              label: 'okay',
+              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              response: '"Good question — let me address that." [Gives a thorough answer.]',
+              outcome: 'Warm and informative. But you\'ve answered the question for them rather than helping them discover the answer. The next misunderstanding will also require you to answer it.',
+            },
+            {
+              label: 'great',
+              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              response: '"Interesting — what made you think about it that way? [Listen.] What do others think? [Get multiple perspectives.] What would change if X were true rather than Y?"',
+              outcome: 'You\'ve used their question as a thinking moment for everyone. The student who asked it becomes a contributor rather than someone who got it wrong. The class learns to interrogate ideas together.',
+            },
+          ],
+          takeaway: 'In a question-friendly environment, wrong questions are more valuable than right answers — because they reveal what everyone is wondering but not saying.',
+        },
+      },
+      {
+        id: 'teaching-challenge',
+        title: 'The Ripple Effect of Your Questions',
+        content: `
+          <p>When you're in a leadership, mentoring, or parent role, the questions you ask in front of others shape their questioning habits — for years. Which question plants better seeds?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your team has just finished a project. You have five minutes for a debrief. Which question teaches the most?',
+          options: [
+            { text: '"Did everything go well?"', isCorrect: false },
+            { text: '"What\'s one thing that worked that we should keep, and one question we haven\'t asked yet about what we could do differently?"', isCorrect: true },
+          ],
+          explanation: '"Did everything go well?" invites a yes or a vague answer — and models shallow reflection. The second question models two habits simultaneously: naming what worked (not just what went wrong) and generating unanswered questions (not just conclusions). Over time, your team learns to debrief the same way they see you debrief.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of the person who most shaped how you ask questions — a teacher, parent, manager, or mentor. What did they do that made questioning feel safe or important? What can you do to pass that forward?',
+        },
+      },
     ],
   },
   {
@@ -4975,6 +6103,65 @@ export const LESSONS = [
           type: 'reflection',
           required: false,
           prompt: 'Think of a question you\'ve asked someone that, in hindsight, may have crossed a line — either by being manipulative, not respecting their consent, or not considering what they might be carrying. What would you do differently?',
+        },
+      },
+      {
+        id: 'ethics-explorer',
+        title: 'When Questions Do Harm: Three Examples',
+        content: `
+          <p>Harmful questions don't always look harmful in the moment. They often feel like care, curiosity, or just conversational. The ethics become visible only when you examine the intent and effect:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You suspect a colleague of misrepresenting their workload. You want them to admit it.',
+              response: '"Don\'t you think you should be honest about how much time this actually took?" [Leading question with a predetermined answer.]',
+              outcome: 'This is manipulation dressed as inquiry. There\'s only one right answer. The question uses the form of a question to create pressure, not to explore. Trust erodes on both sides.',
+            },
+            {
+              label: 'okay',
+              situation: 'You suspect a colleague of misrepresenting their workload. You want to understand what happened.',
+              response: '"Walk me through how long the different parts of the project took."',
+              outcome: 'This is genuine inquiry — you\'re not telling them what you expect to hear. But you haven\'t been transparent about why you\'re asking, which carries its own ethical tension.',
+            },
+            {
+              label: 'great',
+              situation: 'You suspect a colleague of misrepresenting their workload. You want to understand what happened.',
+              response: '"I want to understand the actual time breakdown — partly because I want to plan better for the next project, and partly because I want to make sure we\'re on the same page about workload. Can you walk me through it?"',
+              outcome: 'You\'ve been honest about your purpose before asking. The transparency reduces the manipulative element. They can give an honest answer knowing what it will be used for.',
+            },
+          ],
+          takeaway: 'Stating your purpose before asking is one of the most underused ethical practices in questioning. It removes the power imbalance that comes from you knowing why you\'re asking when they don\'t.',
+        },
+      },
+      {
+        id: 'ethics-challenge',
+        title: 'Spotting the Manipulation',
+        content: `
+          <p>Leading questions are so common that we've stopped noticing them. But they're one of the most common ethical failures in questioning. Can you identify the manipulative one?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You want your teenager to admit they\'ve been spending too much time on their phone. Which question is genuine inquiry?',
+          options: [
+            { text: '"Don\'t you think you\'ve been on your phone a lot lately?"', isCorrect: false },
+            { text: '"How do you feel about how you\'ve been spending your time this week?"', isCorrect: true },
+          ],
+          explanation: 'The first question only has one acceptable answer — it\'s a statement in question form. It will produce defensiveness, not reflection. The second opens a genuine space for them to assess their own time use — which is far more likely to produce self-awareness and behavioral change than a question they have to fight against.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of a situation where you used a question to guide someone toward a conclusion you\'d already reached. Looking back — was it genuine inquiry or manipulation? What question would have been more honest?',
         },
       },
     ],
@@ -5074,6 +6261,55 @@ export const LESSONS = [
               insight: 'The Western impulse is to close every open question. Living with an unanswered question — deliberately, patiently — is a practice that most people have never tried and almost everyone benefits from.',
             },
           ],
+        },
+      },
+      {
+        id: 'global-explorer',
+        title: 'Global Traditions in Your Daily Life: Three Experiments',
+        content: `
+          <p>These aren't just academic curiosities — each tradition offers a specific practice you can try this week. See what happens:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You borrow a practice from another culture without understanding its context.',
+              response: 'You open your team meeting by saying: "We\'re going to do a talking circle now." You explain no context, pass an object around, and people speak with visible awkwardness.',
+              outcome: 'The practice is stripped of its meaning and feels gimmicky. People comply but don\'t engage. You\'ve borrowed the form but not the spirit.',
+            },
+            {
+              label: 'okay',
+              situation: 'Inspired by Middle Eastern hospitality questioning, you start your work meetings with personal check-ins.',
+              response: '"Before we get into the agenda — quick round: how\'s everyone doing?" [One-sentence answers. Time pressure. People say "good."]',
+              outcome: 'Better than diving straight into tasks. But the time constraint and lack of genuine interest make it feel like a checkbox rather than care.',
+            },
+            {
+              label: 'great',
+              situation: 'You borrow the spirit of Dadirri deep listening before a difficult conversation.',
+              response: 'Before responding to a friend\'s difficult news, you sit quietly for thirty seconds and genuinely absorb what they\'ve shared. Then you ask: "What\'s been the hardest part of all of this for you?"',
+              outcome: 'The pause changes the quality of the question. They feel genuinely received before you ask. Your question lands differently because you\'ve practiced listening before asking — and they can feel it.',
+            },
+          ],
+          takeaway: 'The most portable lesson from global traditions: slow down before asking. Deep listening, in every culture, precedes the best questions.',
+        },
+      },
+      {
+        id: 'global-challenge',
+        title: 'Which Tradition Is Hiding in Your Blind Spot?',
+        content: `
+          <p>Every questioning tradition has a strength that mirrors a gap in another tradition. Which strength do you most need right now?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'re in a team where meetings run over time because people keep debating the same points without resolution. Which global tradition has the most to offer?',
+          options: [
+            { text: 'Socratic questioning — keep probing the evidence until the truth is revealed.', isCorrect: false },
+            { text: 'Palaver (West African communal decision-making) — shift from debate to collective inquiry: "What question have we not asked yet that would help us resolve this?"', isCorrect: true },
+          ],
+          explanation: 'More Socratic probing in a looping debate often intensifies the loop — it gives each side more ammunition. The Palaver tradition reframes the conversation from winning to collective discovery. "What question haven\'t we asked?" is one of the most powerful pattern-interrupts in any stuck group discussion.',
         },
       },
       {
@@ -5181,6 +6417,68 @@ export const LESSONS = [
           <p>Write these down. Put them somewhere visible. Practice them until they become second nature. <strong>The quality of your questions determines the quality of your life.</strong></p>
         `,
         interaction: null,
+      },
+      {
+        id: 'journey-explorer',
+        title: 'The Same Person, Before and After',
+        content: `
+          <p>What actually changes when someone builds a genuine questioning practice? It's not just the conversations. It's the person having them:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A meeting where someone challenges your idea in front of the group.',
+              response: '[Before the practice]: You feel a flash of defensiveness. You explain your reasoning quickly, trying to recover ground. You win the moment. You lose the relationship a little.',
+              outcome: 'The pattern repeats. Your ideas are sound, but people stop challenging them. You stop learning. The room gets quieter every time you speak.',
+            },
+            {
+              label: 'okay',
+              situation: 'A meeting where someone challenges your idea in front of the group.',
+              response: '[Partway through the practice]: You notice the defensiveness and choose not to act on it. You say "that\'s a fair point" and move on. You feel slightly hollow about it afterward.',
+              outcome: 'Better — you\'ve managed the response. But you haven\'t gotten curious. You still don\'t know what their challenge might have revealed.',
+            },
+            {
+              label: 'great',
+              situation: 'A meeting where someone challenges your idea in front of the group.',
+              response: '[Deep in the practice]: You feel the defensiveness — and get curious about it. "That\'s interesting — what\'s the specific concern?" You listen like the answer might change something. Often it does.',
+              outcome: 'The challenge becomes a contribution. The meeting gets better. The person who challenged you becomes an ally. And you leave knowing more than when you arrived.',
+            },
+          ],
+          takeaway: 'The questioning practice doesn\'t just improve your conversations. Over time, it changes your relationship with being wrong — which changes everything.',
+        },
+      },
+      {
+        id: 'journey-poll',
+        title: 'What\'s Changed Most for You?',
+        content: `
+          <p>You've come a long way. Before you reflect on where to go next, pause and notice what's already different.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'Since you started this journey, what has shifted most for you?',
+          options: [
+            {
+              text: 'I ask more open questions — and I notice when I\'m about to ask a closed one',
+              insight: 'This awareness is the foundation everything else builds on. The gap between noticing and doing will narrow with every conversation. Keep noticing.',
+            },
+            {
+              text: 'I listen better — I\'m more present and curious in conversations',
+              insight: 'Listening quality is the quiet multiplier. When people feel genuinely heard, they share more, think more clearly, and trust you more. This is the gift that keeps compounding.',
+            },
+            {
+              text: 'I\'m more comfortable with uncertainty — I don\'t rush to close every question',
+              insight: 'This is one of the rarer and more valuable shifts. Comfort with open questions is what separates people who give advice from people who help others think. It\'s a form of intellectual courage.',
+            },
+            {
+              text: 'I ask myself better questions — my inner dialogue has changed',
+              insight: 'Inner questioning is where the deepest change lives. The questions you ask yourself shape your perception before you ever open your mouth. This shift ripples outward in ways you may not fully see yet.',
+            },
+          ],
+        },
       },
       {
         id: 'reflect',
