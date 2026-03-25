@@ -86,7 +86,14 @@ export default function DailyChallenge() {
       setStreak(info.currentStreak);
       setLongestStreak(info.longestStreak);
 
-      setHistory(await db.getChallengeHistory(7));
+      const raw = await db.getChallengeHistory(7);
+      setHistory(raw.map(h => {
+        if (h.questions && h.questions.length > 0 && !h.breakdown) {
+          const computed = scoreBurst(h.questions, { keywords: [], context: '', situation: '' });
+          return { ...h, breakdown: computed.breakdown, openRatio: computed.openRatio, techniquesDetected: computed.techniquesDetected, coachingTip: computed.coachingTip, strongestQuestion: computed.strongestQuestion };
+        }
+        return h;
+      }));
     })();
   }, [db, isReady]);
 
@@ -195,7 +202,14 @@ export default function DailyChallenge() {
     if (results.totalScore >= 70) {
       setShowConfetti(true);
     }
-    setHistory(await db.getChallengeHistory(7));
+    const fresh = await db.getChallengeHistory(7);
+    setHistory(fresh.map(h => {
+      if (h.questions && h.questions.length > 0 && !h.breakdown) {
+        const computed = scoreBurst(h.questions, { keywords: [], context: '', situation: '' });
+        return { ...h, breakdown: computed.breakdown, openRatio: computed.openRatio, techniquesDetected: computed.techniquesDetected, coachingTip: computed.coachingTip, strongestQuestion: computed.strongestQuestion };
+      }
+      return h;
+    }));
 
     // Trigger AI coaching if available
     if (hasApiKey()) {
