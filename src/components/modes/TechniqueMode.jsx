@@ -99,6 +99,7 @@ export default function TechniqueMode() {
   // phase: hub | teach | drill | feedback | summary
   const [phase, setPhase] = useState('hub');
   const [activeTechnique, setActiveTechnique] = useState(null);
+  const [sessionScenarios, setSessionScenarios] = useState([]);
   const [roundIndex, setRoundIndex] = useState(0);
   const [answer, setAnswer] = useState('');
   const [lastResult, setLastResult] = useState(null); // { hit, matchedWord, answer }
@@ -113,6 +114,9 @@ export default function TechniqueMode() {
   const [masteredCount, setMasteredCount] = useState({});
 
   const startTechnique = (technique) => {
+    // Randomly pick ROUNDS_PER_TECHNIQUE scenarios from the full pool
+    const shuffled = [...technique.scenarios].sort(() => Math.random() - 0.5);
+    setSessionScenarios(shuffled.slice(0, ROUNDS_PER_TECHNIQUE));
     setActiveTechnique(technique);
     setRoundIndex(0);
     setRoundResults([]);
@@ -333,13 +337,13 @@ export default function TechniqueMode() {
   };
 
   const renderDrill = () => {
-    const scenario = activeTechnique.scenarios[roundIndex];
+    const scenario = sessionScenarios[roundIndex];
     const Icon = TECHNIQUE_ICONS[activeTechnique.id];
     return (
       <div className="technique-drill animate-fade-in">
         {/* Progress */}
         <div className="technique-drill-progress">
-          {activeTechnique.scenarios.map((_, i) => (
+          {sessionScenarios.map((_, i) => (
             <div
               key={i}
               className={`technique-drill-pip${i < roundIndex ? ' done' : i === roundIndex ? ' active' : ''}`}

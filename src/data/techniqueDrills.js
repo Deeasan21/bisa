@@ -1,11 +1,6 @@
 /**
- * Technique Drill data
- *
- * Four core questioning techniques, each with:
- * - Teaching content (what, why, when NOT to use)
- * - Trigger words (the exact phrases the scorer detects)
- * - Example question
- * - 3 practice scenarios
+ * Technique Drill data — 17 scenarios per technique (68 total)
+ * Each session picks 3 at random so it stays fresh.
  */
 
 export const TECHNIQUE_DRILLS = [
@@ -22,24 +17,26 @@ export const TECHNIQUE_DRILLS = [
     example: {
       question: 'What has this experience been like for you?',
       highlight: 'experience',
-      note: '"experience" is an empathy word — it centers their inner world, not just the facts.',
+      note: '"experience" centers their inner world, not just the facts.',
     },
     scenarios: [
-      {
-        id: 'empathy_1',
-        context: 'Your colleague just found out their project was cancelled after three months of hard work. They\'re putting on a brave face in the team meeting.',
-        prompt: 'Write an empathy question to ask them.',
-      },
-      {
-        id: 'empathy_2',
-        context: 'A friend tells you they were passed over for a promotion they\'d been quietly counting on for months.',
-        prompt: 'Write an empathy question to open the conversation.',
-      },
-      {
-        id: 'empathy_3',
-        context: 'Your team member admits they\'ve been silently struggling with their workload but didn\'t want to say anything.',
-        prompt: 'Write an empathy question to respond.',
-      },
+      { id: 'emp_1', context: 'Your colleague just found out their project was cancelled after three months of hard work. They\'re putting on a brave face in the team meeting.', prompt: 'Write an empathy question to ask them privately after the meeting.' },
+      { id: 'emp_2', context: 'A friend tells you they were passed over for a promotion they\'d been quietly counting on for months.', prompt: 'Write an empathy question to open the conversation.' },
+      { id: 'emp_3', context: 'Your team member admits they\'ve been silently struggling with their workload but didn\'t want to say anything.', prompt: 'Write an empathy question to respond.' },
+      { id: 'emp_4', context: 'A colleague tells you their parent was just diagnosed with a serious illness. They came to work anyway.', prompt: 'Write an empathy question that acknowledges what they\'re carrying.' },
+      { id: 'emp_5', context: 'Your friend just went through a breakup after a 4-year relationship. They say they\'re "totally fine" but seem distant.', prompt: 'Write an empathy question that creates space for honesty.' },
+      { id: 'emp_6', context: 'A direct report made a public mistake in a client presentation. You can see they\'re mortified.', prompt: 'Write an empathy question before you talk about what happened.' },
+      { id: 'emp_7', context: 'Your teammate just returned from bereavement leave. It\'s their first day back and the office is loud and busy.', prompt: 'Write an empathy question to check in privately.' },
+      { id: 'emp_8', context: 'A friend tells you they\'ve been job hunting for eight months with no offers. They sound exhausted.', prompt: 'Write an empathy question that doesn\'t jump straight to advice.' },
+      { id: 'emp_9', context: 'Your manager is clearly stressed — short on emails, quiet in meetings. You\'ve noticed for two weeks.', prompt: 'Write an empathy question to open a conversation without overstepping.' },
+      { id: 'emp_10', context: 'A colleague who moved to a new city for the job mentions they haven\'t really made friends yet, six months in.', prompt: 'Write an empathy question to acknowledge how that might feel.' },
+      { id: 'emp_11', context: 'Someone on your team just had their big idea rejected in a company review. They haven\'t spoken in the group chat since.', prompt: 'Write an empathy question to reach out.' },
+      { id: 'emp_12', context: 'Your friend just had a miscarriage. They texted you a short message and you want to respond well.', prompt: 'Write an empathy question that opens space without pressure.' },
+      { id: 'emp_13', context: 'A new hire tells you onboarding felt overwhelming and they\'re not sure they made the right decision joining.', prompt: 'Write an empathy question to help them feel heard.' },
+      { id: 'emp_14', context: 'Your colleague\'s spouse just lost their job. Your colleague seems distracted and is making small errors.', prompt: 'Write an empathy question to check in without prying.' },
+      { id: 'emp_15', context: 'A friend tells you they\'ve been feeling burned out for months but can\'t afford to take time off.', prompt: 'Write an empathy question to show you understand the bind they\'re in.' },
+      { id: 'emp_16', context: 'Your team member tells you they feel invisible in meetings — their ideas get ignored until someone else says the same thing.', prompt: 'Write an empathy question that validates the experience.' },
+      { id: 'emp_17', context: 'A peer tells you they\'ve been struggling with imposter syndrome since they got promoted, but didn\'t expect to feel this way.', prompt: 'Write an empathy question that normalises what they\'re feeling.' },
     ],
   },
   {
@@ -58,21 +55,23 @@ export const TECHNIQUE_DRILLS = [
       note: '"what if" is the classic reframe opener — it shifts from the current view to an alternative one.',
     },
     scenarios: [
-      {
-        id: 'reframing_1',
-        context: 'Your colleague is convinced the new company policy is unfair and is venting about how it\'s killing the team\'s motivation.',
-        prompt: 'Write a reframing question to offer a new angle.',
-      },
-      {
-        id: 'reframing_2',
-        context: 'A client says your product is too expensive and they\'re considering going with a cheaper competitor.',
-        prompt: 'Write a reframing question to shift how they\'re thinking about value.',
-      },
-      {
-        id: 'reframing_3',
-        context: 'Your friend says their career is completely stuck and there\'s no room to grow at their company.',
-        prompt: 'Write a reframing question to open up new possibilities.',
-      },
+      { id: 'ref_1', context: 'Your colleague is convinced the new company policy is unfair and is venting about how it\'s killing the team\'s motivation.', prompt: 'Write a reframing question to offer a new angle.' },
+      { id: 'ref_2', context: 'A client says your product is too expensive and they\'re considering going with a cheaper competitor.', prompt: 'Write a reframing question to shift how they\'re thinking about value.' },
+      { id: 'ref_3', context: 'Your friend says their career is completely stuck and there\'s no room to grow at their company.', prompt: 'Write a reframing question to open up new possibilities.' },
+      { id: 'ref_4', context: 'A team member says a project failed because the timeline was impossible and leadership set them up to fail.', prompt: 'Write a reframing question that invites a different lens without dismissing their frustration.' },
+      { id: 'ref_5', context: 'Your friend is convinced they\'re "just not a creative person" and never will be.', prompt: 'Write a reframing question that challenges that fixed belief.' },
+      { id: 'ref_6', context: 'A colleague argues that the only way to get ahead at this company is to work 60-hour weeks — no other path exists.', prompt: 'Write a reframing question to widen their view.' },
+      { id: 'ref_7', context: 'A client is furious about a delay, framing it as your team being incompetent. The delay was caused by their own late approvals.', prompt: 'Write a reframing question that invites them to look at the full picture.' },
+      { id: 'ref_8', context: 'Your friend says they\'re terrible at networking because they\'re introverted, so they\'ve stopped trying altogether.', prompt: 'Write a reframing question that redefines what networking could look like for them.' },
+      { id: 'ref_9', context: 'A direct report says they want to quit because they hate dealing with difficult stakeholders — it\'s just not worth it.', prompt: 'Write a reframing question that explores what the experience might be teaching them.' },
+      { id: 'ref_10', context: 'Your teammate thinks a competitor\'s new feature will destroy your product\'s market position.', prompt: 'Write a reframing question that explores what opportunity this might reveal.' },
+      { id: 'ref_11', context: 'A friend is convinced their business idea failed because the market wasn\'t ready, and that it\'s all bad timing.', prompt: 'Write a reframing question that invites honest reflection on other factors.' },
+      { id: 'ref_12', context: 'Your colleague refuses to delegate because they say no one else can do the work to the right standard.', prompt: 'Write a reframing question that challenges the assumption.' },
+      { id: 'ref_13', context: 'A team member says the retrospective is pointless because nothing changes after they happen anyway.', prompt: 'Write a reframing question to shift that assumption.' },
+      { id: 'ref_14', context: 'Your friend says they\'re "too old" to change careers now — the window has closed.', prompt: 'Write a reframing question that opens the frame.' },
+      { id: 'ref_15', context: 'A client insists that training their team is a waste of time because people forget everything within a week.', prompt: 'Write a reframing question about what learning actually looks like.' },
+      { id: 'ref_16', context: 'A colleague believes that being direct and being kind are mutually exclusive — you can\'t be both.', prompt: 'Write a reframing question that challenges the either/or thinking.' },
+      { id: 'ref_17', context: 'Your friend is debating whether to leave a stable job for a startup. They keep framing it as "security vs. risk."', prompt: 'Write a reframing question that opens up other ways to see the choice.' },
     ],
   },
   {
@@ -88,24 +87,26 @@ export const TECHNIQUE_DRILLS = [
     example: {
       question: 'What do you think is at the root of why this keeps happening?',
       highlight: 'root',
-      note: '"root" and "what caused" signal that you\'re looking for the deeper cause, not just the surface event.',
+      note: '"root" signals you\'re after the cause, not just the symptom.',
     },
     scenarios: [
-      {
-        id: 'probing_1',
-        context: 'A team member keeps missing deadlines. When you ask why, they say they\'re "just really busy" and shrug it off.',
-        prompt: 'Write a probing question to find the real cause.',
-      },
-      {
-        id: 'probing_2',
-        context: 'Your friend says relationships "never work out" for them — this is the third time you\'ve heard this.',
-        prompt: 'Write a probing question to explore what\'s underneath that belief.',
-      },
-      {
-        id: 'probing_3',
-        context: 'A colleague says the new strategy "just won\'t work" in the team meeting but can\'t articulate why.',
-        prompt: 'Write a probing question to surface their actual concern.',
-      },
+      { id: 'prb_1', context: 'A team member keeps missing deadlines. When you ask why, they say they\'re "just really busy" and shrug it off.', prompt: 'Write a probing question to find the real cause.' },
+      { id: 'prb_2', context: 'Your friend says relationships "never work out" for them — this is the third time you\'ve heard this.', prompt: 'Write a probing question to explore what\'s underneath that belief.' },
+      { id: 'prb_3', context: 'A colleague says the new strategy "just won\'t work" in the team meeting but can\'t articulate why.', prompt: 'Write a probing question to surface their actual concern.' },
+      { id: 'prb_4', context: 'A client keeps pushing back on your proposals without accepting or rejecting them. Meetings end with "let us think about it."', prompt: 'Write a probing question to find out what\'s really blocking a decision.' },
+      { id: 'prb_5', context: 'Your friend has been saying they want to start a business for three years but hasn\'t taken a single step.', prompt: 'Write a probing question about what\'s actually in the way.' },
+      { id: 'prb_6', context: 'A team member says they feel undervalued but when pressed, can only say "I just do." They can\'t name anything specific.', prompt: 'Write a probing question to help them find the specific root.' },
+      { id: 'prb_7', context: 'Your colleague keeps volunteering for tasks outside their role and is burning out as a result, but insists they\'re fine.', prompt: 'Write a probing question to explore the deeper motivation.' },
+      { id: 'prb_8', context: 'A direct report says they dread Monday mornings but love the actual work. Something else is going on.', prompt: 'Write a probing question to get at what\'s behind the dread.' },
+      { id: 'prb_9', context: 'Your friend says they argue constantly with their partner about money — but you suspect money isn\'t really what the arguments are about.', prompt: 'Write a probing question to explore what\'s beneath the surface conflict.' },
+      { id: 'prb_10', context: 'A team keeps failing to adopt the new process even though they agreed to it. The manager says "they\'re just resistant to change."', prompt: 'Write a probing question that goes deeper than "resistance."' },
+      { id: 'prb_11', context: 'A colleague says they don\'t speak up in leadership meetings because "there\'s no point." They clearly have opinions.', prompt: 'Write a probing question to uncover the real reason.' },
+      { id: 'prb_12', context: 'Your client says sales are down and blames the economy. But competitors in the same market are growing.', prompt: 'Write a probing question that challenges the surface explanation.' },
+      { id: 'prb_13', context: 'A high performer has gone quiet and disengaged. When asked, they say everything is fine. Their manager is confused.', prompt: 'Write a probing question that creates space for the real answer.' },
+      { id: 'prb_14', context: 'Your friend has been saying they want to leave their job for two years. They never do. They list different reasons each time.', prompt: 'Write a probing question to find the common thread beneath all the reasons.' },
+      { id: 'prb_15', context: 'A team is producing work that looks good on the surface but consistently misses the point of what stakeholders actually need.', prompt: 'Write a probing question to a team member to understand what\'s behind the misalignment.' },
+      { id: 'prb_16', context: 'A candidate in a job interview says they want to leave their current role because they "want a new challenge." That\'s all they offer.', prompt: 'Write a probing question to find out what\'s really driving the move.' },
+      { id: 'prb_17', context: 'Your colleague says they\'ve stopped contributing ideas in brainstorms because "people never take them seriously anyway."', prompt: 'Write a probing question to understand what happened and what\'s at the core of that belief.' },
     ],
   },
   {
@@ -121,24 +122,26 @@ export const TECHNIQUE_DRILLS = [
     example: {
       question: 'You mentioned it\'s been this way for months — when did you first notice it starting to shift?',
       highlight: 'you mentioned',
-      note: '"You mentioned" is the clearest follow-up signal — it directly names something they said.',
+      note: '"You mentioned" directly names something they said — the strongest follow-up signal.',
     },
     scenarios: [
-      {
-        id: 'followup_1',
-        context: 'Andre says: "I\'ve been having panic attacks at work, but honestly I\'m managing it fine." He looks away after saying it.',
-        prompt: 'Write a follow-up question that picks up on something specific he said.',
-      },
-      {
-        id: 'followup_2',
-        context: 'Your manager says: "We need to move faster, quality can\'t slip, and we\'re not getting more headcount — just figure it out."',
-        prompt: 'Write a follow-up question that engages with something specific they said.',
-      },
-      {
-        id: 'followup_3',
-        context: 'A new hire says: "I really love the role — the onboarding was a lot to take in but I think I got most of it."',
-        prompt: 'Write a follow-up question based on something specific they shared.',
-      },
+      { id: 'fol_1', context: 'Andre says: "I\'ve been having panic attacks at work, but honestly I\'m managing it fine." He looks away after saying it.', prompt: 'Write a follow-up question that picks up on something specific he said.' },
+      { id: 'fol_2', context: 'Your manager says: "We need to move faster, quality can\'t slip, and we\'re not getting more headcount — just figure it out."', prompt: 'Write a follow-up question that engages with something specific they said.' },
+      { id: 'fol_3', context: 'A new hire says: "I really love the role — the onboarding was a lot to take in but I think I got most of it."', prompt: 'Write a follow-up question based on something specific they shared.' },
+      { id: 'fol_4', context: 'A client says: "We\'ve tried something like this before and it didn\'t go well. But we\'re willing to hear you out."', prompt: 'Write a follow-up question that picks up on their past experience.' },
+      { id: 'fol_5', context: 'A candidate says: "My last job was great in many ways, but I needed something more — I\'m not sure how to explain it."', prompt: 'Write a follow-up question that holds space for what they couldn\'t quite name.' },
+      { id: 'fol_6', context: 'A colleague says: "I almost quit last month. But then something shifted and I decided to stay — at least for now."', prompt: 'Write a follow-up question that pulls on the most significant thread.' },
+      { id: 'fol_7', context: 'Your friend says: "I had a tough conversation with my dad last week. It went better than I expected, actually."', prompt: 'Write a follow-up question that goes deeper into what happened.' },
+      { id: 'fol_8', context: 'A direct report says: "I\'ve been thinking about asking for a raise for a while — I just haven\'t found the right moment."', prompt: 'Write a follow-up question that surfaces what\'s really behind the hesitation.' },
+      { id: 'fol_9', context: 'A team member says: "The last sprint went okay — not our best work, but we shipped. There were some issues internally."', prompt: 'Write a follow-up question about the most important part of what they said.' },
+      { id: 'fol_10', context: 'A colleague says: "I\'ve been passed over twice for the team lead role. I\'m starting to wonder if it\'s something about how I\'m perceived."', prompt: 'Write a follow-up question that picks up on their reflection.' },
+      { id: 'fol_11', context: 'Your friend says: "I\'ve been feeling really off lately — like I\'m going through the motions. I can\'t pinpoint why."', prompt: 'Write a follow-up that references what they said without projecting.' },
+      { id: 'fol_12', context: 'A stakeholder says: "This project has been frustrating. Not because of your team — there\'s a lot of internal politics here you probably can\'t see."', prompt: 'Write a follow-up question that picks up on what they hinted at.' },
+      { id: 'fol_13', context: 'A mentor says: "The biggest mistake I made early in my career was caring too much about what others thought. It cost me years."', prompt: 'Write a follow-up question that digs into the insight they just shared.' },
+      { id: 'fol_14', context: 'Your colleague says: "I\'ve been really into mindfulness lately — it\'s helped more than I expected, honestly. I didn\'t think it would work for me."', prompt: 'Write a follow-up question about the shift they experienced.' },
+      { id: 'fol_15', context: 'A manager says: "We need better collaboration between teams — there are silos forming that are starting to cause real damage."', prompt: 'Write a follow-up question that grounds the conversation in something specific they said.' },
+      { id: 'fol_16', context: 'A client says: "To be honest, we haven\'t been fully happy with the partnership for a while. But we didn\'t want to rock the boat."', prompt: 'Write a follow-up question that holds them accountable to that honesty.' },
+      { id: 'fol_17', context: 'Your friend says: "I had a panic attack for the first time last week. It scared me — I didn\'t even know what was happening at first."', prompt: 'Write a follow-up question that acknowledges what they shared and gently explores it.' },
     ],
   },
 ];
