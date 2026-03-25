@@ -61,8 +61,11 @@ export function buildContentFunctions(userId) {
     } catch (e) { console.error('saveChallengeCompletion:', e); }
   }
 
-  async function saveBurstCompletion(date, type, title, questions, score) {
+  async function saveBurstCompletion(date, type, title, questions, score, burstResults) {
     try {
+      const payload = burstResults
+        ? { questions, breakdown: burstResults.breakdown, openRatio: burstResults.openRatio, techniquesDetected: burstResults.techniquesDetected, coachingTip: burstResults.coachingTip, strongestQuestion: burstResults.strongestQuestion }
+        : questions;
       await supabase.from('challenge_history').insert({
         user_id: userId,
         challenge_date: date,
@@ -70,7 +73,7 @@ export function buildContentFunctions(userId) {
         challenge_title: title,
         response: `Question Burst: ${questions.length} questions, score ${score}`,
         score,
-        questions_json: JSON.stringify(questions),
+        questions_json: JSON.stringify(payload),
         challenge_format: 'burst',
       });
     } catch (e) { console.error('saveBurstCompletion:', e); }
@@ -85,15 +88,43 @@ export function buildContentFunctions(userId) {
         .order('created_at', { ascending: false })
         .limit(limit);
       if (error) throw error;
-      return (data || []).map(r => ({
-        date: r.challenge_date,
-        type: r.challenge_type,
-        title: r.challenge_title,
-        response: r.response,
-        format: r.challenge_format || 'journal',
-        score: r.score || 0,
-        questions: r.questions_json ? JSON.parse(r.questions_json) : null,
-      }));
+      return (data || []).map(r => {
+        let questions = null;
+        let breakdown = null;
+        let openRatio = null;
+        let techniquesDetected = null;
+        let coachingTip = null;
+        let strongestQuestion = null;
+        if (r.questions_json) {
+          const parsed = JSON.parse(r.questions_json);
+          if (Array.isArray(parsed)) {
+            // Legacy format: plain array of question strings
+            questions = parsed;
+          } else if (parsed && parsed.questions) {
+            // New format: object with questions + breakdown
+            questions = parsed.questions;
+            breakdown = parsed.breakdown || null;
+            openRatio = parsed.openRatio ?? null;
+            techniquesDetected = parsed.techniquesDetected || null;
+            coachingTip = parsed.coachingTip || null;
+            strongestQuestion = parsed.strongestQuestion || null;
+          }
+        }
+        return {
+          date: r.challenge_date,
+          type: r.challenge_type,
+          title: r.challenge_title,
+          response: r.response,
+          format: r.challenge_format || 'journal',
+          score: r.score || 0,
+          questions,
+          breakdown,
+          openRatio,
+          techniquesDetected,
+          coachingTip,
+          strongestQuestion,
+        };
+      });
     } catch (e) { console.error('getChallengeHistory:', e); return []; }
   }
 

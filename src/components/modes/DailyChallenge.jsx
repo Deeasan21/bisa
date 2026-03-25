@@ -150,7 +150,7 @@ export default function DailyChallenge() {
 
     // 1. Save the burst to challenge_history
     try {
-      await db.saveBurstCompletion(todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore);
+      await db.saveBurstCompletion(todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore, results);
     } catch (err) {
       console.error('Failed to save burst completion:', err);
     }
@@ -524,8 +524,44 @@ export default function DailyChallenge() {
 
                   {isExpanded && (
                     <div className="history-details animate-fade-in">
-                      <p className="history-response-full">{h.response}</p>
+                      {/* Breakdown bars (new format) */}
+                      {h.breakdown && (
+                        <div className="history-breakdown">
+                          <ProgressBar value={h.breakdown.variety} label="Variety" color="#10B981" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.depth} label="Depth" color="#3B82F6" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.techniques} label="Techniques" color="#8B5CF6" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.quality} label="Quality" color="#F59E0B" showPercent size="sm" />
+                        </div>
+                      )}
 
+                      {/* Summary stats */}
+                      {(h.openRatio !== null || h.techniquesDetected) && (
+                        <div className="history-summary-row">
+                          {h.openRatio !== null && <span><strong>{h.openRatio}%</strong> open questions</span>}
+                          {h.techniquesDetected && h.techniquesDetected.length > 0 && (
+                            <div className="history-techniques">
+                              {h.techniquesDetected.map(t => (
+                                <Badge key={t} text={t} color="#10B981" variant="soft" size="sm" />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Strongest question */}
+                      {h.strongestQuestion && (
+                        <div className="history-strongest">
+                          <span className="history-strongest-label">Strongest question</span>
+                          <p>"{h.strongestQuestion.text}"</p>
+                        </div>
+                      )}
+
+                      {/* Coaching tip */}
+                      {h.coachingTip && (
+                        <p className="history-coaching-tip">{h.coachingTip}</p>
+                      )}
+
+                      {/* Questions list */}
                       {hasQuestions && (
                         <>
                           <div className="history-questions-header">
@@ -540,6 +576,11 @@ export default function DailyChallenge() {
                             ))}
                           </div>
                         </>
+                      )}
+
+                      {/* Fallback for old entries without breakdown */}
+                      {!h.breakdown && !hasQuestions && (
+                        <p className="history-response-full">{h.response}</p>
                       )}
                     </div>
                   )}
