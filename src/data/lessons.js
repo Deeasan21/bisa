@@ -104,6 +104,49 @@ export const LESSONS = [
         },
       },
       {
+        id: 'atrophy',
+        title: 'Why We Stop Asking',
+        content: `
+          <p>Children ask hundreds of questions a day. By adulthood, that number has plummeted. Somewhere between school, work, and the pressure to appear competent, the question habit gets trained out of us.</p>
+          <p><strong>Three things kill curiosity:</strong> The pressure to have answers (asking feels like admitting you don't know), the false belief that questions signal weakness (the most respected people ask the most), and busy-ness (curiosity feels like a luxury when you're moving fast).</p>
+          <p>The people who keep asking "why?" and "what if?" are the ones who keep growing. The ones who stop are the ones who plateau — even when they look the most confident.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'question-explorer',
+        title: 'See the Difference',
+        content: `<p>A colleague says: "I'm really struggling with this project." Four responses — watch what each one opens or closes:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'A colleague says "I\'m really struggling with this project."',
+          phrasings: [
+            {
+              text: '"Yeah, it\'s a tough one. Anyway, did you see the deadline email?"',
+              consequence: 'They go quiet and handle it alone. You acknowledged the struggle and moved past it — which signals it\'s not worth discussing. A door opened and you walked by it.',
+              quality: 'poor',
+            },
+            {
+              text: '"You should probably loop in the manager."',
+              consequence: 'They feel redirected before they\'ve been heard. You offered a solution to a problem you don\'t yet understand. They nod and move on, feeling unheard.',
+              quality: 'okay',
+            },
+            {
+              text: '"What part of it has been hardest?"',
+              consequence: 'They open up. Specific without being intrusive. You learn something real — and they feel seen rather than managed.',
+              quality: 'great',
+            },
+            {
+              text: '"Is it the technical side, or something with the team?"',
+              consequence: 'You\'ve given them a frame. They choose one, and often add a third thing you didn\'t expect. Now you\'re in a real conversation.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The first two responses treat their comment as noise. The last two treat it as an opening. One question changes whether someone feels alone in a problem or supported through it.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -245,6 +288,21 @@ export const LESSONS = [
         },
       },
       {
+        id: 'type-picker',
+        title: 'Choose the Right Type',
+        content: `<p>Knowing the types isn't enough — you need to pick the right one in the moment. Try this:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your team spent two weeks building a feature. The client saw it and said they\'re "not sure it\'s quite right." You need to understand what they mean before your team does another two weeks of work. Which question type do you reach for first?',
+          options: [
+            { text: 'Closed: "So you want us to change the design?"', isCorrect: false },
+            { text: 'Clarifying: "When you say \'not quite right\' — what specifically isn\'t working for you?"', isCorrect: true },
+          ],
+          explanation: 'A closed question assumes you already know what\'s wrong. A clarifying question establishes shared understanding before any more work happens. In high-stakes moments — when time and effort are on the line — clarify first.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -368,6 +426,51 @@ export const LESSONS = [
         },
       },
       {
+        id: 'socratic-at-work',
+        title: 'The Socratic Method at Work',
+        content: `<p>The Socratic method isn't just for philosophy class. See how it plays out in a professional moment — and which approach actually produces insight:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'A colleague says: "The client is being unreasonable — they keep changing the brief." You want to help them think it through.',
+          phrasings: [
+            {
+              text: '"Yeah, some clients are just like that. What can you do?"',
+              consequence: 'They feel validated but stuck. You agreed with their framing without questioning it. Nothing changes — the client is still "unreasonable" and they\'re still helpless.',
+              quality: 'poor',
+            },
+            {
+              text: '"Have you tried just pushing back on them?"',
+              consequence: 'You offered a solution to a problem you haven\'t examined. They may have already tried this, or the real issue might be something else entirely.',
+              quality: 'okay',
+            },
+            {
+              text: '"When you say unreasonable — what are they actually asking for that feels outside scope?"',
+              consequence: 'They start to articulate it specifically. In doing so, they often realize: some changes are scope creep, but one or two are actually reasonable asks they hadn\'t considered clearly.',
+              quality: 'great',
+            },
+            {
+              text: '"What do you think is driving the brief changes on their end?"',
+              consequence: 'Perspective shift. They pause. "Actually... they just hired a new marketing director." The \'unreasonable client\' is now someone navigating internal change. The whole conversation reframes.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'Agreeing with a surface complaint feels supportive but often keeps people stuck. One Socratic question — one that examines the assumption behind the complaint — can unlock a completely different view of the situation.',
+        },
+      },
+      {
+        id: 'when-not-socratic',
+        title: 'When NOT to Go Socratic',
+        content: `
+          <p>The Socratic method is powerful — which makes misusing it easy.</p>
+          <p><strong>When it becomes interrogation:</strong> Firing five "why?" questions at someone already on the defensive doesn't produce insight — it produces shutdown. Tone matters as much as words.</p>
+          <p><strong>When someone wants advice:</strong> If someone says "What would you do?" — answer them. Responding with more questions when someone explicitly asks for your opinion feels evasive.</p>
+          <p><strong>When stakes are urgent:</strong> If someone needs to decide in the next hour, a Socratic dialogue about the nature of that decision is the wrong tool.</p>
+          <p><strong>The test:</strong> Am I using questions because they'll serve this person better than a direct answer — or because I'm avoiding the discomfort of giving one?</p>
+        `,
+        interaction: null,
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -458,6 +561,88 @@ export const LESSONS = [
           before: 'After a lecture, you copy your notes into a cleaner format and re-read them before the test.',
           after: 'After the lecture, you close your notes and try to explain the concept out loud as if teaching a friend. You go back to fill in the gaps you found.',
           explanation: 'Both approaches feel like studying. But re-reading creates familiarity without understanding — you recognize the material but can\'t generate it. The Feynman approach forces your brain to do the hard work that produces real learning.',
+        },
+      },
+      {
+        id: 'learning-gap',
+        title: 'The Learning Gap',
+        content: `<p>Most people think they're learning when they're actually just consuming. The difference shows up when they try to use the information:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You listened to a 45-minute podcast about negotiation. Two days later, you need to negotiate your salary. What\'s most likely to happen?',
+          options: [
+            { text: 'You remember the main ideas and apply them naturally.', isCorrect: false },
+            { text: 'You remember fragments but can\'t recall the key frameworks in the moment.', isCorrect: true },
+          ],
+          explanation: 'Passive listening creates familiarity, not capability. The gap between "I heard this" and "I can do this" is filled by active learning questions — pausing to summarize, asking what you\'d actually do differently, writing one thing to apply. Without those questions, the podcast was entertainment.',
+        },
+      },
+      {
+        id: 'at-work',
+        title: 'At Work: The Post-Meeting Debrief',
+        content: `
+          <p>One of the highest-leverage learning habits in professional life is the <strong>5-minute debrief</strong> after any meeting, call, or presentation.</p>
+          <p><strong>"What was said that I want to remember?"</strong> — Active recall beats re-reading notes by a wide margin.</p>
+          <p><strong>"What surprised me?"</strong> — Surprises signal where your mental model needs updating.</p>
+          <p><strong>"What will I do differently as a result?"</strong> — Without this question, most meetings leave no trace.</p>
+          <p>Five minutes. Three questions. Most people skip it. The ones who don't pull ahead — not just by days, but over years.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'After an important meeting or training session, you usually…',
+          options: [
+            {
+              text: 'Move immediately to the next thing on my list',
+              insight: 'Most people do. The upgrade: set a 5-minute timer after anything important and ask those three questions. You\'ll remember three times more and actually use what you heard.',
+            },
+            {
+              text: 'Write notes during or after',
+              insight: 'Good instinct. The upgrade: don\'t just capture — ask "What will I actually do with this?" The action question is what transforms notes into change.',
+            },
+            {
+              text: 'Think about it informally as I go about my day',
+              insight: 'That informal processing has value. Making it deliberate — even for 3 minutes — multiplies it. Try closing your eyes right after something important and asking: "What\'s the one thing I most need to remember?"',
+            },
+            {
+              text: 'Do a structured review of what I learned',
+              insight: 'You\'re ahead of most. The next level: add the Feynman test — try to explain the key insight to someone who wasn\'t there. Where you stumble is where to go deeper.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'learning-explorer',
+        title: 'The Same Information, Different Results',
+        content: `<p>Two people finish the same chapter. They process it very differently — watch what each approach produces:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'You just finished a chapter on negotiation tactics. What do you do next?',
+          phrasings: [
+            {
+              text: 'Move to the next chapter immediately.',
+              consequence: 'By the end of the book, you remember fragments of most chapters and nothing specifically from this one. The information existed in your head for about 20 minutes.',
+              quality: 'poor',
+            },
+            {
+              text: 'Highlight the key sentences and move on.',
+              consequence: 'The highlights feel productive. But when you re-read them a week later, you remember reading them — not understanding them. Highlighting is one step from passive.',
+              quality: 'okay',
+            },
+            {
+              text: 'Close the book and write one paragraph explaining the key idea in your own words.',
+              consequence: 'You immediately discover two gaps where you didn\'t fully understand the idea. You go back, fill them, and write again. Takes 10 minutes — and you\'ll still remember it in a month.',
+              quality: 'great',
+            },
+            {
+              text: 'Write one thing you\'ll try differently in your next negotiation.',
+              consequence: 'The application question does something powerful: it forces your brain to connect abstract concept to concrete action. Retention goes up, and you\'re twice as likely to actually use the tactic.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'Information without application questions disappears. The best learners don\'t just ask "what did I learn?" — they ask "what will I do with this?" and "where does my understanding break down?" That\'s the difference between reading and learning.',
         },
       },
       {
@@ -564,6 +749,67 @@ export const LESSONS = [
         },
       },
       {
+        id: 'beyond-small-talk',
+        title: 'Moving Beyond Small Talk',
+        content: `
+          <p>Small talk isn't the enemy — it's the doorway. The mistake is treating it as the destination.</p>
+          <p>The bridge from small talk to real connection is usually one question that goes one level deeper than expected:</p>
+          <p><strong>Instead of:</strong> "What do you do?" → <strong>Try:</strong> "What's the most interesting thing you're working on right now?"</p>
+          <p><strong>Instead of:</strong> "Did you have a good weekend?" → <strong>Try:</strong> "What was the highlight?"</p>
+          <p><strong>Instead of:</strong> "How long have you been at this company?" → <strong>Try:</strong> "What originally brought you here?"</p>
+          <p>The upgrade is small. The effect on the conversation is not.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'conversation-explorer',
+        title: 'Which Question Opens the Door?',
+        content: `<p>You're at a networking event. Someone mentions they just moved to the city. Watch what each follow-up creates:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'Someone mentions they just moved to the city for work.',
+          phrasings: [
+            {
+              text: '"Oh nice — do you like it so far?"',
+              consequence: '"Yeah, it\'s good." End of thread. This question invites a one-word answer and then awkward silence.',
+              quality: 'poor',
+            },
+            {
+              text: '"What brought you here — what\'s the new role?"',
+              consequence: 'Better. They explain their job, you learn something. But it\'s still transactional — you know what they do, not who they are.',
+              quality: 'okay',
+            },
+            {
+              text: '"What made you decide to make the move? That\'s a big change."',
+              consequence: 'They pause, then really answer. Moving cities is layered with hope, fear, and meaning. This question invites the real story, not just the logistical summary.',
+              quality: 'great',
+            },
+            {
+              text: '"What are you most excited — and most nervous — about?"',
+              consequence: 'They laugh in recognition, then share both. The dual question normalizes mixed feelings and invites honesty. By the end, you\'ve had a conversation neither of you will forget.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The depth of a conversation is often set by the very first follow-up. A closed question shuts the door. A question that invites story, feeling, or meaning opens it wide.',
+        },
+      },
+      {
+        id: 'reciprocity',
+        title: 'The Reciprocity Check',
+        content: `<p>Strong conversationalists know when to share, not just ask. Try this:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'ve asked three questions in a row and the other person has answered all of them. They haven\'t asked you anything yet. What\'s the best move?',
+          options: [
+            { text: 'Ask another question — you\'re on a roll and they seem to be sharing.', isCorrect: false },
+            { text: 'Briefly share something of your own, then invite them: "What about you?"', isCorrect: true },
+          ],
+          explanation: 'Three questions in a row — even good ones — starts to feel like an interview. Sharing something brief about yourself re-establishes the exchange as mutual and often opens deeper questions from them that you could never have scripted. The best conversations are mutual curiosity.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -646,6 +892,45 @@ export const LESSONS = [
             { text: '"What\'s been making it feel like a lot?"', isCorrect: true },
           ],
           explanation: 'The first accepts the surface answer and closes the conversation. The real signal is "things have been a lot" — that\'s the thread worth pulling. Naming it invites them to share what they\'ve been downplaying.',
+        },
+      },
+      {
+        id: 'types-of-followups',
+        title: 'Three Types of Follow-Ups',
+        content: `
+          <p>Not all follow-ups are equal. Knowing which type to use makes the difference between going deeper and going sideways.</p>
+          <p><strong>Deepening follow-ups</strong> pursue the emotional or meaning layer: "What was that like for you?" "Why does that matter to you?"</p>
+          <p><strong>Clarifying follow-ups</strong> establish shared understanding: "When you say 'complicated,' what do you mean specifically?" "What does 'a lot' actually look like?"</p>
+          <p><strong>Echo follow-ups</strong> (mirroring): repeat their last key phrase with a slight upward tone. "Stuck?" "Complicated?" One word — and they keep going.</p>
+          <p><strong>The most common mistake:</strong> Using a clarifying follow-up when a deepening one is called for — getting facts when what's needed is meaning.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'echo-expand',
+        title: 'The Echo-and-Expand Move',
+        content: `<p>Mirror what you heard, then open it further. Compare how these land:</p>`,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: 'They say: "I\'ve been thinking about making a big change." You say: "Like what? Have you looked at other jobs? Or is it something personal?"',
+          after: 'They say: "I\'ve been thinking about making a big change." You say: "A big change." [pause] "What does that look like in your head?"',
+          explanation: 'The first fires three questions and gives them a menu — they pick the easiest one, not the most important. The echo ("A big change") reflects their words back without directing. Then one open question gives them space to go wherever feels truest.',
+        },
+      },
+      {
+        id: 'knowing-when-to-stop',
+        title: 'Knowing When to Stop',
+        content: `<p>Following up too long feels like pressure. What are the signals?</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'ve asked three follow-ups in a row. Their answers are getting shorter. The last one was: "I don\'t know, I guess it\'s just... I don\'t know." What do you do?',
+          options: [
+            { text: '"Come on, you must have some idea — what do you think it is?"', isCorrect: false },
+            { text: 'Reflect back: "Sounds like it\'s still pretty unclear for you. That makes sense." Then let the silence sit.', isCorrect: true },
+          ],
+          explanation: 'Two "I don\'t knows" is a signal: they\'ve reached their current depth, or they\'re not ready to go further. Pressing produces resistance, not insight. Reflecting and going quiet often opens more than another question would. The best follow-up is sometimes none at all.',
         },
       },
       {
@@ -756,6 +1041,65 @@ export const LESSONS = [
         },
       },
       {
+        id: 'power-of-pause',
+        title: 'The Pause That Does the Work',
+        content: `
+          <p>Most people are deeply uncomfortable with silence. They fill it with questions, statements, opinions — anything to avoid the perceived awkwardness. But silence in conversation isn't awkward. It's working.</p>
+          <p>When you ask a question and immediately follow up with another one, you've effectively answered the first one for them. You've told them: that question wasn't important enough to wait for.</p>
+          <p>Research on this is striking: after asking a question, most people wait less than two seconds before speaking again. Teachers who learn to wait just three seconds get longer, more thoughtful answers, more participation, and more questions back.</p>
+          <p><strong>The rule:</strong> After asking, wait. Count to three silently. If you feel the urge to fill the space — don't. That discomfort is what thinking looks like from the outside.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'timing-mc',
+        title: 'The Timing Problem',
+        content: `<p>Even a good question lands badly if the timing is wrong:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A colleague just found out they didn\'t get the promotion they worked toward for a year. They look upset. What\'s the best response?',
+          options: [
+            { text: '"What do you think you\'ll do next? Start looking elsewhere?"', isCorrect: false },
+            { text: '"That\'s really disappointing. I\'m sorry. I\'m here if you want to talk about it."', isCorrect: true },
+          ],
+          explanation: 'The first question is about the future when they\'re still in the shock of the present. Problem-solving before acknowledgment tells someone their feelings are in the way of the real conversation. The second makes space for the emotion first. The questions about what\'s next can come later — when they\'re ready.',
+        },
+      },
+      {
+        id: 'when-not-explorer',
+        title: 'Statement or Question?',
+        content: `<p>Some moments call for a question. Others call for a statement. See what each approach creates:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'A friend tells you their parent was just diagnosed with a serious illness.',
+          phrasings: [
+            {
+              text: '"Oh wow. What\'s the prognosis? What did the doctors say?"',
+              consequence: 'They shift into information-reporting mode before processing the emotional weight. They answer your questions and feel strangely hollow afterward — like they briefed a journalist instead of talked to a friend.',
+              quality: 'poor',
+            },
+            {
+              text: '"Have you talked to your siblings about it yet?"',
+              consequence: 'A practical question in an emotional moment. They answer, but the conversation stays surface. The emotion underneath never gets acknowledged.',
+              quality: 'okay',
+            },
+            {
+              text: '"That\'s a lot to take in. How are you doing with it?"',
+              consequence: 'They exhale. The question acknowledges the weight of what they shared and invites their experience — not the facts. They might talk for twenty minutes. Either way, they feel heard.',
+              quality: 'great',
+            },
+            {
+              text: '"I\'m so sorry." [Pause. Let them lead.]',
+              consequence: 'No question at all — just presence. They fill the space in whatever way they need: more information, a worry, a memory. You didn\'t steer it, and that\'s exactly right.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'In emotionally charged moments, acknowledgment almost always outperforms inquiry. When in doubt, start with: "That\'s a lot. How are you doing with it?" — and then listen.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -847,6 +1191,79 @@ export const LESSONS = [
         },
       },
       {
+        id: 'three-parts',
+        title: 'The Three-Part Ask',
+        content: `
+          <p>A strong help request isn't just about being polite — it's about making it easy for someone to help you. The three-part structure does that:</p>
+          <p><strong>1. Context:</strong> What's the situation? What are you trying to accomplish? Just enough background that the helper understands the stakes — not your full backstory.</p>
+          <p><strong>2. Specific ask:</strong> Not "help with this project" but "read this paragraph and tell me if the tone sounds defensive." Specific asks get specific help.</p>
+          <p><strong>3. What you've tried:</strong> Shows you've put in effort and tells the helper where to start. It also prevents them from suggesting things you've already done.</p>
+          <p>Missing any one of the three makes the ask harder to fulfill. Missing all three puts your thinking work onto the person you're asking for help.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'ask-explorer',
+        title: 'Strong Ask vs. Weak Ask',
+        content: `<p>The same need, asked four different ways. Watch how each would land:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'You need feedback on a work email you\'re about to send to a difficult client.',
+          phrasings: [
+            {
+              text: '"Hey, can you look at this email?"',
+              consequence: 'Your colleague reads it and doesn\'t know what you need. They say "looks fine" and move on. No useful feedback — and both of you wasted time.',
+              quality: 'poor',
+            },
+            {
+              text: '"Can you check this email? I\'m worried it sounds too harsh."',
+              consequence: 'Better — now they know what to look for. But they might soften the whole email when you only needed one sentence adjusted. Scope still unclear.',
+              quality: 'okay',
+            },
+            {
+              text: '"I\'m sending this to a client who pushed back on our timeline. Can you read the third paragraph and tell me if it sounds defensive? I tried to make it firm but collaborative."',
+              consequence: 'Now they know the context, the specific thing to look at, and what you\'ve already tried to do. They give you targeted, useful feedback in two minutes.',
+              quality: 'great',
+            },
+            {
+              text: '"Before I send this — I need 5 minutes. I\'ve been going back and forth on the tone of the third paragraph. Can you tell me what emotion it reads as to you?"',
+              consequence: 'You\'ve asked for a sensory reaction, not an opinion — which is easier to give and harder to hedge. They tell you exactly what they feel when they read it. That\'s the feedback you needed.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The more specific your ask, the more useful the help. Vague asks get vague responses. Specificity shows you\'ve done the thinking work — you just need the right pair of eyes.',
+        },
+      },
+      {
+        id: 'timing-your-ask',
+        title: 'Timing and Who You Ask',
+        content: `<p>Even a great ask falls flat if the timing or person is wrong.</p>`,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'You need help from a senior colleague who is visibly in the middle of something urgent. You need their input by end of day. What do you do?',
+          options: [
+            {
+              text: 'Interrupt them — the deadline is real',
+              insight: 'Sometimes necessary. The upgrade: frame it to give them control. "Quick question about X — can you spare 2 minutes now or is there a better time before 4pm?" gives them agency while being honest about your timeline.',
+            },
+            {
+              text: 'Wait until they\'re free, even if it means missing my deadline',
+              insight: 'Respecting their time is right. But missing your deadline helps no one. The upgrade: send a short message that explains the urgency and lets them choose when — not whether — to respond.',
+            },
+            {
+              text: 'Send a message clearly stating what I need and my deadline',
+              insight: 'Good instinct. Written asks give the other person time to think before responding, and your deadline tells them how to prioritize. Add what you\'ve tried so they\'re not starting from scratch.',
+            },
+            {
+              text: 'Try to solve it myself and only ask if I\'m stuck',
+              insight: 'Sometimes the right call — especially if you\'d be embarrassed to ask once you figured it out. The risk: spending 3 hours on something they could answer in 3 minutes. Know which situation you\'re in.',
+            },
+          ],
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -930,6 +1347,86 @@ export const LESSONS = [
           before: '"Why am I so bad at this? Everyone else seems to handle it fine."',
           after: '"What made this hard for me? What can I learn from how I handled it?"',
           explanation: 'The first question is a statement of failure dressed as inquiry — it doesn\'t actually invite an answer, it invites shame. The second is genuinely curious. It assumes there\'s something to understand, not just something to feel bad about.',
+        },
+      },
+      {
+        id: 'daily-practice',
+        title: 'Making Reflection a Habit',
+        content: `
+          <p>Self-reflection only becomes powerful when it's consistent. A single moment of introspection is a data point. A daily practice is a feedback system.</p>
+          <p>The research is clear: people who regularly ask themselves "What went well? What would I do differently? What am I grateful for?" show measurable improvements in problem-solving, emotional regulation, and decision-making — not over years, but over weeks.</p>
+          <p>The barrier isn't time — two minutes is enough. The barrier is that reflection feels less urgent than the next task. The trick: attach it to something you already do. End of morning coffee. Before sleep. After a major meeting. Tie the question to the routine, not the motivation.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'When do you most naturally reflect on your day or a recent experience?',
+          options: [
+            {
+              text: 'Before I go to sleep',
+              insight: 'A natural window. The risk: exhaustion turns it into rumination — replaying what went wrong without the curiosity that makes it useful. One anchor question: "What\'s one thing I\'d do differently tomorrow?" keeps it forward-facing.',
+            },
+            {
+              text: 'During exercise or a walk',
+              insight: 'Movement and reflection work well together — physical activity lowers the internal critic and raises creative thinking. Consider keeping a note to capture what comes up, or it evaporates.',
+            },
+            {
+              text: 'When something goes wrong — not as a regular habit',
+              insight: 'Reactive reflection is valuable but limited. Proactive reflection catches quiet wins and small patterns — things that only show up if you\'re looking. Even two minutes daily compounds over a month.',
+            },
+            {
+              text: 'I don\'t really have a reflection practice',
+              insight: 'Most people don\'t. Start small: one question, one minute, one specific time of day. "What\'s one thing from today that I want to remember?" is enough to build the habit.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'rumination-vs-reflection',
+        title: 'Reflection vs. Rumination',
+        content: `<p>Reflection and rumination both involve thinking about the past — but they produce completely different outcomes:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You gave a presentation and stumbled on a key point. The client looked confused. You\'ve been thinking about it for two days. Which internal question is useful reflection?',
+          options: [
+            { text: '"Why do I always freeze under pressure? I\'m terrible at this."', isCorrect: false },
+            { text: '"What specifically made me stumble — and what would I change about how I prepared?"', isCorrect: true },
+          ],
+          explanation: 'The first assumes a fixed conclusion ("I\'m terrible") and replays the failure without examining it. That\'s rumination — it generates shame but no insight. The second is curious about a specific moment and asks what can change. Same event, completely different posture. Reflection produces learning. Rumination produces exhaustion.',
+        },
+      },
+      {
+        id: 'self-reflection-explorer',
+        title: 'The Right Kind of Self-Question',
+        content: `<p>How you ask yourself a question shapes what kind of answer you get:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'You made a mistake at work that caused a project delay.',
+          phrasings: [
+            {
+              text: '"Why am I so careless? Why does this keep happening to me?"',
+              consequence: 'Your brain searches for evidence of carelessness — and finds it. You spiral into a general story about who you are, rather than understanding what happened. Nothing improves.',
+              quality: 'poor',
+            },
+            {
+              text: '"What went wrong?"',
+              consequence: 'Better — but this often produces a surface answer: "I missed a step." It doesn\'t ask why, so it doesn\'t surface the root cause.',
+              quality: 'okay',
+            },
+            {
+              text: '"What specifically caused this — was it a knowledge gap, a process gap, or a communication gap?"',
+              consequence: 'Now your brain has a framework. You think it through and realize: it was a process gap — you didn\'t have a checklist. You build one. It doesn\'t happen again.',
+              quality: 'great',
+            },
+            {
+              text: '"What would I tell a close colleague to do differently if this happened to them?"',
+              consequence: 'Self-distancing removes the shame and activates problem-solving. You give clear, practical advice to your imaginary colleague. Then you take it.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'Self-reflection works best when it\'s specific, curious, and focused on learning — not blame. "What would I tell a friend?" is one of the most powerful self-reflection tools: it removes the emotional charge and lets you think clearly.',
         },
       },
       {
@@ -1040,6 +1537,54 @@ export const LESSONS = [
             { text: '"It\'s one year from now and this launch failed spectacularly. What went wrong?"', isCorrect: true },
           ],
           explanation: '"What risks should we consider?" keeps everyone in defensive mode — people don\'t want to sound pessimistic. The pre-mortem frames failure as a fact and asks for an explanation, which activates more honest, specific, and useful risk thinking.',
+        },
+      },
+      {
+        id: '5-whys-practice',
+        title: 'The 5 Whys in Practice',
+        content: `<p>The 5 Whys sounds simple — and it is, if you apply it correctly. The most common mistake is stopping at the first "why" that feels satisfying:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your team keeps missing weekly deadlines. You ask "Why?" and get: "People are overloaded." A manager says "Got it — we need to hire more people." What\'s the problem with stopping here?',
+          options: [
+            { text: 'Nothing — overload is a real problem and hiring solves it.', isCorrect: false },
+            { text: 'You\'ve stopped at a symptom. The 5 Whys would ask: why are people overloaded? And then why again.', isCorrect: true },
+          ],
+          explanation: 'Stopping at "people are overloaded" produces a clear action (hire). But dig one level deeper: overload comes from unclear priorities. One more level: unclear priorities come from too many projects being approved without capacity checks. The real fix isn\'t hiring — it\'s a better intake process. Hiring people into a broken system just makes the system more expensive.',
+        },
+      },
+      {
+        id: 'techniques-explorer',
+        title: 'Which Technique for Which Moment?',
+        content: `<p>These techniques are tools, not scripts. The right one depends entirely on context:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'A friend says: "I want to start my own business but I can\'t figure out how to get started. I\'ve been stuck for two years."',
+          phrasings: [
+            {
+              text: '5 Whys: "Why haven\'t you started? And why is that? And why is that?"',
+              consequence: 'They feel interrogated. The 5 Whys is powerful for systems analysis — but pointed at a person in a vulnerable moment, it feels like a cross-examination.',
+              quality: 'poor',
+            },
+            {
+              text: 'Reframe: "What\'s the smallest possible version of this business you could test in 30 days?"',
+              consequence: 'The question shifts from obstacle to possibility. "Smallest possible version" lowers the stakes. They stop thinking about everything they can\'t do and start thinking about one thing they could do this month.',
+              quality: 'great',
+            },
+            {
+              text: 'Miracle Question: "Imagine tomorrow you wake up and you\'ve already started. What\'s the first thing you notice that\'s different?"',
+              consequence: 'They pause. Then: "I guess I\'d have a website." Then: "And I\'d have had one conversation with a potential customer." Within five minutes they\'ve described their first three steps — they just couldn\'t see them while facing the wall of "the idea."',
+              quality: 'great',
+            },
+            {
+              text: 'Scaling: "On a scale of 1-10, how ready do you actually feel? And what would move you one point higher?"',
+              consequence: 'They say 4. You ask what a 5 would look like. "Probably having a clear niche." Now they have one actionable thing instead of a formless dream. Scaling collapses big abstract problems into one concrete next step.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'Each technique works — for different kinds of being stuck. Reframing: fixated on the obstacle. Miracle Question: can\'t imagine the path forward. Scaling: needs one concrete next step. Pre-mortem: before launching something big. Match the tool to the moment.',
         },
       },
       {
@@ -1192,6 +1737,65 @@ export const LESSONS = [
         },
       },
       {
+        id: 'judger-spiral',
+        title: 'The Judger Spiral',
+        content: `
+          <p>Here's what makes Judger mode so sticky: it feels like thinking. You're generating lots of thoughts, processing information, making connections. But the conclusions are predetermined — you're finding evidence for what you already believe.</p>
+          <p>The Judger spiral usually looks like this: something happens → you make an instant interpretation ("they don't respect me") → you find evidence that confirms it → you reinforce the story → you act from the story, not the situation.</p>
+          <p><strong>The break point is always at step two:</strong> the interpretation. That's the moment you have a choice. Not to suppress the feeling, but to notice it and ask: "Is this the only interpretation? What else might this mean?"</p>
+          <p>This isn't about being positive. It's about being <em>accurate</em>. Most first interpretations are not.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'switching-questions',
+        title: 'The Switching Questions',
+        content: `<p>The ABCC switch works — but you need the Learner questions ready. Which switch works best in this moment?</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You sent an important proposal two days ago. No response. Your internal Judger says: "They\'re ignoring me. This always happens. Why do I bother?" What\'s the Learner switch question?',
+          options: [
+            { text: '"What\'s wrong with me that I always overthink these things?"', isCorrect: false },
+            { text: '"What might be going on on their end that has nothing to do with me?"', isCorrect: true },
+          ],
+          explanation: 'The first is still Judger — just pointed inward. The Learner pivot asks about the other person\'s reality, not your story about it. They might be traveling, in a crisis, or the email landed in spam. You don\'t know. And "I don\'t know" is actually useful — it keeps you from making a decision based on a fiction.',
+        },
+      },
+      {
+        id: 'learner-judger-explorer',
+        title: 'The Same Situation, Two Paths',
+        content: `<p>Watch what happens to the same moment when you stay on the Judger path vs. switching to Learner:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'Your manager gives critical feedback on work you spent weeks on.',
+          phrasings: [
+            {
+              text: 'Judger (outward): "They never appreciate what I do. They\'re impossible to please."',
+              consequence: 'You stop trying as hard. You do just enough. Over six months your manager notices the decline — which confirms their original concern. The story became a self-fulfilling prophecy.',
+              quality: 'poor',
+            },
+            {
+              text: 'Judger (inward): "I\'m terrible at this. I should have known this wasn\'t good enough."',
+              consequence: 'You spiral into self-doubt and produce your worst work on the revision. The shame makes it impossible to think clearly about what actually needed to change.',
+              quality: 'poor',
+            },
+            {
+              text: 'Learner: "What specifically is the concern, and what does \'better\' look like to them?"',
+              consequence: 'You ask. They tell you. It\'s one specific thing — the executive summary. You fix it in an hour. The rest was fine. You\'d spent a week assuming it was everything.',
+              quality: 'great',
+            },
+            {
+              text: 'Learner: "What can I learn from this — and is there something about how I\'m working that I should reconsider?"',
+              consequence: 'You use the feedback as a signal, not a verdict. You realize your process doesn\'t include enough stakeholder alignment early on. You change it. The next project goes smoother.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The Judger path produces resentment (outward) or shame (inward) — neither is useful data. The Learner path produces questions, and questions produce information you can actually act on.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -1331,6 +1935,63 @@ export const LESSONS = [
         },
       },
       {
+        id: 'what-to-watch',
+        title: 'What to Watch and Where',
+        content: `
+          <p>Here's the counter-intuitive truth: the face is the <em>least</em> reliable indicator of someone's true feelings. We've managed our facial expressions since childhood. Instead, watch from the ground up.</p>
+          <p><strong>Feet (most honest):</strong> We rarely think about our feet, so they tell the truth. Pointed toward you = engaged. Pointed toward the door or exit = wanting to leave — even when their face is still smiling.</p>
+          <p><strong>Torso:</strong> Leaning in = interest. Leaning back or turning the body away = discomfort or disagreement. Shielding (arms crossed, bag held in front) = feeling vulnerable.</p>
+          <p><strong>Hands:</strong> Open palms = openness. Touching the neck or face = self-soothing, which signals discomfort. Hands hidden = worth noting.</p>
+          <p><strong>Face (use carefully):</strong> Compressed lips = stress or suppressed disagreement. The eyebrow flash = genuine recognition. A real smile reaches the eyes (crow's feet); a social smile is mouth-only.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'observation-questions',
+        title: 'Observation-Based Questions',
+        content: `<p>Once you can read signals, you unlock a new type of question — one based on what you observe, not just what you hear:</p>`,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: 'In a team meeting, someone goes very quiet after you share a plan. You say nothing and move forward.',
+          after: '"Before we move on — I want to make sure we\'re getting everyone\'s thinking. [Name], what\'s your take on this? I\'d love to hear any concerns."',
+          explanation: 'The first approach misses a signal that\'s probably visible to everyone in the room. The second doesn\'t call out their body language directly ("you seem uncomfortable") — it just creates an opening. You\'ve given them a dignified way to voice what their body was already saying. Often the quiet person\'s concern is the one that matters most.',
+        },
+      },
+      {
+        id: 'body-language-explorer',
+        title: 'What Is This Signal Telling You?',
+        content: `<p>Read the cluster and choose your response. Remember: one signal is a data point; a cluster is a pattern:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'You\'re discussing a project timeline with a colleague. They say "Sure, I can make that work" — but you notice: crossed arms, a mouth-only smile, and feet turned sideways.',
+          phrasings: [
+            {
+              text: 'Great. Move forward with the timeline.',
+              consequence: 'Two weeks later they tell you they\'re behind. The signals were there — you just didn\'t act on them. A missed early conversation cost you a missed deadline.',
+              quality: 'poor',
+            },
+            {
+              text: '"Your body language says you\'re not sure. What\'s the real issue?"',
+              consequence: 'They get defensive. "No, I\'m fine." Calling out body language directly puts people on the spot before they\'ve decided to trust you with it. The wall goes up.',
+              quality: 'poor',
+            },
+            {
+              text: '"I want to make sure this is actually workable for you. What would need to be true for this timeline to work without it being painful?"',
+              consequence: 'They say: "Honestly, if the design review slips by even a day, I\'m in trouble." Now you can actually solve it before it becomes a problem.',
+              quality: 'great',
+            },
+            {
+              text: '"Before we lock this in — is there anything about the timeline that feels tight from your end?"',
+              consequence: 'Softer, equally effective. You\'re giving them permission to say no without making it awkward. They say: "Can we push the first milestone by three days?" Problem solved before it started.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The signal told you something important. The skill is creating a question that lets them voice it without feeling watched or accused. You don\'t say "I saw your body language." You just make it safe to tell the truth.',
+        },
+      },
+      {
         id: 'reflect',
         title: 'Pause and Reflect',
         content: null,
@@ -1456,6 +2117,66 @@ export const LESSONS = [
           before: 'Judger response: "I don\'t believe you. What\'s actually going on?" You\'ve named the gap — but now they feel accused.',
           after: 'Learner response: "I\'m glad. And if anything comes up you want to think through — I\'m here. Is there anything on your mind that\'s been taking up space lately?"',
           explanation: 'You noticed the gap. You checked your mindset. You asked a question that made it safe to tell the truth — without making them feel watched. The Judger response gets defensiveness. The Learner response gets honesty.',
+        },
+      },
+      {
+        id: 'calibrating',
+        title: 'Calibrating Your Approach',
+        content: `
+          <p>Once you've observed someone's state, you calibrate. Here's the framework:</p>
+          <p><strong>Open and engaged</strong> (leaning in, eye contact): go deeper. "What's really driving that for you?" This is the moment for probing questions.</p>
+          <p><strong>Guarded or tense</strong> (crossed arms, leaning back): soften first. "Can I ask you something about that?" or "I'd love your honest take, even if it disagrees with mine." Create safety before creating depth.</p>
+          <p><strong>Anxious or overwhelmed</strong> (fidgeting, voice changes): slow down. "This seems like a lot. What would be most helpful right now?" — offers a choice, doesn't press.</p>
+          <p><strong>Checked out or distant</strong> (minimal response, looking away): re-engage with something unexpected. "What part of this is most relevant to what you're actually dealing with?" breaks the autopilot pattern.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'scenarios-mc',
+        title: 'Reading the Room in Real Time',
+        content: `<p>Apply the full loop to a real moment:</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You\'re running a meeting and two people who usually contribute haven\'t said a word. They\'re both looking slightly away, expressions neutral. What\'s the best move?',
+          options: [
+            { text: 'Nothing — they\'re probably just tired. Keep moving through the agenda.', isCorrect: false },
+            { text: '"I want to make sure we\'re getting everyone\'s thinking before we lock this in. What are we not seeing?" — directed to the room, not just them.', isCorrect: true },
+          ],
+          explanation: 'Silence from people who usually contribute is a signal worth reading. But singling them out ("Marcus, you\'re quiet") can feel like a spotlight they didn\'t ask for. Opening the question to the room gives everyone permission to surface concerns, while implicitly inviting those who haven\'t spoken. It often draws out the exact perspective that was missing.',
+        },
+      },
+      {
+        id: 'read-the-room-explorer',
+        title: 'The Same Room, Different Reads',
+        content: `<p>You have a 1-on-1 with someone who seems off. They say everything is fine. See what each response creates:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'Your direct report says "Everything\'s good, no issues" — but their voice is flat, there\'s no eye contact, and they answered faster than usual.',
+          phrasings: [
+            {
+              text: '"Great, sounds like we\'re on track. Anything else before we close?"',
+              consequence: 'They say no. Meeting ends. Three days later they send a resignation letter. You had the signal and didn\'t act on it. The conversation you didn\'t have became the conversation you can\'t have now.',
+              quality: 'poor',
+            },
+            {
+              text: '"You don\'t seem like yourself today. What\'s going on?"',
+              consequence: 'They bristle slightly. "I\'m fine." Direct observation sometimes works — but naming what you see puts them on the defensive before they\'ve decided to trust you with it.',
+              quality: 'okay',
+            },
+            {
+              text: '"Before we close — is there anything about your work right now that\'s feeling less good, or anything you need from me that you\'re not getting?"',
+              consequence: 'Pause. Then: "Actually — yeah. I\'ve been feeling disconnected from the bigger picture lately." Now you\'re in the real conversation. You wouldn\'t have gotten there without asking.',
+              quality: 'great',
+            },
+            {
+              text: '"How are things going — and I mean really, not just the project status."',
+              consequence: 'They smile slightly. "You noticed." Then they tell you what\'s been going on. The warmth of the question — the signal that you actually want to know — was the thing that opened it.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'When words and body don\'t match, the body is usually closer to the truth. Your job isn\'t to call out the gap — it\'s to make it safe enough that they choose to close it themselves.',
         },
       },
       {
@@ -1594,6 +2315,51 @@ export const LESSONS = [
             { text: '"Quitting?"', isCorrect: true },
           ],
           explanation: 'Asking three questions at once sends them to the easiest or last one — not necessarily the most important. The single-word mirror ("Quitting?") opens the space without directing where they go. They\'ll go where it matters most to them.',
+        },
+      },
+      {
+        id: 'echo-expand',
+        title: 'The Echo-and-Expand Technique',
+        content: `
+          <p>Echo-and-expand combines mirroring with a question that opens a specific door. You reflect back what was said, then invite one layer deeper:</p>
+          <p>"You mentioned feeling stuck — <em>what does stuck look like for you day to day?</em>"</p>
+          <p>"You said the team dynamic shifted — <em>what changed, and when did you first notice it?</em>"</p>
+          <p>"You described it as exhausting — <em>what part drains you the most?</em>"</p>
+          <p>Each of these says: <em>I heard you, I remember your exact words, and I want to understand more deeply.</em> The key phrases are "you mentioned / you said / you described" — they anchor in their words, not yours, which feels different from a generic "tell me more."</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'followup-explorer',
+        title: 'Which Follow-Up Opens It Most?',
+        content: `<p>Someone says: "I've just been really in my head lately." Four possible follow-ups — watch what each draws out:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: '"I\'ve just been really in my head lately."',
+          phrasings: [
+            {
+              text: '"Oh, me too! I\'ve been so stressed. What\'s going on?"',
+              consequence: 'You\'ve made it about yourself before they\'ve said anything. The "me too" validates but redirects. Then the question comes too fast — they feel they have to catch up to your energy.',
+              quality: 'poor',
+            },
+            {
+              text: '"Are you okay? What\'s wrong?"',
+              consequence: 'Caring, but leading. "What\'s wrong" assumes something is wrong — maybe they\'re in their head about something exciting. The closed question usually gets "yeah, I\'m fine."',
+              quality: 'okay',
+            },
+            {
+              text: '"In your head?" [pause]',
+              consequence: 'The mirror. One phrase, slight upward inflection. They fill the space. "Yeah, like... I have this decision I\'ve been avoiding and I can\'t stop thinking about it." You said almost nothing — and got everything.',
+              quality: 'great',
+            },
+            {
+              text: '"You mentioned being in your head — what\'s been taking up the most space?"',
+              consequence: 'Echo-and-expand. You\'ve anchored in their phrase, then opened a specific door. "Most space" makes them prioritize — and the thing they name first is usually the real thing.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The best follow-ups don\'t add much. They reflect back, create space, and open one door. The more you say, the more you steer. The less you say — with real intention — the more they go where they actually need to go.',
         },
       },
       {
@@ -1736,6 +2502,51 @@ export const LESSONS = [
             { text: '"That\'s a real blow after all the work you put in. How are you doing with it?"', isCorrect: true },
           ],
           explanation: '"At least" is a minimizing move — it implies their feelings are disproportionate. It\'s often meant kindly but lands as dismissal. The second response validates that this is hard (it is), acknowledges their effort, and then asks how they\'re actually feeling — which might be relief, devastation, anger, or all three.',
+        },
+      },
+      {
+        id: 'perspective-taking',
+        title: 'Perspective-Taking Questions',
+        content: `
+          <p>Perspective-taking is the cognitive side of empathy — actively imagining what another person might be thinking or feeling from their vantage point, not yours.</p>
+          <p><strong>For understanding someone's experience:</strong> "What has this been like for you, day to day?" "What's the part of this that most people wouldn't see from the outside?"</p>
+          <p><strong>For helping them take someone else's perspective:</strong> "What do you think they were feeling when that happened?" "If you were in their position, what would matter most to you?"</p>
+          <p><strong>For checking your own blind spots:</strong> "What might I be missing about your experience?" "What would you want someone to understand about this that they probably don't?"</p>
+          <p>The goal isn't to solve anything — it's to see more. When someone feels genuinely seen, the conversation opens in ways no advice could.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'empathy-explorer',
+        title: 'Empathy in Action',
+        content: `<p>A friend has canceled plans for the third time in a row. Each response approaches it differently — watch what each creates:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'A friend has canceled plans for the third time in a row.',
+          phrasings: [
+            {
+              text: '"Seriously? Again? I feel like you don\'t want to see me."',
+              consequence: 'Your hurt is real — but leading with accusation puts them on the defensive before they can explain anything. They apologize stiffly and you feel worse, not better.',
+              quality: 'poor',
+            },
+            {
+              text: '"It\'s fine, don\'t worry about it." [You\'re actually frustrated but say nothing.]',
+              consequence: 'The relationship suffers quietly. They don\'t know you\'re hurt. You don\'t know what\'s going on with them. Distance grows from a series of "it\'s fine"s that weren\'t.',
+              quality: 'poor',
+            },
+            {
+              text: '"Hey, I\'ve noticed we\'ve had trouble connecting lately — are you okay? I wanted to check in."',
+              consequence: 'You\'ve put their wellbeing first. They pause. Then they tell you they\'ve been struggling with something. The cancellations weren\'t about you at all.',
+              quality: 'great',
+            },
+            {
+              text: '"I miss seeing you. Is everything okay? What\'s been going on for you?"',
+              consequence: 'You\'ve led with warmth instead of frustration. They feel cared for instead of accused. They open up. You discover they needed someone to ask.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The most empathetic questions lead with curiosity about the other person\'s experience — not your reaction to their behavior. "Are you okay?" before "why did you?" changes the entire emotional register of the conversation.',
         },
       },
       {

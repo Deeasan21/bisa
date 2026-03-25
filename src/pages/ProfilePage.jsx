@@ -18,7 +18,7 @@ function AnimatedNumber({ value, duration = 800 }) {
 
   useEffect(() => {
     const start = 0;
-    const end = value;
+    const end = (typeof value === 'number' && isFinite(value)) ? value : 0;
     const startTime = performance.now();
 
     function animate(now) {
