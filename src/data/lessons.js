@@ -1,5 +1,153 @@
 export const LESSONS = [
   {
+    id: 0,
+    title: "What Is a Question?",
+    skillCategory: 'Open vs. Closed',
+    difficultyTier: 'beginner',
+    tier: 1,
+    content: `
+      <h2>Lesson 0: What Is a Question?</h2>
+      <p class="intro">The app you're holding is named <strong>Bisa</strong> — a Twi word from the Akan people of Ghana. It means: <em>to ask.</em> Before we teach you how to ask better, we want to pause on something most people never stop to consider. What is a question, really?</p>
+      <section class="lesson-section">
+        <h3>A Question Is an Invitation</h3>
+        <p>A question is an invitation. It is a signal sent from one mind to another — or from your mind to itself — that says: <em>I don't know yet, and I believe something valuable can be found.</em></p>
+        <p>In Twi, there is a concept captured in the word <strong>tie</strong> — to listen, to truly hear. Every real question carries an implicit act of <em>tie</em>: you are making space to receive something you do not already have.</p>
+        <p>That openness is what separates a question from a statement dressed up in question-clothing.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>Three Things That Make It Real</h3>
+        <p>Not everything shaped like a question actually is one. A real question has three qualities:</p>
+        <ul>
+          <li><strong>Openness</strong> — the asker genuinely does not know the answer they want yet</li>
+          <li><strong>Invitation</strong> — it creates space for another mind (or your own) to respond freely</li>
+          <li><strong>Curiosity</strong> — there is real interest in what comes back, whatever it turns out to be</li>
+        </ul>
+        <p>The Akan proverb says: <em>"Nyansa</em> (wisdom) <em>does not live in one head."</em> A real question is an acknowledgment of this — that the person you're asking has something you need.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>The Invitation You Extend</h3>
+        <p>Think about what it feels like when someone asks you a question and you can tell they already have the answer they want. They're not asking — they're pushing. You feel it immediately.</p>
+        <p>Now think about the opposite: someone asks "Wo ho te sɛn?" — the Twi phrase for "how are you?", which translates literally as "how is your body?" — and they actually pause and wait for your answer. That pause is everything. It is the invitation made physical.</p>
+        <p>Good questions work this way. They do not rush toward a destination. They open a door and stand back.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>What Bisa Will Teach You</h3>
+        <p>Over the coming lessons, you will learn to:</p>
+        <ul>
+          <li>Tell real questions from fake ones</li>
+          <li>Ask questions that open rather than close</li>
+          <li>Use questions to understand, connect, challenge, and create</li>
+          <li>Ask the questions most people never think to ask — including the ones you need to ask yourself</li>
+        </ul>
+        <p>The Akan say: <strong><em>"Ɔbɛyɛ papa"</em></strong> — it will be good. The practice of asking well is a practice of becoming more human. Let's begin.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>The Difference That Will Change Everything</h3>
+        <ul>
+          <li><strong>A statement</strong> says: here is what I know</li>
+          <li><strong>A real question</strong> says: here is what I want to understand</li>
+          <li><strong>A fake question</strong> says: here is what I already think — please agree with me</li>
+        </ul>
+        <p>Most people spend their lives asking the third kind. Bisa is here to change that.</p>
+      </section>
+    `,
+    sections: [
+      {
+        id: 'the-invitation',
+        title: 'A Question Is an Invitation',
+        content: `
+          <p>The app you're using is named <strong>Bisa</strong> — a Twi word from the Akan people of Ghana that means: <em>to ask.</em></p>
+          <p>Before learning how to ask better, it's worth pausing on what a question actually is. Most people never stop to consider it.</p>
+          <p><strong>A question is an invitation.</strong> It's a signal sent from one mind to another — or from your mind to itself — that says: <em>I don't know yet, and I believe something valuable can be found here.</em></p>
+          <p>In Twi, <strong>tie</strong> means to truly listen, to hear with full attention. Every real question carries an act of <em>tie</em> inside it: you are making space to receive something you don't already have.</p>
+          <p>That openness is what separates a real question from a statement dressed up in question-clothing.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'three-qualities',
+        title: 'What Makes a Question Real',
+        content: `
+          <p>Not everything shaped like a question actually is one. A real question has three qualities:</p>
+          <ul>
+            <li><strong>Openness</strong> — the asker doesn't know the answer they want yet</li>
+            <li><strong>Invitation</strong> — it creates space for another mind to respond freely</li>
+            <li><strong>Curiosity</strong> — there's genuine interest in whatever comes back</li>
+          </ul>
+          <p>The Akan proverb says: <em>"<strong>Nyansa</strong> does not live in one head."</em> Nyansa means wisdom. A real question is an acknowledgment of this — that the person you're asking has something you need. Watch the difference:</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"Don\'t you think we should just go with Option A?"',
+          after: '"We\'ve looked at a few options — what\'s pulling you toward one over the others?"',
+          explanation: 'The first question is a statement in disguise. It has no openness, no real invitation — it\'s pushing toward Option A while wearing a question mark. The second is genuinely open: it doesn\'t telegraph a preferred answer, and it creates room for the other person\'s actual thinking to come through. That\'s the invitation.',
+        },
+      },
+      {
+        id: 'real-vs-fake',
+        title: 'Real Questions vs. Fake Questions',
+        content: `
+          <p>Think about what it feels like when someone asks you a question and you can tell they already have the answer they want. You feel it immediately — they're not asking, they're pushing.</p>
+          <p>Now imagine someone asks you <strong>"Wo ho te sɛn?"</strong> — the Twi phrase for "how are you?", which translates literally as "how is your body?" — and they actually pause and wait. That pause is everything. It is the invitation made real.</p>
+          <p>Which of these is actually a question?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'Your teammate just finished a project. You want to know how it went.',
+          options: [
+            { text: '"That went pretty well, right? You must be relieved."', isCorrect: false },
+            { text: '"Now that it\'s done — how do you feel about how it went?"', isCorrect: true },
+          ],
+          explanation: 'The first tells them how to feel ("relieved") and assumes success ("pretty well"). There\'s no real invitation — just a nudge toward agreement. The second doesn\'t predict anything. It opens the door and stands back. That\'s a real question.',
+        },
+      },
+      {
+        id: 'question-explorer',
+        title: 'The Same Moment, Three Ways',
+        content: `
+          <p>Watch how the same situation plays out depending on whether you ask a fake question, a surface question, or a real one:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'A friend says they\'re thinking about quitting their job.',
+              response: '"You\'re not seriously going to quit, are you? That\'s a huge risk."',
+              outcome: 'They feel judged and get defensive. The conversation closes. You learn nothing about what they\'re actually going through.',
+            },
+            {
+              label: 'okay',
+              situation: 'A friend says they\'re thinking about quitting their job.',
+              response: '"Why do you want to quit?"',
+              outcome: 'They give a surface answer — "I\'m just burnt out." You got a response but not the real conversation.',
+            },
+            {
+              label: 'great',
+              situation: 'A friend says they\'re thinking about quitting their job.',
+              response: '"What\'s been building up that\'s brought you to this point?"',
+              outcome: 'They open up. The question acknowledged something has been happening over time — it invited the real story, not just a headline.',
+            },
+          ],
+          takeaway: 'The best questions don\'t push toward an answer. They hold space for one. In Twi: <strong>tie</strong> — listen first, then ask from what you heard.',
+        },
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think about the questions you asked people today — or the questions you asked yourself. Were they real invitations, or were they statements in disguise? What\'s one question you wish you had asked differently?',
+        },
+      },
+    ],
+  },
+  {
     id: 1,
     title: "Why Questions Matter",
     skillCategory: 'Open vs. Closed',
