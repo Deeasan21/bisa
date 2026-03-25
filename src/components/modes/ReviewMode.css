@@ -2,11 +2,12 @@
   min-height: 100dvh;
   background: var(--bg-primary);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .review-content {
   padding: var(--space-md);
+  padding-bottom: 80px;
   position: relative;
   z-index: 1;
 }

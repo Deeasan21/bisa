@@ -181,7 +181,7 @@ export default function ReviewMode() {
             {/* 3D Flip Card */}
             <div
               className={`review-card-3d${showAnswer ? ' flipped' : ''}${transitioning ? ' card-exit' : ''}`}
-              onClick={() => !showAnswer && !transitioning && setShowAnswer(true)}
+              onClick={() => !transitioning && setShowAnswer(v => !v)}
             >
               <div className="review-card-inner">
                 <div className="review-card-front-face">
