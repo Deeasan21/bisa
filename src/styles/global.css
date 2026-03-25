@@ -77,6 +77,42 @@ ul, ol {
   border-radius: var(--radius-full);
 }
 
+/* Skip to main content — accessibility */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--text-primary, #1C1917);
+  color: var(--bg-primary, #FAFAF9);
+  font-size: 0.875rem;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-to-main:focus {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* Focus visible — keyboard navigation indicator */
+:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* App root */
 #root {
   min-height: 100vh;

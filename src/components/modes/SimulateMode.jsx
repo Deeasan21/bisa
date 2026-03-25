@@ -527,8 +527,9 @@ export default function SimulateMode() {
               className="sim-free-send"
               onClick={handleFreeTextSubmit}
               disabled={!userInput.trim()}
+              aria-label="Submit response"
             >
-              <PencilSimple size={18} weight="bold" />
+              <PencilSimple size={18} weight="bold" aria-hidden="true" />
             </button>
           </div>
           {aiError && <p className="sim-ai-error">{aiError}</p>}

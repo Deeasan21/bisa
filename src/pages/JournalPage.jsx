@@ -136,8 +136,9 @@ export default function JournalPage() {
           <button
             className="journal-toggle-btn"
             onClick={() => setShowForm(!showForm)}
+            aria-label={showForm ? 'Close form' : 'New journal entry'}
           >
-            {showForm ? <X size={20} weight="bold" /> : <Plus size={20} weight="bold" />}
+            {showForm ? <X size={20} weight="bold" aria-hidden="true" /> : <Plus size={20} weight="bold" aria-hidden="true" />}
           </button>
         )}
       </div>
@@ -325,8 +326,8 @@ export default function JournalPage() {
                       </div>
                     )}
                     {entry.reflection && <p className="entry-reflection">{entry.reflection}</p>}
-                    <button className="entry-delete" onClick={() => handleDelete(entry.id)}>
-                      <Trash size={16} />
+                    <button className="entry-delete" onClick={() => handleDelete(entry.id)} aria-label="Delete entry">
+                      <Trash size={16} aria-hidden="true" />
                     </button>
                   </div>
                 </Card>

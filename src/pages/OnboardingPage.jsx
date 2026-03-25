@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
+import { STORAGE_KEYS } from '../lib/constants';
 import './OnboardingPage.css';
 
 export default function OnboardingPage() {
@@ -11,7 +12,7 @@ export default function OnboardingPage() {
   const TOTAL_SLIDES = 3;
 
   const goToAuth = () => {
-    localStorage.setItem('bisa-intro-seen', 'true');
+    localStorage.setItem(STORAGE_KEYS.INTRO_SEEN, 'true');
     navigate('/auth', { replace: true });
   };
 

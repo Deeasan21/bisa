@@ -20,14 +20,16 @@ export default function BottomTabBar() {
   };
 
   return (
-    <nav className="bottom-tab-bar">
+    <nav className="bottom-tab-bar" aria-label="Main navigation" role="navigation">
       {TABS.map(({ path, label, icon: Icon }) => (
         <button
           key={path}
           className={`tab-item${isActive(path) ? ' tab-active' : ''}`}
           onClick={() => navigate(path)}
+          aria-label={`Navigate to ${label}`}
+          aria-current={isActive(path) ? 'page' : undefined}
         >
-          <Icon size={24} weight={isActive(path) ? 'fill' : 'regular'} />
+          <Icon size={24} weight={isActive(path) ? 'fill' : 'regular'} aria-hidden="true" />
           <span className="tab-label">{label}</span>
         </button>
       ))}

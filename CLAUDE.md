@@ -81,33 +81,32 @@ All scenarios: `pack: "pack-key"` field, 4–6 node depth, branching with qualit
 
 ## Future Roadmap
 
-### Phase 3: User Accounts & Cloud Sync — IN PROGRESS
+### Phase 3: User Accounts & Cloud Sync — COMPLETE
 - [x] Supabase Auth — email/password signup with 8-digit OTP email verification
 - [x] Auth flow: `/auth` → `/verify` (OTP) → `/welcome` (display name) → `/`
 - [x] `useAuth` hook — signIn, signUp, signOut, user session
 - [x] `useSupabaseDB` hook — wraps all DB ops for Supabase Postgres
 - [x] Profile page wired to Supabase
-- [ ] Google OAuth
-- [ ] Full cross-device sync (data currently tied to account but not fully synced across devices)
-- [ ] Data export (JSON/CSV)
-- [ ] Offline-first with sync
+- [x] Google OAuth — sign-in button on AuthPage, `signInWithGoogle()` in useAuth (requires Google provider enabled in Supabase dashboard)
+- [x] Full sql.js → Supabase migration (cross-device sync) — completed March 18, commit fc52779
+- [x] Data export (JSON/CSV) — Profile page export buttons for all user data (`src/utils/exportData.js`, `db.exportAllData()`)
+- [x] Offline-first with sync — React Query persisted to IndexedDB via `idb-keyval`, `onlineManager` wired to browser events, `OfflineBanner` component shows connectivity status, auto-refetch on reconnect
 
 **Known bugs (open):**
 
-1. ~~**SimulateMode crashes on category filter**~~ — **FIXED** (inline useMemo tier filtering, no filterByDifficulty call)
+1. ~~**SimulateMode crashes on category filter**~~ — **FIXED** (category filter uses `useMemo` + `db.getCurrentTier()` in `useEffect`; no `filterByDifficulty()` call exists)
 
-2. ~~**PatternMode calls non-existent getPatternStats(db)**~~ — **FIXED** (now `db.getPatternStats()` in a useEffect)
+2. ~~**PatternMode calls non-existent getPatternStats(db)**~~ — **FIXED** (already calls `db.getPatternStats()` in a proper `useEffect` with state)
 
 3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (`src/pages/ProfilePage.jsx` line 109)
 
 4. ~~**Dead signOut import in AppShell**~~ — **FIXED**
 
-5. **OTP emails delivered but not received** — Resend shows "Delivered" but users report not getting codes. Root cause: Gmail spam/promotions filtering.
-   - Fix: Check SPF/DKIM/DMARC are all green in Resend → Domains for `neaobisa.com`
-   - Fix: Change email subject from "Your Bisa verification code" (spam trigger) to something like "Confirm your Bisa account" — edit in Supabase Dashboard → Authentication → Email Templates
-   - Workaround: Manually confirm users in Supabase → Authentication → Users
+5. ~~**Supabase email delivery — OTP emails not arriving**~~ — **FIXED** (DMARC DNS record was missing on `neaobisa.com`; added the record, domain fully verified in Resend, OTP emails now land in inbox via custom SMTP `hello@mail.neaobisa.com`)
 
-6. **Skill area scores show 0%** on Progress page — `user_scores` table is empty for users who haven't used Practice Mode specifically. XP comes from all activities but category scores only record on practice attempts. Not a bug per se — users need to use Practice Mode to populate skill bars.
+**Note:** All 5 bugs are resolved. The Vitest test infrastructure is set up (`vitest.config.js`, `src/__tests__/`), including component tests.
+
+**Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
 
 ### Phase 4: Analytics & Insights
 - Anonymous usage analytics (PostHog or Mixpanel)

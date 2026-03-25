@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
@@ -29,43 +30,51 @@ const SKILL_CATEGORIES = [
 export default function ProgressPage() {
   const { db, isReady } = useSupabaseDB();
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(null);
-  const [xp, setXp] = useState(0);
-  const [bpqData, setBpqData] = useState({ score: 0, level: 'Curious Beginner', categoryScores: {} });
-  const [insights, setInsights] = useState({ strongest: null, weakest: null });
-  const [weekXP, setWeekXP] = useState(0);
 
-  useEffect(() => {
-    if (!isReady || !db) return;
-    (async () => {
-      const prog = await db.getOverallProgress();
-      setProgress(prog);
-      setXp(prog.totalXP);
-      setWeekXP(await db.getWeeklyXP());
+  const enabled = isReady && !!db;
 
-      // Derive a simple BPQ from practice average (0-1000 scale)
-      const bpqScore = Math.round(((prog.averagePracticeScore || 0) / 100) * 1000 * 0.6 +
-        Math.min(prog.totalPracticeAttempts || 0, 100) * 2 +
-        Math.min(prog.currentStreak || 0, 30) * 6.67);
-      const clampedBpq = Math.min(1000, bpqScore);
-      setBpqData({ score: clampedBpq, level: getBPQLevel(clampedBpq), categoryScores: {} });
+  const { data: progress } = useQuery({
+    queryKey: ['overallProgress'],
+    queryFn: () => db.getOverallProgress(),
+    enabled,
+    placeholderData: null,
+  });
 
-      // Get insights from Supabase-backed recommendations
-      const recs = await db.getRecommendations();
-      const strongCat = recs.strongestCategory
-        ? SKILL_CATEGORIES.find(c => c.key === recs.strongestCategory) || null
-        : null;
-      const weakCat = recs.weakestCategory
-        ? SKILL_CATEGORIES.find(c => c.key === recs.weakestCategory) || null
-        : null;
-      setInsights({ strongest: strongCat, weakest: weakCat });
-    })();
-  }, [db, isReady]);
+  const { data: weekXP } = useQuery({
+    queryKey: ['weeklyXP'],
+    queryFn: () => db.getWeeklyXP(),
+    enabled,
+    placeholderData: 0,
+  });
+
+  const { data: recommendations } = useQuery({
+    queryKey: ['recommendations'],
+    queryFn: () => db.getRecommendations(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const xp = progress?.totalXP || 0;
+
+  // Derive BPQ from progress
+  const bpqScore = progress ? Math.min(1000, Math.round(
+    ((progress.averagePracticeScore || 0) / 100) * 1000 * 0.6 +
+    Math.min(progress.totalPracticeAttempts || 0, 100) * 2 +
+    Math.min(progress.currentStreak || 0, 30) * 6.67
+  )) : 0;
+  const bpqData = { score: bpqScore, level: getBPQLevel(bpqScore), categoryScores: {} };
+
+  // Derive insights from recommendations
+  const strongest = recommendations?.strongestCategory
+    ? SKILL_CATEGORIES.find(c => c.key === recommendations.strongestCategory) || null
+    : null;
+  const weakest = recommendations?.weakestCategory
+    ? SKILL_CATEGORIES.find(c => c.key === recommendations.weakestCategory) || null
+    : null;
 
   const level = calculateLevel(xp);
   const league = calculateLeague(xp);
   const bpq = Math.round(bpqData.score / 10); // Scale 0-1000 → 0-100 for ScoreGauge
-  const { strongest, weakest } = insights;
 
   return (
     <div className="progress-page animate-fade-in">

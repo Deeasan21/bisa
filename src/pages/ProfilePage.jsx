@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
+import { useQuery } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useAuth } from '../hooks/useAuth';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
+import { STORAGE_KEYS } from '../lib/constants';
 import Card from '../components/common/Card';
+import { downloadJSON, downloadCSV } from '../utils/exportData';
 import './ProfilePage.css';
 
 function AnimatedNumber({ value, duration = 800 }) {
@@ -42,29 +45,57 @@ function getPhosphorIcon(name) {
 export default function ProfilePage() {
   const { db, isReady } = useSupabaseDB();
   const { signOut } = useAuth();
-  const [profile, setProfile] = useState(null);
-  const [xp, setXp] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [unlocked, setUnlocked] = useState([]);
-  const [weekXP, setWeekXP] = useState(0);
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
-  const [progress, setProgress] = useState(null);
+  const [exporting, setExporting] = useState(false);
+
+  const enabled = isReady && !!db;
+
+  const { data: profile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => db.getProfile(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: xp } = useQuery({
+    queryKey: ['totalXP'],
+    queryFn: () => db.getTotalXP(),
+    enabled,
+    placeholderData: 0,
+  });
+
+  const { data: streak } = useQuery({
+    queryKey: ['streak'],
+    queryFn: async () => (await db.getStreakInfo()).currentStreak,
+    enabled,
+    placeholderData: 0,
+  });
+
+  const { data: unlocked } = useQuery({
+    queryKey: ['unlockedAchievements'],
+    queryFn: async () => (await db.getUnlockedAchievements()).map(a => a.achievement_id),
+    enabled,
+    placeholderData: [],
+  });
+
+  const { data: progress } = useQuery({
+    queryKey: ['overallProgress'],
+    queryFn: () => db.getOverallProgress(),
+    enabled,
+    placeholderData: null,
+  });
+
+  const { data: weekXP } = useQuery({
+    queryKey: ['weeklyXP'],
+    queryFn: () => db.getWeeklyXP(),
+    enabled,
+    placeholderData: 0,
+  });
 
   useEffect(() => {
-    if (!isReady || !db) return;
-    (async () => {
-      const p = await db.getProfile();
-      setProfile(p);
-      setNameInput(p?.display_name || 'Learner');
-      setXp(await db.getTotalXP());
-      const streakInfo = await db.getStreakInfo();
-      setStreak(streakInfo.currentStreak);
-      setUnlocked((await db.getUnlockedAchievements()).map(a => a.achievement_id));
-      setProgress(await db.getOverallProgress());
-      setWeekXP(await db.getWeeklyXP());
-    })();
-  }, [db, isReady]);
+    if (profile && !nameInput) setNameInput(profile.display_name || 'Learner');
+  }, [profile]);
 
   const handleSaveName = async () => {
     if (!db || !nameInput.trim()) return;
@@ -103,10 +134,25 @@ export default function ProfilePage() {
 
   const recommendation = getRecommendation();
 
+  const handleExport = async (format) => {
+    if (!db || exporting) return;
+    setExporting(true);
+    try {
+      const data = await db.exportAllData();
+      if (!data) return;
+      if (format === 'json') downloadJSON(data, displayName);
+      else downloadCSV(data, displayName);
+    } catch (e) {
+      console.error('Export failed:', e);
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem('bisa-intro-seen');
-      localStorage.removeItem('bisa-onboarding-done');
+      localStorage.removeItem(STORAGE_KEYS.INTRO_SEEN);
+      localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
       await signOut();
     } catch (e) {
       console.error('Sign out failed:', e);
@@ -209,6 +255,37 @@ export default function ProfilePage() {
           );
         })}
       </div>
+
+      {/* Data Export */}
+      <Card padding="md">
+        <div className="export-section">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+            <Export size={20} color="var(--text-secondary)" />
+            <h3 style={{ margin: 0 }}>Export Your Data</h3>
+          </div>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0 0 12px' }}>
+            Download all your progress, journal entries, and practice history.
+          </p>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button
+              onClick={() => handleExport('json')}
+              disabled={exporting}
+              className="export-btn"
+            >
+              <FileJs size={18} />
+              {exporting ? 'Exporting…' : 'JSON'}
+            </button>
+            <button
+              onClick={() => handleExport('csv')}
+              disabled={exporting}
+              className="export-btn"
+            >
+              <FileCsv size={18} />
+              {exporting ? 'Exporting…' : 'CSV'}
+            </button>
+          </div>
+        </div>
+      </Card>
 
       <button
         onClick={handleSignOut}

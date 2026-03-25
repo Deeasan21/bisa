@@ -1,12 +1,9 @@
 /**
  * System 7: XP Award Rules
  *
- * Centralized XP calculation and awarding with level progression.
- * Replaces the simple XP_AWARDS constants with dynamic calculations.
+ * Centralized XP calculation with level progression.
+ * Pure functions only — database operations are in useSupabaseDB.
  */
-
-import { checkLeaguePromotion, updateWeeklyTracking } from './leagues';
-import { saveBPQSnapshot } from './bpqScore';
 
 /**
  * XP award calculations
@@ -100,68 +97,3 @@ export function calculateLevel(totalXP) {
   return { ...current, progress, nextLevel, totalXP };
 }
 
-/**
- * Get total XP from database
- */
-export function getTotalXP(db) {
-  if (!db) return 0;
-  const result = query(db, "SELECT COALESCE(SUM(xp_amount), 0) as total FROM xp_log");
-  return result.length > 0 ? result[0].total : 0;
-}
-
-/**
- * Award XP and check for level-ups and league promotions
- *
- * @returns {{ xpAwarded, totalXP, levelUp, leaguePromotion, newLevel }}
- */
-export function awardXP(db, activityType, amount, description) {
-  if (!db || amount <= 0) return null;
-
-  const oldXP = getTotalXP(db);
-  const oldLevel = calculateLevel(oldXP);
-
-  // Insert XP log entry
-  runStmt(db,
-    "INSERT INTO xp_log (activity_type, xp_amount, description, created_at) VALUES (?, ?, ?, datetime('now'))",
-    [activityType, amount, description || null]
-  );
-
-  // Update user_stats
-  const newXP = oldXP + amount;
-  runStmt(db, "UPDATE user_stats SET total_xp = ?, weekly_xp = weekly_xp + ? WHERE id = 1", [newXP, amount]);
-
-  saveDatabase(db);
-
-  // Check for level up
-  const newLevel = calculateLevel(newXP);
-  const levelUp = newLevel.level > oldLevel.level ? newLevel : null;
-
-  // Check for league promotion
-  const leaguePromotion = checkLeaguePromotion(db, newXP);
-
-  // Update weekly tracking
-  updateWeeklyTracking(db);
-
-  // Save BPQ snapshot (updates once per award)
-  saveBPQSnapshot(db);
-
-  return {
-    xpAwarded: amount,
-    totalXP: newXP,
-    levelUp,
-    leaguePromotion,
-    newLevel,
-  };
-}
-
-/**
- * Get XP earned today
- */
-export function getTodayXP(db) {
-  if (!db) return 0;
-  const today = new Date().toISOString().split('T')[0];
-  const result = query(db,
-    `SELECT COALESCE(SUM(xp_amount), 0) as total FROM xp_log WHERE date(created_at) = '${today}'`
-  );
-  return result.length > 0 ? result[0].total : 0;
-}

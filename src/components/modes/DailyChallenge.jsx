@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, CheckCircle, Clock, Timer, PaperPlaneTilt, Sparkle, Robot } from '@phosphor-icons/react';
+import { Fire, CheckCircle, Clock, Timer, PaperPlaneTilt, Sparkle, Robot, CaretDown } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { BURST_CHALLENGES, getTodaysBurst } from '../../data/burstChallenges';
@@ -66,6 +66,7 @@ export default function DailyChallenge() {
   const [aiCoaching, setAiCoaching] = useState(null);
   const [aiCoachingLoading, setAiCoachingLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [expandedHistory, setExpandedHistory] = useState(null);
   const inputRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -149,7 +150,7 @@ export default function DailyChallenge() {
 
     // 1. Save the burst to challenge_history
     try {
-      await db.saveBurstCompletion(todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore);
+      await db.saveBurstCompletion(todayStr, 'Question Burst', scenario.character + ': ' + scenario.situation.slice(0, 50), currentQuestions, results.totalScore, results);
     } catch (err) {
       console.error('Failed to save burst completion:', err);
     }
@@ -351,8 +352,9 @@ export default function DailyChallenge() {
                 className="burst-send"
                 onClick={handleSubmitQuestion}
                 disabled={!currentInput.trim()}
+                aria-label="Submit question"
               >
-                <PaperPlaneTilt size={18} weight="bold" />
+                <PaperPlaneTilt size={18} weight="bold" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -483,26 +485,108 @@ export default function DailyChallenge() {
         {(phase === 'ready' || phase === 'completed') && history.length > 0 && (
           <div className="challenge-history">
             <h3>Recent Challenges</h3>
-            {history.map((h, i) => (
-              <Card key={i} padding="sm">
-                <div className="history-item">
-                  <div className="history-meta">
-                    <Badge
-                      text={h.format === 'burst' ? 'Question Burst' : h.type}
-                      color={h.format === 'burst' ? '#10B981' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
-                      variant="soft"
-                      size="sm"
-                    />
-                    {h.format === 'burst' && h.score > 0 && (
-                      <Badge text={`${h.score}pts`} color="#10B981" variant="outlined" size="sm" />
+            {history.map((h, i) => {
+              const isExpanded = expandedHistory === i;
+              const hasQuestions = h.format === 'burst' && h.questions && h.questions.length > 0;
+              return (
+                <Card key={i} padding="sm">
+                  <div
+                    className="history-item expandable"
+                    onClick={() => setExpandedHistory(isExpanded ? null : i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setExpandedHistory(isExpanded ? null : i)}
+                  >
+                    <div className="history-meta">
+                      <Badge
+                        text={h.format === 'burst' ? 'Question Burst' : h.type}
+                        color={h.format === 'burst' ? '#10B981' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
+                        variant="soft"
+                        size="sm"
+                      />
+                      {h.format === 'burst' && h.score > 0 && (
+                        <Badge text={`${h.score}pts`} color="#10B981" variant="outlined" size="sm" />
+                      )}
+                      <span className="history-date">{h.date}</span>
+                    </div>
+                    <div className="history-title-row">
+                      <p className="history-title">{h.title}</p>
+                      <CaretDown
+                        size={16}
+                        weight="bold"
+                        className={`history-caret${isExpanded ? ' expanded' : ''}`}
+                      />
+                    </div>
+                    {!isExpanded && (
+                      <p className="history-response">{h.response}</p>
                     )}
-                    <span className="history-date">{h.date}</span>
                   </div>
-                  <p className="history-title">{h.title}</p>
-                  <p className="history-response">{h.response}</p>
-                </div>
-              </Card>
-            ))}
+
+                  {isExpanded && (
+                    <div className="history-details animate-fade-in">
+                      {/* Breakdown bars (new format) */}
+                      {h.breakdown && (
+                        <div className="history-breakdown">
+                          <ProgressBar value={h.breakdown.variety} label="Variety" color="#10B981" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.depth} label="Depth" color="#3B82F6" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.techniques} label="Techniques" color="#8B5CF6" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.quality} label="Quality" color="#F59E0B" showPercent size="sm" />
+                        </div>
+                      )}
+
+                      {/* Summary stats */}
+                      {(h.openRatio !== null || h.techniquesDetected) && (
+                        <div className="history-summary-row">
+                          {h.openRatio !== null && <span><strong>{h.openRatio}%</strong> open questions</span>}
+                          {h.techniquesDetected && h.techniquesDetected.length > 0 && (
+                            <div className="history-techniques">
+                              {h.techniquesDetected.map(t => (
+                                <Badge key={t} text={t} color="#10B981" variant="soft" size="sm" />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Strongest question */}
+                      {h.strongestQuestion && (
+                        <div className="history-strongest">
+                          <span className="history-strongest-label">Strongest question</span>
+                          <p>"{h.strongestQuestion.text}"</p>
+                        </div>
+                      )}
+
+                      {/* Coaching tip */}
+                      {h.coachingTip && (
+                        <p className="history-coaching-tip">{h.coachingTip}</p>
+                      )}
+
+                      {/* Questions list */}
+                      {hasQuestions && (
+                        <>
+                          <div className="history-questions-header">
+                            <span>Questions asked ({h.questions.length})</span>
+                          </div>
+                          <div className="history-questions-list">
+                            {h.questions.map((q, qi) => (
+                              <div key={qi} className="history-question-item">
+                                <span className="history-question-number">{qi + 1}</span>
+                                <span className="history-question-text">{q}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+
+                      {/* Fallback for old entries without breakdown */}
+                      {!h.breakdown && !hasQuestions && (
+                        <p className="history-response-full">{h.response}</p>
+                      )}
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>

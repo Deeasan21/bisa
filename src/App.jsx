@@ -11,6 +11,8 @@ import AuthPage from './pages/AuthPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
 import WelcomePage from './pages/WelcomePage';
 import { useAuth } from './hooks/useAuth';
+import { STORAGE_KEYS } from './lib/constants';
+import { captureError } from './lib/sentry';
 
 function AuthGuard() {
   const { user, loading } = useAuth();
@@ -21,7 +23,7 @@ function AuthGuard() {
 
 function AuthRedirect() {
   const { user, loading } = useAuth();
-  const introSeen = localStorage.getItem('bisa-intro-seen');
+  const introSeen = localStorage.getItem(STORAGE_KEYS.INTRO_SEEN);
   if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
   if (user) return <Navigate to="/" replace />;
   if (!introSeen) return <Navigate to="/onboarding" replace />;
@@ -42,6 +44,9 @@ class ErrorBoundary extends React.Component {
   }
   static getDerivedStateFromError(error) {
     return { error };
+  }
+  componentDidCatch(error, errorInfo) {
+    captureError(error, { source: 'ErrorBoundary', componentStack: errorInfo?.componentStack });
   }
   render() {
     if (this.state.error) {
