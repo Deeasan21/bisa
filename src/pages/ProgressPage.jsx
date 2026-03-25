@@ -11,6 +11,7 @@ import ProgressBar from '../components/common/ProgressBar';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import ScoreGauge from '../components/common/ScoreGauge';
+import MonthlyReport from '../components/common/MonthlyReport';
 import './ProgressPage.css';
 
 const SKILL_CATEGORIES = [
@@ -81,6 +82,9 @@ export default function ProgressPage() {
         <h1>Progress</h1>
         <p>Track your growth</p>
       </div>
+
+      {/* Monthly Report */}
+      <MonthlyReport db={db} isReady={isReady} />
 
       {/* BPQ Gauge */}
       <div className="bpq-section">

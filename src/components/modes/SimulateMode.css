@@ -11,6 +11,37 @@
   padding: var(--space-md);
 }
 
+/* Pack Tabs */
+.sim-pack-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: var(--space-sm);
+  scrollbar-width: none;
+}
+.sim-pack-tabs::-webkit-scrollbar { display: none; }
+
+.sim-pack-tab {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sim-pack-tab.active {
+  background: #8B5CF6;
+  border-color: #8B5CF6;
+  color: #FFFFFF;
+}
+
 /* Filters */
 .sim-filters {
   display: flex;
