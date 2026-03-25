@@ -34,6 +34,7 @@ export default function ModesPage() {
       case 'simulate': return Math.round((progress.simulationsCompleted / SIMULATIONS.length) * 100);
       case 'review': return progress.cardsLearned > 0 ? Math.min(100, Math.round((progress.cardsLearned / 50) * 100)) : 0;
       case 'pattern': return Math.min(100, Math.round((progress.patternAttempts / 50) * 100));
+      case 'technique': return Math.min(100, Math.round((progress.totalPracticeAttempts / 12) * 100));
       default: return 0;
     }
   };

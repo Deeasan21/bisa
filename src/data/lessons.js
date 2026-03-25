@@ -952,7 +952,7 @@ export const LESSONS = [
     tier: 1,
     content: `
       <h2>Lesson 10: Advanced Techniques</h2>
-      <p class="intro">Welcome to the final lesson. You've learned that questions shape thinking, build relationships, and unlock possibility. Now let's add master-level techniques.</p>
+      <p class="intro">You've built a strong foundation. Now let's add master-level techniques that separate good questioners from great ones.</p>
       <section class="lesson-section">
         <h3>The 5 Whys</h3>
         <p>Ask "Why?" five times to reach the root cause. "Customer retention is dropping" → "Why?" → Eventually: "We lack feedback infrastructure."</p>
@@ -992,8 +992,8 @@ export const LESSONS = [
         </ul>
       </section>
       <div class="story-box">
-        <h3>Your Graduation</h3>
-        <p>You've completed the curriculum. Questions are agents of change. They shape how you see the world, build relationships, and unlock possibility. Go ask something wonderful.</p>
+        <h3>Keep Going</h3>
+        <p>You've mastered the core techniques. There are more lessons ahead — each one adds a new dimension to your questioning practice. Questions are agents of change. Go ask something wonderful.</p>
       </div>
     `,
     sections: [

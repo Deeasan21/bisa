@@ -36,6 +36,7 @@ const DailyChallenge = lazy(() => import('./components/modes/DailyChallenge'));
 const SimulateMode = lazy(() => import('./components/modes/SimulateMode'));
 const ReviewMode = lazy(() => import('./components/modes/ReviewMode'));
 const PatternMode = lazy(() => import('./components/modes/PatternMode'));
+const TechniqueMode = lazy(() => import('./components/modes/TechniqueMode'));
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -96,6 +97,7 @@ export default function App() {
           <Route path="/mode/simulate" element={<SuspenseWrap><SimulateMode /></SuspenseWrap>} />
           <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
           <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
+          <Route path="/mode/technique" element={<SuspenseWrap><TechniqueMode /></SuspenseWrap>} />
         </Route>
       </Routes>
     </ErrorBoundary>

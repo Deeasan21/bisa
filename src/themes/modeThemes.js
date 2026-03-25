@@ -1,4 +1,4 @@
-import { BookOpen, Target, Sun, ChatsCircle, Notebook, Brain, TrendUp, Eye } from '@phosphor-icons/react';
+import { BookOpen, Target, Sun, ChatsCircle, Notebook, Brain, TrendUp, Eye, Wrench } from '@phosphor-icons/react';
 
 const GOLD = '#D4A853';
 const GOLD_DARK = '#9A6B1F';
@@ -85,6 +85,22 @@ export const MODE_THEMES = {
     category: 'Perception',
     description: '5 pattern recognition drills',
     path: '/mode/pattern',
+  },
+  technique: {
+    key: 'technique',
+    name: 'Technique Drill',
+    icon: Wrench,
+    primary: GOLD,
+    secondary: GOLD_DARK,
+    gradient: GOLD_GRADIENT,
+    headerGradient: HEADER_GRADIENT,
+    bgGradient: 'linear-gradient(180deg, #F0FDFA 0%, #CCFBF1 100%)',
+    cardBg: '#FFFFFF',
+    textOnGradient: '#FFFFFF',
+    accent: GOLD_DARK,
+    category: 'Mastery',
+    description: '4 core techniques — learn, drill, master',
+    path: '/mode/technique',
   },
   journal: {
     key: 'journal',
