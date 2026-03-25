@@ -364,9 +364,14 @@
   border: 1.5px solid #86EFAC;
 }
 
-.technique-result-banner.miss {
+.technique-result-banner.basic {
   background: #FFFBEB;
   border: 1.5px solid #FCD34D;
+}
+
+.technique-result-banner.miss {
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
 }
 
 .technique-result-banner svg { flex-shrink: 0; margin-top: 2px; }

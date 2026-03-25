@@ -30,35 +30,66 @@ const ROUNDS_PER_TECHNIQUE = 3;
 const XP_PER_HIT = 10;
 const XP_PER_MISS = 3;
 
-// Detect if a user's answer uses the technique
+// Detect if a user's answer uses the technique, and whether it's strong or shallow.
+// Returns { hit, quality: 'strong' | 'basic', matchedWord, shallowReason }
 function detectTechnique(techniqueId, answer) {
   const lower = answer.toLowerCase();
+  const wordCount = answer.trim().split(/\s+/).length;
 
   if (techniqueId === 'empathy') {
     const markers = ['feel', 'feeling', 'experience', 'going through', 'must be', 'sounds like', 'seems like', 'worried', 'difficult', 'challenging', 'concerned'];
     const found = markers.find(m => lower.includes(m));
-    return { hit: !!found, matchedWord: found || null };
+    if (!found) return { hit: false, matchedWord: null, quality: null };
+    // Shallow: ≤6 words (e.g. "What are you going through?") or question is just the trigger phrase
+    const isShallow = wordCount <= 6;
+    return {
+      hit: true,
+      matchedWord: found,
+      quality: isShallow ? 'basic' : 'strong',
+      shallowReason: isShallow ? 'Your question is very short — try grounding it in their specific situation rather than asking generically.' : null,
+    };
   }
 
   if (techniqueId === 'reframing') {
     const markers = ['what if', 'another way', 'from their perspective', 'consider', 'suppose', 'imagine if', 'how else could', 'looking at it differently', 'what would happen if'];
     const found = markers.find(m => lower.includes(m));
-    return { hit: !!found, matchedWord: found || null };
+    if (!found) return { hit: false, matchedWord: null, quality: null };
+    const isShallow = wordCount <= 7;
+    return {
+      hit: true,
+      matchedWord: found,
+      quality: isShallow ? 'basic' : 'strong',
+      shallowReason: isShallow ? 'Good start — now add a specific angle. What perspective or alternative are you inviting them to consider?' : null,
+    };
   }
 
   if (techniqueId === 'probing') {
     const markers = ['why do you think', 'what caused', 'what led to', 'underlying', 'root', 'behind', 'beneath', 'at the core', 'fundamentally', 'what drives'];
     const found = markers.find(m => lower.includes(m));
-    return { hit: !!found, matchedWord: found || null };
+    if (!found) return { hit: false, matchedWord: null, quality: null };
+    const isShallow = wordCount <= 6;
+    return {
+      hit: true,
+      matchedWord: found,
+      quality: isShallow ? 'basic' : 'strong',
+      shallowReason: isShallow ? 'The trigger is there — now make it specific to the scenario. What exactly are you probing into?' : null,
+    };
   }
 
   if (techniqueId === 'followup') {
     const markers = ['you mentioned', 'you said', 'earlier you', 'going back to', 'that thing about', 'you brought up', 'when you said'];
     const found = markers.find(m => lower.includes(m));
-    return { hit: !!found, matchedWord: found || null };
+    if (!found) return { hit: false, matchedWord: null, quality: null };
+    const isShallow = wordCount <= 7;
+    return {
+      hit: true,
+      matchedWord: found,
+      quality: isShallow ? 'basic' : 'strong',
+      shallowReason: isShallow ? 'Good — but what did they actually say that you\'re following up on? Make the reference specific.' : null,
+    };
   }
 
-  return { hit: false, matchedWord: null };
+  return { hit: false, matchedWord: null, quality: null };
 }
 
 export default function TechniqueMode() {
@@ -99,12 +130,14 @@ export default function TechniqueMode() {
   const handleSubmit = async () => {
     if (!answer.trim() || answer.trim().split(/\s+/).length < 3) return;
 
-    const { hit, matchedWord } = detectTechnique(activeTechnique.id, answer.trim());
-    const xp = hit ? XP_PER_HIT : XP_PER_MISS;
+    const { hit, matchedWord, quality, shallowReason } = detectTechnique(activeTechnique.id, answer.trim());
+    // Basic (shallow) counts as partial — awards half XP and doesn't count as a mastery hit
+    const xp = !hit ? XP_PER_MISS : quality === 'strong' ? XP_PER_HIT : Math.round(XP_PER_HIT / 2);
+    const countAsHit = hit && quality === 'strong';
 
-    const result = { hit, matchedWord, answer: answer.trim() };
+    const result = { hit, matchedWord, quality, shallowReason, answer: answer.trim() };
     setLastResult(result);
-    setRoundResults(prev => [...prev, { hit }]);
+    setRoundResults(prev => [...prev, { hit: countAsHit }]);
     setPhase('feedback');
 
     // Award XP
@@ -377,28 +410,38 @@ export default function TechniqueMode() {
 
     return (
       <div className="technique-feedback animate-fade-in">
-        {/* Result banner */}
-        <div className={`technique-result-banner${lastResult.hit ? ' hit' : ' miss'}`}>
-          {lastResult.hit ? (
-            <>
-              <CheckCircle size={28} weight="fill" color="#10B981" />
-              <div>
-                <p className="technique-result-title">Technique detected!</p>
-                <p className="technique-result-sub">
-                  The word <strong>"{lastResult.matchedWord}"</strong> triggered <strong>{activeTechnique.name}</strong>.
-                </p>
-              </div>
-            </>
-          ) : (
-            <>
-              <XCircle size={28} weight="fill" color="#F59E0B" />
-              <div>
-                <p className="technique-result-title">Technique not detected</p>
-                <p className="technique-result-sub">Try including one of these phrases next time:</p>
-              </div>
-            </>
-          )}
-        </div>
+        {/* Result banner — 3 states: strong hit / basic / miss */}
+        {lastResult.hit && lastResult.quality === 'strong' && (
+          <div className="technique-result-banner hit">
+            <CheckCircle size={28} weight="fill" color="#10B981" />
+            <div>
+              <p className="technique-result-title">Strong {activeTechnique.name} question!</p>
+              <p className="technique-result-sub">
+                The phrase <strong>"{lastResult.matchedWord}"</strong> triggered it — and the question had real depth.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {lastResult.hit && lastResult.quality === 'basic' && (
+          <div className="technique-result-banner basic">
+            <CheckCircle size={28} weight="fill" color="#F59E0B" />
+            <div>
+              <p className="technique-result-title">Technique detected — but too shallow</p>
+              <p className="technique-result-sub">{lastResult.shallowReason}</p>
+            </div>
+          </div>
+        )}
+
+        {!lastResult.hit && (
+          <div className="technique-result-banner miss">
+            <XCircle size={28} weight="fill" color="#EF4444" />
+            <div>
+              <p className="technique-result-title">Technique not detected</p>
+              <p className="technique-result-sub">Try including one of these phrases next time:</p>
+            </div>
+          </div>
+        )}
 
         {/* Their answer */}
         <Card padding="md" className="technique-answer-review">
@@ -406,8 +449,8 @@ export default function TechniqueMode() {
           <p className="technique-answer-text">"{lastResult.answer}"</p>
         </Card>
 
-        {/* Key phrases if miss */}
-        {!lastResult.hit && (
+        {/* Key phrases if miss or basic */}
+        {(!lastResult.hit || lastResult.quality === 'basic') && (
           <div className="technique-trigger-words">
             {activeTechnique.triggerWords.slice(0, 5).map(w => (
               <span key={w} className="technique-trigger-chip" style={{ background: activeTechnique.color + '18', color: activeTechnique.color, border: `1px solid ${activeTechnique.color}33` }}>
