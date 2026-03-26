@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { SpeakerHigh, SpeakerSlash, PauseCircle } from '@phosphor-icons/react';
+import { SpeakerHigh, PauseCircle, CircleNotch } from '@phosphor-icons/react';
 import MicroChallenge from './MicroChallenge';
 import BeforeAfterReveal from './BeforeAfterReveal';
 import InlineReflection from './InlineReflection';
@@ -15,113 +15,89 @@ import {
 } from '../diagrams';
 import './LessonPlayer.css';
 
-// Convert HTML to speech-friendly text with natural pauses preserved
+// Convert HTML to speech-friendly plain text
 function htmlToSpeechText(html) {
   if (!html) return '';
-  // Replace block elements with pause markers before stripping tags
-  let text = html
-    .replace(/<\/?(h[1-6])[^>]*>/gi, ' . ')        // headings → pause
-    .replace(/<li[^>]*>/gi, ' . ')                   // list items → pause
-    .replace(/<\/?(p|div|section)[^>]*>/gi, ' . ')   // paragraphs → pause
-    .replace(/<br\s*\/?>/gi, ', ')                    // line breaks → short pause
-    .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '$1')  // bold → just text
-    .replace(/<em[^>]*>(.*?)<\/em>/gi, '$1')          // italic → just text
-    .replace(/<[^>]+>/g, '')                          // strip remaining tags
+  return html
+    .replace(/<\/?(h[1-6])[^>]*>/gi, '. ')
+    .replace(/<li[^>]*>/gi, '. ')
+    .replace(/<\/?(p|div|section)[^>]*>/gi, '. ')
+    .replace(/<br\s*\/?>/gi, ', ')
+    .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '$1')
+    .replace(/<em[^>]*>(.*?)<\/em>/gi, '$1')
+    .replace(/<[^>]+>/g, '')
     .replace(/&amp;/g, 'and')
-    .replace(/&mdash;|—/g, ', ')                      // em-dash → pause
-    .replace(/&ldquo;|&rdquo;|[""]/g, '')
-    .replace(/\s*\.\s*\.\s*/g, '. ')                  // collapse multiple pauses
+    .replace(/&mdash;|—/g, ', ')
+    .replace(/[""]/g, '')
+    .replace(/\s*\.\s*\.\s*/g, '. ')
     .replace(/\s{2,}/g, ' ')
     .trim();
-  return text;
-}
-
-// Split into sentence-sized chunks for natural cadence
-function toChunks(text) {
-  return text
-    .split(/(?<=[.!?])\s+/)
-    .map(s => s.trim())
-    .filter(s => s.length > 3);
-}
-
-function pickVoice() {
-  const voices = window.speechSynthesis?.getVoices() || [];
-  // Prefer neural/natural voices by name
-  const priority = [
-    'Google US English',
-    'Samantha',          // macOS / iOS
-    'Karen',             // iOS Australian
-    'Moira',             // iOS Irish
-    'Daniel',            // macOS British
-    'Fiona',             // macOS Scottish
-  ];
-  for (const name of priority) {
-    const v = voices.find(v => v.name === name);
-    if (v) return v;
-  }
-  return voices.find(v => v.lang === 'en-US') ||
-    voices.find(v => v.lang?.startsWith('en')) ||
-    null;
 }
 
 function useSpeech() {
-  const [state, setState] = useState('idle'); // 'idle' | 'speaking' | 'paused'
-  const chunksRef = useRef([]);
-  const chunkIdxRef = useRef(0);
-  const voiceRef = useRef(null);
-
-  // Voices load async — cache after first call
-  useEffect(() => {
-    const load = () => { voiceRef.current = pickVoice(); };
-    load();
-    window.speechSynthesis?.addEventListener('voiceschanged', load);
-    return () => window.speechSynthesis?.removeEventListener('voiceschanged', load);
-  }, []);
+  const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking' | 'paused'
+  const audioRef = useRef(null);
+  const cacheRef = useRef({}); // text → blob URL
 
   const stop = useCallback(() => {
-    window.speechSynthesis?.cancel();
-    chunksRef.current = [];
-    chunkIdxRef.current = 0;
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = '';
+      audioRef.current = null;
+    }
     setState('idle');
   }, []);
 
-  const speakChunk = useCallback((chunks, idx, voice) => {
-    if (idx >= chunks.length) { setState('idle'); return; }
-    const utt = new SpeechSynthesisUtterance(chunks[idx]);
-    utt.rate = 0.82;
-    utt.pitch = 1.0;
-    if (voice) utt.voice = voice;
-    utt.onend = () => {
-      chunkIdxRef.current = idx + 1;
-      speakChunk(chunks, idx + 1, voice);
-    };
-    utt.onerror = () => setState('idle');
-    window.speechSynthesis.speak(utt);
-  }, []);
+  const speak = useCallback(async (rawHtml) => {
+    stop();
+    const text = htmlToSpeechText(rawHtml);
+    if (!text) return;
 
-  const speak = useCallback((text) => {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const chunks = toChunks(htmlToSpeechText(text));
-    if (!chunks.length) return;
-    chunksRef.current = chunks;
-    chunkIdxRef.current = 0;
-    const voice = voiceRef.current || pickVoice();
-    setState('speaking');
-    speakChunk(chunks, 0, voice);
-  }, [speakChunk]);
+    setState('loading');
+    try {
+      let url = cacheRef.current[text];
+      if (!url) {
+        const res = await fetch('/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+        if (!res.ok) { setState('idle'); return; }
+        const blob = await res.blob();
+        url = URL.createObjectURL(blob);
+        cacheRef.current[text] = url;
+      }
 
-  const toggle = useCallback((text) => {
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => setState('idle');
+      audio.onerror = () => setState('idle');
+      await audio.play();
+      setState('speaking');
+    } catch {
+      setState('idle');
+    }
+  }, [stop]);
+
+  const toggle = useCallback((rawHtml) => {
     if (state === 'idle') {
-      speak(text);
+      speak(rawHtml);
     } else if (state === 'speaking') {
-      window.speechSynthesis.pause();
+      audioRef.current?.pause();
       setState('paused');
-    } else {
-      window.speechSynthesis.resume();
+    } else if (state === 'paused') {
+      audioRef.current?.play();
       setState('speaking');
     }
   }, [state, speak]);
+
+  // Revoke cached blob URLs on unmount
+  useEffect(() => {
+    return () => {
+      stop();
+      Object.values(cacheRef.current).forEach(url => URL.revokeObjectURL(url));
+    };
+  }, []);
 
   return { state, toggle, stop };
 }
@@ -214,21 +190,22 @@ export default function LessonPlayer({
           {current.title && (
             <p className="lp-section-eyebrow">{current.title}</p>
           )}
-          {current.content && window.speechSynthesis && (
+          {current.content && (
             <button
-              className={`lp-speak-btn${speechState !== 'idle' ? ' speaking' : ''}`}
+              className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}${speechState === 'loading' ? ' loading' : ''}`}
               onClick={() => speechToggle(
-                [current.title, extractText(current.content)].filter(Boolean).join('. ')
+                [current.title, current.content].filter(Boolean).join('. ')
               )}
-              aria-label={speechState === 'speaking' ? 'Pause reading' : speechState === 'paused' ? 'Resume reading' : 'Read aloud'}
-              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
+              disabled={speechState === 'loading'}
+              aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
+              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
             >
               {speechState === 'speaking' ? (
                 <PauseCircle size={18} weight="fill" />
-              ) : speechState === 'paused' ? (
-                <SpeakerHigh size={18} weight="fill" />
+              ) : speechState === 'loading' ? (
+                <CircleNotch size={18} className="spin" />
               ) : (
-                <SpeakerHigh size={18} />
+                <SpeakerHigh size={18} weight={speechState === 'paused' ? 'fill' : 'regular'} />
               )}
             </button>
           )}

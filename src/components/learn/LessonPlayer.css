@@ -86,9 +86,24 @@
   animation: speakPulse 2s ease-in-out infinite;
 }
 
+.lp-speak-btn.loading {
+  color: var(--text-muted);
+  border-color: var(--border-light);
+  cursor: default;
+}
+
+.lp-speak-btn .spin {
+  animation: spinIcon 0.8s linear infinite;
+}
+
 @keyframes speakPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3); }
   50%       { box-shadow: 0 0 0 5px rgba(59, 130, 246, 0); }
+}
+
+@keyframes spinIcon {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* ─── Navigation ────────────────────────────────────────────── */
