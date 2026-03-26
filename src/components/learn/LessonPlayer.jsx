@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { SpeakerHigh, SpeakerSlash, PauseCircle } from '@phosphor-icons/react';
 import MicroChallenge from './MicroChallenge';
 import BeforeAfterReveal from './BeforeAfterReveal';
 import InlineReflection from './InlineReflection';
@@ -13,6 +14,71 @@ import {
   ComparisonSplit,
 } from '../diagrams';
 import './LessonPlayer.css';
+
+function extractText(html) {
+  if (!html) return '';
+  try {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
+  } catch {
+    return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+}
+
+function pickVoice() {
+  const voices = window.speechSynthesis?.getVoices() || [];
+  const priority = ['Google US English', 'Samantha', 'Karen', 'Moira', 'Victoria'];
+  for (const name of priority) {
+    const v = voices.find(v => v.name === name);
+    if (v) return v;
+  }
+  return voices.find(v => v.lang?.startsWith('en-US')) ||
+    voices.find(v => v.lang?.startsWith('en')) ||
+    null;
+}
+
+function useSpeech() {
+  const [state, setState] = useState('idle'); // 'idle' | 'speaking' | 'paused'
+  const uttRef = useRef(null);
+
+  const stop = useCallback(() => {
+    window.speechSynthesis?.cancel();
+    uttRef.current = null;
+    setState('idle');
+  }, []);
+
+  const speak = useCallback((text) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.rate = 0.94;
+    utt.pitch = 1.02;
+    const voice = pickVoice();
+    if (voice) utt.voice = voice;
+    utt.onstart = () => setState('speaking');
+    utt.onpause = () => setState('paused');
+    utt.onresume = () => setState('speaking');
+    utt.onend = () => setState('idle');
+    utt.onerror = () => setState('idle');
+    uttRef.current = utt;
+    window.speechSynthesis.speak(utt);
+    setState('speaking');
+  }, []);
+
+  const toggle = useCallback((text) => {
+    if (state === 'idle') {
+      speak(text);
+    } else if (state === 'speaking') {
+      window.speechSynthesis.pause();
+      setState('paused');
+    } else {
+      window.speechSynthesis.resume();
+      setState('speaking');
+    }
+  }, [state, speak]);
+
+  return { state, toggle, stop };
+}
 
 /**
  * LessonPlayer — section-based progressive lesson renderer.
@@ -47,6 +113,7 @@ export default function LessonPlayer({
 }) {
   const [sectionIndex, setSectionIndex] = useState(0);
   const [interactionDone, setInteractionDone] = useState(false);
+  const { state: speechState, toggle: speechToggle, stop: speechStop } = useSpeech();
 
   const sections = lesson.sections;
   const total = sections.length;
@@ -58,10 +125,13 @@ export default function LessonPlayer({
   const hasRequired = current.interaction?.required === true;
   const canAdvance = !hasRequired || interactionDone;
 
-  // Reset interaction state on section change
+  // Stop speech when section changes or lesson unmounts
   useEffect(() => {
+    speechStop();
     setInteractionDone(false);
   }, [sectionIndex]);
+
+  useEffect(() => () => speechStop(), []);
 
   const goNext = () => {
     if (!canAdvance) return;
@@ -94,9 +164,29 @@ export default function LessonPlayer({
 
       {/* Section content — key triggers animation when section changes */}
       <div className="lp-section animate-fade-in" key={`${lesson.id}-${sectionIndex}`}>
-        {current.title && (
-          <p className="lp-section-eyebrow">{current.title}</p>
-        )}
+        <div className="lp-section-header">
+          {current.title && (
+            <p className="lp-section-eyebrow">{current.title}</p>
+          )}
+          {current.content && window.speechSynthesis && (
+            <button
+              className={`lp-speak-btn${speechState !== 'idle' ? ' speaking' : ''}`}
+              onClick={() => speechToggle(
+                [current.title, extractText(current.content)].filter(Boolean).join('. ')
+              )}
+              aria-label={speechState === 'speaking' ? 'Pause reading' : speechState === 'paused' ? 'Resume reading' : 'Read aloud'}
+              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
+            >
+              {speechState === 'speaking' ? (
+                <PauseCircle size={18} weight="fill" />
+              ) : speechState === 'paused' ? (
+                <SpeakerHigh size={18} weight="fill" />
+              ) : (
+                <SpeakerHigh size={18} />
+              )}
+            </button>
+          )}
+        </div>
 
         {current.content && (
           <div

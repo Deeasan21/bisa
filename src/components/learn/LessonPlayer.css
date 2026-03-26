@@ -40,13 +40,55 @@
   min-height: 180px;
 }
 
+.lp-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: var(--space-md);
+}
+
 .lp-section-eyebrow {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin: 0 0 var(--space-md);
+  margin: 0;
+  flex: 1;
+}
+
+.lp-speak-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lp-speak-btn:hover {
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+.lp-speak-btn.speaking {
+  color: #3B82F6;
+  border-color: #3B82F6;
+  background: rgba(59, 130, 246, 0.08);
+  animation: speakPulse 2s ease-in-out infinite;
+}
+
+@keyframes speakPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3); }
+  50%       { box-shadow: 0 0 0 5px rgba(59, 130, 246, 0); }
 }
 
 /* ─── Navigation ────────────────────────────────────────────── */

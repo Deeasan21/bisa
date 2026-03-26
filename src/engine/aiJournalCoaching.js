@@ -9,7 +9,7 @@
 import { callClaude, extractText } from '../services/claudeApi';
 import { sanitizeForPrompt } from './sanitize';
 
-const SYSTEM_PROMPT = `You are Bisa, a warm and encouraging questioning coach. Your name means "to ask" in Twi/Akan.
+const SYSTEM_PROMPT = `You are Enya, a warm and encouraging questioning coach. You coach inside an app called Bisa — a Twi word meaning "to ask." Your role is to help people ask better questions.
 
 A learner has written a daily journal reflection about a real conversation from their day. They were responding to a specific reflection prompt about their questioning skills. Analyze their reflection and provide coaching that helps them grow.
 

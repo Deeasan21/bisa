@@ -6642,5 +6642,213 @@ export const LESSONS = [
         },
       },
     ],
-  }
+  },
+  {
+    id: 39,
+    title: "When the Answer Doesn't Come",
+    skillCategory: 'Empathy',
+    difficultyTier: 'intermediate',
+    tier: 2,
+    content: `
+      <h2>Lesson 39: When the Answer Doesn't Come</h2>
+      <p class="intro">You asked the right question. You asked it at the right time, in the right tone. And the answer you got back was flat, evasive, or nothing at all. This lesson is about that gap — and what lives inside it.</p>
+      <section class="lesson-section">
+        <h3>Your Half and Theirs</h3>
+        <p>There is a line you cannot cross. On your side of it: the question — how you ask, when you ask, what you carry into the room when you ask. You have full control here.</p>
+        <p>On the other side of the line: the response. That belongs entirely to them.</p>
+        <p>The Stoics had a name for this distinction — they called it the <em>dichotomy of control</em>. Marcus Aurelius returned to it constantly: not because it was comforting, but because ignoring it is the source of most frustration in human interaction.</p>
+        <p>You can ask beautifully and still receive nothing of substance. That is not a failure of your question. That is the nature of a conversation between two people — one of whom you are not.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>Why Answers Fall Short</h3>
+        <p>When a question gets a thin response, there are almost always identifiable reasons:</p>
+        <ul>
+          <li><strong>Trust isn't there yet.</strong> The best question in the world doesn't unlock honesty from someone who doesn't feel safe with you.</li>
+          <li><strong>The timing is wrong.</strong> People answer from wherever they are emotionally. Ask the right question at the wrong moment and you get the moment, not the truth.</li>
+          <li><strong>The power dynamic is in the way.</strong> A direct report, a child, anyone who fears consequence — their answer is filtered through the cost of being honest.</li>
+          <li><strong>They're not ready.</strong> Some questions require the person to have already asked themselves something they haven't gotten to yet. You arrived before they did.</li>
+          <li><strong>Delivery is carrying a signal.</strong> Even a technically clean question can land loaded — a particular tone, expression, or history can tell them what you really mean before you finish the sentence.</li>
+        </ul>
+      </section>
+      <section class="lesson-section">
+        <h3>Reading the Non-Answer</h3>
+        <p>A deflection, a "fine," a subject change, a one-word reply — these are not nothing. They are answers. They tell you something.</p>
+        <ul>
+          <li><strong>"I'm fine."</strong> — usually means: I don't feel safe going there right now, or I don't think you'll understand, or I'm still figuring it out myself.</li>
+          <li><strong>A subject change.</strong> — the question touched something they're not ready to open. File it. Come back later with a lighter door.</li>
+          <li><strong>An over-explained, overly logical answer.</strong> — emotion is being hidden behind reasoning. Ask about the feeling, not the logic.</li>
+          <li><strong>A short "yes" or "no."</strong> — they answered the literal question, not the real one underneath it.</li>
+        </ul>
+        <p>Each non-answer is a map — it shows you where the wall is, and often, where the door might be.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>Creating Conditions Before You Ask</h3>
+        <p>The most powerful thing you can do for the quality of answers you receive isn't in the question — it's in what comes before the question. Conditions matter more than craft.</p>
+        <p>This is why a therapist can ask things that would be intrusive from a stranger. The container — the trust, the confidentiality, the pattern of being heard — has been built long before the hard question arrives.</p>
+        <p>You can build this in everyday relationships too: by listening without fixing, by remembering what people told you, by being honest about yourself first, by creating moments where nothing is being asked at all.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>The Follow-Up as Second Invitation</h3>
+        <p>When someone gives a surface answer, most people either accept it or push harder. There is a third option: <strong>soften the door further.</strong></p>
+        <div class="story-box">
+          <p><strong>You asked:</strong> "How are you really doing?"</p>
+          <p><strong>They said:</strong> "Oh, you know. Keeping busy."</p>
+          <p><strong>Instead of pushing</strong> ("No, seriously") or accepting ("That's good")</p>
+          <p><strong>Try:</strong> "Staying busy can be a good thing — and sometimes it's the other thing. Which is it for you lately?"</p>
+          <p>You named both possibilities. You're not demanding an answer. You're showing you already understand either way — which makes honesty feel safer.</p>
+        </div>
+      </section>
+      <section class="lesson-section">
+        <h3>What You Cannot Fix</h3>
+        <p>Some silences are not yours to break. Some people are not ready. Some relationships haven't built the trust that honest answers require. Some moments are simply wrong, and the best you can do is acknowledge the question and come back when the weather changes.</p>
+        <p>The Zen masters called it <em>wu wei</em> — action through non-action. The question has been asked. Now step back and let it land in its own time.</p>
+        <p>Sometimes a question you asked six months ago produces an answer today. Not because the person forgot — because now they're ready.</p>
+      </section>
+      <section class="lesson-section when-to-use">
+        <h3>When the Response Is the Information</h3>
+        <ul>
+          <li>A flat answer tells you trust needs building before a deeper question</li>
+          <li>A subject change tells you you've touched something real — come back later</li>
+          <li>Silence after a question is sometimes the most honest answer you'll get</li>
+          <li>Repetitive surface answers over time signal the relationship itself needs attention</li>
+        </ul>
+        <h3>What to Do Instead of Pushing</h3>
+        <ul>
+          <li>Name what you observe without interpreting it: "You seem quiet about this"</li>
+          <li>Make going deeper feel safe: "You don't have to go there — I'm asking because I care"</li>
+          <li>Ask a smaller version of the question: one step inside the door, not all the way through it</li>
+          <li>Let time work: "No rush. I'm here when you're ready."</li>
+        </ul>
+      </section>
+    `,
+    sections: [
+      {
+        id: 'your-half',
+        title: 'Your Half and Theirs',
+        content: `
+          <p>There is a line you cannot cross. On your side: the question — how you ask, when you ask, what you carry into the room. You have full control here.</p>
+          <p>On the other side: the response. That belongs entirely to them.</p>
+          <p>The Stoics called this the <em>dichotomy of control</em>. Marcus Aurelius returned to it constantly: not because it was comforting, but because ignoring it is the source of most frustration in human interaction.</p>
+          <p>You can ask beautifully and still receive nothing of substance. That is not a failure of your question. That is the nature of a conversation between two people — one of whom you are not.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'five-barriers',
+        title: 'Five Reasons Answers Fall Short',
+        content: `
+          <p>When a question gets a thin response, there are almost always identifiable reasons:</p>
+          <ul>
+            <li><strong>Trust isn't there yet</strong> — the best question doesn't unlock honesty from someone who doesn't feel safe with you</li>
+            <li><strong>The timing is wrong</strong> — people answer from wherever they are emotionally right now, not from their best self</li>
+            <li><strong>The power dynamic is in the way</strong> — anyone who fears consequence will filter their answer through the cost of being honest</li>
+            <li><strong>They're not ready</strong> — you arrived before they got there themselves</li>
+            <li><strong>Delivery is carrying a signal</strong> — tone, expression, or history communicates what you really mean before you finish the sentence</li>
+          </ul>
+          <p>Diagnosing which one is at play changes your next move entirely.</p>
+        `,
+        interaction: {
+          type: 'poll',
+          required: true,
+          question: 'Which barrier do you run into most often when asking someone something real?',
+          options: [
+            {
+              text: 'Trust — the relationship isn\'t deep enough for honest answers yet',
+              insight: 'Trust is built in the time between questions, not in the question itself. Listening without agenda, remembering what someone tells you, showing up when nothing is needed — these build the container that makes honest answers feel safe.',
+            },
+            {
+              text: 'Timing — I ask at the wrong moment and get a closed door',
+              insight: 'Timing is a form of empathy. Before asking something real, scan for where the other person is emotionally. "Is now a good time to talk about something?" is itself a respectful question that earns you better conditions.',
+            },
+            {
+              text: 'Power dynamic — they don\'t feel safe being honest with me',
+              insight: 'If you hold authority over someone, you have to work harder than they do to make honesty feel safe. Frame your intent explicitly. Reward honest answers, especially inconvenient ones. That pattern, built over time, is what changes the dynamic.',
+            },
+            {
+              text: 'Readiness — they haven\'t asked themselves this yet',
+              insight: 'You can\'t rush someone\'s readiness. But you can plant seeds. Ask a smaller version of the question. Name what you notice without interpreting it. State that the question stands and release it — "No rush. I\'m here when you\'re ready." Sometimes that\'s enough.',
+            },
+          ],
+        },
+      },
+      {
+        id: 'non-answer-explorer',
+        title: 'Reading the Non-Answer',
+        content: `
+          <p>A deflection, a "fine," a subject change — these are not nothing. They're answers. They tell you where the wall is, and often, where the door might be. Watch what happens when the same surface answer receives three different responses:</p>
+        `,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenarios: [
+            {
+              label: 'poor',
+              situation: 'You ask a close friend: "Are you okay? You seem off." They say: "I\'m fine, just tired."',
+              response: 'You accept it and move on. You ask about something else.',
+              outcome: 'They continue carrying whatever it is alone. The pattern of surface answers deepens. You\'ve both trained the relationship not to go there.',
+            },
+            {
+              label: 'okay',
+              situation: 'You ask a close friend: "Are you okay? You seem off." They say: "I\'m fine, just tired."',
+              response: '"No seriously, what\'s going on with you?"',
+              outcome: 'You pushed. It might work through pressure, or they might retreat further. Even if it works, it cost some safety.',
+            },
+            {
+              label: 'great',
+              situation: 'You ask a close friend: "Are you okay? You seem off." They say: "I\'m fine, just tired."',
+              response: '"Okay. I\'m here if the tired becomes something else. I\'ve noticed it a few times and wanted you to know I see it." Then you move on.',
+              outcome: 'You named what you saw, made the door visible without forcing it open, showed you\'re paying attention. Three days later, they text you.',
+            },
+          ],
+          takeaway: 'The surface answer is data. It tells you the door exists. Your job isn\'t to break it down — it\'s to let them know it\'s safe to open.',
+        },
+      },
+      {
+        id: 'second-invitation',
+        title: 'The Follow-Up as Second Invitation',
+        content: `
+          <p>When someone gives a surface answer, most people either accept it or push harder. There is a third option: soften the door further. Which of these is a second invitation?</p>
+        `,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'You asked: "How are you really doing?" They said: "Oh, you know. Keeping busy." What do you say next?',
+          options: [
+            { text: '"Come on, I can tell something\'s up — just tell me."', isCorrect: false },
+            { text: '"Staying busy can be a good thing — and sometimes it\'s the other thing. Which is it for you lately?"', isCorrect: true },
+          ],
+          explanation: 'The first pushes and reveals you\'ve already decided something is wrong — which makes them feel read and exposed, creating resistance. The second names both possibilities (good busy, difficult busy) so neither answer feels like an admission. You\'re showing you understand either way, which is what makes honesty feel lower-cost.',
+        },
+      },
+      {
+        id: 'container-first',
+        title: 'Build the Container Before the Question',
+        content: `
+          <p>The most powerful thing you can do for the quality of answers you receive isn't in the question — it's in what comes before the question. Conditions matter more than craft.</p>
+          <p>This is why a therapist can ask things that would be intrusive from a stranger. The container — trust, confidentiality, the pattern of being heard — is built long before the hard question arrives.</p>
+        `,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          context: 'You want honest feedback from a direct report on your leadership.',
+          before: 'You schedule a one-on-one and ask: "I want honest feedback — what could I do better as a manager?"',
+          after: 'Over the past month: you acknowledged when you got something wrong. You asked what they needed, then delivered it. You thanked them when they pushed back. Now you ask: "I\'ve been working on how I lead — what\'s still getting in your way that I might not see?"',
+          explanation: 'The question is almost the same. But in the first version, you\'re asking for honesty from a cold container — and most people won\'t deliver it. In the second, you\'ve been building trust for a month. The honesty was already in the room before you asked. The question just opened the door.',
+        },
+      },
+      {
+        id: 'letting-go',
+        title: 'What You Cannot Fix',
+        content: `
+          <p>Some silences are not yours to break. Some people aren't ready. Some relationships haven't built the trust that honest answers require. Some moments are simply wrong — and the most skillful thing is to state the question and step back.</p>
+          <p>The Zen masters called it <em>wu wei</em> — action through non-action. The question has been asked. Now let it land in its own time. Sometimes a question you asked six months ago produces an answer today. Not because they forgot — because now they're ready.</p>
+        `,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of a relationship where honest answers have been hard to get. Using the five barriers — trust, timing, power, readiness, delivery — which one is most likely at play? What is one thing you could do this week — not a question, but an action — that might shift that barrier even slightly?',
+        },
+      },
+    ],
+  },
 ];

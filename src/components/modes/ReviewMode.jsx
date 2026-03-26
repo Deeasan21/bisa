@@ -150,7 +150,7 @@ export default function ReviewMode() {
           <div className="review-empty animate-fade-in">
             <BisaBalloon color="#10B981" size={48} />
             <h2>All Caught Up!</h2>
-            <p>No cards due right now. Bisa will have more for you later!</p>
+            <p>No cards due right now. Enya will have more for you later!</p>
           </div>
         ) : (
           <div className="review-card-area animate-fade-in">
