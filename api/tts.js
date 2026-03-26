@@ -1,21 +1,23 @@
 /**
- * Vercel Serverless Function — OpenAI TTS Proxy
+ * Vercel Serverless Function — Google Cloud TTS Proxy
  *
- * Converts text to speech using OpenAI's tts-1 model (nova voice).
- * Returns an mp3 audio stream cached for 24 hours.
+ * Converts text to speech using Google Cloud Text-to-Speech Neural2.
+ * Voice: en-US-Neural2-C (warm, natural female)
+ * Returns an array of base64-encoded MP3 chunks (Google Neural2 has a
+ * ~450-char request limit, so long text is split at sentence boundaries).
  *
  * Security:
  * - Origin validation (Bisa domains only)
- * - Text length cap (2000 chars max)
- * - Per-IP daily rate limit (30 TTS calls/day)
- * - Global daily cap (2000 calls/day) as billing safety net
+ * - Text length cap (4000 chars max)
+ * - Per-IP daily rate limit (50 calls/day)
+ * - Global daily cap (3000 calls/day)
  */
 
 // --- Rate limiting ---
 
 const rateLimitMap = new Map();
-const DAILY_LIMIT = 30;
-const GLOBAL_DAILY_LIMIT = 2000;
+const DAILY_LIMIT = 50;
+const GLOBAL_DAILY_LIMIT = 3000;
 let globalCount = 0;
 let globalDate = new Date().toISOString().split('T')[0];
 
@@ -36,10 +38,7 @@ function checkRateLimit(key) {
 
 function checkGlobalLimit() {
   const today = new Date().toISOString().split('T')[0];
-  if (today !== globalDate) {
-    globalDate = today;
-    globalCount = 0;
-  }
+  if (today !== globalDate) { globalDate = today; globalCount = 0; }
   if (globalCount >= GLOBAL_DAILY_LIMIT) return false;
   globalCount++;
   return true;
@@ -61,6 +60,62 @@ function isAllowedOrigin(req) {
   return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
 }
 
+// --- Text chunking ---
+// Google Neural2 errors above ~450 chars — split at sentence boundaries
+
+function splitIntoChunks(text, maxChars = 400) {
+  const sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) || [text];
+  const chunks = [];
+  let current = '';
+
+  for (const sentence of sentences) {
+    if ((current + sentence).length > maxChars && current.length > 0) {
+      chunks.push(current.trim());
+      current = sentence;
+    } else {
+      current += sentence;
+    }
+  }
+  if (current.trim()) chunks.push(current.trim());
+  return chunks.filter(c => c.length > 0);
+}
+
+// --- Google TTS request ---
+
+async function synthesize(text, apiKey) {
+  const response = await fetch(
+    'https://texttospeech.googleapis.com/v1/text:synthesize',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': apiKey,
+      },
+      body: JSON.stringify({
+        input: { text },
+        voice: {
+          languageCode: 'en-US',
+          name: 'en-US-Neural2-C',
+        },
+        audioConfig: {
+          audioEncoding: 'MP3',
+          speakingRate: 0.9,
+          pitch: 1.0,
+          effectsProfileId: ['headphone-class-device'],
+        },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Google TTS error ${response.status}: ${err}`);
+  }
+
+  const data = await response.json();
+  return data.audioContent; // base64-encoded MP3
+}
+
 // --- Handler ---
 
 export default async function handler(req, res) {
@@ -78,49 +133,30 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Text is required' });
   }
 
-  if (text.length > 2000) {
+  if (text.length > 4000) {
     return res.status(400).json({ error: 'Text too long' });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GOOGLE_TTS_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'TTS not configured' });
+    return res.status(503).json({ error: 'TTS not configured' });
   }
 
   if (!checkGlobalLimit()) {
     return res.status(429).json({ error: 'TTS service temporarily unavailable' });
   }
 
-  const key = getRateLimitKey(req);
-  if (!checkRateLimit(key)) {
+  const rateLimitKey = getRateLimitKey(req);
+  if (!checkRateLimit(rateLimitKey)) {
     return res.status(429).json({ error: 'Daily TTS limit reached' });
   }
 
   try {
-    const response = await fetch('https://api.openai.com/v1/audio/speech', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'tts-1',
-        input: text.trim(),
-        voice: 'nova',
-        response_format: 'mp3',
-        speed: 0.92,
-      }),
-    });
-
-    if (!response.ok) {
-      return res.status(500).json({ error: 'TTS service error' });
-    }
-
-    const buffer = await response.arrayBuffer();
-    res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
-    return res.send(Buffer.from(buffer));
-  } catch {
+    const chunks = splitIntoChunks(text.trim());
+    const audioChunks = await Promise.all(chunks.map(chunk => synthesize(chunk, apiKey)));
+    return res.status(200).json({ chunks: audioChunks });
+  } catch (err) {
+    console.error('TTS error:', err.message);
     return res.status(500).json({ error: 'Failed to generate audio' });
   }
 }

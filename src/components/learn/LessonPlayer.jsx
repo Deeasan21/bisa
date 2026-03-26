@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { SpeakerHigh, PauseCircle } from '@phosphor-icons/react';
+import { SpeakerHigh, PauseCircle, CircleNotch } from '@phosphor-icons/react';
 import MicroChallenge from './MicroChallenge';
 import BeforeAfterReveal from './BeforeAfterReveal';
 import InlineReflection from './InlineReflection';
@@ -34,85 +34,116 @@ function htmlToSpeechText(html) {
     .trim();
 }
 
-function toSentences(text) {
-  return text
-    .split(/(?<=[.!?])\s+/)
-    .map(s => s.trim())
-    .filter(s => s.length > 3);
-}
-
-function pickVoice() {
-  const voices = window.speechSynthesis?.getVoices() || [];
-  const priority = ['Samantha', 'Google US English', 'Karen', 'Moira', 'Daniel', 'Fiona'];
-  for (const name of priority) {
-    const v = voices.find(v => v.name === name);
-    if (v) return v;
-  }
-  return voices.find(v => v.lang === 'en-US') ||
-    voices.find(v => v.lang?.startsWith('en')) ||
-    null;
-}
-
 function useSpeech() {
-  const [state, setState] = useState('idle'); // 'idle' | 'speaking' | 'paused'
-  const voiceRef = useRef(null);
-  const activeRef = useRef(false);
-
-  useEffect(() => {
-    const load = () => { voiceRef.current = pickVoice(); };
-    load();
-    window.speechSynthesis?.addEventListener('voiceschanged', load);
-    return () => window.speechSynthesis?.removeEventListener('voiceschanged', load);
-  }, []);
+  const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking' | 'paused'
+  const audioRef = useRef(null);
+  const queueRef = useRef([]);
+  const queueIdxRef = useRef(0);
+  const cacheRef = useRef({}); // text → array of blob URLs
 
   const stop = useCallback(() => {
-    activeRef.current = false;
-    window.speechSynthesis?.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.onended = null;
+      audioRef.current = null;
+    }
+    queueRef.current = [];
+    queueIdxRef.current = 0;
     setState('idle');
   }, []);
 
-  const speak = useCallback((rawHtml) => {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const sentences = toSentences(htmlToSpeechText(rawHtml));
-    if (!sentences.length) return;
-
-    activeRef.current = true;
+  const playQueue = useCallback((urls, idx) => {
+    if (idx >= urls.length) { setState('idle'); return; }
+    const audio = new Audio(urls[idx]);
+    audioRef.current = audio;
+    audio.onended = () => playQueue(urls, idx + 1);
+    audio.onerror = () => setState('idle');
+    audio.play().catch(() => setState('idle'));
     setState('speaking');
-    const voice = voiceRef.current || pickVoice();
-
-    const speakNext = (i) => {
-      if (!activeRef.current || i >= sentences.length) {
-        setState('idle');
-        return;
-      }
-      const utt = new SpeechSynthesisUtterance(sentences[i]);
-      utt.rate = 0.82;
-      utt.pitch = 1.0;
-      if (voice) utt.voice = voice;
-      utt.onend = () => speakNext(i + 1);
-      utt.onerror = () => setState('idle');
-      window.speechSynthesis.speak(utt);
-    };
-
-    speakNext(0);
   }, []);
+
+  const speak = useCallback(async (rawHtml) => {
+    stop();
+    const text = htmlToSpeechText(rawHtml);
+    if (!text) return;
+
+    setState('loading');
+
+    try {
+      let urls = cacheRef.current[text];
+
+      if (!urls) {
+        const res = await fetch('/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+
+        if (!res.ok) {
+          // Fallback to browser TTS if server isn't configured yet
+          fallbackBrowserSpeak(text);
+          return;
+        }
+
+        const { chunks } = await res.json();
+        urls = chunks.map(b64 => {
+          const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+          const blob = new Blob([bytes], { type: 'audio/mp3' });
+          return URL.createObjectURL(blob);
+        });
+        cacheRef.current[text] = urls;
+      }
+
+      queueRef.current = urls;
+      queueIdxRef.current = 0;
+      playQueue(urls, 0);
+    } catch {
+      fallbackBrowserSpeak(text);
+    }
+  }, [stop, playQueue]);
 
   const toggle = useCallback((rawHtml) => {
     if (state === 'idle') {
       speak(rawHtml);
     } else if (state === 'speaking') {
-      window.speechSynthesis.pause();
+      audioRef.current?.pause();
       setState('paused');
-    } else {
-      window.speechSynthesis.resume();
+    } else if (state === 'paused') {
+      audioRef.current?.play();
       setState('speaking');
     }
   }, [state, speak]);
 
-  useEffect(() => () => stop(), []);
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stop();
+      Object.values(cacheRef.current).flat().forEach(url => URL.revokeObjectURL(url));
+    };
+  }, []);
 
   return { state, toggle, stop };
+}
+
+// Browser TTS fallback (used when GOOGLE_TTS_API_KEY is not yet set)
+function fallbackBrowserSpeak(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.length > 3);
+  const voices = window.speechSynthesis.getVoices();
+  const voice = ['Samantha', 'Google US English', 'Karen'].reduce(
+    (found, name) => found || voices.find(v => v.name === name), null
+  ) || voices.find(v => v.lang?.startsWith('en')) || null;
+
+  const speakNext = (i) => {
+    if (i >= sentences.length) return;
+    const utt = new SpeechSynthesisUtterance(sentences[i]);
+    utt.rate = 0.82;
+    if (voice) utt.voice = voice;
+    utt.onend = () => speakNext(i + 1);
+    window.speechSynthesis.speak(utt);
+  };
+  speakNext(0);
 }
 
 /**
@@ -203,16 +234,16 @@ export default function LessonPlayer({
           {current.title && (
             <p className="lp-section-eyebrow">{current.title}</p>
           )}
-          {current.content && window.speechSynthesis && (
+          {current.content && (
             <button
-              className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}`}
-              onClick={() => speechToggle(
-                [current.title, current.content].filter(Boolean).join('. ')
-              )}
-              aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
-              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
+              className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}${speechState === 'loading' ? ' loading' : ''}`}
+              onClick={() => speechToggle([current.title, current.content].filter(Boolean).join('. '))}
+              disabled={speechState === 'loading'}
+              aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
             >
-              {speechState === 'speaking' ? (
+              {speechState === 'loading' ? (
+                <CircleNotch size={18} className="lp-spin" />
+              ) : speechState === 'speaking' ? (
                 <PauseCircle size={18} weight="fill" />
               ) : (
                 <SpeakerHigh size={18} weight={speechState === 'paused' ? 'fill' : 'regular'} />
