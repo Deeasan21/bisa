@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { SpeakerHigh, PauseCircle, CircleNotch } from '@phosphor-icons/react';
+import { SpeakerHigh, PauseCircle } from '@phosphor-icons/react';
 import MicroChallenge from './MicroChallenge';
 import BeforeAfterReveal from './BeforeAfterReveal';
 import InlineReflection from './InlineReflection';
@@ -15,7 +15,7 @@ import {
 } from '../diagrams';
 import './LessonPlayer.css';
 
-// Convert HTML to speech-friendly plain text
+// Convert HTML to speech-friendly plain text with natural pause markers
 function htmlToSpeechText(html) {
   if (!html) return '';
   return html
@@ -34,70 +34,83 @@ function htmlToSpeechText(html) {
     .trim();
 }
 
+function toSentences(text) {
+  return text
+    .split(/(?<=[.!?])\s+/)
+    .map(s => s.trim())
+    .filter(s => s.length > 3);
+}
+
+function pickVoice() {
+  const voices = window.speechSynthesis?.getVoices() || [];
+  const priority = ['Samantha', 'Google US English', 'Karen', 'Moira', 'Daniel', 'Fiona'];
+  for (const name of priority) {
+    const v = voices.find(v => v.name === name);
+    if (v) return v;
+  }
+  return voices.find(v => v.lang === 'en-US') ||
+    voices.find(v => v.lang?.startsWith('en')) ||
+    null;
+}
+
 function useSpeech() {
-  const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking' | 'paused'
-  const audioRef = useRef(null);
-  const cacheRef = useRef({}); // text → blob URL
+  const [state, setState] = useState('idle'); // 'idle' | 'speaking' | 'paused'
+  const voiceRef = useRef(null);
+  const activeRef = useRef(false);
+
+  useEffect(() => {
+    const load = () => { voiceRef.current = pickVoice(); };
+    load();
+    window.speechSynthesis?.addEventListener('voiceschanged', load);
+    return () => window.speechSynthesis?.removeEventListener('voiceschanged', load);
+  }, []);
 
   const stop = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = '';
-      audioRef.current = null;
-    }
+    activeRef.current = false;
+    window.speechSynthesis?.cancel();
     setState('idle');
   }, []);
 
-  const speak = useCallback(async (rawHtml) => {
-    stop();
-    const text = htmlToSpeechText(rawHtml);
-    if (!text) return;
+  const speak = useCallback((rawHtml) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const sentences = toSentences(htmlToSpeechText(rawHtml));
+    if (!sentences.length) return;
 
-    setState('loading');
-    try {
-      let url = cacheRef.current[text];
-      if (!url) {
-        const res = await fetch('/api/tts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-        if (!res.ok) { setState('idle'); return; }
-        const blob = await res.blob();
-        url = URL.createObjectURL(blob);
-        cacheRef.current[text] = url;
+    activeRef.current = true;
+    setState('speaking');
+    const voice = voiceRef.current || pickVoice();
+
+    const speakNext = (i) => {
+      if (!activeRef.current || i >= sentences.length) {
+        setState('idle');
+        return;
       }
+      const utt = new SpeechSynthesisUtterance(sentences[i]);
+      utt.rate = 0.82;
+      utt.pitch = 1.0;
+      if (voice) utt.voice = voice;
+      utt.onend = () => speakNext(i + 1);
+      utt.onerror = () => setState('idle');
+      window.speechSynthesis.speak(utt);
+    };
 
-      const audio = new Audio(url);
-      audioRef.current = audio;
-      audio.onended = () => setState('idle');
-      audio.onerror = () => setState('idle');
-      await audio.play();
-      setState('speaking');
-    } catch {
-      setState('idle');
-    }
-  }, [stop]);
+    speakNext(0);
+  }, []);
 
   const toggle = useCallback((rawHtml) => {
     if (state === 'idle') {
       speak(rawHtml);
     } else if (state === 'speaking') {
-      audioRef.current?.pause();
+      window.speechSynthesis.pause();
       setState('paused');
-    } else if (state === 'paused') {
-      audioRef.current?.play();
+    } else {
+      window.speechSynthesis.resume();
       setState('speaking');
     }
   }, [state, speak]);
 
-  // Revoke cached blob URLs on unmount
-  useEffect(() => {
-    return () => {
-      stop();
-      Object.values(cacheRef.current).forEach(url => URL.revokeObjectURL(url));
-    };
-  }, []);
+  useEffect(() => () => stop(), []);
 
   return { state, toggle, stop };
 }
@@ -190,20 +203,17 @@ export default function LessonPlayer({
           {current.title && (
             <p className="lp-section-eyebrow">{current.title}</p>
           )}
-          {current.content && (
+          {current.content && window.speechSynthesis && (
             <button
-              className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}${speechState === 'loading' ? ' loading' : ''}`}
+              className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}`}
               onClick={() => speechToggle(
                 [current.title, current.content].filter(Boolean).join('. ')
               )}
-              disabled={speechState === 'loading'}
-              aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
-              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
+              aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
+              title={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : 'Read aloud'}
             >
               {speechState === 'speaking' ? (
                 <PauseCircle size={18} weight="fill" />
-              ) : speechState === 'loading' ? (
-                <CircleNotch size={18} className="spin" />
               ) : (
                 <SpeakerHigh size={18} weight={speechState === 'paused' ? 'fill' : 'regular'} />
               )}
