@@ -151,8 +151,6 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem(STORAGE_KEYS.INTRO_SEEN);
-      localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
       await signOut();
     } catch (e) {
       console.error('Sign out failed:', e);
