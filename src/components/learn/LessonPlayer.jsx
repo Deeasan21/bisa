@@ -15,55 +15,101 @@ import {
 } from '../diagrams';
 import './LessonPlayer.css';
 
-function extractText(html) {
+// Convert HTML to speech-friendly text with natural pauses preserved
+function htmlToSpeechText(html) {
   if (!html) return '';
-  try {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || '';
-  } catch {
-    return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  }
+  // Replace block elements with pause markers before stripping tags
+  let text = html
+    .replace(/<\/?(h[1-6])[^>]*>/gi, ' . ')        // headings → pause
+    .replace(/<li[^>]*>/gi, ' . ')                   // list items → pause
+    .replace(/<\/?(p|div|section)[^>]*>/gi, ' . ')   // paragraphs → pause
+    .replace(/<br\s*\/?>/gi, ', ')                    // line breaks → short pause
+    .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '$1')  // bold → just text
+    .replace(/<em[^>]*>(.*?)<\/em>/gi, '$1')          // italic → just text
+    .replace(/<[^>]+>/g, '')                          // strip remaining tags
+    .replace(/&amp;/g, 'and')
+    .replace(/&mdash;|—/g, ', ')                      // em-dash → pause
+    .replace(/&ldquo;|&rdquo;|[""]/g, '')
+    .replace(/\s*\.\s*\.\s*/g, '. ')                  // collapse multiple pauses
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  return text;
+}
+
+// Split into sentence-sized chunks for natural cadence
+function toChunks(text) {
+  return text
+    .split(/(?<=[.!?])\s+/)
+    .map(s => s.trim())
+    .filter(s => s.length > 3);
 }
 
 function pickVoice() {
   const voices = window.speechSynthesis?.getVoices() || [];
-  const priority = ['Google US English', 'Samantha', 'Karen', 'Moira', 'Victoria'];
+  // Prefer neural/natural voices by name
+  const priority = [
+    'Google US English',
+    'Samantha',          // macOS / iOS
+    'Karen',             // iOS Australian
+    'Moira',             // iOS Irish
+    'Daniel',            // macOS British
+    'Fiona',             // macOS Scottish
+  ];
   for (const name of priority) {
     const v = voices.find(v => v.name === name);
     if (v) return v;
   }
-  return voices.find(v => v.lang?.startsWith('en-US')) ||
+  return voices.find(v => v.lang === 'en-US') ||
     voices.find(v => v.lang?.startsWith('en')) ||
     null;
 }
 
 function useSpeech() {
   const [state, setState] = useState('idle'); // 'idle' | 'speaking' | 'paused'
-  const uttRef = useRef(null);
+  const chunksRef = useRef([]);
+  const chunkIdxRef = useRef(0);
+  const voiceRef = useRef(null);
+
+  // Voices load async — cache after first call
+  useEffect(() => {
+    const load = () => { voiceRef.current = pickVoice(); };
+    load();
+    window.speechSynthesis?.addEventListener('voiceschanged', load);
+    return () => window.speechSynthesis?.removeEventListener('voiceschanged', load);
+  }, []);
 
   const stop = useCallback(() => {
     window.speechSynthesis?.cancel();
-    uttRef.current = null;
+    chunksRef.current = [];
+    chunkIdxRef.current = 0;
     setState('idle');
+  }, []);
+
+  const speakChunk = useCallback((chunks, idx, voice) => {
+    if (idx >= chunks.length) { setState('idle'); return; }
+    const utt = new SpeechSynthesisUtterance(chunks[idx]);
+    utt.rate = 0.82;
+    utt.pitch = 1.0;
+    if (voice) utt.voice = voice;
+    utt.onend = () => {
+      chunkIdxRef.current = idx + 1;
+      speakChunk(chunks, idx + 1, voice);
+    };
+    utt.onerror = () => setState('idle');
+    window.speechSynthesis.speak(utt);
   }, []);
 
   const speak = useCallback((text) => {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.rate = 0.94;
-    utt.pitch = 1.02;
-    const voice = pickVoice();
-    if (voice) utt.voice = voice;
-    utt.onstart = () => setState('speaking');
-    utt.onpause = () => setState('paused');
-    utt.onresume = () => setState('speaking');
-    utt.onend = () => setState('idle');
-    utt.onerror = () => setState('idle');
-    uttRef.current = utt;
-    window.speechSynthesis.speak(utt);
+    const chunks = toChunks(htmlToSpeechText(text));
+    if (!chunks.length) return;
+    chunksRef.current = chunks;
+    chunkIdxRef.current = 0;
+    const voice = voiceRef.current || pickVoice();
     setState('speaking');
-  }, []);
+    speakChunk(chunks, 0, voice);
+  }, [speakChunk]);
 
   const toggle = useCallback((text) => {
     if (state === 'idle') {
