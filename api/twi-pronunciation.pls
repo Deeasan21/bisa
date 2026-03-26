@@ -9,26 +9,48 @@
 
   <!--
     Twi/Akan Pronunciation Dictionary for Bisa
-    Based on Asante Twi phonology (Akan language, Ghana)
-    Sources: Harvard ELIAS, LearnAkan, Wiktionary, Adinkra Symbols, UCLA Phonetics Lab
+    Asante Twi dialect (Akan language, Ghana)
+
+    IPA sourced from:
+    - Schachter & Fromkin (1968) — A Phonology of Akan, UCLA
+    - Harvard ELIAS — AKAN KASA NGYEGYEEɛ (Akan Sounds)
+    - LearnAkan — Akan Alphabet & Twi Consonant Digraphs
+    - Wiktionary (Twi, adinkra, Ashanti entries)
+    - Akan Dictionary (akandictionary.com)
+    - Adinkra Symbols & Meanings (adinkrasymbols.org)
+
+    Key phonological notes:
+    - Twi ɔ = open-mid back rounded vowel /ɔ/ — like British English "caught"
+      NOT the English "oh" diphthong /oʊ/
+    - Twi ɛ = open-mid front unrounded /ɛ/ — like English "bed"
+      NOT the English long "ay" /eɪ/
+    - ny digraph = palatal nasal /ɲ/ — like Spanish ñ
+    - Before front vowels, Asante Twi consonants are palatalized:
+      t → [tʃ] (e.g., "tie" → "chee")
+    - Tone marks (àáā) are included but most TTS engines ignore them;
+      the phoneme sequence is what matters for TTS output
   -->
 
-  <!-- App name — "to ask" in Twi. Two syllables: low-high tone. -->
+  <!-- ═══ APP NAME ═══════════════════════════════════════════════ -->
+
+  <!-- "to ask" in Twi. Tones: High-Low. -->
   <lexeme>
     <grapheme>Bisa</grapheme>
-    <phoneme>ˈbiː.sɑː</phoneme>
+    <phoneme>ˈbiːsɑ</phoneme>
     <alias>BEE-sah</alias>
   </lexeme>
-
   <lexeme>
     <grapheme>bisa</grapheme>
-    <phoneme>ˈbiː.sɑː</phoneme>
+    <phoneme>ˈbiːsɑ</phoneme>
     <alias>BEE-sah</alias>
   </lexeme>
 
+  <!-- ═══ THE LANGUAGE NAME ══════════════════════════════════════ -->
+
   <!--
-    The Akan language. Native IPA: [tɕᶣi] — palatal affricate + labialization.
-    Best English TTS approximation: "chwee" → /tʃwiː/
+    Native IPA: [tɕᶣi] — palatal affricate + simultaneous labialization.
+    Practical TTS approximation: /tʃwiː/ → "chwee".
+    "twee" is the common English mispronunciation — this corrects it.
   -->
   <lexeme>
     <grapheme>Twi</grapheme>
@@ -36,88 +58,122 @@
     <alias>chwee</alias>
   </lexeme>
 
-  <!-- The Akan people and region. Authentic Akan form ends in /ɛ/, not /iː/. -->
+  <!-- ═══ PEOPLE & REGION ════════════════════════════════════════ -->
+
+  <!-- Authentic Akan form. Final vowel is /ɛ/ (open-mid front), not "ee". -->
   <lexeme>
     <grapheme>Asante</grapheme>
-    <phoneme>ɑˈsɑːn.tɛ</phoneme>
+    <phoneme>ɑˈsɑntɛ</phoneme>
     <alias>ah-SAHN-teh</alias>
   </lexeme>
 
-  <!-- Colonial anglicisation of Asante -->
+  <!-- Colonial anglicisation of Asante. -->
   <lexeme>
     <grapheme>Ashanti</grapheme>
-    <phoneme>əˈʃɑːn.tiː</phoneme>
-    <alias>uh-SHAHN-tee</alias>
+    <phoneme>əˈʃɑːntiː</phoneme>
+    <alias>ah-SHAHN-tee</alias>
   </lexeme>
 
-  <!-- Akan visual symbols. Stress on second syllable. Final 'r' is a flap /ɾ/. -->
+  <!-- ═══ CULTURAL TERMS ═════════════════════════════════════════ -->
+
+  <!-- Akan visual symbols. /ĩ/ is nasalised; /ɪŋ/ is the TTS-safe approximation. -->
   <lexeme>
     <grapheme>Adinkra</grapheme>
-    <phoneme>ɑˈdɪŋ.kɹɑ</phoneme>
+    <phoneme>ɑˈdɪŋkɹɑ</phoneme>
     <alias>ah-DING-krah</alias>
   </lexeme>
-
   <lexeme>
     <grapheme>adinkra</grapheme>
-    <phoneme>ɑˈdɪŋ.kɹɑ</phoneme>
+    <phoneme>ɑˈdɪŋkɹɑ</phoneme>
     <alias>ah-DING-krah</alias>
   </lexeme>
 
+  <!-- ═══ TWI WORDS USED IN LESSONS ═════════════════════════════ -->
+
   <!--
-    "to listen / to truly hear" — Twi verb.
-    Before front vowel, 't' is palatalized → [tɕ].
-    Diphthong /ie/ is a falling sequence.
+    "to truly listen / hear" — Twi verb.
+    Monosyllabic. Before front vowel /i/, the 't' is palatalized → [tʃ].
+    High tone. Sounds like "chee" not "tee" or "tie".
   -->
   <lexeme>
     <grapheme>tie</grapheme>
-    <phoneme>tʃiːɛ</phoneme>
-    <alias>CHEE-eh</alias>
+    <phoneme>tʃiː</phoneme>
+    <alias>chee</alias>
   </lexeme>
 
-  <!-- "wisdom / sense" — /ɲ/ is the palatal nasal, like Spanish ñ -->
+  <!--
+    "wisdom / sense"
+    /ɲ/ = palatal nasal, like Spanish ñ in señor. Tones: High-Low.
+  -->
   <lexeme>
     <grapheme>Nyansa</grapheme>
-    <phoneme>ɲɑnˈsɑː</phoneme>
+    <phoneme>ɲɑnˈsɑ</phoneme>
     <alias>NYAHN-sah</alias>
   </lexeme>
-
   <lexeme>
     <grapheme>nyansa</grapheme>
-    <phoneme>ɲɑnˈsɑː</phoneme>
+    <phoneme>ɲɑnˈsɑ</phoneme>
     <alias>NYAHN-sah</alias>
   </lexeme>
 
-  <!-- "the one who asks" — domain name origin (neaobisa.com) -->
+  <!-- "heart" — 3 syllables, stress on second. /o/ = close-mid back (Twi plain o). -->
+  <lexeme>
+    <grapheme>Akoma</grapheme>
+    <phoneme>ɑˈkoːmɑ</phoneme>
+    <alias>ah-KOH-mah</alias>
+  </lexeme>
+  <lexeme>
+    <grapheme>akoma</grapheme>
+    <phoneme>ɑˈkoːmɑ</phoneme>
+    <alias>ah-KOH-mah</alias>
+  </lexeme>
+
+  <!-- ═══ PROVERBS & PHRASES ═════════════════════════════════════ -->
+
+  <!--
+    "the one who asks" — domain name origin (neaobisa.com).
+    ɔ prefix = 3rd person subject marker (open-mid back /ɔ/, like British "awe").
+  -->
   <lexeme>
     <grapheme>Nea Obisa</grapheme>
-    <phoneme>neɑ oˈbiːsɑ</phoneme>
+    <phoneme>neɑ ɔˈbiːsɑ</phoneme>
     <alias>NEH-ah oh-BEE-sah</alias>
   </lexeme>
 
-  <!-- "he/she who does not know" — from the Akan proverb -->
+  <!--
+    "he/she who does not know"
+    ɔ = open-mid back /ɔ/ (NOT English "oh"). nn = prenasalised cluster.
+  -->
   <lexeme>
     <grapheme>Nea Onnim</grapheme>
-    <phoneme>neɑ oˈniːm</phoneme>
+    <phoneme>neɑ ɔˈniːm</phoneme>
     <alias>NEH-ah oh-NEEM</alias>
   </lexeme>
 
-  <!-- Full proverb: "He who does not know can know from learning" -->
+  <!--
+    Full proverb: "He who does not know can know from learning."
+    Word by word: nea=NEH-ah | onnim=oh-NEEM | no=noh | sua=soo-ah | a=ah | ohu=oh-HOO
+  -->
   <lexeme>
     <grapheme>Nea Onnim No Sua A, Ohu</grapheme>
-    <phoneme>neɑ oˈniːm no suɑ ɑ oˈhuː</phoneme>
-    <alias>NEH-ah oh-NEEM no soo-ah ah oh-HOO</alias>
+    <phoneme>neɑ ɔniːm nɔ suɑ ɑ ɔhuː</phoneme>
+    <alias>NEH-ah oh-NEEM noh soo-ah ah, oh-HOO</alias>
   </lexeme>
 
-  <!-- "can know / understand" — verb in the proverb -->
+  <!--
+    "can know / understand" — last word of the proverb.
+    ɔ = open-mid back /ɔ/, NOT English "oh" diphthong.
+    u = close back /u/ as in "moon".
+  -->
   <lexeme>
     <grapheme>Ohu</grapheme>
-    <phoneme>oˈhuː</phoneme>
+    <phoneme>ɔˈhuː</phoneme>
     <alias>oh-HOO</alias>
   </lexeme>
 
   <!--
     "How are you?" — literally "how is your body?"
-    ɛ in sɛn is open-mid front vowel — like "bed", NOT "say"
+    sɛn: ɛ = open-mid front /ɛ/ as in English "bed", NOT "say".
   -->
   <lexeme>
     <grapheme>Wo ho te sɛn</grapheme>
@@ -126,28 +182,16 @@
   </lexeme>
 
   <!--
-    "It will be good"
-    ɔ = open-mid back vowel (like British "hot")
-    ɛ = open-mid front vowel (like "bed")
-    yɛ = "yeh" (palatal approximant + ɛ)
+    "It will be good."
+    ɔ prefix = 3rd person subject (open-mid back).
+    bɛ = future tense marker.
+    yɛ = /jɛ/ — "yeh" (palatal approximant /j/ + Twi ɛ).
+    papa = "good", low-low tones, two syllables.
   -->
   <lexeme>
     <grapheme>Ɔbɛyɛ papa</grapheme>
-    <phoneme>ɔbɛˈjɛ pɑˈpɑ</phoneme>
-    <alias>oh-beh-YEH PAH-pah</alias>
-  </lexeme>
-
-  <!-- "heart" — three syllables, stress on second (akOma) -->
-  <lexeme>
-    <grapheme>akoma</grapheme>
-    <phoneme>ɑˈkoːmɑ</phoneme>
-    <alias>ah-KOH-mah</alias>
-  </lexeme>
-
-  <lexeme>
-    <grapheme>Akoma</grapheme>
-    <phoneme>ɑˈkoːmɑ</phoneme>
-    <alias>ah-KOH-mah</alias>
+    <phoneme>ɔbɛˈjɛ pɑpɑ</phoneme>
+    <alias>oh-BEH-yeh PAH-pah</alias>
   </lexeme>
 
 </lexicon>
