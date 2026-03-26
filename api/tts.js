@@ -1,15 +1,28 @@
 /**
- * Vercel Serverless Function — Google Cloud TTS Proxy
+ * Vercel Serverless Function — ElevenLabs TTS Proxy
  *
- * Converts text to speech using Google Cloud Text-to-Speech Neural2.
- * Voice: en-US-Neural2-C (warm, natural female)
- * Returns an array of base64-encoded MP3 chunks (Google Neural2 has a
- * ~450-char request limit, so long text is split at sentence boundaries).
+ * Converts text to speech using ElevenLabs eleven_multilingual_v2.
+ * Voice and pronunciation dictionary are configured via env vars.
+ * Returns a raw MP3 audio stream.
+ *
+ * Required env vars (Vercel → Settings → Environment Variables):
+ *   ELEVENLABS_API_KEY            — from elevenlabs.io → Profile → API Keys
+ *   ELEVENLABS_VOICE_ID           — Voice ID from the Voice Library detail page
+ *
+ * Optional env var:
+ *   ELEVENLABS_PRONUNCIATION_DICT_ID — from uploading twi-pronunciation.pls
+ *                                      (see api/twi-pronunciation.pls + README)
+ *
+ * Voice settings (tune these to adjust how Enya sounds):
+ *   stability:        0.6  — lower = more expressive, higher = more consistent
+ *   similarity_boost: 0.75 — how closely to match the base voice
+ *   style:            0.4  — stylistic range; 0.4 is warm but not theatrical
+ *   use_speaker_boost: true — improves clarity for educational content
  *
  * Security:
  * - Origin validation (Bisa domains only)
- * - Text length cap (4000 chars max)
- * - Per-IP daily rate limit (50 calls/day)
+ * - Text length cap (4000 chars)
+ * - Per-IP daily limit (50 calls/day)
  * - Global daily cap (3000 calls/day)
  */
 
@@ -60,60 +73,45 @@ function isAllowedOrigin(req) {
   return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
 }
 
-// --- Text chunking ---
-// Google Neural2 errors above ~450 chars — split at sentence boundaries
+// --- ElevenLabs synthesis ---
 
-function splitIntoChunks(text, maxChars = 400) {
-  const sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) || [text];
-  const chunks = [];
-  let current = '';
+async function synthesize(text, apiKey, voiceId, dictId) {
+  const body = {
+    text,
+    model_id: 'eleven_multilingual_v2',
+    voice_settings: {
+      stability: 0.6,
+      similarity_boost: 0.75,
+      style: 0.4,
+      use_speaker_boost: true,
+    },
+  };
 
-  for (const sentence of sentences) {
-    if ((current + sentence).length > maxChars && current.length > 0) {
-      chunks.push(current.trim());
-      current = sentence;
-    } else {
-      current += sentence;
-    }
+  if (dictId) {
+    body.pronunciation_dictionary_locators = [
+      { pronunciation_dictionary_id: dictId, version_id: 'latest' },
+    ];
   }
-  if (current.trim()) chunks.push(current.trim());
-  return chunks.filter(c => c.length > 0);
-}
 
-// --- Google TTS request ---
-
-async function synthesize(text, apiKey) {
   const response = await fetch(
-    'https://texttospeech.googleapis.com/v1/text:synthesize',
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
     {
       method: 'POST',
       headers: {
+        'xi-api-key': apiKey,
         'Content-Type': 'application/json',
-        'X-Goog-Api-Key': apiKey,
+        'Accept': 'audio/mpeg',
       },
-      body: JSON.stringify({
-        input: { text },
-        voice: {
-          languageCode: 'en-US',
-          name: 'en-US-Neural2-C',
-        },
-        audioConfig: {
-          audioEncoding: 'MP3',
-          speakingRate: 0.9,
-          pitch: 1.0,
-          effectsProfileId: ['headphone-class-device'],
-        },
-      }),
+      body: JSON.stringify(body),
     }
   );
 
   if (!response.ok) {
     const err = await response.text();
-    throw new Error(`Google TTS error ${response.status}: ${err}`);
+    throw new Error(`ElevenLabs error ${response.status}: ${err}`);
   }
 
-  const data = await response.json();
-  return data.audioContent; // base64-encoded MP3
+  return response.arrayBuffer();
 }
 
 // --- Handler ---
@@ -137,8 +135,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Text too long' });
   }
 
-  const apiKey = process.env.GOOGLE_TTS_API_KEY;
-  if (!apiKey) {
+  const apiKey = process.env.ELEVENLABS_API_KEY;
+  const voiceId = process.env.ELEVENLABS_VOICE_ID;
+  const dictId = process.env.ELEVENLABS_PRONUNCIATION_DICT_ID || null;
+
+  if (!apiKey || !voiceId) {
+    // Not configured — tell the frontend to fall back to browser TTS
     return res.status(503).json({ error: 'TTS not configured' });
   }
 
@@ -152,9 +154,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const chunks = splitIntoChunks(text.trim());
-    const audioChunks = await Promise.all(chunks.map(chunk => synthesize(chunk, apiKey)));
-    return res.status(200).json({ chunks: audioChunks });
+    const audioBuffer = await synthesize(text.trim(), apiKey, voiceId, dictId);
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.send(Buffer.from(audioBuffer));
   } catch (err) {
     console.error('TTS error:', err.message);
     return res.status(500).json({ error: 'Failed to generate audio' });

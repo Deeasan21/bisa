@@ -37,9 +37,7 @@ function htmlToSpeechText(html) {
 function useSpeech() {
   const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking' | 'paused'
   const audioRef = useRef(null);
-  const queueRef = useRef([]);
-  const queueIdxRef = useRef(0);
-  const cacheRef = useRef({}); // text → array of blob URLs
+  const cacheRef = useRef({}); // text → blob URL
 
   const stop = useCallback(() => {
     if (audioRef.current) {
@@ -47,19 +45,7 @@ function useSpeech() {
       audioRef.current.onended = null;
       audioRef.current = null;
     }
-    queueRef.current = [];
-    queueIdxRef.current = 0;
     setState('idle');
-  }, []);
-
-  const playQueue = useCallback((urls, idx) => {
-    if (idx >= urls.length) { setState('idle'); return; }
-    const audio = new Audio(urls[idx]);
-    audioRef.current = audio;
-    audio.onended = () => playQueue(urls, idx + 1);
-    audio.onerror = () => setState('idle');
-    audio.play().catch(() => setState('idle'));
-    setState('speaking');
   }, []);
 
   const speak = useCallback(async (rawHtml) => {
@@ -68,11 +54,10 @@ function useSpeech() {
     if (!text) return;
 
     setState('loading');
-
     try {
-      let urls = cacheRef.current[text];
+      let url = cacheRef.current[text];
 
-      if (!urls) {
+      if (!url) {
         const res = await fetch('/api/tts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -80,27 +65,26 @@ function useSpeech() {
         });
 
         if (!res.ok) {
-          // Fallback to browser TTS if server isn't configured yet
           fallbackBrowserSpeak(text);
           return;
         }
 
-        const { chunks } = await res.json();
-        urls = chunks.map(b64 => {
-          const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-          const blob = new Blob([bytes], { type: 'audio/mp3' });
-          return URL.createObjectURL(blob);
-        });
-        cacheRef.current[text] = urls;
+        const blob = await res.blob();
+        url = URL.createObjectURL(blob);
+        cacheRef.current[text] = url;
       }
 
-      queueRef.current = urls;
-      queueIdxRef.current = 0;
-      playQueue(urls, 0);
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => setState('idle');
+      audio.onerror = () => { setState('idle'); fallbackBrowserSpeak(text); };
+      await audio.play();
+      setState('speaking');
     } catch {
       fallbackBrowserSpeak(text);
+      setState('idle');
     }
-  }, [stop, playQueue]);
+  }, [stop]);
 
   const toggle = useCallback((rawHtml) => {
     if (state === 'idle') {
@@ -114,11 +98,10 @@ function useSpeech() {
     }
   }, [state, speak]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       stop();
-      Object.values(cacheRef.current).flat().forEach(url => URL.revokeObjectURL(url));
+      Object.values(cacheRef.current).forEach(url => URL.revokeObjectURL(url));
     };
   }, []);
 
