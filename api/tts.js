@@ -70,6 +70,7 @@ const ALLOWED_ORIGINS = [
 function isAllowedOrigin(req) {
   const origin = req.headers.origin || '';
   const referer = req.headers.referer || '';
+  if (origin.includes('deeasan21s-projects.vercel.app') || referer.includes('deeasan21s-projects.vercel.app')) return true;
   return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
 }
 
