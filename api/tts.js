@@ -89,7 +89,7 @@ async function synthesize(text, apiKey, voiceId, dictId) {
 
   if (dictId) {
     body.pronunciation_dictionary_locators = [
-      { pronunciation_dictionary_id: dictId, version_id: 'latest' },
+      { pronunciation_dictionary_id: dictId, version_id: 'yN6x9FAFtaMnvlgCkL32' },
     ];
   }
 
