@@ -5,26 +5,27 @@
  * Voice and pronunciation dictionary are configured via env vars.
  * Returns a raw MP3 audio stream.
  *
- * Required env vars (Vercel → Settings → Environment Variables):
+ * Persistent cache: generated MP3s are stored in Vercel Blob (keyed by
+ * SHA-256 hash of text + voice ID). Subsequent requests for the same text
+ * are served from Blob CDN — no ElevenLabs call needed.
+ *
+ * Required env vars:
  *   ELEVENLABS_API_KEY            — from elevenlabs.io → Profile → API Keys
  *   ELEVENLABS_VOICE_ID           — Voice ID from the Voice Library detail page
+ *   BLOB_READ_WRITE_TOKEN         — from Vercel → Storage → Blob → Connect
  *
  * Optional env var:
  *   ELEVENLABS_PRONUNCIATION_DICT_ID — from uploading twi-pronunciation.pls
- *                                      (see api/twi-pronunciation.pls + README)
- *
- * Voice settings (tune these to adjust how Enya sounds):
- *   stability:        0.6  — lower = more expressive, higher = more consistent
- *   similarity_boost: 0.75 — how closely to match the base voice
- *   style:            0.4  — stylistic range; 0.4 is warm but not theatrical
- *   use_speaker_boost: true — improves clarity for educational content
  *
  * Security:
  * - Origin validation (Bisa domains only)
  * - Text length cap (4000 chars)
- * - Per-IP daily limit (50 calls/day)
- * - Global daily cap (3000 calls/day)
+ * - Per-IP daily limit (50 calls/day) — only applies to cache misses
+ * - Global daily cap (3000 calls/day) — only applies to cache misses
  */
+
+import crypto from 'crypto';
+import { put, head } from '@vercel/blob';
 
 // --- Rate limiting ---
 
@@ -72,6 +73,39 @@ function isAllowedOrigin(req) {
   const referer = req.headers.referer || '';
   if (origin.includes('deeasan21s-projects.vercel.app') || referer.includes('deeasan21s-projects.vercel.app')) return true;
   return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
+}
+
+// --- Blob cache ---
+
+function getCacheKey(text, voiceId) {
+  const hash = crypto.createHash('sha256').update(text + voiceId).digest('hex').slice(0, 24);
+  return `tts/${hash}.mp3`;
+}
+
+async function getFromCache(key, token) {
+  if (!token) return null;
+  try {
+    const blob = await head(key, { token });
+    const res = await fetch(blob.url);
+    if (!res.ok) return null;
+    return await res.arrayBuffer();
+  } catch {
+    return null;
+  }
+}
+
+async function saveToCache(key, audioBuffer, token) {
+  if (!token) return;
+  try {
+    await put(key, Buffer.from(audioBuffer), {
+      access: 'public',
+      token,
+      contentType: 'audio/mpeg',
+      addRandomSuffix: false,
+    });
+  } catch (e) {
+    console.warn('Blob cache write failed:', e.message);
+  }
 }
 
 // --- ElevenLabs synthesis ---
@@ -139,12 +173,25 @@ export default async function handler(req, res) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   const voiceId = process.env.ELEVENLABS_VOICE_ID;
   const dictId = process.env.ELEVENLABS_PRONUNCIATION_DICT_ID || null;
+  const blobToken = process.env.BLOB_READ_WRITE_TOKEN || null;
 
   if (!apiKey || !voiceId) {
-    // Not configured — tell the frontend to fall back to browser TTS
     return res.status(503).json({ error: 'TTS not configured' });
   }
 
+  const cleanText = text.trim();
+  const cacheKey = getCacheKey(cleanText, voiceId);
+
+  // Serve from cache if available (no rate limit needed)
+  const cached = await getFromCache(cacheKey, blobToken);
+  if (cached) {
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.setHeader('X-Cache', 'HIT');
+    return res.send(Buffer.from(cached));
+  }
+
+  // Cache miss — apply rate limits before calling ElevenLabs
   if (!checkGlobalLimit()) {
     return res.status(429).json({ error: 'TTS service temporarily unavailable' });
   }
@@ -155,9 +202,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const audioBuffer = await synthesize(text.trim(), apiKey, voiceId, dictId);
+    const audioBuffer = await synthesize(cleanText, apiKey, voiceId, dictId);
+    await saveToCache(cacheKey, audioBuffer, blobToken);
     res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.setHeader('X-Cache', 'MISS');
     return res.send(Buffer.from(audioBuffer));
   } catch (err) {
     console.error('TTS error:', err.message);
