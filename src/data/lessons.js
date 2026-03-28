@@ -112,24 +112,22 @@ export const LESSONS = [
         interaction: {
           type: 'consequence-explorer',
           required: true,
-          scenarios: [
+          scenario: 'A friend says they\'re thinking about quitting their job.',
+          phrasings: [
             {
-              label: 'poor',
-              situation: 'A friend says they\'re thinking about quitting their job.',
-              response: '"You\'re not seriously going to quit, are you? That\'s a huge risk."',
-              outcome: 'They feel judged and get defensive. The conversation closes. You learn nothing about what they\'re actually going through.',
+              text: '"You\'re not seriously going to quit, are you? That\'s a huge risk."',
+              consequence: 'They feel judged and get defensive. The conversation closes. You learn nothing about what they\'re actually going through.',
+              quality: 'poor',
             },
             {
-              label: 'okay',
-              situation: 'A friend says they\'re thinking about quitting their job.',
-              response: '"Why do you want to quit?"',
-              outcome: 'They give a surface answer — "I\'m just burnt out." You got a response but not the real conversation.',
+              text: '"Why do you want to quit?"',
+              consequence: 'They give a surface answer — "I\'m just burnt out." You got a response but not the real conversation.',
+              quality: 'okay',
             },
             {
-              label: 'great',
-              situation: 'A friend says they\'re thinking about quitting their job.',
-              response: '"What\'s been building up that\'s brought you to this point?"',
-              outcome: 'They open up. The question acknowledged something has been happening over time — it invited the real story, not just a headline.',
+              text: '"What\'s been building up that\'s brought you to this point?"',
+              consequence: 'They open up. The question acknowledged something has been happening over time — it invited the real story, not just a headline.',
+              quality: 'great',
             },
           ],
           takeaway: 'The best questions don\'t push toward an answer. They hold space for one. Listen first, then ask from what you heard.',
