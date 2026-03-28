@@ -7,11 +7,11 @@ export const LESSONS = [
     tier: 1,
     content: `
       <h2>Lesson 0: What Is a Question?</h2>
-      <p class="intro">The app you're holding is named <strong>Bisa</strong> — a Twi word from the Akan people of Ghana. It means: <em>to ask.</em> Before we teach you how to ask better, we want to pause on something most people never stop to consider. What is a question, really?</p>
+      <p class="intro">The app you're holding is named <strong>Bisa</strong> — it means <em>to ask.</em> Before we teach you how to ask better, we want to pause on something most people never stop to consider. What is a question, really?</p>
       <section class="lesson-section">
         <h3>A Question Is an Invitation</h3>
         <p>A question is an invitation. It is a signal sent from one mind to another — or from your mind to itself — that says: <em>I don't know yet, and I believe something valuable can be found.</em></p>
-        <p>In Twi, there is a concept captured in the word <strong>tie</strong> — to listen, to truly hear. Every real question carries an implicit act of <em>tie</em>: you are making space to receive something you do not already have.</p>
+        <p>Every real question carries an act of listening inside it: you are making space to receive something you do not already have.</p>
         <p>That openness is what separates a question from a statement dressed up in question-clothing.</p>
       </section>
       <section class="lesson-section">
@@ -22,12 +22,12 @@ export const LESSONS = [
           <li><strong>Invitation</strong> — it creates space for another mind (or your own) to respond freely</li>
           <li><strong>Curiosity</strong> — there is real interest in what comes back, whatever it turns out to be</li>
         </ul>
-        <p>The Akan proverb says: <em>"Nyansa</em> (wisdom) <em>does not live in one head."</em> A real question is an acknowledgment of this — that the person you're asking has something you need.</p>
+        <p>There's an old proverb: <em>"Wisdom does not live in one head."</em> A real question is an acknowledgment of this — that the person you're asking has something you need.</p>
       </section>
       <section class="lesson-section">
         <h3>The Invitation You Extend</h3>
         <p>Think about what it feels like when someone asks you a question and you can tell they already have the answer they want. They're not asking — they're pushing. You feel it immediately.</p>
-        <p>Now think about the opposite: someone asks "Wo ho te sɛn?" — the Twi phrase for "how are you?", which translates literally as "how is your body?" — and they actually pause and wait for your answer. That pause is everything. It is the invitation made physical.</p>
+        <p>Now think about the opposite: someone asks how you're doing and they actually pause and wait for your answer. That pause is everything. It is the invitation made physical.</p>
         <p>Good questions work this way. They do not rush toward a destination. They open a door and stand back.</p>
       </section>
       <section class="lesson-section">
@@ -39,7 +39,7 @@ export const LESSONS = [
           <li>Use questions to understand, connect, challenge, and create</li>
           <li>Ask the questions most people never think to ask — including the ones you need to ask yourself</li>
         </ul>
-        <p>The Akan say: <strong><em>"Ɔbɛyɛ papa"</em></strong> — it will be good. The practice of asking well is a practice of becoming more human. Let's begin.</p>
+        <p>The practice of asking well is a practice of becoming more human. Let's begin.</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>The Difference That Will Change Everything</h3>
@@ -56,10 +56,10 @@ export const LESSONS = [
         id: 'the-invitation',
         title: 'A Question Is an Invitation',
         content: `
-          <p>The app you're using is named <strong>Bisa</strong> — a Twi word from the Akan people of Ghana that means: <em>to ask.</em></p>
+          <p>The app you're using is named <strong>Bisa</strong> — it means <em>to ask.</em></p>
           <p>Before learning how to ask better, it's worth pausing on what a question actually is. Most people never stop to consider it.</p>
           <p><strong>A question is an invitation.</strong> It's a signal sent from one mind to another — or from your mind to itself — that says: <em>I don't know yet, and I believe something valuable can be found here.</em></p>
-          <p>In Twi, <strong>tie</strong> means to truly listen, to hear with full attention. Every real question carries an act of <em>tie</em> inside it: you are making space to receive something you don't already have.</p>
+          <p>Every real question carries an act of deep listening inside it: you are making space to receive something you don't already have.</p>
           <p>That openness is what separates a real question from a statement dressed up in question-clothing.</p>
         `,
         interaction: null,
@@ -74,7 +74,7 @@ export const LESSONS = [
             <li><strong>Invitation</strong> — it creates space for another mind to respond freely</li>
             <li><strong>Curiosity</strong> — there's genuine interest in whatever comes back</li>
           </ul>
-          <p>The Akan proverb says: <em>"<strong>Nyansa</strong> does not live in one head."</em> Nyansa means wisdom. A real question is an acknowledgment of this — that the person you're asking has something you need. Watch the difference:</p>
+          <p>There's an old proverb: <em>"Wisdom does not live in one head."</em> A real question is an acknowledgment of this — that the person you're asking has something you need. Watch the difference:</p>
         `,
         interaction: {
           type: 'before-after',
@@ -89,7 +89,7 @@ export const LESSONS = [
         title: 'Real Questions vs. Fake Questions',
         content: `
           <p>Think about what it feels like when someone asks you a question and you can tell they already have the answer they want. You feel it immediately — they're not asking, they're pushing.</p>
-          <p>Now imagine someone asks you <strong>"Wo ho te sɛn?"</strong> — the Twi phrase for "how are you?", which translates literally as "how is your body?" — and they actually pause and wait. That pause is everything. It is the invitation made real.</p>
+          <p>Now imagine someone asks how you're doing — and they actually pause and wait. That pause is everything. It is the invitation made real.</p>
           <p>Which of these is actually a question?</p>
         `,
         interaction: {
@@ -132,7 +132,7 @@ export const LESSONS = [
               outcome: 'They open up. The question acknowledged something has been happening over time — it invited the real story, not just a headline.',
             },
           ],
-          takeaway: 'The best questions don\'t push toward an answer. They hold space for one. In Twi: <strong>tie</strong> — listen first, then ask from what you heard.',
+          takeaway: 'The best questions don\'t push toward an answer. They hold space for one. Listen first, then ask from what you heard.',
         },
       },
       {
