@@ -48,10 +48,25 @@ export function buildXPFunctions(userId) {
         .maybeSingle();
       if (error) throw error;
       if (!data) return { currentStreak: 0, longestStreak: 0, lastChallengeDate: null };
+
+      const last = data.last_challenge_date;
+      let currentStreak = data.current_streak || 0;
+
+      if (last && currentStreak > 0) {
+        const today = new Date();
+        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+        if (last !== todayStr && last !== yesterdayStr) {
+          currentStreak = 0;
+        }
+      }
+
       return {
-        currentStreak: data.current_streak || 0,
+        currentStreak,
         longestStreak: data.longest_streak || 0,
-        lastChallengeDate: data.last_challenge_date || null,
+        lastChallengeDate: last || null,
       };
     } catch (e) { console.error('getStreakInfo:', e); return { currentStreak: 0, longestStreak: 0, lastChallengeDate: null }; }
   }
