@@ -11,7 +11,6 @@ import AuthPage from './pages/AuthPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
 import WelcomePage from './pages/WelcomePage';
 import { useAuth } from './hooks/useAuth';
-import { STORAGE_KEYS } from './lib/constants';
 import { captureError } from './lib/sentry';
 
 function AuthGuard() {
@@ -23,10 +22,8 @@ function AuthGuard() {
 
 function AuthRedirect() {
   const { user, loading } = useAuth();
-  const introSeen = localStorage.getItem(STORAGE_KEYS.INTRO_SEEN);
   if (loading) return <div style={{ padding: 24, textAlign: 'center', color: '#A8A29E' }}>Loading…</div>;
   if (user) return <Navigate to="/" replace />;
-  if (!introSeen) return <Navigate to="/onboarding" replace />;
   return <AuthPage />;
 }
 
@@ -81,8 +78,8 @@ export default function App() {
       <Routes>
         <Route path="/auth" element={<AuthRedirect />} />
         <Route path="/verify" element={<VerifyOTPPage />} />
-        <Route path="/onboarding" element={<OnboardingPage />} />
         <Route element={<AuthGuard />}>
+          <Route path="/onboarding" element={<OnboardingPage />} />
           <Route path="/welcome" element={<WelcomePage />} />
           <Route element={<AppShell />}>
             <Route path="/" element={<TodayPage />} />

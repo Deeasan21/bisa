@@ -21,7 +21,7 @@ export default function WelcomePage() {
     } catch (err) {
       console.error('Failed to save name:', err);
     }
-    navigate('/', { replace: true });
+    navigate('/onboarding', { replace: true });
   }
 
   return (
@@ -57,7 +57,7 @@ export default function WelcomePage() {
         <button
           className="welcome-skip"
           type="button"
-          onClick={() => navigate('/', { replace: true })}
+          onClick={() => navigate('/onboarding', { replace: true })}
         >
           Skip for now
         </button>

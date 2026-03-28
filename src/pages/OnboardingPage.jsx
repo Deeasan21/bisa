@@ -2,23 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
-import { STORAGE_KEYS } from '../lib/constants';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import './OnboardingPage.css';
 
 export default function OnboardingPage() {
   const [slide, setSlide] = useState(0);
   const navigate = useNavigate();
+  const { db } = useSupabaseDB();
 
   const TOTAL_SLIDES = 3;
 
-  const goToAuth = () => {
-    localStorage.setItem(STORAGE_KEYS.INTRO_SEEN, 'true');
-    navigate('/auth', { replace: true });
+  const finish = async () => {
+    try { await db.markOnboardingComplete(); } catch {}
+    navigate('/', { replace: true });
   };
 
   const next = () => {
     if (slide < TOTAL_SLIDES - 1) setSlide(s => s + 1);
-    else goToAuth();
+    else finish();
   };
 
   const back = () => {
@@ -51,7 +52,7 @@ export default function OnboardingPage() {
               ))}
             </div>
             {slide < TOTAL_SLIDES - 1 && (
-              <button className="onboarding-skip" onClick={goToAuth}>Skip</button>
+              <button className="onboarding-skip" onClick={finish}>Skip</button>
             )}
           </div>
           <button className="onboarding-cta" onClick={next}>
