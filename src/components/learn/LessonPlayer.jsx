@@ -87,6 +87,20 @@ export default function LessonPlayer({
     setInteractionDone(true);
   };
 
+  const ENYA_INTRO_KEY = 'enya_intro_played';
+  const ENYA_INTRO = "Hi, I'm Enya — your guide through Bisa. I'll be reading your lessons aloud as you learn. Let's begin.";
+
+  const handleSectionSpeak = () => {
+    const text = [current.title, current.content].filter(Boolean).join('. ');
+    const isFirstEver = lesson.id === 0 && sectionIndex === 0 && !localStorage.getItem(ENYA_INTRO_KEY);
+    if (isFirstEver) {
+      localStorage.setItem(ENYA_INTRO_KEY, '1');
+      speechToggle(ENYA_INTRO + ' ' + text);
+    } else {
+      speechToggle(text);
+    }
+  };
+
   return (
     <div className="lesson-player">
       {/* Progress dots */}
@@ -108,7 +122,7 @@ export default function LessonPlayer({
           {current.content && (
             <button
               className={`lp-speak-btn${speechState === 'speaking' ? ' speaking' : ''}${speechState === 'loading' ? ' loading' : ''}`}
-              onClick={() => speechToggle([current.title, current.content].filter(Boolean).join('. '))}
+              onClick={handleSectionSpeak}
               disabled={speechState === 'loading'}
               aria-label={speechState === 'speaking' ? 'Pause' : speechState === 'paused' ? 'Resume' : speechState === 'loading' ? 'Loading…' : 'Read aloud'}
             >
