@@ -78,7 +78,7 @@ function isAllowedOrigin(req) {
 // --- Blob cache ---
 
 // Bump this when voice settings change — invalidates all old cached audio
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 
 function getCacheKey(text, voiceId) {
   const hash = crypto.createHash('sha256').update(text + voiceId + CACHE_VERSION).digest('hex').slice(0, 24);
@@ -118,9 +118,9 @@ async function synthesize(text, apiKey, voiceId, dictId) {
     text,
     model_id: 'eleven_multilingual_v2',
     voice_settings: {
-      stability: 0.35,
+      stability: 0.50,
       similarity_boost: 0.80,
-      style: 0.55,
+      style: 0.45,
       use_speaker_boost: true,
     },
   };
