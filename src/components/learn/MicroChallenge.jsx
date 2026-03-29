@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import SpeakButton from '../common/SpeakButton';
+import { useSpeech } from '../../hooks/useSpeech';
 import './interactions.css';
 
 export default function MicroChallenge({ scenario, options, explanation, onComplete }) {
   const [selected, setSelected] = useState(null);
   const correctIdx = options.findIndex(o => o.isCorrect);
+  const { speak } = useSpeech();
 
   const handleSelect = (idx) => {
     if (selected !== null) return;
     setSelected(idx);
     onComplete();
+    speak(explanation);
   };
 
   const getOptionClass = (i) => {
@@ -23,7 +26,7 @@ export default function MicroChallenge({ scenario, options, explanation, onCompl
     <div className="interaction mc-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Quick Check</span>
-        <SpeakButton text={[scenario, ...options.map((o, i) => `Option ${i + 1}: ${o.text}`)].join('. ')} />
+        <SpeakButton text={scenario} />
       </div>
       <p className="mc-scenario">{scenario}</p>
       <div className="mc-options">

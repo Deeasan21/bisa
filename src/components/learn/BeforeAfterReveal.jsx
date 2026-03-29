@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import SpeakButton from '../common/SpeakButton';
+import { useSpeech } from '../../hooks/useSpeech';
 import './interactions.css';
 
 export default function BeforeAfterReveal({ context, before, after, explanation, onComplete }) {
   const [revealed, setRevealed] = useState(false);
+  const { speak } = useSpeech();
 
   const handleReveal = () => {
     setRevealed(true);
     onComplete();
+    speak([`After: ${after}`, explanation].filter(Boolean).join('. '));
   };
 
   return (
     <div className="interaction ba-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Before &amp; After</span>
-        <SpeakButton text={revealed
-          ? [context, `Before: ${before}`, `After: ${after}`, explanation].filter(Boolean).join('. ')
-          : [context, `Before: ${before}`].filter(Boolean).join('. ')}
-        />
+        <SpeakButton text={[context, `Before: ${before}`].filter(Boolean).join('. ')} />
       </div>
       {context && <p className="ba-context">{context}</p>}
       <div className="ba-block">
