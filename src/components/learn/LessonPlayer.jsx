@@ -153,6 +153,13 @@ export default function LessonPlayer({
         )}
       </div>
 
+      {/* Skip for returning users */}
+      {hasRequired && !interactionDone && (
+        <button className="lp-skip" onClick={() => { setInteractionDone(true); }}>
+          Skip activity
+        </button>
+      )}
+
       {/* Navigation */}
       <div className="lp-nav">
         <button

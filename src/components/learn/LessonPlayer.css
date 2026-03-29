@@ -170,6 +170,25 @@
   color: var(--text-muted);
 }
 
+/* ─── Skip activity ─────────────────────────────────────────── */
+.lp-skip {
+  display: block;
+  margin: 0 auto var(--space-sm);
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.lp-skip:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 /* ─── Lesson complete state ─────────────────────────────────── */
 .lp-done-hint {
   font-size: 0.78rem;
