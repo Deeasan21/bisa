@@ -52,10 +52,10 @@ export function useSpeech() {
     setState('idle');
   }, []);
 
-  const speak = useCallback(async (rawHtml) => {
+  const speak = useCallback(async (rawHtml, onEnd) => {
     stop();
     const text = htmlToSpeechText(rawHtml);
-    if (!text) return;
+    if (!text) { onEnd?.(); return; }
 
     setState('loading');
     try {
@@ -71,6 +71,7 @@ export function useSpeech() {
         if (!res.ok) {
           fallbackBrowserSpeak(text);
           setState('idle');
+          onEnd?.();
           return;
         }
 
@@ -81,13 +82,14 @@ export function useSpeech() {
 
       const audio = new Audio(url);
       audioRef.current = audio;
-      audio.onended = () => setState('idle');
-      audio.onerror = () => { setState('idle'); fallbackBrowserSpeak(text); };
+      audio.onended = () => { setState('idle'); onEnd?.(); };
+      audio.onerror = () => { setState('idle'); fallbackBrowserSpeak(text); onEnd?.(); };
       await audio.play();
       setState('speaking');
     } catch {
       fallbackBrowserSpeak(text);
       setState('idle');
+      onEnd?.();
     }
   }, [stop]);
 

@@ -53,7 +53,7 @@ export default function LessonPlayer({
 }) {
   const [sectionIndex, setSectionIndex] = useState(0);
   const [interactionDone, setInteractionDone] = useState(false);
-  const { state: speechState, toggle: speechToggle, stop: speechStop } = useSpeech();
+  const { state: speechState, speak: speechSpeak, toggle: speechToggle, stop: speechStop } = useSpeech();
 
   const sections = lesson.sections;
   const total = sections.length;
@@ -98,11 +98,11 @@ export default function LessonPlayer({
     // localStorage = instant check (same device); enyaIntroPlayed = Supabase (cross-device)
     const alreadyPlayed = localStorage.getItem(ENYA_INTRO_LS_KEY) || enyaIntroPlayed === true;
     const shouldPlayIntro = lesson.id === 0 && sectionIndex === 0 && !alreadyPlayed;
-    console.log('[Enya intro]', { lessonId: lesson.id, sectionIndex, enyaIntroPlayed, lsKey: localStorage.getItem(ENYA_INTRO_LS_KEY), alreadyPlayed, shouldPlayIntro });
     if (shouldPlayIntro) {
       localStorage.setItem(ENYA_INTRO_LS_KEY, '1');
       onEnyaIntroPlayed?.();
-      speechToggle(ENYA_INTRO + ' ' + text);
+      // Play intro as its own audio, then chain into content when it finishes
+      speechSpeak(ENYA_INTRO, () => speechSpeak(text));
     } else {
       speechToggle(text);
     }
