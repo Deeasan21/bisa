@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpeakButton from '../common/SpeakButton';
 import './interactions.css';
 
 export default function MicroChallenge({ scenario, options, explanation, onComplete }) {
@@ -22,6 +23,7 @@ export default function MicroChallenge({ scenario, options, explanation, onCompl
     <div className="interaction mc-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Quick Check</span>
+        <SpeakButton text={[scenario, ...options.map((o, i) => `Option ${i + 1}: ${o.text}`)].join('. ')} />
       </div>
       <p className="mc-scenario">{scenario}</p>
       <div className="mc-options">

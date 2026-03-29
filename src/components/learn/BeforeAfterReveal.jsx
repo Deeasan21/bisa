@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpeakButton from '../common/SpeakButton';
 import './interactions.css';
 
 export default function BeforeAfterReveal({ context, before, after, explanation, onComplete }) {
@@ -13,6 +14,10 @@ export default function BeforeAfterReveal({ context, before, after, explanation,
     <div className="interaction ba-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Before &amp; After</span>
+        <SpeakButton text={revealed
+          ? [context, `Before: ${before}`, `After: ${after}`, explanation].filter(Boolean).join('. ')
+          : [context, `Before: ${before}`].filter(Boolean).join('. ')}
+        />
       </div>
       {context && <p className="ba-context">{context}</p>}
       <div className="ba-block">

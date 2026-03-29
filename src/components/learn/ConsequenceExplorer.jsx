@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SpeakButton from '../common/SpeakButton';
 import './interactions.css';
 
 /**
@@ -46,6 +47,7 @@ export default function ConsequenceExplorer({ scenario, phrasings, takeaway, onC
     <div className="interaction ce-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Explore Consequences</span>
+        <SpeakButton text={[scenario, ...phrasings.map(p => `"${p.text}". ${p.consequence}`)].join('. ')} />
       </div>
       <p className="ce-scenario">{scenario}</p>
       <p className="ce-cue">Tap each phrasing to see what happens:</p>

@@ -1,0 +1,46 @@
+.speak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.speak-btn:hover {
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+.speak-btn.speaking {
+  color: #3B82F6;
+  border-color: #3B82F6;
+  background: rgba(59, 130, 246, 0.08);
+  animation: speakPulse 2s ease-in-out infinite;
+}
+
+.speak-btn.loading {
+  cursor: default;
+  opacity: 0.6;
+}
+
+@keyframes speakPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.3); }
+  50%       { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); }
+}
+
+.speak-btn-spin {
+  animation: sbSpin 0.75s linear infinite;
+}
+
+@keyframes sbSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
