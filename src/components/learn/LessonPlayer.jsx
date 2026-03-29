@@ -98,6 +98,7 @@ export default function LessonPlayer({
     // localStorage = instant check (same device); enyaIntroPlayed = Supabase (cross-device)
     const alreadyPlayed = localStorage.getItem(ENYA_INTRO_LS_KEY) || enyaIntroPlayed === true;
     const shouldPlayIntro = lesson.id === 0 && sectionIndex === 0 && !alreadyPlayed;
+    console.log('[Enya intro]', { lessonId: lesson.id, sectionIndex, enyaIntroPlayed, lsKey: localStorage.getItem(ENYA_INTRO_LS_KEY), alreadyPlayed, shouldPlayIntro });
     if (shouldPlayIntro) {
       localStorage.setItem(ENYA_INTRO_LS_KEY, '1');
       onEnyaIntroPlayed?.();
