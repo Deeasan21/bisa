@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SpeakButton from '../common/SpeakButton';
+import { useSpeech } from '../../hooks/useSpeech';
 import './interactions.css';
 
 /**
@@ -17,17 +18,7 @@ import './interactions.css';
 export default function ConsequenceExplorer({ scenario, phrasings, takeaway, onComplete }) {
   const [explored, setExplored] = useState(new Set());
   const [activePhrasing, setActivePhrasing] = useState(null);
-
-  const handleSelect = (idx) => {
-    setActivePhrasing(idx);
-    const next = new Set(explored);
-    next.add(idx);
-    setExplored(next);
-
-    if (next.size === phrasings.length) {
-      onComplete();
-    }
-  };
+  const { speak } = useSpeech();
 
   const qualityColor = {
     great: '#10B981',
@@ -41,13 +32,28 @@ export default function ConsequenceExplorer({ scenario, phrasings, takeaway, onC
     poor: 'Shuts down the conversation',
   };
 
+  const handleSelect = (idx) => {
+    setActivePhrasing(idx);
+    const next = new Set(explored);
+    next.add(idx);
+    setExplored(next);
+
+    // Auto-read the consequence when a card is tapped
+    const p = phrasings[idx];
+    speak(`${qualityLabel[p.quality]}. ${p.consequence}`);
+
+    if (next.size === phrasings.length) {
+      onComplete();
+    }
+  };
+
   const allExplored = explored.size === phrasings.length;
 
   return (
     <div className="interaction ce-wrap">
       <div className="interaction-header">
         <span className="interaction-label">Explore Consequences</span>
-        <SpeakButton text={[scenario, 'Tap each phrasing to see what happens:', ...phrasings.map(p => `"${p.text}"`)].join('. ')} />
+        <SpeakButton text={`${scenario}. Tap each phrasing to see what happens.`} />
       </div>
       <p className="ce-scenario">{scenario}</p>
       <p className="ce-cue">Tap each phrasing to see what happens:</p>

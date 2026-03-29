@@ -104,5 +104,5 @@ export function useSpeech() {
     };
   }, []);
 
-  return { state, toggle, stop };
+  return { state, speak, toggle, stop };
 }
