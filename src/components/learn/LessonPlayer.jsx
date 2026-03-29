@@ -47,6 +47,9 @@ export default function LessonPlayer({
   hasApiKey,
   // Called when user clicks Done on the last section
   onLessonComplete,
+  // Enya intro (one-time, stored in Supabase)
+  enyaIntroPlayed,
+  onEnyaIntroPlayed,
 }) {
   const [sectionIndex, setSectionIndex] = useState(0);
   const [interactionDone, setInteractionDone] = useState(false);
@@ -87,14 +90,14 @@ export default function LessonPlayer({
     setInteractionDone(true);
   };
 
-  const ENYA_INTRO_KEY = 'enya_intro_played';
   const ENYA_INTRO = "Hi, I'm Enya — your guide through Bisa. I'll be reading your lessons aloud as you learn. Let's begin.";
 
   const handleSectionSpeak = () => {
     const text = [current.title, current.content].filter(Boolean).join('. ');
-    const isFirstEver = lesson.id === 0 && sectionIndex === 0 && !localStorage.getItem(ENYA_INTRO_KEY);
-    if (isFirstEver) {
-      localStorage.setItem(ENYA_INTRO_KEY, '1');
+    // enyaIntroPlayed=null means still loading from Supabase — skip intro until we know
+    const shouldPlayIntro = lesson.id === 0 && sectionIndex === 0 && enyaIntroPlayed === false;
+    if (shouldPlayIntro) {
+      onEnyaIntroPlayed?.();
       speechToggle(ENYA_INTRO + ' ' + text);
     } else {
       speechToggle(text);

@@ -336,7 +336,7 @@ export function buildEngineFunctions(userId, deps) {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, display_name, avatar_id, created_at, onboarding_completed')
+        .select('id, display_name, avatar_id, created_at, onboarding_completed, enya_intro_played')
         .eq('id', userId)
         .maybeSingle();
       if (error) throw error;
@@ -371,6 +371,14 @@ export function buildEngineFunctions(userId, deps) {
         .update({ onboarding_completed: true })
         .eq('id', userId);
     } catch (e) { console.error('markOnboardingComplete:', e); }
+  }
+
+  async function markEnyaIntroPlayed() {
+    try {
+      await supabase.from('profiles')
+        .update({ enya_intro_played: true })
+        .eq('id', userId);
+    } catch (e) { console.error('markEnyaIntroPlayed:', e); }
   }
 
   // ── Data Export ──────────────────────────────────────────────────────────
@@ -423,7 +431,7 @@ export function buildEngineFunctions(userId, deps) {
     generateDailyQuests, allQuestsCompleted,
     getOverallProgress,
     getRecommendations, getRecommendedMode,
-    getProfile, updateProfile, markOnboardingComplete,
+    getProfile, updateProfile, markOnboardingComplete, markEnyaIntroPlayed,
     exportAllData,
   };
 }

@@ -57,6 +57,7 @@ export default function LearnMode() {
   const [aiReflectionResult, setAiReflectionResult] = useState(null);
   const [aiReflectionLoading, setAiReflectionLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [enyaIntroPlayed, setEnyaIntroPlayed] = useState(null); // null = not loaded yet
 
   const lesson = LESSONS[selectedLesson];
   const pillStripRef = useRef(null);
@@ -81,6 +82,11 @@ export default function LearnMode() {
       }
     }
   }, [selectedLesson]);
+
+  useEffect(() => {
+    if (!isReady || !db) return;
+    db.getProfile().then(p => setEnyaIntroPlayed(!!p?.enya_intro_played));
+  }, [db, isReady]);
 
   useEffect(() => {
     if (!isReady || !db || !lesson) return;
@@ -216,6 +222,11 @@ export default function LearnMode() {
             onRequestAI={handleRequestAIReflection}
             hasApiKey={hasApiKey()}
             onLessonComplete={goNextLesson}
+            enyaIntroPlayed={enyaIntroPlayed}
+            onEnyaIntroPlayed={() => {
+              setEnyaIntroPlayed(true);
+              db?.markEnyaIntroPlayed();
+            }}
           />
         ) : (
           /* Legacy HTML renderer — used until a lesson gets converted */
