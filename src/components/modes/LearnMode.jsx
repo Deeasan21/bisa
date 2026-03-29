@@ -85,7 +85,11 @@ export default function LearnMode() {
 
   useEffect(() => {
     if (!isReady || !db) return;
-    db.getProfile().then(p => setEnyaIntroPlayed(!!p?.enya_intro_played));
+    db.getProfile().then(p => {
+      const played = !!p?.enya_intro_played;
+      setEnyaIntroPlayed(played);
+      if (played) localStorage.setItem('enya_intro_played', '1');
+    });
   }, [db, isReady]);
 
   useEffect(() => {

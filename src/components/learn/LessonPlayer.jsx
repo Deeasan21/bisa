@@ -91,12 +91,15 @@ export default function LessonPlayer({
   };
 
   const ENYA_INTRO = "Hi, I'm Enya — your guide through Bisa. I'll be reading your lessons aloud as you learn. Let's begin.";
+  const ENYA_INTRO_LS_KEY = 'enya_intro_played';
 
   const handleSectionSpeak = () => {
     const text = [current.title, current.content].filter(Boolean).join('. ');
-    // enyaIntroPlayed=null means still loading from Supabase — skip intro until we know
-    const shouldPlayIntro = lesson.id === 0 && sectionIndex === 0 && enyaIntroPlayed === false;
+    // localStorage = instant check (same device); enyaIntroPlayed = Supabase (cross-device)
+    const alreadyPlayed = localStorage.getItem(ENYA_INTRO_LS_KEY) || enyaIntroPlayed === true;
+    const shouldPlayIntro = lesson.id === 0 && sectionIndex === 0 && !alreadyPlayed;
     if (shouldPlayIntro) {
+      localStorage.setItem(ENYA_INTRO_LS_KEY, '1');
       onEnyaIntroPlayed?.();
       speechToggle(ENYA_INTRO + ' ' + text);
     } else {
