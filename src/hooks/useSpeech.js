@@ -12,6 +12,7 @@ export function htmlToSpeechText(html) {
     .replace(/<[^>]+>/g, '')
     .replace(/&amp;/g, 'and')
     .replace(/&mdash;|—/g, ', ')
+    .replace(/"([^"]{1,30})[?!]"/g, '"$1"')
     .replace(/[""]/g, '')
     .replace(/\s*\.\s*\.\s*/g, '. ')
     .replace(/\s{2,}/g, ' ')
