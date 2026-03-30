@@ -1,9 +1,9 @@
 # Bisa — Session State
 
 ## Last Session
-- **Date:** 2026-03-14
-- **What was done:** Phase 2.5 polish + brand identity work
-- **Current focus:** Brand mark complete, onboarding polished, UI cleaned up
+- **Date:** 2026-03-29
+- **What was done:** ElevenLabs TTS (Enya voice), Vercel Blob audio cache, interactive lesson speak-on-tap, Enya intro, onboarding behind auth, streak expiry fix, skip activity button
+- **Current focus:** Voice tuning + lesson interaction polish
 
 ## Phase 1 — Completed
 1. ✅ Scaffold React + Vite project with folder structure
@@ -149,21 +149,62 @@
 - ✅ tools/photo-upload.js — zero-dependency local HTTP server for phone→laptop photo transfer
   - Random one-time session token, local network only, 100MB limit, filename sanitization
 
-## Build Stats
-- Build: 5,698KB JS (1,256KB gzipped), 52KB CSS (9KB gzipped)
-- npm run build: ✅ succeeds with no errors
+## Phase 3 — Completed (Supabase User Accounts)
+- ✅ Supabase Auth — email/password signup with 8-digit OTP email verification
+- ✅ Auth flow: `/auth` → `/verify` → `/welcome` → `/`
+- ✅ Google OAuth wired (requires Supabase dashboard toggle)
+- ✅ Full sql.js → Supabase Postgres migration (cross-device sync) — commit fc52779
+- ✅ Offline-first — React Query + IndexedDB cache, OfflineBanner, auto-refetch on reconnect
+- ✅ Data export (JSON/CSV) — `src/utils/exportData.js`
+- ✅ Onboarding behind auth — `/onboarding` inside AuthGuard, `onboarding_completed` stored in Supabase profiles
+- ✅ Streak expiry fix — `getStreakInfo()` resets streak if `last_challenge_date` older than yesterday
+- ✅ Sign-out no longer clears onboarding or intro localStorage flags
+
+## Phase 3.5 — Completed (Enya Voice + Lesson Interactivity, 2026-03-29)
+
+### ElevenLabs TTS
+- ✅ `api/tts.js` — Vercel serverless proxy to ElevenLabs `eleven_multilingual_v2`
+- ✅ Voice settings: stability 0.50, similarity_boost 0.80, style 0.45, use_speaker_boost true
+- ✅ Vercel Blob persistent audio cache — keyed by SHA-256(text + voiceId + CACHE_VERSION)
+- ✅ Cache versioning — `CACHE_VERSION = 'v3'` in `api/tts.js`; bump to invalidate all cached audio
+- ✅ Rate limiting: 50 calls/day per IP, 3000/day global (cache hits bypass limits)
+- ✅ Origin validation: neaobisa.com, bisa-eta.vercel.app, deeasan21s-projects.vercel.app, localhost
+- ✅ Twi pronunciation dictionary uploaded to ElevenLabs (ID: eJJEylQky2lva2hIyD1x, version: yN6x9FAFtaMnvlgCkL32) — Twi words removed from lessons for now, reintroduce later
+- ✅ `X-Cache: HIT/MISS` header for debugging
+
+### Speech Hook + Components
+- ✅ `src/hooks/useSpeech.js` — shared hook, exports `{ state, speak, toggle, stop }`
+  - `speak(text, onEnd?)` — plays audio, calls onEnd when finished (used for chaining)
+  - `toggle(text)` — play/pause/resume
+  - Blob URL cache (in-memory), browser TTS fallback on API error
+- ✅ `src/components/common/SpeakButton.jsx` + `SpeakButton.css` — reusable 26px speaker button
+
+### Lesson Interactivity
+- ✅ LessonPlayer section speaker reads section content only (not interactions)
+- ✅ **ConsequenceExplorer** — header reads scenario + cue; tapping a card auto-speaks its consequence
+- ✅ **BeforeAfterReveal** — header reads context + before; tapping Reveal auto-speaks after + explanation
+- ✅ **MicroChallenge** — header reads scenario; selecting an option auto-speaks the explanation
+- ✅ Skip activity button — returning users can bypass required interactions
+- ✅ `htmlToSpeechText` — strips `?!` from inside short quoted phrases (fixes ElevenLabs prosody on e.g. `"why?"`)
+
+### Enya Introduction
+- ✅ One-time intro plays before Lesson 0 Section 1 content on first speaker tap
+- ✅ Intro is separate chained audio call (not concatenated with content)
+- ✅ Tracked in both localStorage (`enya_intro_played`) and Supabase `profiles.enya_intro_played`
+- ✅ Cross-device: Supabase flag syncs to localStorage on profile load for returning users
+- ✅ Supabase column: `ALTER TABLE profiles ADD COLUMN IF NOT EXISTS enya_intro_played boolean DEFAULT false`
 
 ## Remaining Work
-- Daily Quests section showing empty — needs investigation (generateDailyQuests may be silently failing)
-- Phase 3: User accounts via Supabase, real leaderboards, cloud sync
+- Twi pronunciation — reintroduce Twi words to lessons once ElevenLabs pronunciation is verified
+- Home page improvements — streak state feedback, week calendar colors, quest completion count
+- Technique Drill AI — consider switching `aiPatternFeedback.js` to Haiku model (20x cheaper, already supported via `model: 'haiku'` param in api/claude.js)
+- Daily Quests 400 error — Supabase returning 400 on daily_quests insert (seen in console, needs investigation)
 
 ## Architecture Notes
-- Engine layer (src/engine/) handles all intelligence/personalization with pure math
-- AI layer (src/engine/aiFeedback.js, aiSimulation.js) enhances engines when API key available
-- Response scorer flags ambiguous responses (score 40-75) as `needsAIReview: true` for AI review
-- Claude calls go through /api/claude proxy (Vercel serverless in prod, Vite middleware in dev)
-- API key stored in localStorage, sent per-request (user's own key, not shared)
-- Daily quests are auto-generated weighted by weak categories
+- Engine layer (`src/engine/`) handles all intelligence/personalization with pure math
+- AI layer (`src/engine/aiFeedback.js`, `aiSimulation.js` etc.) enhances engines when API key available
+- Claude calls go through `/api/claude` proxy; supports `model: 'haiku'` or defaults to Sonnet
+- ElevenLabs TTS goes through `/api/tts` proxy with Vercel Blob caching
+- Supabase is source of truth for all user data — localStorage only used for fast-path checks
 - BPQ recalculates after every XP award
 - Adaptive difficulty adjusts per-category after 3 sessions above/below threshold
-- All engines read/write to sql.js database via existing helpers

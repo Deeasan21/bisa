@@ -41,6 +41,17 @@
 - **Deep-linking** — Daily Insight card navigates directly to the relevant lesson in Learn mode
 - **Code splitting** — Route-level `React.lazy()` for all 5 mode routes to reduce initial bundle
 
+## Phase 3.5 Features (2026-03-29)
+- **ElevenLabs TTS** — `api/tts.js` proxy, `eleven_multilingual_v2`, Vercel Blob persistent cache with `CACHE_VERSION` (bump to invalidate). Voice: stability 0.50, similarity_boost 0.80, style 0.45.
+- **useSpeech hook** — `src/hooks/useSpeech.js`, exports `{ state, speak, toggle, stop }`. `speak(text, onEnd?)` supports chaining.
+- **SpeakButton** — `src/components/common/SpeakButton.jsx`, reusable speaker icon button
+- **Tap-to-speak interactions** — ConsequenceExplorer, BeforeAfterReveal, MicroChallenge all auto-speak revealed content on tap. Header buttons read prompts only (no spoilers).
+- **Enya intro** — One-time voice intro before Lesson 0 first read. Stored in Supabase `profiles.enya_intro_played` + localStorage. Chained audio (intro → content as separate calls).
+- **Skip activity button** — Returning users can bypass required interactions in LessonPlayer
+- **Onboarding behind auth** — `/onboarding` inside AuthGuard, `onboarding_completed` in Supabase profiles, `markOnboardingComplete()` in engine.js
+- **Streak expiry** — `getStreakInfo()` resets streak to 0 if `last_challenge_date` is older than yesterday
+- **Supabase columns added:** `profiles.onboarding_completed boolean DEFAULT false`, `profiles.enya_intro_played boolean DEFAULT false`
+
 ## Phase 2.6 Features (Merged 2026-03-23)
 These were in branch `claude/analyze-test-coverage-EYHat`, now in master:
 - **Monthly Report Card** — "Your Questions This Month" card on Today page (`src/components/common/MonthlyReport.jsx`) — shows sessions, avg score, streak, strongest skill, growth area. Requires activity data to appear.
@@ -94,19 +105,12 @@ All scenarios: `pack: "pack-key"` field, 4–6 node depth, branching with qualit
 
 **Known bugs (open):**
 
-1. ~~**SimulateMode crashes on category filter**~~ — **FIXED** (category filter uses `useMemo` + `db.getCurrentTier()` in `useEffect`; no `filterByDifficulty()` call exists)
+1. **Daily Quests 400 error** — Supabase returning 400 on `daily_quests` insert (seen in browser console). Needs investigation.
+2. **Twi pronunciation** — Twi words removed from lessons temporarily. ElevenLabs pronunciation dictionary uploaded but not fully verified. Reintroduce once confirmed.
 
-2. ~~**PatternMode calls non-existent getPatternStats(db)**~~ — **FIXED** (already calls `db.getPatternStats()` in a proper `useEffect` with state)
+**All previous bugs resolved.** Vitest test infrastructure set up (`vitest.config.js`, `src/__tests__/`).
 
-3. ~~**Sign-out doesn't clear onboarding localStorage**~~ — **FIXED** (`src/pages/ProfilePage.jsx` line 109)
-
-4. ~~**Dead signOut import in AppShell**~~ — **FIXED**
-
-5. ~~**Supabase email delivery — OTP emails not arriving**~~ — **FIXED** (DMARC DNS record was missing on `neaobisa.com`; added the record, domain fully verified in Resend, OTP emails now land in inbox via custom SMTP `hello@mail.neaobisa.com`)
-
-**Note:** All 5 bugs are resolved. The Vitest test infrastructure is set up (`vitest.config.js`, `src/__tests__/`), including component tests.
-
-**Note:** Actual file paths differ from original docs — `ProfilePage` is at `src/pages/ProfilePage.jsx`, `AppShell` is at `src/components/layout/AppShell.jsx`.
+**Note:** Actual file paths — `ProfilePage` → `src/pages/ProfilePage.jsx`, `AppShell` → `src/components/layout/AppShell.jsx`.
 
 ### Phase 4: Analytics & Insights
 - Anonymous usage analytics (PostHog or Mixpanel)
