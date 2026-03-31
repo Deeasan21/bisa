@@ -46,7 +46,7 @@
 }
 
 .api-key-input:focus {
-  border-color: #8B5CF6;
+  border-color: var(--accent-gold);
 }
 
 .api-key-masked {
@@ -87,8 +87,8 @@
 }
 
 .api-key-btn.test {
-  background: #8B5CF620;
-  color: #8B5CF6;
+  background: var(--accent-gold)20;
+  color: var(--accent-gold);
 }
 
 .api-key-btn.clear {
@@ -111,7 +111,7 @@
 
 .api-key-link {
   font-size: 0.8rem;
-  color: #8B5CF6;
+  color: var(--accent-gold);
   text-decoration: none;
 }
 

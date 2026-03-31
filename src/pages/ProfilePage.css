@@ -192,11 +192,11 @@
 
 .achievement-item.unlocked .achievement-circle {
   background: #FEF3C7;
-  border-color: #F59E0B;
+  border-color: var(--accent-gold);
 }
 
 [data-theme="dark"] .achievement-item.unlocked .achievement-circle {
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(212, 168, 83, 0.15);
 }
 
 .achievement-locked-overlay {

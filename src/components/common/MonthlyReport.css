@@ -138,8 +138,8 @@
 }
 
 .monthly-report-skill-badge.growth {
-  background: rgba(59, 130, 246, 0.12);
-  color: #3B82F6;
+  background: rgba(212, 168, 83, 0.12);
+  color: var(--accent-gold);
 }
 
 .monthly-report-skill-name {

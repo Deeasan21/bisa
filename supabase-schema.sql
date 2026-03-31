@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS daily_quests (
   quest_target TEXT,
   quest_description TEXT,
   xp_reward INTEGER NOT NULL,
-  completed INTEGER DEFAULT 0,
+  completed BOOLEAN DEFAULT false,
   progress INTEGER DEFAULT 0,
   goal INTEGER DEFAULT 1,
   created_at TIMESTAMPTZ DEFAULT NOW()

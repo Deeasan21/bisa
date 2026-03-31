@@ -62,8 +62,8 @@
 }
 
 .welcome-input:focus {
-  border-color: #F59E0B;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.12);
 }
 
 .welcome-input::placeholder {

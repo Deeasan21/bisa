@@ -168,7 +168,7 @@
 }
 
 .technique-teach-card--warning {
-  border-left: 3px solid #F59E0B;
+  border-left: 3px solid var(--accent-gold);
   background: #FFFBEB;
 }
 

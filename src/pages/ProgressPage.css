@@ -83,7 +83,7 @@
 .xp-amount {
   font-family: 'DM Serif Display', serif;
   font-size: 1.4rem;
-  color: #F59E0B;
+  color: var(--accent-gold);
 }
 
 /* Section title */

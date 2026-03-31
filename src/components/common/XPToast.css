@@ -7,7 +7,7 @@
   align-items: center;
   gap: 6px;
   background: #1C1917;
-  color: #F59E0B;
+  color: var(--accent-gold);
   padding: 10px 20px;
   border-radius: var(--radius-full);
   font-weight: 700;

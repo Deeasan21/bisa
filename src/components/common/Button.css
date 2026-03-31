@@ -53,7 +53,7 @@
 }
 
 .btn-mode {
-  background: var(--btn-color, #3B82F6);
+  background: var(--btn-color, var(--accent-gold));
   color: #FFFFFF;
   border-radius: var(--radius-lg);
 }

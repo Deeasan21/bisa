@@ -30,7 +30,7 @@
 }
 
 .lp-dot.active {
-  background: #F59E0B;
+  background: var(--accent-gold);
   width: 9px;
   height: 9px;
 }
@@ -80,9 +80,9 @@
 }
 
 .lp-speak-btn.speaking {
-  color: #3B82F6;
-  border-color: #3B82F6;
-  background: rgba(59, 130, 246, 0.08);
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background: rgba(212, 168, 83, 0.08);
   animation: speakPulse 2s ease-in-out infinite;
 }
 
@@ -146,8 +146,8 @@
 }
 
 .lp-btn--next {
-  background: #F59E0B;
-  border-color: #F59E0B;
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
   color: #fff;
 }
 

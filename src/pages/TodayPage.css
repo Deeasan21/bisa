@@ -21,7 +21,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #F59E0B;
+  color: var(--accent-gold);
 }
 
 .first-session-headline {
@@ -50,7 +50,7 @@
   gap: 8px;
   padding: 12px 20px;
   border-radius: var(--radius-full);
-  background: #F59E0B;
+  background: var(--accent-gold);
   color: #1C1917;
   font-size: 0.9rem;
   font-weight: 700;
@@ -114,8 +114,8 @@
 }
 
 [data-theme="dark"] .streak-pill {
-  background: rgba(245, 158, 11, 0.15);
-  color: #F59E0B;
+  background: rgba(212, 168, 83, 0.15);
+  color: var(--accent-gold);
 }
 
 /* Progress Card */
