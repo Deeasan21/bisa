@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv, Users, ArrowRight, Buildings } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useAuth } from '../hooks/useAuth';
 import { useOrg } from '../hooks/useOrg';
@@ -49,6 +49,7 @@ export default function ProfilePage() {
   const { signOut } = useAuth();
   const { org, loading: orgLoading } = useOrg();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [exporting, setExporting] = useState(false);
@@ -104,7 +105,7 @@ export default function ProfilePage() {
   const handleSaveName = async () => {
     if (!db || !nameInput.trim()) return;
     await db.updateProfile({ displayName: nameInput.trim() });
-    setProfile(prev => ({ ...prev, display_name: nameInput.trim() }));
+    queryClient.invalidateQueries({ queryKey: ['profile'] });
     setEditing(false);
   };
 
