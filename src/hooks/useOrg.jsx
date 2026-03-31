@@ -46,6 +46,19 @@ export function OrgProvider({ children }) {
 
       setMyMembership(memberData);
       setOrg(orgData);
+
+      // Handle invite token stashed before auth (new user sign-up flow)
+      const pendingToken = sessionStorage.getItem('pendingInviteToken');
+      if (pendingToken) {
+        sessionStorage.removeItem('pendingInviteToken');
+        try {
+          const { error: inviteError } = await supabase.rpc('accept_org_invite', { p_token: pendingToken });
+          if (!inviteError) capture('invite_accepted');
+        } catch (_) { /* ignore — token may be expired or already used */ }
+        // Reload membership to reflect the newly joined org
+        return loadMembership();
+      }
+
       return memberData;
     } catch (e) {
       console.error('loadMembership error:', e?.message, e?.code, e?.details, e?.hint);

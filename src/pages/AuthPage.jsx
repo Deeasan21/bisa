@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import './AuthPage.css';
 
 export default function AuthPage() {
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const next = searchParams.get('next') || '/';
 
   const [tab, setTab] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
@@ -30,7 +32,7 @@ export default function AuthPage() {
     try {
       if (tab === 'signin') {
         await signIn(email, password);
-        navigate('/', { replace: true });
+        navigate(next, { replace: true });
       } else {
         if (password !== confirmPassword) {
           setError('Passwords do not match.');
@@ -39,7 +41,7 @@ export default function AuthPage() {
         }
         await signUp(email, password);
         // Email confirmation ON — go to OTP verify screen
-        navigate('/verify', { state: { email }, replace: true });
+        navigate('/verify', { state: { email, next }, replace: true });
       }
     } catch (err) {
       const msg = err.message || '';

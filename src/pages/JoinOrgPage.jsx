@@ -15,7 +15,13 @@ export default function JoinOrgPage() {
 
   useEffect(() => {
     if (!token) { setStatus('error'); setErrorMsg('Invalid invite link.'); return; }
-    if (!user) return; // wait for auth
+    if (!user) {
+      // Stash token so it survives the auth flow (sign up → OTP → welcome → onboarding)
+      sessionStorage.setItem('pendingInviteToken', token);
+      return;
+    }
+    // Clear any stashed token — we have it in the URL
+    sessionStorage.removeItem('pendingInviteToken');
     setStatus('loading');
     acceptInvite(token)
       .then(ok => {
