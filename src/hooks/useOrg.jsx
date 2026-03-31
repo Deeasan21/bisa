@@ -57,12 +57,29 @@ export function OrgProvider({ children }) {
 
   async function loadMembers(orgId) {
     try {
-      const { data, error } = await supabase.rpc('get_team_members', { p_org_id: orgId });
+      const { data, error } = await supabase
+        .from('org_members')
+        .select('*')
+        .eq('org_id', orgId)
+        .order('role', { ascending: false });
       if (error) throw error;
-      setMembers(data || []);
-      return data || [];
+      const mapped = (data || []).map(m => ({
+        member_id: m.id,
+        user_id: m.user_id,
+        email: m.email,
+        display_name: null,
+        role: m.role,
+        status: m.status,
+        invite_token: m.invite_token,
+        joined_at: m.joined_at,
+        total_xp: 0,
+        current_streak: 0,
+        created_at: m.created_at,
+      }));
+      setMembers(mapped);
+      return mapped;
     } catch (e) {
-      console.error('loadMembers:', e);
+      console.error('loadMembers:', e?.message, e?.code);
       return [];
     }
   }

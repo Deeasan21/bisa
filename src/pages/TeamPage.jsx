@@ -68,10 +68,7 @@ export default function TeamPage() {
   }, []);
 
   useEffect(() => {
-    if (org) {
-      console.log('loadMembers org.id:', org.id);
-      loadMembers(org.id).then(r => console.log('loadMembers result:', r));
-    }
+    if (org) loadMembers(org.id);
   }, [org]);
 
   const handleInvite = async (e) => {
