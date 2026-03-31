@@ -7,10 +7,12 @@ import { SupabaseDBProvider } from './hooks/useSupabaseDB';
 import { ErrorToastProvider } from './hooks/useErrorToast';
 import { queryClient, persister } from './lib/queryClient';
 import { initSentry } from './lib/sentry';
+import { initAnalytics } from './lib/analytics';
 import App from './App.jsx';
 import './styles/global.css';
 
 initSentry();
+initAnalytics();
 
 // Lock to light theme globally — applies before any route renders (including /onboarding)
 document.documentElement.setAttribute('data-theme', 'light');

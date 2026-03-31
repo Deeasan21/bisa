@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import TodayPage from './pages/TodayPage';
 import ModesPage from './pages/ModesPage';
@@ -12,6 +12,24 @@ import VerifyOTPPage from './pages/VerifyOTPPage';
 import WelcomePage from './pages/WelcomePage';
 import { useAuth } from './hooks/useAuth';
 import { captureError } from './lib/sentry';
+import { trackPageView, capture } from './lib/analytics';
+
+const MODE_NAMES = {
+  learn: 'Learn', practice: 'Practice', daily: 'Daily Challenge',
+  simulate: 'Simulate', review: 'Review', pattern: 'Pattern Hub', technique: 'Technique Drill',
+};
+
+function Analytics() {
+  const location = useLocation();
+  useEffect(() => {
+    trackPageView(location.pathname);
+    const modeMatch = location.pathname.match(/^\/mode\/(\w+)/);
+    if (modeMatch) {
+      capture('mode_started', { mode: modeMatch[1], mode_name: MODE_NAMES[modeMatch[1]] ?? modeMatch[1] });
+    }
+  }, [location.pathname]);
+  return null;
+}
 
 function AuthGuard() {
   const { user, loading } = useAuth();
@@ -75,6 +93,7 @@ function SuspenseWrap({ children }) {
 export default function App() {
   return (
     <ErrorBoundary>
+      <Analytics />
       <Routes>
         <Route path="/auth" element={<AuthRedirect />} />
         <Route path="/verify" element={<VerifyOTPPage />} />

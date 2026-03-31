@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { identifyUser, resetAnalytics, capture } from '../lib/analytics';
 
 const AuthContext = createContext(null);
 
@@ -17,10 +18,12 @@ export function AuthProvider({ children }) {
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      if (session?.user) identifyUser(session.user);
+      if (event === 'SIGNED_OUT') resetAnalytics();
     });
 
     return () => subscription.unsubscribe();
@@ -35,12 +38,14 @@ export function AuthProvider({ children }) {
       },
     });
     if (error) throw error;
+    capture('user_signed_up', { method: 'email' });
     return data;
   }
 
   async function signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+    capture('user_logged_in', { method: 'email' });
     return data;
   }
 
@@ -57,6 +62,7 @@ export function AuthProvider({ children }) {
       },
     });
     if (error) throw error;
+    capture('user_logged_in', { method: 'google' });
   }
 
   return (

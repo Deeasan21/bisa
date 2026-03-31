@@ -5,6 +5,7 @@
  */
 import { supabase } from '../../lib/supabase';
 import { SKILL_CATEGORIES } from '../../lib/constants';
+import { capture } from '../../lib/analytics';
 
 export function buildEngineFunctions(userId, deps) {
   const { getStreakInfo, getReviewStats, getTotalXP, getUnlockedAchievements, unlockAchievement } = deps;
@@ -84,7 +85,10 @@ export function buildEngineFunctions(userId, deps) {
       for (const [id, condition] of Object.entries(checks)) {
         if (condition && !unlockedIds.has(id)) {
           const wasNew = await unlockAchievement(id);
-          if (wasNew) newlyUnlocked.push(id);
+          if (wasNew) {
+            newlyUnlocked.push(id);
+            capture('achievement_unlocked', { achievement_id: id });
+          }
         }
       }
 
