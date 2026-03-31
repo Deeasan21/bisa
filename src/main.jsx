@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { AuthProvider } from './hooks/useAuth';
 import { SupabaseDBProvider } from './hooks/useSupabaseDB';
+import { OrgProvider } from './hooks/useOrg';
 import { ErrorToastProvider } from './hooks/useErrorToast';
 import { queryClient, persister } from './lib/queryClient';
 import { initSentry } from './lib/sentry';
@@ -23,9 +24,11 @@ createRoot(document.getElementById('root')).render(
       <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: 24 * 60 * 60 * 1000 }}>
         <ErrorToastProvider>
           <AuthProvider>
-            <SupabaseDBProvider>
-              <App />
-            </SupabaseDBProvider>
+            <OrgProvider>
+              <SupabaseDBProvider>
+                <App />
+              </SupabaseDBProvider>
+            </OrgProvider>
           </AuthProvider>
         </ErrorToastProvider>
       </PersistQueryClientProvider>

@@ -256,3 +256,50 @@ CREATE TABLE IF NOT EXISTS daily_quests (
 );
 ALTER TABLE daily_quests ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can manage own quests" ON daily_quests FOR ALL USING (auth.uid() = user_id);
+
+-- ============================================
+-- ORGANIZATIONS (B2B)
+-- ============================================
+CREATE TABLE IF NOT EXISTS organizations (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  plan TEXT DEFAULT 'teams',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Org members can view their org" ON organizations FOR SELECT USING (
+  EXISTS (SELECT 1 FROM org_members WHERE org_id = organizations.id AND user_id = auth.uid() AND status = 'active')
+);
+CREATE POLICY "Org admins can update their org" ON organizations FOR UPDATE USING (
+  EXISTS (SELECT 1 FROM org_members WHERE org_id = organizations.id AND user_id = auth.uid() AND role = 'admin' AND status = 'active')
+);
+
+-- ============================================
+-- ORG MEMBERS (B2B)
+-- ============================================
+CREATE TABLE IF NOT EXISTS org_members (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  org_id UUID REFERENCES organizations(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT NOT NULL,
+  role TEXT DEFAULT 'member' CHECK (role IN ('admin', 'member')),
+  status TEXT DEFAULT 'pending' CHECK (status IN ('active', 'pending')),
+  invite_token TEXT UNIQUE,
+  invited_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  expires_at TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '7 days'),
+  joined_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+ALTER TABLE org_members ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Org members can view org roster" ON org_members FOR SELECT USING (
+  EXISTS (SELECT 1 FROM org_members om WHERE om.org_id = org_members.org_id AND om.user_id = auth.uid() AND om.status = 'active')
+);
+CREATE POLICY "Org admins can invite members" ON org_members FOR INSERT WITH CHECK (
+  EXISTS (SELECT 1 FROM org_members WHERE org_id = NEW.org_id AND user_id = auth.uid() AND role = 'admin' AND status = 'active')
+);
+CREATE POLICY "Org admins can remove members" ON org_members FOR DELETE USING (
+  user_id = auth.uid()
+  OR EXISTS (SELECT 1 FROM org_members WHERE org_id = org_members.org_id AND user_id = auth.uid() AND role = 'admin' AND status = 'active')
+);

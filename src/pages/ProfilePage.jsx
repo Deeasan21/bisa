@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv, Users, ArrowRight, Buildings } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { useAuth } from '../hooks/useAuth';
+import { useOrg } from '../hooks/useOrg';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getLeague, getNextLeague, getLeagueProgress, getSimulatedRanking } from '../engine/leagues';
 import { ACHIEVEMENTS } from '../data/achievements';
@@ -45,6 +47,8 @@ function getPhosphorIcon(name) {
 export default function ProfilePage() {
   const { db, isReady } = useSupabaseDB();
   const { signOut } = useAuth();
+  const { org, loading: orgLoading } = useOrg();
+  const navigate = useNavigate();
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [exporting, setExporting] = useState(false);
@@ -229,6 +233,37 @@ export default function ProfilePage() {
           <span className="focus-label">Recommended Next</span>
           <span className="focus-action">{recommendation.label}</span>
         </div>
+      )}
+
+      {/* Team */}
+      {!orgLoading && (
+        <Card padding="md">
+          {org ? (
+            <button
+              className="profile-team-row"
+              onClick={() => navigate('/team')}
+            >
+              <div className="profile-team-icon"><Buildings size={20} weight="duotone" /></div>
+              <div className="profile-team-info">
+                <span className="profile-team-name">{org.name}</span>
+                <span className="profile-team-sub">View your team</span>
+              </div>
+              <ArrowRight size={18} color="var(--text-muted)" />
+            </button>
+          ) : (
+            <button
+              className="profile-team-row"
+              onClick={() => navigate('/team/create')}
+            >
+              <div className="profile-team-icon"><Users size={20} weight="duotone" /></div>
+              <div className="profile-team-info">
+                <span className="profile-team-name">Create a team</span>
+                <span className="profile-team-sub">Invite colleagues and track progress together</span>
+              </div>
+              <ArrowRight size={18} color="var(--text-muted)" />
+            </button>
+          )}
+        </Card>
       )}
 
       <h2 className="profile-section-title">Achievements</h2>

@@ -10,6 +10,9 @@ import OnboardingPage from './pages/OnboardingPage';
 import AuthPage from './pages/AuthPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
 import WelcomePage from './pages/WelcomePage';
+import TeamPage from './pages/TeamPage';
+import CreateOrgPage from './pages/CreateOrgPage';
+import JoinOrgPage from './pages/JoinOrgPage';
 import { useAuth } from './hooks/useAuth';
 import { captureError } from './lib/sentry';
 import { trackPageView, capture } from './lib/analytics';
@@ -114,6 +117,9 @@ export default function App() {
           <Route path="/mode/review" element={<SuspenseWrap><ReviewMode /></SuspenseWrap>} />
           <Route path="/mode/pattern" element={<SuspenseWrap><PatternMode /></SuspenseWrap>} />
           <Route path="/mode/technique" element={<SuspenseWrap><TechniqueMode /></SuspenseWrap>} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/team/create" element={<CreateOrgPage />} />
+          <Route path="/join" element={<JoinOrgPage />} />
         </Route>
       </Routes>
     </ErrorBoundary>
