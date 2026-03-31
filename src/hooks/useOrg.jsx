@@ -5,6 +5,8 @@ import { capture } from '../lib/analytics';
 
 const OrgContext = createContext(null);
 
+const APP_URL = import.meta.env.VITE_APP_URL || 'https://neaobisa.com';
+
 export function OrgProvider({ children }) {
   const { user } = useAuth();
   const [org, setOrg] = useState(null);
@@ -64,15 +66,18 @@ export function OrgProvider({ children }) {
         .order('role', { ascending: false });
       if (error) throw error;
 
-      // Fetch display names for active members
       const userIds = (data || []).filter(m => m.user_id).map(m => m.user_id);
+
+      // Fetch display names and stats in parallel
       let profileMap = {};
+      let statsMap = {};
       if (userIds.length > 0) {
-        const { data: profiles } = await supabase
-          .from('profiles')
-          .select('id, display_name')
-          .in('id', userIds);
-        profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p.display_name]));
+        const [profilesRes, statsRes] = await Promise.all([
+          supabase.from('profiles').select('id, display_name').in('id', userIds),
+          supabase.rpc('get_org_member_stats', { p_org_id: orgId, p_user_ids: userIds }),
+        ]);
+        profileMap = Object.fromEntries((profilesRes.data || []).map(p => [p.id, p.display_name]));
+        statsMap = Object.fromEntries((statsRes.data || []).map(s => [s.user_id, s]));
       }
 
       const mapped = (data || []).map(m => ({
@@ -84,8 +89,8 @@ export function OrgProvider({ children }) {
         status: m.status,
         invite_token: m.invite_token,
         joined_at: m.joined_at,
-        total_xp: 0,
-        current_streak: 0,
+        total_xp: statsMap[m.user_id]?.total_xp ?? 0,
+        current_streak: statsMap[m.user_id]?.current_streak ?? 0,
         created_at: m.created_at,
       }));
       setMembers(mapped);
@@ -123,6 +128,20 @@ export function OrgProvider({ children }) {
     });
     if (error) throw error;
     capture('member_invited', { role });
+
+    // Send invite email (non-blocking — don't fail the invite if email fails)
+    const inviteLink = `${APP_URL}/join?token=${token}`;
+    fetch('/api/invite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: email,
+        inviteLink,
+        inviterName: user.user_metadata?.display_name || user.email,
+        orgName: org.name,
+      }),
+    }).catch(e => console.warn('invite email failed:', e));
+
     await loadMembers(org.id);
     return token;
   }
