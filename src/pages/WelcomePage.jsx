@@ -16,7 +16,7 @@ export default function WelcomePage() {
     setLoading(true);
     try {
       if (name.trim()) {
-        await db.updateProfile(name.trim(), undefined);
+        await db.updateProfile({ displayName: name.trim() });
       }
     } catch (err) {
       console.error('Failed to save name:', err);
