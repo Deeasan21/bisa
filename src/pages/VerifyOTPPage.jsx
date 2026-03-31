@@ -27,10 +27,10 @@ export default function VerifyOTPPage() {
     if (!email) navigate('/auth', { replace: true });
   }, [email, navigate]);
 
-  // If already verified/logged in, skip to app
+  // If already verified/logged in, skip to app (but not if we just verified on this page)
   useEffect(() => {
-    if (user) navigate('/', { replace: true });
-  }, [user, navigate]);
+    if (user && !success) navigate('/', { replace: true });
+  }, [user, navigate, success]);
 
   const [digits, setDigits] = useState(['', '', '', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
