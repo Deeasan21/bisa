@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import BottomTabBar from './BottomTabBar';
 import InstallPrompt from '../common/InstallPrompt';
 import OfflineBanner from '../common/OfflineBanner';
@@ -7,9 +7,19 @@ import { STORAGE_KEYS } from '../../lib/constants';
 import './AppShell.css';
 
 export default function AppShell() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'light');
     localStorage.setItem(STORAGE_KEYS.THEME, 'light');
+  }, []);
+
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('postInviteRedirect');
+    if (redirect) {
+      sessionStorage.removeItem('postInviteRedirect');
+      navigate(redirect, { replace: true });
+    }
   }, []);
 
   return (

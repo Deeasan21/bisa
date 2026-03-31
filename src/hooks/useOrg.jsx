@@ -38,6 +38,7 @@ export function OrgProvider({ children }) {
             const { error: inviteError } = await supabase.rpc('accept_org_invite', { p_token: pendingToken });
             if (!inviteError) {
               capture('invite_accepted');
+              sessionStorage.setItem('postInviteRedirect', '/team');
               return loadMembership(); // reload now that they've joined
             }
           } catch (_) { /* ignore — token may be expired or already used */ }

@@ -27,7 +27,7 @@ export default function JoinOrgPage() {
       .then(ok => {
         if (ok) {
           setStatus('success');
-          setTimeout(() => navigate('/'), 2000);
+          setTimeout(() => navigate('/team', { replace: true }), 2000);
         } else {
           setStatus('error');
           setErrorMsg('This invite link has expired or already been used.');
