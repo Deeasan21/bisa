@@ -56,12 +56,16 @@ function MemberRow({ member, isAdmin, onRemove }) {
 
 export default function TeamPage() {
   const navigate = useNavigate();
-  const { org, members, loading, isAdmin, loadMembers, inviteMember, removeMember } = useOrg();
+  const { org, members, loading, isAdmin, loadMembership, loadMembers, inviteMember, removeMember } = useOrg();
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState('member');
   const [inviting, setInviting] = useState(false);
   const [inviteError, setInviteError] = useState('');
   const [showInviteForm, setShowInviteForm] = useState(false);
+
+  useEffect(() => {
+    loadMembership();
+  }, []);
 
   useEffect(() => {
     if (org) loadMembers(org.id);

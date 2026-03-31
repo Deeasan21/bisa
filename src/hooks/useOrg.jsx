@@ -13,14 +13,16 @@ export function OrgProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const loadMembership = useCallback(async () => {
-    if (!user) { setLoading(false); return; }
+    if (!user) { setLoading(false); return null; }
     try {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('org_members')
         .select('*, organizations(*)')
         .eq('user_id', user.id)
         .eq('status', 'active')
         .maybeSingle();
+
+      if (error) throw error;
 
       if (data) {
         setMyMembership(data);
@@ -29,8 +31,10 @@ export function OrgProvider({ children }) {
         setMyMembership(null);
         setOrg(null);
       }
+      return data;
     } catch (e) {
       console.error('loadMembership:', e);
+      return null;
     } finally {
       setLoading(false);
     }
@@ -54,7 +58,13 @@ export function OrgProvider({ children }) {
     const { data, error } = await supabase.rpc('create_organization', { org_name: name });
     if (error) throw error;
     capture('org_created', { org_name: name });
-    await loadMembership();
+    // Retry up to 3 times — Supabase can take a moment to reflect the new row
+    let found = null;
+    for (let i = 0; i < 3; i++) {
+      found = await loadMembership();
+      if (found) break;
+      await new Promise(r => setTimeout(r, 400));
+    }
     return data; // org id
   }
 
@@ -94,7 +104,7 @@ export function OrgProvider({ children }) {
   return (
     <OrgContext.Provider value={{
       org, myMembership, members, loading, isAdmin,
-      loadMembers, createOrg, inviteMember, acceptInvite, removeMember,
+      loadMembership, loadMembers, createOrg, inviteMember, acceptInvite, removeMember,
     }}>
       {children}
     </OrgContext.Provider>
