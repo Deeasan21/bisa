@@ -38,7 +38,7 @@ export function OrgProvider({ children }) {
         .from('organizations')
         .select('*')
         .eq('id', memberData.org_id)
-        .single();
+        .maybeSingle();
 
       if (orgError) throw orgError;
 
@@ -46,7 +46,7 @@ export function OrgProvider({ children }) {
       setOrg(orgData);
       return memberData;
     } catch (e) {
-      console.error('loadMembership error:', e);
+      console.error('loadMembership error:', e?.message, e?.code, e?.details, e?.hint);
       return null;
     } finally {
       setLoading(false);
