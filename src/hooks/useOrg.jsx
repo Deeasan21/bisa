@@ -15,25 +15,36 @@ export function OrgProvider({ children }) {
   const loadMembership = useCallback(async () => {
     if (!user) { setLoading(false); return null; }
     try {
-      const { data, error } = await supabase
+      // Step 1: find the membership row
+      const { data: memberData, error: memberError } = await supabase
         .from('org_members')
-        .select('*, organizations(*)')
+        .select('*')
         .eq('user_id', user.id)
         .eq('status', 'active')
         .maybeSingle();
 
-      if (error) throw error;
+      if (memberError) throw memberError;
 
-      if (data) {
-        setMyMembership(data);
-        setOrg(data.organizations);
-      } else {
+      if (!memberData) {
         setMyMembership(null);
         setOrg(null);
+        return null;
       }
-      return data;
+
+      // Step 2: fetch the org separately (avoids organizations RLS blocking the whole query)
+      const { data: orgData, error: orgError } = await supabase
+        .from('organizations')
+        .select('*')
+        .eq('id', memberData.org_id)
+        .single();
+
+      if (orgError) throw orgError;
+
+      setMyMembership(memberData);
+      setOrg(orgData);
+      return memberData;
     } catch (e) {
-      console.error('loadMembership:', e);
+      console.error('loadMembership error:', e);
       return null;
     } finally {
       setLoading(false);
