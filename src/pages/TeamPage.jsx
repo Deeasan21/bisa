@@ -24,7 +24,7 @@ function MemberRow({ member, isAdmin, onRemove }) {
       <div className="team-member-info">
         <div className="team-member-name-row">
           <span className="team-member-name">
-            {isPending ? member.email : (member.display_name || member.email)}
+            {isPending ? member.email : (member.display_name || 'Bisa User')}
           </span>
           {member.role === 'admin' && (
             <span className="team-role-badge team-role-admin">

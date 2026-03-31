@@ -63,11 +63,23 @@ export function OrgProvider({ children }) {
         .eq('org_id', orgId)
         .order('role', { ascending: false });
       if (error) throw error;
+
+      // Fetch display names for active members
+      const userIds = (data || []).filter(m => m.user_id).map(m => m.user_id);
+      let profileMap = {};
+      if (userIds.length > 0) {
+        const { data: profiles } = await supabase
+          .from('profiles')
+          .select('id, display_name')
+          .in('id', userIds);
+        profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p.display_name]));
+      }
+
       const mapped = (data || []).map(m => ({
         member_id: m.id,
         user_id: m.user_id,
         email: m.email,
-        display_name: null,
+        display_name: profileMap[m.user_id] || null,
         role: m.role,
         status: m.status,
         invite_token: m.invite_token,
