@@ -13,6 +13,7 @@ export function OrgProvider({ children }) {
   const [myMembership, setMyMembership] = useState(null);
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [postJoinPath, setPostJoinPath] = useState(null);
 
   const loadMembership = useCallback(async () => {
     if (!user) { setLoading(false); return null; }
@@ -38,7 +39,7 @@ export function OrgProvider({ children }) {
             const { error: inviteError } = await supabase.rpc('accept_org_invite', { p_token: pendingToken });
             if (!inviteError) {
               capture('invite_accepted');
-              sessionStorage.setItem('postInviteRedirect', '/team');
+              setPostJoinPath('/team');
               return loadMembership(); // reload now that they've joined
             }
           } catch (_) { /* ignore — token may be expired or already used */ }
@@ -178,6 +179,7 @@ export function OrgProvider({ children }) {
   return (
     <OrgContext.Provider value={{
       org, myMembership, members, loading, isAdmin,
+      postJoinPath, clearPostJoinPath: () => setPostJoinPath(null),
       loadMembership, loadMembers, createOrg, inviteMember, acceptInvite, removeMember,
     }}>
       {children}

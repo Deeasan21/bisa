@@ -3,11 +3,13 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import BottomTabBar from './BottomTabBar';
 import InstallPrompt from '../common/InstallPrompt';
 import OfflineBanner from '../common/OfflineBanner';
+import { useOrg } from '../../hooks/useOrg';
 import { STORAGE_KEYS } from '../../lib/constants';
 import './AppShell.css';
 
 export default function AppShell() {
   const navigate = useNavigate();
+  const { postJoinPath, clearPostJoinPath } = useOrg();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'light');
@@ -15,12 +17,11 @@ export default function AppShell() {
   }, []);
 
   useEffect(() => {
-    const redirect = sessionStorage.getItem('postInviteRedirect');
-    if (redirect) {
-      sessionStorage.removeItem('postInviteRedirect');
-      navigate(redirect, { replace: true });
+    if (postJoinPath) {
+      clearPostJoinPath();
+      navigate(postJoinPath, { replace: true });
     }
-  }, []);
+  }, [postJoinPath]);
 
   return (
     <div className="app-shell">

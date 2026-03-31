@@ -27,10 +27,11 @@ export default function VerifyOTPPage() {
     if (!email) navigate('/auth', { replace: true });
   }, [email, navigate]);
 
-  // If already verified/logged in, skip to app (but not if we just verified on this page)
+  // If already verified/logged in, skip to app (but not if we're mid-verification)
+  const verifyingRef = useRef(false);
   useEffect(() => {
-    if (user && !success) navigate('/', { replace: true });
-  }, [user, navigate, success]);
+    if (user && !verifyingRef.current) navigate('/', { replace: true });
+  }, [user, navigate]);
 
   const [digits, setDigits] = useState(['', '', '', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
@@ -104,6 +105,7 @@ export default function VerifyOTPPage() {
 
   async function handleVerify() {
     if (!canVerify) return;
+    verifyingRef.current = true; // prevent the "already logged in" redirect from firing
     setLoading(true);
     setError('');
 
