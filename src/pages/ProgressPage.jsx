@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight } from '@phosphor-icons/react';
+import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight, Lightning, Gift } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
 import { getBPQLevel } from '../engine/bpqScore';
@@ -54,6 +54,32 @@ export default function ProgressPage() {
     placeholderData: null,
   });
 
+  const { data: engineQuests } = useQuery({
+    queryKey: ['dailyQuests'],
+    queryFn: () => db.generateDailyQuests(),
+    enabled,
+    placeholderData: [],
+  });
+
+  const QUEST_COLORS = {
+    practice: '#D4A853', lesson: '#3B82F6', journal: '#8B5CF6',
+    daily_challenge: '#10B981', review: '#3B82F6', simulation: '#8B5CF6', streak: '#F59E0B',
+  };
+  const QUEST_PATHS = {
+    practice: '/mode/practice', lesson: '/mode/learn', journal: '/journal',
+    daily_challenge: '/mode/daily', review: '/mode/review', simulation: '/mode/simulate', streak: '/mode/daily',
+  };
+  const allQuests = (engineQuests || []).map(q => ({
+    id: q.id,
+    label: q.quest_description,
+    value: q.progress || 0,
+    max: q.goal || 1,
+    xp: q.xp_reward,
+    color: QUEST_COLORS[q.quest_type] || '#6B7280',
+    path: QUEST_PATHS[q.quest_type] || '/mode/practice',
+    completed: q.completed === 1 || q.completed === true,
+  }));
+
   const xp = progress?.totalXP || 0;
 
   // Derive BPQ from progress
@@ -82,6 +108,32 @@ export default function ProgressPage() {
         <h1>Progress</h1>
         <p>Track your growth</p>
       </div>
+
+      {/* Daily Quests */}
+      {allQuests.length > 0 && (
+        <div className="quests-section">
+          <div className="quests-title">
+            <Lightning size={18} weight="fill" color="#F59E0B" />
+            <h2>Daily Quests</h2>
+          </div>
+          {allQuests.map((quest) => (
+            <Card key={quest.id || quest.label} padding="md" onClick={() => navigate(quest.path)}>
+              <div className="quest-row">
+                <div className="quest-info">
+                  <span className="quest-label">{quest.label}</span>
+                  <ProgressBar value={quest.value} max={quest.max} color={quest.color} size="sm" animate />
+                </div>
+                <div className="quest-reward">
+                  {quest.completed
+                    ? <Gift size={24} weight="fill" color={quest.color} />
+                    : <span className="quest-xp" style={{ color: quest.color, background: `${quest.color}14` }}>+{quest.xp} XP</span>
+                  }
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
 
       {/* Monthly Report */}
       <MonthlyReport db={db} isReady={isReady} />

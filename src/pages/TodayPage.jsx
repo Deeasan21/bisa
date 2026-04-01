@@ -183,8 +183,12 @@ export default function TodayPage() {
     color: QUEST_COLORS[q.quest_type] || '#6B7280',
     path: QUEST_PATHS[q.quest_type] || '/mode/practice',
     completed: q.completed === 1 || q.completed === true,
+    type: q.quest_type,
   }));
 
+  const dailyChallengeQuest = dailyQuests.find(q => q.type === 'daily_challenge');
+  const otherQuests = dailyQuests.filter(q => q.type !== 'daily_challenge');
+  const otherQuestsDone = otherQuests.filter(q => q.completed).length;
   const allQuestsDone = dailyQuests.length > 0 && dailyQuests.every(q => q.completed);
   const streakCalendar = getStreakCalendar();
 
@@ -236,7 +240,7 @@ export default function TodayPage() {
           <NeaOnnim size={40} className="today-brand-mark" />
           <div>
             <h1>{greeting}</h1>
-            <p className="today-subtitle">Your daily quests await</p>
+            <p className="today-subtitle">Keep the streak alive</p>
           </div>
         </div>
         <div className="streak-pill">
@@ -330,33 +334,50 @@ export default function TodayPage() {
       <div className="quests-section">
         <div className="quests-title">
           <Lightning size={20} weight="fill" color="#F59E0B" />
-          <h2>Daily Quests</h2>
+          <h2>Daily Challenge</h2>
           <span className="quests-timer">{hoursLeft}h left</span>
         </div>
 
-        {dailyQuests.map((quest) => (
-          <Card key={quest.id || quest.label} padding="md" onClick={() => navigate(quest.path)}>
+        {dailyChallengeQuest ? (
+          <Card key={dailyChallengeQuest.id || dailyChallengeQuest.label} padding="md" onClick={() => navigate(dailyChallengeQuest.path)}>
             <div className="quest-row">
               <div className="quest-info">
-                <span className="quest-label">{quest.label}</span>
+                <span className="quest-label">{dailyChallengeQuest.label}</span>
                 <ProgressBar
-                  value={quest.value}
-                  max={quest.max}
-                  color={quest.color}
+                  value={dailyChallengeQuest.value}
+                  max={dailyChallengeQuest.max}
+                  color={dailyChallengeQuest.color}
                   size="sm"
                   animate
                 />
               </div>
               <div className="quest-reward">
-                {quest.completed ? (
-                  <Gift size={24} weight="fill" color={quest.color} />
+                {dailyChallengeQuest.completed ? (
+                  <Gift size={24} weight="fill" color={dailyChallengeQuest.color} />
                 ) : (
-                  <span className="quest-xp" style={{ color: quest.color, background: `${quest.color}14` }}>+{quest.xp} XP</span>
+                  <span className="quest-xp" style={{ color: dailyChallengeQuest.color, background: `${dailyChallengeQuest.color}14` }}>+{dailyChallengeQuest.xp} XP</span>
                 )}
               </div>
             </div>
           </Card>
-        ))}
+        ) : (
+          <Card padding="md" onClick={() => navigate('/mode/daily')}>
+            <div className="quest-row">
+              <div className="quest-info">
+                <span className="quest-label">Complete today's Daily Challenge</span>
+              </div>
+              <span className="quest-xp" style={{ color: '#10B981', background: '#10B98114' }}>+25 XP</span>
+            </div>
+          </Card>
+        )}
+
+        {otherQuests.length > 0 && (
+          <button className="quests-more-link" onClick={() => navigate('/progress')}>
+            <Lightning size={14} weight="fill" color="#F59E0B" />
+            {otherQuestsDone}/{otherQuests.length} other quests
+            <ArrowRight size={14} weight="bold" />
+          </button>
+        )}
 
         {allQuestsDone && (
           <div className="quests-complete animate-scale-in">

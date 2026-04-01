@@ -293,3 +293,13 @@
   font-size: 0.9rem;
   color: var(--text-primary);
 }
+
+/* Daily Quests (shared with TodayPage) */
+.quests-section { margin-top: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm); }
+.quests-title { display: flex; align-items: center; gap: 8px; }
+.quests-title h2 { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-secondary); margin: 0; flex: 1; }
+.quest-row { display: flex; align-items: center; gap: var(--space-sm); }
+.quest-info { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.quest-label { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+.quest-reward { flex-shrink: 0; text-align: center; min-width: 60px; }
+.quest-xp { font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full); }
