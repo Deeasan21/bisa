@@ -9,7 +9,7 @@ export default function JoinOrgPage() {
   const token = params.get('token');
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { acceptInvite } = useOrg();
+  const { acceptInvite, org } = useOrg();
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -18,6 +18,11 @@ export default function JoinOrgPage() {
     if (!user) {
       // Stash token so it survives the auth flow (sign up → OTP → welcome → onboarding)
       sessionStorage.setItem('pendingInviteToken', token);
+      return;
+    }
+    // If already a member of any org, just go to the team page
+    if (org) {
+      navigate('/team', { replace: true });
       return;
     }
     // Clear any stashed token — we have it in the URL
