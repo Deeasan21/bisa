@@ -82,23 +82,18 @@ export function OrgProvider({ children }) {
 
       const userIds = (data || []).filter(m => m.user_id).map(m => m.user_id);
 
-      // Fetch display names and stats in parallel
-      let profileMap = {};
+      // Fetch display names + stats via SECURITY DEFINER RPC (bypasses profiles RLS)
       let statsMap = {};
       if (userIds.length > 0) {
-        const [profilesRes, statsRes] = await Promise.all([
-          supabase.from('profiles').select('id, display_name').in('id', userIds),
-          supabase.rpc('get_org_member_stats', { p_org_id: orgId, p_user_ids: userIds }),
-        ]);
-        profileMap = Object.fromEntries((profilesRes.data || []).map(p => [p.id, p.display_name]));
-        statsMap = Object.fromEntries((statsRes.data || []).map(s => [s.user_id, s]));
+        const { data: statsData } = await supabase.rpc('get_org_member_stats', { p_org_id: orgId, p_user_ids: userIds });
+        statsMap = Object.fromEntries((statsData || []).map(s => [s.user_id, s]));
       }
 
       const mapped = (data || []).map(m => ({
         member_id: m.id,
         user_id: m.user_id,
         email: m.email,
-        display_name: profileMap[m.user_id] || null,
+        display_name: statsMap[m.user_id]?.display_name || null,
         role: m.role,
         status: m.status,
         invite_token: m.invite_token,
