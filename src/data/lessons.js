@@ -3938,41 +3938,41 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
-              response: '"Does anyone disagree with this direction?" [Direct, open floor, American-style.]',
-              outcome: 'Silence. Several team members with indirect communication styles feel that voicing disagreement publicly would be embarrassing to you — so they say nothing and comply with a plan they have real concerns about.',
+              situation: 'A mixed group of friends from different backgrounds is planning a shared trip. You want to know if everyone is genuinely on board.',
+              response: '"Does everyone agree? Great — let\'s book it." [You read the room as enthusiastic and move forward.]',
+              outcome: 'Two people had real reservations but felt it would be rude to slow down the momentum in front of the group. The trip goes ahead. Conflicts surface later about money, pace, and expectations that were never surfaced.',
             },
             {
               label: 'okay',
-              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
-              response: '"Before we finalize — are there any concerns we haven\'t addressed?"',
-              outcome: 'Slightly more welcoming. But it\'s still a public, synchronous question where saying "yes" means disagreeing in front of peers.',
+              situation: 'A mixed group of friends from different backgrounds is planning a shared trip. You want to know if everyone is genuinely on board.',
+              response: '"Any concerns before we finalize?"',
+              outcome: 'Better — you\'ve opened the door. But publicly asking "any concerns" still puts the burden on someone to be the one who slows things down. In many communication styles, that feels costly.',
             },
             {
               label: 'great',
-              situation: 'In a multicultural team meeting, you want to know if anyone has concerns about the plan.',
-              response: '"Let\'s take five minutes. I\'d like everyone to write down one thing they\'re confident about and one thing they\'re still uncertain about — then we\'ll share."',
-              outcome: 'The written format equalizes participation. Individual reflection time removes the social cost of public dissent. Real concerns surface from everyone — not just the most vocal members.',
+              situation: 'A mixed group of friends from different backgrounds is planning a shared trip. You want to know if everyone is genuinely on board.',
+              response: '"Before we commit — let\'s each say one thing we\'re excited about and one thing we want to make sure we figure out. I\'ll go first." [You model honest uncertainty. Others follow.]',
+              outcome: 'By going first and modeling the format, you remove the social cost of raising concerns. Real questions surface — budget, timing, pace. The plan adjusts. Everyone actually enjoys the trip.',
             },
           ],
-          takeaway: 'Designing for psychological safety across cultures often means changing the format of how you ask, not just the words.',
+          takeaway: 'Designing for honest participation across communication styles often means changing the format of how you ask, not just the words.',
         },
       },
       {
         id: 'cultural-challenge',
-        title: 'Reading the Room Across Cultures',
+        title: 'Reading the Room Across Styles',
         content: `
           <p>What signals tell you that your questioning style isn't landing? These cues are easy to miss — but once you know them, they're hard to ignore.</p>
         `,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You\'re working with a colleague from a context that values hierarchy and indirect communication. You ask their opinion in a group meeting and they say "That sounds good" immediately. What\'s the wisest next step?',
+          scenario: 'You\'ve just met someone at a gathering and asked their opinion on a topic directly. They smile, give a brief agreeable answer, and change the subject. What\'s the wisest next step?',
           options: [
-            { text: 'Take the affirmation at face value and move on.', isCorrect: false },
-            { text: 'Follow up privately later: "I\'d love your fuller thoughts on that — any reservations I should know about?"', isCorrect: true },
+            { text: 'Take their answer at face value — they answered, after all.', isCorrect: false },
+            { text: 'Let it go for now, and if the connection continues, try asking more gently and indirectly later.', isCorrect: true },
           ],
-          explanation: 'In high-context or hierarchy-aware communication styles, "that sounds good" in a public group setting is often an act of politeness, not a genuine endorsement. The private follow-up removes the social cost of honest input — and is often where the real answer lives.',
+          explanation: 'A quick agreeable answer followed by a subject change is often a signal that the direct question landed as too much too fast — not that they have nothing to say. Some people share their real views only after trust is built, or when they\'re not put on the spot. Reading that signal and adjusting is the skill.',
         },
       },
       {
@@ -3989,13 +3989,13 @@ export const LESSONS = [
   },
   {
     id: 23,
-    title: "Questions for Innovation",
+    title: "Questions That Break the Pattern",
     skillCategory: 'Framing',
     difficultyTier: 'advanced',
     tier: 3,
     content: `
-      <h2>Lesson 23: Questions for Innovation</h2>
-      <p class="intro">Every breakthrough in human history started with a question. "What if we could fly?" "Why do apples fall down?" "How might we connect every person on Earth?" The questions we ask shape the solutions we find. If you want better answers, you need to learn to ask fundamentally different questions.</p>
+      <h2>Lesson 23: Questions That Break the Pattern</h2>
+      <p class="intro">Most of us carry the same problems around for years — the same argument that keeps happening, the same habit we can't shake, the same dynamic with a parent or partner that never changes. We try harder at the same solutions. What we rarely do is question the question itself: are we even solving the right problem?</p>
       <section class="lesson-section">
         <h3>The "How Might We" Framework</h3>
         <p>Design thinking uses a powerful three-word starter: <strong>"How might we...?"</strong></p>
@@ -4005,48 +4005,48 @@ export const LESSONS = [
           <li><strong>"we"</strong> makes it collaborative — no one person has to have the answer</li>
         </ul>
         <div class="story-box">
-          <p><strong>Problem:</strong> Customers are abandoning their shopping carts.</p>
-          <p><strong>Bad question:</strong> "How do we reduce cart abandonment?" (narrow, solution-focused)</p>
-          <p><strong>Better question:</strong> "How might we make the checkout experience so enjoyable that people look forward to it?"</p>
-          <p>The first question leads to incremental fixes. The second question opens a universe of creative possibilities.</p>
+          <p><strong>Problem:</strong> You and your partner have the same argument every few months.</p>
+          <p><strong>Narrow question:</strong> "How do we stop having this fight?"</p>
+          <p><strong>Better question:</strong> "How might we understand each other's experience of this so well that the fight stops being necessary?"</p>
+          <p>The first leads to rules and compromises that don't hold. The second opens the conversation to what's actually driving the pattern.</p>
         </div>
       </section>
       <section class="lesson-section">
-        <h3>Challenging Constraints</h3>
-        <p>Innovation often comes from questioning the constraints everyone else accepts as fixed. Try asking:</p>
+        <h3>Challenging Your Own Constraints</h3>
+        <p>The constraints we accept as fixed in our personal lives are often the most worth questioning:</p>
         <ul>
-          <li>"What if money were no object?"</li>
-          <li>"What if we had to do this in one-tenth the time?"</li>
-          <li>"What if we started from scratch — would we build it this way?"</li>
-          <li>"What would a completely different industry do with this problem?"</li>
-          <li>"What if the opposite of our current approach were true?"</li>
+          <li>"What if that assumption I've been making isn't actually true?"</li>
+          <li>"What if I approached this completely differently for one week?"</li>
+          <li>"What would I do if I weren't afraid of what people would think?"</li>
+          <li>"What would the version of me who had already figured this out do?"</li>
+          <li>"What if the opposite of my current approach were actually right?"</li>
         </ul>
-        <p>These questions do not always produce practical answers. But they break the mental patterns that keep you stuck in conventional thinking.</p>
+        <p>These questions do not always produce practical answers. But they break the mental patterns that keep you trying the same things and expecting different results.</p>
       </section>
       <section class="lesson-section">
-        <h3>Reframing Problems</h3>
-        <p>Albert Einstein reportedly said: "If I had an hour to solve a problem, I'd spend 55 minutes thinking about the problem and 5 minutes thinking about solutions." The most innovative question you can ask is: <strong>"Are we solving the right problem?"</strong></p>
+        <h3>Reframing the Problem</h3>
+        <p>Albert Einstein reportedly said: "If I had an hour to solve a problem, I'd spend 55 minutes thinking about the problem and 5 minutes thinking about solutions." The most powerful question you can ask is: <strong>"Am I solving the right problem?"</strong></p>
         <p>Reframing techniques:</p>
         <ul>
-          <li><strong>Zoom out:</strong> "What is the bigger problem this is a symptom of?"</li>
-          <li><strong>Zoom in:</strong> "What is the specific moment where things break down?"</li>
-          <li><strong>Flip it:</strong> "Instead of preventing X, how might we make X impossible?"</li>
-          <li><strong>Humanize it:</strong> "Forget the data — what is the person experiencing this actually feeling?"</li>
+          <li><strong>Zoom out:</strong> "What is the bigger pattern this is a symptom of?"</li>
+          <li><strong>Zoom in:</strong> "What is the specific moment when this breaks down?"</li>
+          <li><strong>Flip it:</strong> "Instead of stopping X, how might I make X unnecessary?"</li>
+          <li><strong>Humanize it:</strong> "What is the person in this situation actually feeling — including me?"</li>
         </ul>
       </section>
       <section class="lesson-section when-to-use">
-        <h3>When to Use Innovation Questions</h3>
+        <h3>When to Use Pattern-Breaking Questions</h3>
         <ul>
-          <li>In brainstorming sessions — "How might we?" opens creative space that narrow problem statements close</li>
-          <li>When a team is stuck in conventional thinking and needs permission to think bigger</li>
-          <li>When you suspect you're solving the wrong problem and need to reframe before jumping to solutions</li>
+          <li>When you've tried the same solution multiple times and it hasn't worked</li>
+          <li>When a relationship keeps circling the same issue without resolution</li>
+          <li>When you feel stuck and can't see a way forward — the frame, not the effort, may be the problem</li>
         </ul>
-        <h3>When NOT to Use Innovation Questions</h3>
+        <h3>When NOT to Use These Questions</h3>
         <ul>
-          <li>When execution, not ideation, is what's needed — teams can brainstorm endlessly to avoid the hard work of building</li>
-          <li>When the problem is clear and the solution is known — innovation questions in that context waste time and frustrate people who want to act</li>
-          <li>When "challenging constraints" ignores real limitations — budget, safety, and ethics aren't constraints to question away</li>
-          <li>When people need validation that their current approach is working, not a prompt to rethink everything from scratch</li>
+          <li>When you need to act, not ideate — reframing can become a way to avoid the hard work of actually changing</li>
+          <li>When the problem is clear and the solution is known — questioning the frame wastes time when the path forward is already visible</li>
+          <li>When "challenging constraints" means ignoring real ones — some limits are real and need to be worked within</li>
+          <li>When someone needs support, not a reframe — sometimes people need to feel heard before they're ready to think differently</li>
         </ul>
       </section>
     `,
@@ -4055,7 +4055,7 @@ export const LESSONS = [
         id: 'how-might-we',
         title: 'The "How Might We" Framework',
         content: `
-          <p>Every breakthrough in human history started with a question. "What if we could fly?" "Why do apples fall down?" "How might we connect every person on Earth?" The questions we ask shape the solutions we find. Better questions lead to better answers.</p>
+          <p>Most of us carry the same problems around for years — the same argument, the same habit, the same dynamic that never changes. We try harder at the same solutions. What we rarely do is question whether we're framing the problem correctly.</p>
           <p>Design thinking uses a powerful three-word starter: <strong>"How might we...?"</strong></p>
           <ul>
             <li><strong>"How"</strong> implies there is a way — it's optimistic</li>
@@ -4066,9 +4066,9 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"How do I get myself to exercise more?"',
-          after: '"How might I make moving my body feel so natural that skipping it would feel like the strange choice?"',
-          explanation: 'The first question is problem-focused and narrow — it leads to incremental fixes (set an alarm, try a new app). The second reframes the goal entirely and opens a different creative space. Same problem, completely different universe of possibilities.',
+          before: '"How do I get my kid to listen to me?"',
+          after: '"How might we create moments where listening to each other feels natural for both of us?"',
+          explanation: 'The first question treats listening as a compliance problem — it leads to tactics like consequences and reminders. The second reframes the goal entirely: the relationship, not the behavior. Same problem, completely different universe of possibilities. One leads to enforcement; the other leads to connection.',
         },
       },
       {
@@ -4126,17 +4126,17 @@ export const LESSONS = [
         id: 'constraint-challenge',
         title: 'The Question Behind the Constraint',
         content: `
-          <p>Every constraint has a question hiding inside it. "We can't afford this" is really asking: "What would we need to do to make this affordable?" "There isn't time" is really asking: "What could we cut or phase?" Which question do you ask?</p>
+          <p>Every personal constraint has a question hiding inside it. "I don't have time" is really asking: "What would I need to stop doing to make space for this?" "I can't change" is really asking: "What's the smallest version of this change I could actually try?" Which question do you ask?</p>
         `,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your team says: "We can\'t launch this feature — it would take six months to build properly." Which question opens the most creative space?',
+          scenario: 'You\'ve wanted to reconnect with a close friend you\'ve drifted from, but you feel like there\'s never the right moment. Which question breaks the pattern?',
           options: [
-            { text: '"Can we build a simpler version instead?"', isCorrect: false },
-            { text: '"What\'s the smallest version of this that would let us test whether the idea is actually right?"', isCorrect: true },
+            { text: '"How do I find time to see them?"', isCorrect: false },
+            { text: '"What\'s the smallest thing I could do in the next 24 hours to start rebuilding this?"', isCorrect: true },
           ],
-          explanation: 'The first question accepts "build vs. don\'t build" as the frame. The second reframes the constraint entirely — questioning whether fully building it first is even necessary. This is the design thinking move: separate the learning from the building. A prototype, a manual process, or a single customer test might answer the core question in a week, not six months.',
+          explanation: 'The first question accepts "finding time" as the frame — which leads to calendar-juggling and nothing happening. The second removes the constraint entirely by questioning whether a big gesture is even what\'s needed. A voice note, a meme, a single text: the smallest true action often breaks the drift better than a perfectly planned reunion.',
         },
       },
       {
@@ -4258,12 +4258,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'A team member says: "I don\'t know how to handle the conflict with Sarah. What should I do?" What\'s the coaching response?',
+          scenario: 'A close friend says: "I don\'t know how to handle things with my sister — we keep fighting. What should I do?" What\'s the coaching response?',
           options: [
-            { text: '"You should set up a 1:1 with her and be direct about the issue."', isCorrect: false },
-            { text: '"What have you already tried? And what outcome are you hoping for?"', isCorrect: true },
+            { text: '"You should call her and just be honest about how you\'re feeling."', isCorrect: false },
+            { text: '"What have you already tried? And what outcome are you actually hoping for?"', isCorrect: true },
           ],
-          explanation: 'The advice might be exactly right — but if you give it immediately, they carry out your plan, not theirs. If it doesn\'t work, they come back to you. The coaching questions first reveal what they\'ve tried (which changes your advice), and what they want (which may surprise you), and builds their problem-solving capacity for the next conflict too.',
+          explanation: 'The advice might be exactly right — but if you give it immediately, they carry out your plan, not theirs. The coaching questions first reveal what they\'ve tried (which changes your advice), and what they actually want (which may surprise you — maybe they don\'t want resolution yet, maybe they just need to feel heard). Asking first builds their own capacity rather than creating dependency on you.',
         },
       },
       {
@@ -4455,24 +4455,24 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'Your team is deciding which of two marketing campaigns to run.',
-              response: 'You vote on which concept you like better based on gut feel.',
-              outcome: 'The campaign you all liked performs poorly. In retrospect, nobody asked what the actual goal was or what success would look like.',
+              situation: 'You\'re deciding whether to move to a new city for a relationship.',
+              response: 'You go with your gut in a moment of excitement and say yes.',
+              outcome: 'Six months later, you feel resentment building. In retrospect, nobody asked what you were each hoping this move would solve — or what you\'d do if the relationship didn\'t work out.',
             },
             {
               label: 'okay',
-              situation: 'Your team is deciding which of two marketing campaigns to run.',
-              response: '"Which one do we think will reach more people?"',
-              outcome: 'You\'ve introduced a criterion — reach. But you haven\'t established whether reach is the right criterion, or whether it matters more than conversion, brand fit, or cost.',
+              situation: 'You\'re deciding whether to move to a new city for a relationship.',
+              response: '"Will this make us stronger?" You discuss it and both feel optimistic.',
+              outcome: 'You\'ve introduced a criterion — relationship strength. But you haven\'t clarified what "stronger" means to each of you, or what you\'d each be giving up.',
             },
             {
               label: 'great',
-              situation: 'Your team is deciding which of two marketing campaigns to run.',
-              response: '"Before we evaluate the options — what are the three things this campaign needs to accomplish? And how will we know in 90 days whether it worked?" Then: "It\'s 6 months from now and we deeply regret this choice — what went wrong?"',
-              outcome: 'You\'ve defined criteria before evaluating options (reducing bias) and run a pre-mortem (surfacing hidden risks). The decision is better before you\'ve even looked at the creative.',
+              situation: 'You\'re deciding whether to move to a new city for a relationship.',
+              response: '"Before we decide — what are the three most important things this move needs to be true for? And let\'s do a pre-mortem: it\'s two years from now and we deeply regret this decision. What went wrong?"',
+              outcome: 'The pre-mortem surfaces something neither of you had said aloud: one of you has a parent whose health is declining. The move happens — but the plan adjusts to include more frequent visits home. You made a better decision than either of you would have reached on feeling alone.',
             },
           ],
-          takeaway: 'Defining criteria before evaluating options is the single most impactful change you can make to your decision-making process.',
+          takeaway: 'Defining what matters before choosing between options is the single most impactful change you can make to any high-stakes decision.',
         },
       },
       {
@@ -4593,10 +4593,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'A colleague just found out their project got cancelled. They\'re visibly deflated.',
-          before: 'You immediately ask: "So what\'s the plan? What are you going to pivot to? This could actually be a good opportunity!"',
-          after: 'You slow down, lower your voice: "That\'s a real blow after all the work you put in. What do you need right now?"',
-          explanation: 'The first response might be well-intentioned, but the energy mismatch signals that you\'re more interested in moving forward than in acknowledging what just happened. The second matches their emotional state and asks about their immediate need — which is the question that actually helps.',
+          context: 'A friend just told you something that clearly matters deeply to them. Their voice is quiet and they look like they might cry.',
+          before: 'You immediately jump in: "Oh, I went through something similar! Here\'s what worked for me — have you tried...?"',
+          after: 'You slow down, lower your voice, wait a beat: "That sounds really hard. What do you need right now?"',
+          explanation: 'The first response might come from genuine care, but the energy mismatch — bright and solution-focused while they\'re quiet and hurting — signals that you\'re more focused on helping than on hearing. The second matches their emotional register and asks about their immediate need, which is almost always the question that actually helps.',
         },
       },
       {
@@ -4670,7 +4670,7 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'A colleague gives you a short, clipped response in a conversation that\'s usually warm. Which response shows the highest emotional intelligence?',
+          scenario: 'Someone close to you gives you a short, clipped response in a conversation that\'s usually warm. Which response shows the highest emotional intelligence?',
           options: [
             { text: '"What\'s wrong? You seem really off today."', isCorrect: false },
             { text: '"Hey — everything okay with you? No pressure if you\'d rather not talk."', isCorrect: true },
