@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkle, BookOpen, Target, ArrowRight, ClockCounterClockwise, ArrowCounterClockwise } from '@phosphor-icons/react';
+import { ArrowLeft, Sparkle, BookOpen, Target, ArrowRight, ClockCounterClockwise, ArrowCounterClockwise, Trash } from '@phosphor-icons/react';
 import { useOrg } from '../hooks/useOrg';
 import { useTeamPath } from '../hooks/useTeamPath';
 import { LESSONS } from '../data/lessons';
@@ -20,7 +20,7 @@ const FOCUS_AREAS = [
 export default function TeamPathPage() {
   const navigate = useNavigate();
   const { org, isAdmin } = useOrg();
-  const { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath } = useTeamPath(org);
+  const { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath, deleteHistoryEntry } = useTeamPath(org);
 
   const [showSetup, setShowSetup] = useState(false);
   const [focusArea, setFocusArea] = useState('');
@@ -267,6 +267,14 @@ export default function TeamPathPage() {
                     >
                       <ArrowCounterClockwise size={14} />
                       {restoring ? 'Restoring…' : 'Restore'}
+                    </button>
+                    <button
+                      className="team-path-delete-history-btn"
+                      onClick={() => deleteHistoryEntry(i)}
+                      disabled={restoring}
+                      aria-label="Delete this version"
+                    >
+                      <Trash size={14} />
                     </button>
                   </div>
                 </Card>

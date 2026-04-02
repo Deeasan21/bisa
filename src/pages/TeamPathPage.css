@@ -328,3 +328,29 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.team-path-delete-history-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.team-path-delete-history-btn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #EF4444;
+}
+
+.team-path-delete-history-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

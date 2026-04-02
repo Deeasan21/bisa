@@ -221,7 +221,7 @@ Rules:
     const existingRows = existingRes.ok ? await existingRes.json() : [];
     const existing = existingRows?.[0];
 
-    // Build updated history: prepend current (if exists), cap at 5
+    // Build updated history: prepend current (if exists), cap at 7
     let history = existing?.history || [];
     if (existing?.generated_at) {
       const snapshot = {
@@ -231,7 +231,7 @@ Rules:
         generated_lessons: existing.generated_lessons,
         generated_scenarios: existing.generated_scenarios,
       };
-      history = [snapshot, ...history].slice(0, 5);
+      history = [snapshot, ...history].slice(0, 7);
     }
 
     // Save to Supabase using service role key (bypasses RLS — server-side write)

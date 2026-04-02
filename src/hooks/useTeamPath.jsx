@@ -56,6 +56,25 @@ export function useTeamPath(org) {
     }
   }
 
+  async function deleteHistoryEntry(historyIndex) {
+    if (!org || !user) return;
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch('/api/delete-history-entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token || ''}`,
+        },
+        body: JSON.stringify({ org_id: org.id, history_index: historyIndex }),
+      });
+      if (!res.ok) throw new Error('Delete failed');
+      await queryClient.invalidateQueries({ queryKey: ['teamPath', org.id] });
+    } catch (e) {
+      console.error('deleteHistoryEntry error:', e);
+    }
+  }
+
   async function restorePath(historyIndex) {
     if (!org || !user) return;
     setRestoring(true);
@@ -81,5 +100,5 @@ export function useTeamPath(org) {
     }
   }
 
-  return { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath };
+  return { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath, deleteHistoryEntry };
 }
