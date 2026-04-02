@@ -257,7 +257,7 @@ Rules:
     if (!upsertRes.ok) {
       const err = await upsertRes.text();
       console.error('Supabase upsert error:', err);
-      return res.status(500).json({ error: 'Failed to save path' });
+      return res.status(500).json({ error: 'Failed to save path', detail: err });
     }
 
     return res.status(200).json({ success: true, path });
