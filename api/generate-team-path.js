@@ -183,6 +183,32 @@ Rules:
       return res.status(502).json({ error: 'Malformed generation result' });
     }
 
+    // Fetch existing path to preserve as history entry
+    const existingRes = await fetch(
+      `${supabaseUrl}/rest/v1/team_paths?org_id=eq.${org_id}&select=curated_lesson_ids,generated_lessons,generated_scenarios,focus_snapshot,generated_at,history`,
+      {
+        headers: {
+          'apikey': supabaseServiceKey,
+          'Authorization': `Bearer ${supabaseServiceKey}`,
+        },
+      }
+    );
+    const existingRows = existingRes.ok ? await existingRes.json() : [];
+    const existing = existingRows?.[0];
+
+    // Build updated history: prepend current (if exists), cap at 5
+    let history = existing?.history || [];
+    if (existing?.generated_at) {
+      const snapshot = {
+        generated_at: existing.generated_at,
+        focus_snapshot: existing.focus_snapshot,
+        curated_lesson_ids: existing.curated_lesson_ids,
+        generated_lessons: existing.generated_lessons,
+        generated_scenarios: existing.generated_scenarios,
+      };
+      history = [snapshot, ...history].slice(0, 5);
+    }
+
     // Save to Supabase using service role key (bypasses RLS — server-side write)
     const upsertRes = await fetch(`${supabaseUrl}/rest/v1/team_paths`, {
       method: 'POST',
@@ -199,6 +225,7 @@ Rules:
         generated_scenarios: path.generated_scenarios,
         focus_snapshot: focus_description,
         generated_at: new Date().toISOString(),
+        history,
       }),
     });
 

@@ -300,3 +300,31 @@
   text-decoration: underline;
   padding: 0;
 }
+
+/* ── Version history ─────────────────────────── */
+.team-path-restore-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.team-path-restore-btn:hover:not(:disabled) {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.team-path-restore-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

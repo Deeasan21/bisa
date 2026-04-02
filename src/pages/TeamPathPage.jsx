@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkle, BookOpen, Target, ArrowRight, Lightning, Lock } from '@phosphor-icons/react';
+import { ArrowLeft, Sparkle, BookOpen, Target, ArrowRight, ClockCounterClockwise, ArrowCounterClockwise } from '@phosphor-icons/react';
 import { useOrg } from '../hooks/useOrg';
 import { useTeamPath } from '../hooks/useTeamPath';
 import { LESSONS } from '../data/lessons';
@@ -19,7 +19,7 @@ const FOCUS_AREAS = [
 export default function TeamPathPage() {
   const navigate = useNavigate();
   const { org, isAdmin } = useOrg();
-  const { teamPath, isLoading, generating, generateError, generatePath } = useTeamPath(org);
+  const { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath } = useTeamPath(org);
 
   const [showSetup, setShowSetup] = useState(false);
   const [focusArea, setFocusArea] = useState('');
@@ -238,6 +238,40 @@ export default function TeamPathPage() {
               <> · <button className="team-path-regen-link" onClick={() => setShowSetup(true)}>Regenerate</button></>
             )}
           </p>
+
+          {/* Version history — admin only */}
+          {isAdmin && teamPath.history?.length > 0 && (
+            <div className="team-path-section">
+              <div className="team-path-section-header">
+                <ClockCounterClockwise size={16} weight="duotone" color="var(--text-muted)" />
+                <h2 style={{ color: 'var(--text-muted)' }}>Previous versions</h2>
+              </div>
+              {teamPath.history.map((entry, i) => (
+                <Card key={i} padding="md">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+                    <div style={{ flex: 1 }}>
+                      <span style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                        {entry.generated_at ? new Date(entry.generated_at).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Unknown date'}
+                      </span>
+                      {entry.focus_snapshot && (
+                        <span style={{ display: 'block', fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: 2 }}>
+                          {entry.focus_snapshot.slice(0, 80)}{entry.focus_snapshot.length > 80 ? '…' : ''}
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      className="team-path-restore-btn"
+                      onClick={() => restorePath(i)}
+                      disabled={restoring}
+                    >
+                      <ArrowCounterClockwise size={14} />
+                      {restoring ? 'Restoring…' : 'Restore'}
+                    </button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </>
       )}
     </div>

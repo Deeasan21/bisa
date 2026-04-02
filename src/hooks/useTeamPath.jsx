@@ -8,6 +8,7 @@ export function useTeamPath(org) {
   const queryClient = useQueryClient();
   const [generating, setGenerating] = useState(false);
   const [generateError, setGenerateError] = useState('');
+  const [restoring, setRestoring] = useState(false);
 
   const { data: teamPath, isLoading } = useQuery({
     queryKey: ['teamPath', org?.id],
@@ -53,5 +54,30 @@ export function useTeamPath(org) {
     }
   }
 
-  return { teamPath, isLoading, generating, generateError, generatePath };
+  async function restorePath(historyIndex) {
+    if (!org || !user) return;
+    setRestoring(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch('/api/restore-team-path', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token || ''}`,
+        },
+        body: JSON.stringify({ org_id: org.id, history_index: historyIndex }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Restore failed');
+      }
+      await queryClient.invalidateQueries({ queryKey: ['teamPath', org.id] });
+    } catch (e) {
+      console.error('restorePath error:', e);
+    } finally {
+      setRestoring(false);
+    }
+  }
+
+  return { teamPath, isLoading, generating, generateError, generatePath, restoring, restorePath };
 }
