@@ -165,6 +165,7 @@ Rules:
 - generated_lessons: exactly 2 lessons written specifically for this team's role — not generic, use their actual context
 - generated_scenarios: exactly 5 scenarios drawn from real situations this team would face
 - Write as if you know their world. Use realistic names, job titles, and situations from their industry
+- If the focus area is healthcare or clinical: the generated scenarios must include at least 2 patient-communication situations. Emphasise therapeutic questioning — asking about symptoms, medication, pain, and emotional state using open, non-judgmental language. The originalQuestion in those scenarios should reflect the "why" trap (e.g. "Why haven't you been taking your medication?") and the idealRewrite should demonstrate the reframe (e.g. "What's been getting in the way of taking your medication?")
 - Return only valid JSON, no markdown, no explanation`;
 
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {

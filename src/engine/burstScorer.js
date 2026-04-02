@@ -184,7 +184,15 @@ export function scoreBurst(questions, scenario) {
   // Depth progression value
   const depthProgression = depth;
 
-  const coachingTip = generateCoachingTip(breakdown);
+  // Detect why-opener anti-pattern
+  const whyOpeners = scoredQuestions.filter(q => q.text.trim().toLowerCase().startsWith('why'));
+  const whyOpenerCount = whyOpeners.length;
+
+  let coachingTip = generateCoachingTip(breakdown);
+  if (whyOpenerCount > 0) {
+    const fraction = whyOpenerCount === 1 ? '1 of your questions' : `${whyOpenerCount} of your questions`;
+    coachingTip = `Watch the "why" opener — ${fraction} started with "Why", which can feel accusatory even when you mean well. Try reframing: "What got in the way of…" or "Walk me through…" instead.`;
+  }
 
   return {
     totalScore,
@@ -195,5 +203,6 @@ export function scoreBurst(questions, scenario) {
     strongestQuestion: strongest,
     coachingTip,
     breakdown,
+    whyOpenerCount,
   };
 }

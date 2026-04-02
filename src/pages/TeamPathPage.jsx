@@ -8,12 +8,13 @@ import Card from '../components/common/Card';
 import './TeamPathPage.css';
 
 const FOCUS_AREAS = [
-  { value: 'sales',      label: 'Sales & Discovery' },
-  { value: 'management', label: 'New Managers' },
-  { value: 'coaching',   label: 'Coaching & HR' },
-  { value: 'leadership', label: 'Senior Leadership' },
-  { value: 'customer',   label: 'Customer Success' },
-  { value: 'other',      label: 'Other' },
+  { value: 'sales',       label: 'Sales & Discovery' },
+  { value: 'management',  label: 'New Managers' },
+  { value: 'coaching',    label: 'Coaching & HR' },
+  { value: 'leadership',  label: 'Senior Leadership' },
+  { value: 'customer',    label: 'Customer Success' },
+  { value: 'healthcare',  label: 'Healthcare / Clinical' },
+  { value: 'other',       label: 'Other' },
 ];
 
 export default function TeamPathPage() {

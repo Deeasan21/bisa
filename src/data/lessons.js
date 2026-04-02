@@ -6817,4 +6817,140 @@ export const LESSONS = [
       },
     ],
   },
+  {
+    id: 40,
+    title: "The Why Trap",
+    skillCategory: 'Framing',
+    difficultyTier: 'intermediate',
+    tier: 2,
+    sections: [
+      {
+        id: 'intro',
+        title: 'The Word That Closes Doors',
+        content: `
+          <p>There is one word that routinely derails conversations, puts people on the defensive, and closes down honest answers — even when the person asking it has nothing but good intentions.</p>
+          <p>That word is <strong>why</strong>.</p>
+          <p>Nursing students are penalized for starting clinical questions with it. Therapists are trained to avoid it. Detectives know it makes witnesses clam up. And yet it's the word most of us reach for when we genuinely want to understand something.</p>
+          <p>The problem isn't curiosity — curiosity is exactly right. The problem is that <strong>"why" sounds like an accusation even when it isn't one.</strong></p>
+          <p>Compare the feeling of these two questions asking the exact same thing:</p>
+          <p><em>"Why haven't you been taking your medication?"</em></p>
+          <p><em>"What's been getting in the way of taking your medication?"</em></p>
+          <p>The first puts someone in a witness box. The second invites them into a conversation. The information you want is identical — the emotional experience of being asked couldn't be more different.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'why-it-happens',
+        title: 'Why "Why" Backfires',
+        content: `
+          <p>When someone hears "why did you…" — the brain does something specific. It goes into justification mode. Instead of exploring what actually happened, it starts constructing a defence.</p>
+          <p>This isn't a personality flaw. It's a near-universal response rooted in how we learned to use language. From childhood, "why did you do that?" was almost always followed by a consequence. The question carries that history in every conversation it enters.</p>
+          <p>Three things happen when you ask "why":</p>
+          <p><strong>1. The person stops thinking about the situation.</strong> They start thinking about how to explain themselves.</p>
+          <p><strong>2. The emotional safety drops.</strong> Even a gentle "why" can register as mild accusation — especially when the subject is sensitive (health, behaviour, conflict, failure).</p>
+          <p><strong>3. You get the socially acceptable answer, not the honest one.</strong> "I've just been really busy" instead of "I couldn't afford the prescription this month."</p>
+          <p>The honest answer — the one you actually need — is on the other side of a question that doesn't feel like a verdict.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'before-after',
+        title: 'The Same Curiosity, Reframed',
+        content: `<p>Here's the same intent — wanting to understand — expressed two different ways. Notice what changes and what stays the same:</p>`,
+        interaction: {
+          type: 'before-after',
+          required: true,
+          before: '"Why didn\'t you call me when it started getting worse?"',
+          after: '"What was going on for you when it started getting worse — what made it hard to reach out?"',
+          explanation: 'Both questions come from the same place: genuine concern and a desire to understand. But the first puts the person in the position of having to justify a choice they may already feel bad about. The second makes space for the real story — which is almost never "I just didn\'t bother."',
+        },
+      },
+      {
+        id: 'why-trap-explorer',
+        title: 'Watch the Why Trap in Action',
+        content: `<p>The same situation — someone who needs help but hasn't asked for it — plays out very differently depending on how you open the conversation:</p>`,
+        interaction: {
+          type: 'consequence-explorer',
+          required: true,
+          scenario: 'Your younger sibling has been visibly struggling for weeks. They haven\'t said anything. You decide to bring it up.',
+          phrasings: [
+            {
+              text: '"Why didn\'t you tell me something was wrong?"',
+              consequence: 'They get defensive immediately. "I didn\'t want to bother you." The real conversation never starts — they\'re already managing your feelings about not being told, not talking about what\'s actually going on.',
+              quality: 'poor',
+            },
+            {
+              text: '"Is everything okay?"',
+              consequence: '"Yeah, I\'m fine." The closed question gives them an easy exit. You know they\'re not fine. They know you know. But the door was small and they took the way out.',
+              quality: 'okay',
+            },
+            {
+              text: '"I\'ve noticed you seem like you\'ve had a lot on your mind lately. What\'s been going on?"',
+              consequence: 'They pause. Then: "Yeah, actually…" The observation plus the open question signals you\'ve been paying attention — and that you want to understand, not interrogate. The real conversation begins.',
+              quality: 'great',
+            },
+            {
+              text: '"What would make things feel even a little better right now?"',
+              consequence: 'This skips past the explanation entirely and goes straight to what they need. Sometimes the most useful question isn\'t "what happened" — it\'s "what would help." They feel cared for, not cross-examined.',
+              quality: 'great',
+            },
+          ],
+          takeaway: 'The why trap isn\'t just about the word "why" — it\'s about whether your question makes someone feel safe enough to tell you the truth. Questions that observe, invite, and focus on what\'s ahead tend to open people up. Questions that reach backward for justification tend to close them down.',
+        },
+      },
+      {
+        id: 'reframe-toolkit',
+        title: 'The Reframe Toolkit',
+        content: `
+          <p>The goal isn't to avoid curiosity — it's to express it in a way that invites honesty. Every "why" question can be reframed into something that gets the same information (or better) with less defensiveness.</p>
+          <p><strong>Replace "Why didn't you…" with "What got in the way of…"</strong><br/>
+          Instead of blame, you're acknowledging that something real was happening. The person can tell you what it actually was.</p>
+          <p><strong>Replace "Why did you…" with "What led you to…" or "Walk me through…"</strong><br/>
+          You're asking for the story, not the justification. Stories are honest. Justifications are filtered.</p>
+          <p><strong>Replace "Why do you think…" with "What makes you say…" or "What's behind that for you?"</strong><br/>
+          You get the same reasoning without triggering the need to defend it.</p>
+          <p><strong>Replace "Why hasn't this changed?" with "What would need to be different for this to change?"</strong><br/>
+          You move from diagnosing the past to exploring the future — which is almost always more useful.</p>
+          <p>The pattern is simple: <strong>replace judgment of a past choice with curiosity about a person's experience.</strong> The answers you get will be more honest, more specific, and more useful.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'why-challenge',
+        title: 'Reframe It',
+        content: `<p>Here are two "why" questions. Which reframe actually opens the conversation?</p>`,
+        interaction: {
+          type: 'micro-challenge',
+          required: true,
+          scenario: 'A friend hasn\'t been showing up to the group runs you do together. You want to understand what\'s happening. Which question opens the conversation?',
+          options: [
+            { text: '"Why have you been skipping the runs?"', isCorrect: false },
+            { text: '"What\'s been going on — I\'ve missed having you there."', isCorrect: true },
+          ],
+          explanation: 'The first puts them on trial for a choice they may feel guilty about already. The second combines an observation with genuine warmth — it signals that you noticed and that you care. It also removes the pressure to justify: they can share what\'s actually been going on without managing your disappointment first.',
+        },
+      },
+      {
+        id: 'clinical-connection',
+        title: 'Why Nurses (and Others) Are Trained to Avoid It',
+        content: `
+          <p>In nursing clinicals, students are explicitly penalized for asking patients "why" questions — and the same principle appears in therapy, motivational interviewing, mediation, and crisis communication. These fields learned what most of us figure out by accident: <strong>when someone is already in a vulnerable position, "why" makes everything harder.</strong></p>
+          <p>A patient who hasn't been managing their condition rarely needs to be asked why. They already know why. They need to feel safe enough to tell the truth about it.</p>
+          <p>The same is true in almost every high-stakes conversation. Someone who made a mistake at work doesn't need "why did you do that?" — they need "what happened, and what would have made it easier to catch?" Someone in conflict with a family member doesn't need "why are you acting this way?" — they need "what's been hard for you about this?"</p>
+          <p><strong>The why trap shows up most clearly in the moments that matter most.</strong> The reframe is always available — but it requires remembering that what you want is the truth, not a defence.</p>
+        `,
+        interaction: null,
+      },
+      {
+        id: 'reflect',
+        title: 'Pause and Reflect',
+        content: null,
+        interaction: {
+          type: 'reflection',
+          required: false,
+          prompt: 'Think of a recent conversation where you asked "why" — or wanted to. How do you think the other person experienced that question? What would a reframe have sounded like, and what might have been different?',
+        },
+      },
+    ],
+  },
 ];
