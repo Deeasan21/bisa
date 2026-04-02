@@ -95,9 +95,32 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Database configuration error' });
   }
 
-  // Verify the org exists and requester is admin via Supabase REST
+  // Verify the requester is authenticated and is an admin of the target org
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.status(401).json({ error: 'Unauthorized' });
+
+  const token = authHeader.replace(/^Bearer\s+/i, '');
+
+  // Decode JWT and verify org admin role
+  try {
+    const userRes = await fetch(`${supabaseUrl}/auth/v1/user`, {
+      headers: { 'Authorization': `Bearer ${token}`, 'apikey': supabaseServiceKey },
+    });
+    if (!userRes.ok) return res.status(401).json({ error: 'Invalid token' });
+    const userData = await userRes.json();
+    const userId = userData?.id;
+    if (!userId) return res.status(401).json({ error: 'Invalid token' });
+
+    const memberRes = await fetch(
+      `${supabaseUrl}/rest/v1/org_members?org_id=eq.${org_id}&user_id=eq.${userId}&role=eq.admin&select=id`,
+      { headers: { 'apikey': supabaseServiceKey, 'Authorization': `Bearer ${supabaseServiceKey}` } }
+    );
+    const members = memberRes.ok ? await memberRes.json() : [];
+    if (!members?.length) return res.status(403).json({ error: 'Not an org admin' });
+  } catch (e) {
+    console.error('Auth check error:', e);
+    return res.status(401).json({ error: 'Authorization failed' });
+  }
 
   try {
     // Build Claude prompt

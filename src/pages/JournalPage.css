@@ -50,6 +50,42 @@
   margin-bottom: var(--space-md);
 }
 
+.journal-daily-prompt {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border: 1px solid #F59E0B33;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.journal-prompt-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9A6B1F;
+  margin-bottom: var(--space-xs);
+}
+
+.journal-prompt-text {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.journal-prompt-tip {
+  font-size: 0.78rem;
+  color: #9A6B1F;
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
 .journal-tab {
   display: inline-flex;
   align-items: center;

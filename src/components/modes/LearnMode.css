@@ -247,6 +247,20 @@
   color: #FFFFFF;
 }
 
+.ai-feedback-error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.ai-feedback-error p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #DC2626;
+}
+
 .reflection-ai-upsell {
   margin-top: var(--space-sm);
   font-size: 0.8rem;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, X, Star, Trash, MagnifyingGlass, BookOpen } from '@phosphor-icons/react';
+import { Plus, X, Star, Trash, MagnifyingGlass, BookOpen, Lightbulb } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { LESSONS } from '../data/lessons';
 import { XP_RULES } from '../engine/xpSystem';
@@ -9,7 +9,15 @@ import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import AchievementToast from '../components/common/AchievementToast';
 import { NeaOnnim } from '../components/brand';
+import { JOURNAL_PROMPTS } from '../data/journalPrompts';
 import './JournalPage.css';
+
+const dayOfYear = () => {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  return Math.floor((now - start) / 86400000);
+};
+const todaysPrompt = JOURNAL_PROMPTS[dayOfYear() % JOURNAL_PROMPTS.length];
 
 const QUESTION_TYPES = ['Open', 'Clarifying', 'Probing', 'Reflective', 'Hypothetical', 'Follow-up', 'Other'];
 const RATING_LABELS = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
@@ -161,6 +169,20 @@ export default function JournalPage() {
 
       {activeTab === 'journal' && (
         <>
+          {/* Daily prompt card */}
+          {!showForm && (
+            <div className="journal-daily-prompt">
+              <div className="journal-prompt-header">
+                <Lightbulb size={15} weight="duotone" color="#9A6B1F" />
+                <span>Today's Prompt</span>
+              </div>
+              <p className="journal-prompt-text">{todaysPrompt.prompt}</p>
+              {todaysPrompt.tip && (
+                <p className="journal-prompt-tip">{todaysPrompt.tip}</p>
+              )}
+            </div>
+          )}
+
           {showForm && (
             <div className="journal-form animate-fade-in">
               <div className="form-field">

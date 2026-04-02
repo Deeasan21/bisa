@@ -123,7 +123,11 @@ export function buildEngineFunctions(userId, deps) {
         completed: false,
         progress: 0,
       }));
-      await supabase.from('daily_quests').insert(rows);
+      const { error } = await supabase.from('daily_quests').upsert(rows, {
+        onConflict: 'user_id,date,quest_type',
+        ignoreDuplicates: true,
+      });
+      if (error) console.error('saveDailyQuests error:', error.message, error.details, error.code);
     } catch (e) { console.error('saveDailyQuests:', e); }
   }
 

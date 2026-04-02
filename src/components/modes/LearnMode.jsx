@@ -56,6 +56,7 @@ export default function LearnMode() {
   const [reflectedLessons, setReflectedLessons] = useState(new Set());
   const [aiReflectionResult, setAiReflectionResult] = useState(null);
   const [aiReflectionLoading, setAiReflectionLoading] = useState(false);
+  const [aiReflectionError, setAiReflectionError] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
   const [enyaIntroPlayed, setEnyaIntroPlayed] = useState(null); // null = not loaded yet
 
@@ -100,6 +101,7 @@ export default function LearnMode() {
       setSaved(!!existing);
       setAiReflectionResult(null);
       setAiReflectionLoading(false);
+      setAiReflectionError(false);
 
       const allRef = await db.getAllReflections();
       const reflected = new Set(allRef.map(r => r.lessonId));
@@ -140,12 +142,14 @@ export default function LearnMode() {
 
   const handleRequestAIReflection = async () => {
     setAiReflectionLoading(true);
+    setAiReflectionError(false);
     try {
       const result = await getAIReflectionFeedback(reflection, lesson);
       setAiReflectionResult(result);
     } catch (err) {
       console.error('AI reflection feedback error:', err);
       setAiReflectionResult(null);
+      setAiReflectionError(true);
     } finally {
       setAiReflectionLoading(false);
     }
@@ -293,6 +297,12 @@ export default function LearnMode() {
                     <label>Connection</label>
                     <p>{aiReflectionResult.connection}</p>
                   </div>
+                </div>
+              )}
+
+              {aiReflectionError && !aiReflectionLoading && (
+                <div className="ai-feedback-error animate-fade-in">
+                  <p>Couldn't load AI feedback — try again.</p>
                 </div>
               )}
 
