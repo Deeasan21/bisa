@@ -337,7 +337,7 @@ export default function DailyChallenge() {
 
             {/* Scenario reminder */}
             <div className="burst-scenario-reminder">
-              <strong>{scenario.character}</strong> — {scenario.situation.slice(0, 80)}...
+              <strong>{scenario.character}</strong> — {scenario.situation}
             </div>
 
             {/* Question stream */}
