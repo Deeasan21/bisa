@@ -21,6 +21,7 @@ export default function VerifyOTPPage() {
   const { user } = useAuth();
 
   const email = location.state?.email;
+  const next = location.state?.next || '/';
 
   // Redirect if accessed directly with no email in state
   useEffect(() => {
@@ -131,7 +132,7 @@ export default function VerifyOTPPage() {
     }
 
     setSuccess(true);
-    setTimeout(() => navigate('/welcome', { replace: true }), 1200);
+    setTimeout(() => navigate('/welcome', { state: { next }, replace: true }), 1200);
   }
 
   async function handleResend() {

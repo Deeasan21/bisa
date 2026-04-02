@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
@@ -8,6 +8,8 @@ import './WelcomePage.css';
 export default function WelcomePage() {
   const { db } = useSupabaseDB();
   const navigate = useNavigate();
+  const location = useLocation();
+  const next = location.state?.next || '/';
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +23,7 @@ export default function WelcomePage() {
     } catch (err) {
       console.error('Failed to save name:', err);
     }
-    navigate('/', { replace: true });
+    navigate(next, { replace: true });
   }
 
   return (
@@ -57,7 +59,7 @@ export default function WelcomePage() {
         <button
           className="welcome-skip"
           type="button"
-          onClick={() => navigate('/', { replace: true })}
+          onClick={() => navigate(next, { replace: true })}
         >
           Skip for now
         </button>

@@ -58,7 +58,7 @@ export default function JoinOrgPage() {
           Sign in or create an account to join your team on Bisa.
         </p>
         <Link
-          to={`/auth?next=/join?token=${token}`}
+          to={`/auth?next=${encodeURIComponent('/join?token=' + token)}`}
           style={{
             padding: '12px 28px', borderRadius: '9999px',
             background: 'var(--text-primary)', color: 'var(--bg-primary)',
