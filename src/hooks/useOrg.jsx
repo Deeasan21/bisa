@@ -140,13 +140,15 @@ export function OrgProvider({ children }) {
 
     // Send invite email (non-blocking — don't fail the invite if email fails)
     const inviteLink = `${APP_URL}/join?token=${token}`;
+    const { data: profile } = await supabase.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
+    const inviterName = profile?.display_name || user.email;
     fetch('/api/invite', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: email,
         inviteLink,
-        inviterName: user.user_metadata?.display_name || user.email,
+        inviterName,
         orgName: org.name,
       }),
     }).catch(e => console.warn('invite email failed:', e));
