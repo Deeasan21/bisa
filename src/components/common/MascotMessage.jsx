@@ -1,10 +1,10 @@
 import './MascotMessage.css';
 
 const EMOTIONS = {
-  happy: { eyes: '◠', mouth: '‿', color: '#F59E0B' },
-  thinking: { eyes: '◑', mouth: '~', color: '#3B82F6' },
-  celebrating: { eyes: '★', mouth: 'D', color: '#10B981' },
-  encouraging: { eyes: '◠', mouth: '◡', color: '#8B5CF6' },
+  happy: { eyes: '◠', mouth: '‿', color: '#D4A853' },
+  thinking: { eyes: '◑', mouth: '~', color: '#9A6B1F' },
+  celebrating: { eyes: '★', mouth: 'D', color: '#C49240' },
+  encouraging: { eyes: '◠', mouth: '◡', color: '#D4A853' },
 };
 
 export default function MascotMessage({ message, emotion = 'happy' }) {

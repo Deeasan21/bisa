@@ -49,10 +49,10 @@ function ObservationCard({ label, clue }) {
 }
 
 const DIFFICULTY_COLORS = {
-  beginner: '#10B981',
-  intermediate: '#3B82F6',
-  advanced: '#8B5CF6',
-  expert: '#F59E0B',
+  beginner: '#C49240',
+  intermediate: '#9A6B1F',
+  advanced: '#D4A853',
+  expert: '#D4A853',
   master: '#EF4444',
 };
 
@@ -362,7 +362,7 @@ export default function PracticeMode() {
                 {aiResult && (
                   <div className="ai-feedback-section animate-fade-in">
                     <div className="ai-feedback-header">
-                      <Sparkle size={16} weight="fill" color="#8B5CF6" />
+                      <Sparkle size={16} weight="fill" color="#D4A853" />
                       <span>AI Coach Feedback</span>
                     </div>
 
@@ -394,7 +394,7 @@ export default function PracticeMode() {
                     {aiResult.techniques?.length > 0 && (
                       <div className="ai-techniques">
                         {aiResult.techniques.map(t => (
-                          <Badge key={t} text={t} color="#8B5CF6" variant="soft" size="sm" />
+                          <Badge key={t} text={t} color="#D4A853" variant="soft" size="sm" />
                         ))}
                       </div>
                     )}
@@ -410,7 +410,7 @@ export default function PracticeMode() {
                 {/* Manual AI coaching button for scores outside auto-trigger range */}
                 {showAiButton && !aiLoading && !aiResult && (
                   <button className="ai-coaching-btn animate-fade-in" onClick={handleRequestAI}>
-                    <Sparkle size={16} weight="fill" color="#8B5CF6" />
+                    <Sparkle size={16} weight="fill" color="#D4A853" />
                     <span>Get AI Coaching</span>
                   </button>
                 )}
@@ -418,7 +418,7 @@ export default function PracticeMode() {
                 {/* Soft upsell when no API key */}
                 {!hasApiKey() && !aiLoading && result.score > 0 && (
                   <div className="ai-upsell animate-fade-in">
-                    <Robot size={16} weight="duotone" color="#8B5CF6" />
+                    <Robot size={16} weight="duotone" color="#D4A853" />
                     <p>Want more detailed feedback? Add your API key in <strong>Settings</strong> on your Profile page.</p>
                   </div>
                 )}
@@ -426,7 +426,7 @@ export default function PracticeMode() {
                 {/* Defend Your Question — Socratic pushback challenge */}
                 {aiResult && !defendChallenge && !defendLoading && (
                   <button className="defend-challenge-btn animate-fade-in" onClick={handleDefendChallenge}>
-                    <Sparkle size={16} weight="fill" color="#F59E0B" />
+                    <Sparkle size={16} weight="fill" color="#D4A853" />
                     <span>Defend Your Question</span>
                   </button>
                 )}
@@ -434,7 +434,7 @@ export default function PracticeMode() {
                 {defendLoading && (
                   <div className="defend-section animate-fade-in">
                     <div className="defend-header">
-                      <Sparkle size={16} weight="fill" color="#F59E0B" />
+                      <Sparkle size={16} weight="fill" color="#D4A853" />
                       <span>Preparing challenge...</span>
                     </div>
                     <Skeleton height={14} width="85%" />
@@ -445,7 +445,7 @@ export default function PracticeMode() {
                 {defendChallenge && (
                   <div className="defend-section animate-fade-in">
                     <div className="defend-header">
-                      <Sparkle size={16} weight="fill" color="#F59E0B" />
+                      <Sparkle size={16} weight="fill" color="#D4A853" />
                       <span>Defend Your Question</span>
                     </div>
                     <p className="defend-challenge">{defendChallenge.challenge}</p>

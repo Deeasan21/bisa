@@ -98,7 +98,7 @@
 }
 
 .cf-outcome--good {
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(196, 146, 64, 0.1);
   color: #059669;
 }
 
@@ -134,7 +134,7 @@
 .ts-track {
   height: 8px;
   border-radius: var(--radius-full);
-  background: linear-gradient(to right, #78716C, #F59E0B, #10B981);
+  background: linear-gradient(to right, #78716C, #D4A853, #C49240);
 }
 
 .ts-dots {
@@ -220,8 +220,8 @@
 }
 
 .ef-node--branch-point {
-  border-color: #F59E0B;
-  background: rgba(245, 158, 11, 0.06);
+  border-color: #D4A853;
+  background: rgba(212, 168, 83, 0.06);
 }
 
 .ef-arrow {
@@ -240,7 +240,7 @@
 .ef-branch-connector {
   width: 2px;
   height: 20px;
-  background: #F59E0B;
+  background: #D4A853;
   margin-left: var(--space-lg);
 }
 
@@ -257,20 +257,20 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.08);
+  background: rgba(212, 168, 83, 0.08);
   margin-bottom: 4px;
   margin-left: var(--space-lg);
   width: fit-content;
 }
 
 .ef-node--branch {
-  border-color: rgba(245, 158, 11, 0.4);
-  background: rgba(245, 158, 11, 0.05);
+  border-color: rgba(212, 168, 83, 0.4);
+  background: rgba(212, 168, 83, 0.05);
   color: #92400E;
 }
 
 .ef-arrow--branch {
-  color: #F59E0B;
+  color: #D4A853;
 }
 
 /* Mobile: scroll horizontally */

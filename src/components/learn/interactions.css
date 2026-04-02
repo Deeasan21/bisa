@@ -60,8 +60,8 @@
 }
 
 .mc-option.mc-correct {
-  border-color: #10B981;
-  background: rgba(16, 185, 129, 0.08);
+  border-color: #C49240;
+  background: rgba(196, 146, 64, 0.08);
   color: #065F46;
 }
 
@@ -85,7 +85,7 @@
   padding: var(--space-md);
   background: var(--bg-card);
   border-radius: var(--radius-md);
-  border-left: 3px solid #10B981;
+  border-left: 3px solid #C49240;
 }
 
 .mc-feedback p {
@@ -127,7 +127,7 @@
 }
 
 .ba-tag--after {
-  background: rgba(16, 185, 129, 0.12);
+  background: rgba(196, 146, 64, 0.12);
   color: #059669;
 }
 
@@ -438,8 +438,8 @@
 }
 
 .dr-item.dr-correct {
-  border-color: #10B981;
-  background: rgba(16, 185, 129, 0.06);
+  border-color: #C49240;
+  background: rgba(196, 146, 64, 0.06);
 }
 
 .dr-item.dr-wrong {
@@ -469,7 +469,7 @@
 }
 
 .dr-item.dr-correct .dr-num {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(196, 146, 64, 0.15);
   color: #059669;
 }
 
@@ -519,7 +519,7 @@
 }
 
 .dr-feedback--correct {
-  border-left: 3px solid #10B981;
+  border-left: 3px solid #C49240;
 }
 
 .dr-feedback--retry {
@@ -584,13 +584,13 @@
 
 .ce-phrasing:hover {
   border-color: var(--accent-gold);
-  background: rgba(139, 92, 246, 0.04);
+  background: rgba(212, 168, 83, 0.04);
 }
 
 .ce-phrasing.ce-active {
   border-color: var(--accent-gold);
-  background: rgba(139, 92, 246, 0.06);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: rgba(212, 168, 83, 0.06);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.1);
 }
 
 .ce-phrasing.ce-explored {
@@ -657,7 +657,7 @@
   padding: var(--space-md);
   background: var(--bg-card);
   border-radius: var(--radius-md);
-  border-left: 3px solid #10B981;
+  border-left: 3px solid #C49240;
 }
 
 .ce-takeaway p {

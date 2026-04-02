@@ -40,7 +40,7 @@ export default function InstallPrompt() {
   return (
     <div className="install-prompt animate-slide-up">
       <div className="install-prompt-icon">
-        <DownloadSimple size={20} weight="duotone" color="#F59E0B" />
+        <DownloadSimple size={20} weight="duotone" color="#D4A853" />
       </div>
       <div className="install-prompt-text">
         <span className="install-prompt-title">Add Bisa to your home screen</span>

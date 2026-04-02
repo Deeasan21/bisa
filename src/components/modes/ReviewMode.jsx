@@ -148,7 +148,7 @@ export default function ReviewMode() {
           </div>
         ) : !currentCard ? (
           <div className="review-empty animate-fade-in">
-            <BisaBalloon color="#10B981" size={48} />
+            <BisaBalloon color="#C49240" size={48} />
             <h2>All Caught Up!</h2>
             <p>No cards due right now. Enya will have more for you later!</p>
           </div>
@@ -173,7 +173,7 @@ export default function ReviewMode() {
             {/* Good streak counter */}
             {goodStreak >= 2 && (
               <div className="review-streak animate-scale-in">
-                <Fire size={14} weight="fill" color="#F59E0B" />
+                <Fire size={14} weight="fill" color="#D4A853" />
                 <span>{goodStreak} streak!</span>
               </div>
             )}

@@ -38,21 +38,21 @@ const NEW_USER_MODES = [
   {
     title: 'Daily Challenge',
     reason: 'Build your questioning reflex — 60 seconds a day',
-    color: '#10B981',
+    color: '#C49240',
     Icon: Lightning,
     path: '/mode/daily',
   },
   {
     title: 'Pattern Mode',
     reason: 'Discover how you read people and situations',
-    color: '#10B981',
+    color: '#C49240',
     Icon: Eye,
     path: '/mode/pattern',
   },
   {
     title: 'Practice Mode',
     reason: 'Rewrite real questions and get instant AI feedback',
-    color: '#10B981',
+    color: '#C49240',
     Icon: Target,
     path: '/mode/practice',
   },
@@ -156,12 +156,12 @@ export default function TodayPage() {
 
   const QUEST_COLORS = {
     practice: '#D4A853',
-    lesson: '#3B82F6',
-    journal: '#8B5CF6',
-    daily_challenge: '#10B981',
-    review: '#3B82F6',
-    simulation: '#8B5CF6',
-    streak: '#F59E0B',
+    lesson: '#9A6B1F',
+    journal: '#D4A853',
+    daily_challenge: '#C49240',
+    review: '#9A6B1F',
+    simulation: '#D4A853',
+    streak: '#D4A853',
   };
 
   const QUEST_PATHS = {
@@ -244,7 +244,7 @@ export default function TodayPage() {
           </div>
         </div>
         <div className="streak-pill">
-          <Fire size={18} weight="fill" color="#F59E0B" />
+          <Fire size={18} weight="fill" color="#D4A853" />
           <span>{streak}</span>
         </div>
       </div>
@@ -333,7 +333,7 @@ export default function TodayPage() {
 
       <div className="quests-section">
         <div className="quests-title">
-          <Lightning size={20} weight="fill" color="#F59E0B" />
+          <Lightning size={20} weight="fill" color="#D4A853" />
           <h2>Daily Challenge</h2>
           <span className="quests-timer">{hoursLeft}h left</span>
         </div>
@@ -366,14 +366,14 @@ export default function TodayPage() {
               <div className="quest-info">
                 <span className="quest-label">Complete today's Daily Challenge</span>
               </div>
-              <span className="quest-xp" style={{ color: '#10B981', background: '#10B98114' }}>+25 XP</span>
+              <span className="quest-xp" style={{ color: '#C49240', background: '#C4924014' }}>+25 XP</span>
             </div>
           </Card>
         )}
 
         {otherQuests.length > 0 && (
           <button className="quests-more-link" onClick={() => navigate('/progress')}>
-            <Lightning size={14} weight="fill" color="#F59E0B" />
+            <Lightning size={14} weight="fill" color="#D4A853" />
             {otherQuestsDone}/{otherQuests.length} other quests
             <ArrowRight size={14} weight="bold" />
           </button>
@@ -389,7 +389,7 @@ export default function TodayPage() {
       {/* Recommended for You */}
       <div className="recommendations-section">
         <div className="recommendations-title">
-          <Sparkle size={20} weight="fill" color="#8B5CF6" />
+          <Sparkle size={20} weight="fill" color="#D4A853" />
           <h2>Play Next</h2>
         </div>
 

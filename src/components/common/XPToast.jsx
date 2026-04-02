@@ -20,7 +20,7 @@ export default function XPToast({ amount, visible = false, onDone }) {
 
   return (
     <div className="xp-toast" aria-live="polite">
-      <Lightning size={18} weight="fill" color="#F59E0B" />
+      <Lightning size={18} weight="fill" color="#D4A853" />
       <span>+{amount} XP</span>
     </div>
   );

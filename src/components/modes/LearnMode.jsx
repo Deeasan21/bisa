@@ -26,10 +26,10 @@ const TIER_LABELS = {
 };
 
 const TIER_COLORS = {
-  1: '#10B981',
-  2: '#3B82F6',
-  3: '#8B5CF6',
-  4: '#F59E0B',
+  1: '#C49240',
+  2: '#9A6B1F',
+  3: '#D4A853',
+  4: '#D4A853',
   5: '#EF4444',
 };
 
@@ -278,7 +278,7 @@ export default function LearnMode() {
               {aiReflectionResult && !aiReflectionLoading && (
                 <div className="reflection-ai-feedback animate-fade-in">
                   <div className="reflection-ai-header">
-                    <Sparkle size={18} weight="fill" color="#F59E0B" />
+                    <Sparkle size={18} weight="fill" color="#D4A853" />
                     <span>AI Reflection Coaching</span>
                   </div>
                   <div className="reflection-ai-group">

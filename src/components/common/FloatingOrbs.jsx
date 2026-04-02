@@ -11,7 +11,7 @@ const defaults = [
   { shape: 'diamond', x: 20, delay: 1.8, size: 7, duration: 7 },
 ];
 
-export default function FloatingOrbs({ color = '#3B82F6', count = 6 }) {
+export default function FloatingOrbs({ color = '#9A6B1F', count = 6 }) {
   const orbs = defaults.slice(0, count);
 
   return (

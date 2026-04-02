@@ -92,7 +92,7 @@
 }
 
 .daily-streak-day.active .daily-streak-dot {
-  background: #10B981;
+  background: #C49240;
 }
 
 .daily-streak-day.today .daily-streak-dot {
@@ -160,8 +160,8 @@
 }
 
 [data-theme="dark"] .challenge-prompt {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(196, 146, 64, 0.1);
+  border-color: rgba(196, 146, 64, 0.3);
 }
 
 .challenge-prompt strong {
@@ -170,7 +170,7 @@
 }
 
 [data-theme="dark"] .challenge-prompt strong {
-  color: #10B981;
+  color: #C49240;
 }
 
 .challenge-prompt p {
@@ -215,8 +215,8 @@
 
 .daily-challenge-card textarea:focus {
   outline: none;
-  border-color: #10B981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  border-color: #C49240;
+  box-shadow: 0 0 0 3px rgba(196, 146, 64, 0.15);
 }
 
 .challenge-history {
@@ -322,8 +322,8 @@
 }
 
 .history-strongest {
-  background: rgba(16, 185, 129, 0.08);
-  border-left: 3px solid #10B981;
+  background: rgba(196, 146, 64, 0.08);
+  border-left: 3px solid #C49240;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: var(--space-xs) var(--space-sm);
 }
@@ -377,7 +377,7 @@
   width: 20px;
   height: 20px;
   border-radius: var(--radius-full);
-  background: rgba(16, 185, 129, 0.12);
+  background: rgba(196, 146, 64, 0.12);
   color: #059669;
   font-size: 0.65rem;
   font-weight: 700;
@@ -430,13 +430,13 @@
   color: #059669;
   margin-top: var(--space-sm);
   padding: var(--space-xs) var(--space-sm);
-  background: rgba(16, 185, 129, 0.08);
+  background: rgba(196, 146, 64, 0.08);
   border-radius: var(--radius-sm);
 }
 
 [data-theme="dark"] .burst-timer-preview {
   color: #34D399;
-  background: rgba(16, 185, 129, 0.12);
+  background: rgba(196, 146, 64, 0.12);
 }
 
 /* Burst active phase */
@@ -451,7 +451,7 @@
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  background: #10B981;
+  background: #C49240;
   color: #FFFFFF;
   font-weight: 700;
   position: sticky;
@@ -507,7 +507,7 @@
   width: 24px;
   height: 24px;
   border-radius: var(--radius-full);
-  background: #10B981;
+  background: #C49240;
   color: #FFFFFF;
   font-size: 0.7rem;
   font-weight: 700;
@@ -552,15 +552,15 @@
 
 .burst-input:focus {
   outline: none;
-  border-color: #10B981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  border-color: #C49240;
+  box-shadow: 0 0 0 3px rgba(196, 146, 64, 0.15);
 }
 
 .burst-send {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: #10B981;
+  background: #C49240;
   color: #FFFFFF;
   border: none;
   cursor: pointer;
@@ -612,14 +612,14 @@
 }
 
 .burst-strongest {
-  background: rgba(16, 185, 129, 0.08);
-  border-left: 3px solid #10B981;
+  background: rgba(196, 146, 64, 0.08);
+  border-left: 3px solid #C49240;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: var(--space-sm) var(--space-md);
 }
 
 [data-theme="dark"] .burst-strongest {
-  background: rgba(16, 185, 129, 0.12);
+  background: rgba(196, 146, 64, 0.12);
 }
 
 .burst-strongest-label {
@@ -664,7 +664,7 @@
 /* AI Coaching Section */
 .burst-ai-coaching {
   background: var(--bg-card);
-  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  border: 1.5px solid rgba(212, 168, 83, 0.25);
   border-radius: var(--radius-lg);
   padding: var(--space-md);
   display: flex;
@@ -720,8 +720,8 @@
 }
 
 [data-theme="dark"] .burst-ai-group.strength {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(196, 146, 64, 0.1);
+  border-color: rgba(196, 146, 64, 0.25);
 }
 
 .burst-ai-group.growth {
@@ -749,8 +749,8 @@
 }
 
 [data-theme="dark"] .burst-ai-rewrite {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.25);
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(212, 168, 83, 0.25);
 }
 
 .burst-ai-label {
@@ -801,8 +801,8 @@
 }
 
 [data-theme="dark"] .burst-ai-upsell {
-  background: rgba(139, 92, 246, 0.08);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: rgba(212, 168, 83, 0.08);
+  border-color: rgba(212, 168, 83, 0.2);
 }
 
 .burst-ai-upsell p {

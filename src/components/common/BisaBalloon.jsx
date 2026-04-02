@@ -1,6 +1,6 @@
 import './BisaBalloon.css';
 
-export default function BisaBalloon({ color = '#3B82F6', size = 64 }) {
+export default function BisaBalloon({ color = '#9A6B1F', size = 64 }) {
   const bodyW = size;
   const bodyH = size * 1.2;
   const stringH = size * 0.55;

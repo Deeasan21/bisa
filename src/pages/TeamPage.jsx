@@ -175,8 +175,8 @@ export default function TeamPage() {
         <h2 className="team-section-title">Learning</h2>
         <Card padding="md" onClick={() => navigate('/team/path')}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
-            <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-md)', background: 'rgba(139,92,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Sparkle size={20} weight="duotone" color="#8B5CF6" />
+            <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-md)', background: 'rgba(212,168,83,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Sparkle size={20} weight="duotone" color="#D4A853" />
             </div>
             <div style={{ flex: 1 }}>
               <span style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>Team Path</span>

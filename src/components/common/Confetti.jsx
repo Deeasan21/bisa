@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Confetti.css';
 
-const COLORS = ['#F59E0B', '#EF4444', '#10B981', '#8B5CF6', '#3B82F6', '#F97316', '#06B6D4'];
+const COLORS = ['#D4A853', '#EF4444', '#C49240', '#D4A853', '#9A6B1F', '#F97316', '#06B6D4'];
 
 export default function Confetti({ active = false, duration = 2000 }) {
   const [particles, setParticles] = useState([]);

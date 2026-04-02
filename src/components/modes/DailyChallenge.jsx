@@ -27,18 +27,18 @@ const theme = MODE_THEMES.daily;
 
 const CHALLENGE_TYPE_COLORS = {
   'Open Question Practice': '#EF4444',
-  'Curiosity Challenge': '#F59E0B',
-  'Follow-up Focus': '#3B82F6',
-  'Silence Practice': '#8B5CF6',
+  'Curiosity Challenge': '#D4A853',
+  'Follow-up Focus': '#9A6B1F',
+  'Silence Practice': '#D4A853',
   'Self-Reflection': '#06B6D4',
-  'Clarifying Practice': '#F59E0B',
-  'Assumption Check': '#10B981',
+  'Clarifying Practice': '#D4A853',
+  'Assumption Check': '#C49240',
   'Spot the Judgment': '#EC4899',
-  'Depth Ladder': '#8B5CF6',
+  'Depth Ladder': '#D4A853',
   'Cultural Lens': '#14B8A6',
   'Empathy Stretch': '#EC4899',
-  'Power Reversal': '#6366F1',
-  'Silence Challenge': '#8B5CF6',
+  'Power Reversal': '#D4A853',
+  'Silence Challenge': '#D4A853',
 };
 
 function getTimerDuration(tier) {
@@ -269,7 +269,7 @@ export default function DailyChallenge() {
           <>
             <div className="streak-display">
               <div className="streak-current">
-                <Fire size={28} weight="fill" color="#F59E0B" />
+                <Fire size={28} weight="fill" color="#D4A853" />
                 <div>
                   <span className="streak-number">{streak}</span>
                   <span className="streak-label">day streak</span>
@@ -304,19 +304,19 @@ export default function DailyChallenge() {
           <div className="burst-ready animate-fade-in">
             <Card padding="md">
               <div className="challenge-type-row">
-                <Badge text="Question Burst" color="#10B981" variant="soft" size="sm" />
+                <Badge text="Question Burst" color="#C49240" variant="soft" size="sm" />
                 <Badge text={scenario.skillCategory} color="var(--text-muted)" variant="outlined" size="sm" />
-                <Badge text={scenario.difficultyTier} color={scenario.difficultyTier === 'advanced' ? '#8B5CF6' : scenario.difficultyTier === 'intermediate' ? '#3B82F6' : '#10B981'} variant="outlined" size="sm" />
+                <Badge text={scenario.difficultyTier} color={scenario.difficultyTier === 'advanced' ? '#D4A853' : scenario.difficultyTier === 'intermediate' ? '#9A6B1F' : '#C49240'} variant="outlined" size="sm" />
               </div>
               <h2 className="burst-character">{scenario.character}</h2>
               <p className="burst-role">{scenario.role}</p>
               <p className="burst-situation">{scenario.situation}</p>
               <div className="burst-timer-preview">
-                <Timer size={16} color="#10B981" />
+                <Timer size={16} color="#C49240" />
                 <span>You'll have {getTimerDuration(1)}s to ask as many questions as you can</span>
               </div>
             </Card>
-            <Button variant="mode" modeColor="#10B981" onClick={handleStartBurst}>
+            <Button variant="mode" modeColor="#C49240" onClick={handleStartBurst}>
               Start Burst
             </Button>
           </div>
@@ -401,7 +401,7 @@ export default function DailyChallenge() {
               {burstResults.techniquesDetected.length > 0 && (
                 <div className="burst-techniques">
                   {burstResults.techniquesDetected.map(t => (
-                    <Badge key={t} text={t} color="#10B981" variant="soft" size="sm" />
+                    <Badge key={t} text={t} color="#C49240" variant="soft" size="sm" />
                   ))}
                 </div>
               )}
@@ -418,10 +418,10 @@ export default function DailyChallenge() {
 
             <div className="burst-breakdown">
               <h3>Breakdown</h3>
-              <ProgressBar value={burstResults.breakdown.variety} label="Variety" color="#10B981" showPercent size="sm" />
-              <ProgressBar value={burstResults.breakdown.depth} label="Depth" color="#3B82F6" showPercent size="sm" />
-              <ProgressBar value={burstResults.breakdown.techniques} label="Techniques" color="#8B5CF6" showPercent size="sm" />
-              <ProgressBar value={burstResults.breakdown.quality} label="Quality" color="#F59E0B" showPercent size="sm" />
+              <ProgressBar value={burstResults.breakdown.variety} label="Variety" color="#C49240" showPercent size="sm" />
+              <ProgressBar value={burstResults.breakdown.depth} label="Depth" color="#9A6B1F" showPercent size="sm" />
+              <ProgressBar value={burstResults.breakdown.techniques} label="Techniques" color="#D4A853" showPercent size="sm" />
+              <ProgressBar value={burstResults.breakdown.quality} label="Quality" color="#D4A853" showPercent size="sm" />
             </div>
 
             {/* AI Coaching Section */}
@@ -440,7 +440,7 @@ export default function DailyChallenge() {
             {aiCoaching && (
               <div className="burst-ai-coaching animate-fade-in">
                 <div className="burst-ai-header">
-                  <Sparkle size={16} weight="fill" color="#8B5CF6" />
+                  <Sparkle size={16} weight="fill" color="#D4A853" />
                   <span>AI Coach Insights</span>
                 </div>
 
@@ -475,12 +475,12 @@ export default function DailyChallenge() {
             {/* Upsell when no API key */}
             {!hasApiKey() && (
               <div className="burst-ai-upsell animate-fade-in">
-                <Robot size={16} weight="duotone" color="#8B5CF6" />
+                <Robot size={16} weight="duotone" color="#D4A853" />
                 <p>Want personalized coaching? Add your API key in <strong>Settings</strong> on your Profile page.</p>
               </div>
             )}
 
-            <Button variant="mode" modeColor="#10B981" onClick={handleDone}>
+            <Button variant="mode" modeColor="#C49240" onClick={handleDone}>
               Done
             </Button>
           </div>
@@ -489,7 +489,7 @@ export default function DailyChallenge() {
         {/* PHASE: COMPLETED */}
         {phase === 'completed' && (
           <div className="daily-completed animate-fade-in">
-            <CheckCircle size={56} weight="fill" color="#10B981" />
+            <CheckCircle size={56} weight="fill" color="#C49240" />
             <h2>Challenge Complete!</h2>
             <p>Great work! Come back tomorrow for a new challenge.</p>
           </div>
@@ -514,12 +514,12 @@ export default function DailyChallenge() {
                     <div className="history-meta">
                       <Badge
                         text={h.format === 'burst' ? 'Question Burst' : h.type}
-                        color={h.format === 'burst' ? '#10B981' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
+                        color={h.format === 'burst' ? '#C49240' : (CHALLENGE_TYPE_COLORS[h.type] || theme.primary)}
                         variant="soft"
                         size="sm"
                       />
                       {h.format === 'burst' && h.score > 0 && (
-                        <Badge text={`${h.score}pts`} color="#10B981" variant="outlined" size="sm" />
+                        <Badge text={`${h.score}pts`} color="#C49240" variant="outlined" size="sm" />
                       )}
                       <span className="history-date">{h.date}</span>
                     </div>
@@ -541,10 +541,10 @@ export default function DailyChallenge() {
                       {/* Breakdown bars (new format) */}
                       {h.breakdown && (
                         <div className="history-breakdown">
-                          <ProgressBar value={h.breakdown.variety} label="Variety" color="#10B981" showPercent size="sm" />
-                          <ProgressBar value={h.breakdown.depth} label="Depth" color="#3B82F6" showPercent size="sm" />
-                          <ProgressBar value={h.breakdown.techniques} label="Techniques" color="#8B5CF6" showPercent size="sm" />
-                          <ProgressBar value={h.breakdown.quality} label="Quality" color="#F59E0B" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.variety} label="Variety" color="#C49240" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.depth} label="Depth" color="#9A6B1F" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.techniques} label="Techniques" color="#D4A853" showPercent size="sm" />
+                          <ProgressBar value={h.breakdown.quality} label="Quality" color="#D4A853" showPercent size="sm" />
                         </div>
                       )}
 
@@ -555,7 +555,7 @@ export default function DailyChallenge() {
                           {h.techniquesDetected && h.techniquesDetected.length > 0 && (
                             <div className="history-techniques">
                               {h.techniquesDetected.map(t => (
-                                <Badge key={t} text={t} color="#10B981" variant="soft" size="sm" />
+                                <Badge key={t} text={t} color="#C49240" variant="soft" size="sm" />
                               ))}
                             </div>
                           )}

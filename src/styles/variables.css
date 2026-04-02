@@ -22,14 +22,24 @@
   --radius-full: 9999px;
 
   /* Score / quality colors */
-  --score-excellent: #10B981;
-  --score-good: #3B82F6;
-  --score-developing: #F59E0B;
+  --score-excellent: #C49240;
+  --score-good: #9A6B1F;
+  --score-developing: #D4A853;
   --score-needs-work: #EF4444;
 
-  /* Brand accent */
-  --accent-gold: #D4A853;
-  --accent-gold-dark: #9A6B1F;
+  /* Brand accent — gold palette only */
+  --accent-gold: #D4A853;        /* main gold */
+  --accent-gold-light: #F0C060;  /* light gold */
+  --accent-gold-pale: #F5E4B0;   /* very light gold (backgrounds) */
+  --accent-gold-mid: #C49240;    /* medium-dark gold */
+  --accent-gold-dark: #9A6B1F;   /* deep gold */
+  --accent-gold-deep: #7A5010;   /* darkest gold */
+
+  /* Score colors — all gold shades */
+  --score-excellent: #C49240;
+  --score-good: #D4A853;
+  --score-developing: #F0C060;
+  --score-needs-work: #EF4444;   /* red kept for errors only */
 
   /* Gamification */
   --xp-color: #D4A853;

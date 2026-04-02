@@ -102,9 +102,9 @@
 }
 
 .team-path-focus-chip.selected {
-  border-color: #8B5CF6;
-  background: rgba(139, 92, 246, 0.08);
-  color: #8B5CF6;
+  border-color: #D4A853;
+  background: rgba(212, 168, 83, 0.08);
+  color: #D4A853;
 }
 
 .team-path-textarea {
@@ -124,8 +124,8 @@
 
 .team-path-textarea:focus {
   outline: none;
-  border-color: #8B5CF6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  border-color: #D4A853;
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.1);
 }
 
 .team-path-char-count {

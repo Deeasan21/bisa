@@ -7,12 +7,12 @@ import './RadarChart.css';
  * @param {Object}  props
  * @param {Object}  props.scores  — e.g. { "Open-ended": 80, "Empathy": 65 }
  * @param {number}  [props.size=200]   — width & height in px
- * @param {string}  [props.color='#8B5CF6'] — accent / fill colour
+ * @param {string}  [props.color='#D4A853'] — accent / fill colour
  */
 export default function RadarChart({
   scores = {},
   size = 200,
-  color = '#8B5CF6',
+  color = '#D4A853',
 }) {
   const labels = Object.keys(scores);
   const values = Object.values(scores);

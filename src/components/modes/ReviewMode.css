@@ -149,7 +149,7 @@
 }
 
 .card-answer {
-  color: #3B82F6;
+  color: #9A6B1F;
 }
 
 /* Rating buttons */
@@ -236,12 +236,12 @@
 }
 
 .progress-pip.done {
-  background: #10B981;
+  background: #C49240;
   transform: scale(0.85);
 }
 
 .progress-pip.current {
-  background: var(--pip-color, #3B82F6);
+  background: var(--pip-color, #9A6B1F);
   transform: scale(1.25);
   animation: pipPulse 2s ease-in-out infinite;
 }
@@ -283,8 +283,8 @@
 }
 
 @keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.35); }
-  50%      { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(154, 107, 31, 0.35); }
+  50%      { box-shadow: 0 0 0 10px rgba(154, 107, 31, 0); }
 }
 
 /* ---- Tap hint breathing ---- */

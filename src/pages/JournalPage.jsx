@@ -24,24 +24,24 @@ const MOOD_OPTIONS = [
 
 const TYPE_COLORS = {
   Open: '#EF4444',
-  Clarifying: '#F59E0B',
-  Probing: '#8B5CF6',
+  Clarifying: '#D4A853',
+  Probing: '#D4A853',
   Reflective: '#06B6D4',
-  Hypothetical: '#10B981',
-  'Follow-up': '#3B82F6',
+  Hypothetical: '#C49240',
+  'Follow-up': '#9A6B1F',
   Other: '#78716C',
 };
 
 const SKILL_COLORS = {
   'Open vs. Closed': '#EF4444',
-  'Probing': '#8B5CF6',
+  'Probing': '#D4A853',
   'Empathy': '#EC4899',
-  'Follow-up': '#3B82F6',
-  'Clarifying': '#F59E0B',
-  'Framing': '#10B981',
+  'Follow-up': '#9A6B1F',
+  'Clarifying': '#D4A853',
+  'Framing': '#C49240',
   'Self-Reflection': '#06B6D4',
-  'Leadership': '#F59E0B',
-  'Cultural Awareness': '#8B5CF6',
+  'Leadership': '#D4A853',
+  'Cultural Awareness': '#D4A853',
   'Body Language': '#EC4899',
 };
 
@@ -321,7 +321,7 @@ export default function JournalPage() {
                     {entry.rating > 0 && (
                       <div className="entry-rating">
                         {Array.from({ length: entry.rating }, (_, i) => (
-                          <Star key={i} size={14} weight="fill" color="#F59E0B" />
+                          <Star key={i} size={14} weight="fill" color="#D4A853" />
                         ))}
                       </div>
                     )}
@@ -360,7 +360,7 @@ export default function JournalPage() {
                   >
                     <div className="reflection-entry-header">
                       <div className="reflection-entry-title">
-                        <BookOpen size={16} weight="duotone" color="#F59E0B" />
+                        <BookOpen size={16} weight="duotone" color="#D4A853" />
                         <span>Lesson {lesson.id}: {lesson.title}</span>
                       </div>
                       <Badge

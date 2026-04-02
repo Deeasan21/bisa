@@ -233,7 +233,7 @@ export default function TechniqueMode() {
 
       {sessionXP > 0 && (
         <div className="technique-session-xp">
-          <Lightning size={14} weight="fill" color="#F59E0B" />
+          <Lightning size={14} weight="fill" color="#D4A853" />
           <span>+{sessionXP} XP this session</span>
         </div>
       )}
@@ -417,7 +417,7 @@ export default function TechniqueMode() {
         {/* Result banner — 3 states: strong hit / basic / miss */}
         {lastResult.hit && lastResult.quality === 'strong' && (
           <div className="technique-result-banner hit">
-            <CheckCircle size={28} weight="fill" color="#10B981" />
+            <CheckCircle size={28} weight="fill" color="#C49240" />
             <div>
               <p className="technique-result-title">Strong {activeTechnique.name} question!</p>
               <p className="technique-result-sub">
@@ -429,7 +429,7 @@ export default function TechniqueMode() {
 
         {lastResult.hit && lastResult.quality === 'basic' && (
           <div className="technique-result-banner basic">
-            <CheckCircle size={28} weight="fill" color="#F59E0B" />
+            <CheckCircle size={28} weight="fill" color="#D4A853" />
             <div>
               <p className="technique-result-title">Technique detected — but too shallow</p>
               <p className="technique-result-sub">{lastResult.shallowReason}</p>
@@ -505,7 +505,7 @@ export default function TechniqueMode() {
 
         {mastered ? (
           <div className="technique-mastery-msg">
-            <Star size={20} weight="fill" color="#F59E0B" />
+            <Star size={20} weight="fill" color="#D4A853" />
             <p>Mastered! You consistently used {activeTechnique.name.toLowerCase()} questioning.</p>
           </div>
         ) : (
@@ -519,8 +519,8 @@ export default function TechniqueMode() {
           {allResults.map((r, i) => (
             <div key={i} className={`technique-round-dot${r.hit ? ' hit' : ' miss'}`}>
               {r.hit
-                ? <CheckCircle size={18} weight="fill" color="#10B981" />
-                : <XCircle size={18} weight="fill" color="#F59E0B" />
+                ? <CheckCircle size={18} weight="fill" color="#C49240" />
+                : <XCircle size={18} weight="fill" color="#D4A853" />
               }
               <span>Round {i + 1}</span>
             </div>

@@ -245,7 +245,7 @@
 }
 
 .need-tag.correct {
-  border-color: #10B981;
+  border-color: #C49240;
   background: #D1FAE5;
   color: #065F46;
 }
@@ -257,8 +257,8 @@
 }
 
 .need-tag.actual-correct {
-  border-color: #10B981;
-  background: #10B981;
+  border-color: #C49240;
+  background: #C49240;
   color: white;
 }
 
@@ -443,7 +443,7 @@
 }
 
 .option-card.revealed.correct {
-  border-color: #10B981;
+  border-color: #C49240;
   background: #ECFDF5;
 }
 
@@ -482,7 +482,7 @@
 }
 
 .option-card.revealed.correct .option-letter {
-  background: #10B981;
+  background: #C49240;
   color: white;
 }
 
@@ -529,7 +529,7 @@
 }
 
 .pattern-card.revealed.benchmark {
-  border-color: #10B981;
+  border-color: #C49240;
   background: #ECFDF5;
 }
 
@@ -546,7 +546,7 @@
 }
 
 .pattern-card.revealed.benchmark .pattern-label {
-  color: #10B981;
+  color: #C49240;
 }
 
 .pattern-response-text {
@@ -692,7 +692,7 @@
 }
 
 .pattern-insight-section h5.works {
-  color: #10B981;
+  color: #C49240;
 }
 
 .pattern-insight-section h5.backfires {
@@ -895,7 +895,7 @@
   font-weight: 700;
 }
 
-.summary-round-score.high { color: #10B981; }
+.summary-round-score.high { color: #C49240; }
 .summary-round-score.mid { color: var(--accent-gold); }
 .summary-round-score.low { color: #EF4444; }
 .summary-round-score.mirror { color: #A855F7; }

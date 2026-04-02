@@ -33,8 +33,8 @@ export default function TeamGeneratedLesson() {
         </button>
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Sparkle size={14} weight="fill" color="#8B5CF6" />
-            <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#8B5CF6' }}>Team Lesson</span>
+            <Sparkle size={14} weight="fill" color="#D4A853" />
+            <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#D4A853' }}>Team Lesson</span>
           </div>
           <h1 style={{ fontFamily: 'DM Serif Display, serif', fontSize: '1.3rem', margin: 0, color: 'var(--text-primary)' }}>{lesson.title}</h1>
         </div>
@@ -45,7 +45,7 @@ export default function TeamGeneratedLesson() {
       <Card padding="md">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
           {lesson.skillCategory && (
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#8B5CF6', background: 'rgba(139,92,246,0.08)', padding: '4px 10px', borderRadius: '9999px', alignSelf: 'flex-start' }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#D4A853', background: 'rgba(212,168,83,0.12)', padding: '4px 10px', borderRadius: '9999px', alignSelf: 'flex-start' }}>
               {lesson.skillCategory}
             </span>
           )}
@@ -55,8 +55,8 @@ export default function TeamGeneratedLesson() {
           </div>
 
           {lesson.keyPrinciple && (
-            <div style={{ borderLeft: '3px solid #8B5CF6', paddingLeft: 'var(--space-sm)', marginTop: 'var(--space-sm)' }}>
-              <p style={{ fontSize: '0.8rem', fontWeight: 700, color: '#8B5CF6', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Key Principle</p>
+            <div style={{ borderLeft: '3px solid #D4A853', paddingLeft: 'var(--space-sm)', marginTop: 'var(--space-sm)' }}>
+              <p style={{ fontSize: '0.8rem', fontWeight: 700, color: '#D4A853', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Key Principle</p>
               <p style={{ fontSize: '0.92rem', color: 'var(--text-primary)', margin: 0, fontStyle: 'italic' }}>{lesson.keyPrinciple}</p>
             </div>
           )}

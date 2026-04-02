@@ -2,7 +2,7 @@
 -- Adds: organizations, org_members, and 3 secure RPC functions
 
 -- ============================================
--- ORGANIZATIONS
+-- ORGANIZATIONS (table only — policies added after org_members)
 -- ============================================
 CREATE TABLE IF NOT EXISTS organizations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -13,19 +13,6 @@ CREATE TABLE IF NOT EXISTS organizations (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Org members can view their org" ON organizations FOR SELECT USING (
-  EXISTS (
-    SELECT 1 FROM org_members
-    WHERE org_id = organizations.id AND user_id = auth.uid() AND status = 'active'
-  )
-);
-CREATE POLICY "Org admins can update their org" ON organizations FOR UPDATE USING (
-  EXISTS (
-    SELECT 1 FROM org_members
-    WHERE org_id = organizations.id AND user_id = auth.uid() AND role = 'admin' AND status = 'active'
-  )
-);
 
 -- ============================================
 -- ORG MEMBERS
@@ -45,21 +32,18 @@ CREATE TABLE IF NOT EXISTS org_members (
 );
 ALTER TABLE org_members ENABLE ROW LEVEL SECURITY;
 
--- Members can view everyone in their org
 CREATE POLICY "Org members can view org roster" ON org_members FOR SELECT USING (
   EXISTS (
     SELECT 1 FROM org_members om
     WHERE om.org_id = org_members.org_id AND om.user_id = auth.uid() AND om.status = 'active'
   )
 );
--- Admins can invite (insert new members)
 CREATE POLICY "Org admins can invite members" ON org_members FOR INSERT WITH CHECK (
   EXISTS (
-    SELECT 1 FROM org_members
-    WHERE org_id = NEW.org_id AND user_id = auth.uid() AND role = 'admin' AND status = 'active'
+    SELECT 1 FROM org_members om
+    WHERE om.org_id = org_id AND om.user_id = auth.uid() AND om.role = 'admin' AND om.status = 'active'
   )
 );
--- Admins can remove members; members can remove themselves
 CREATE POLICY "Org admins can remove members" ON org_members FOR DELETE USING (
   user_id = auth.uid()
   OR EXISTS (
@@ -69,8 +53,23 @@ CREATE POLICY "Org admins can remove members" ON org_members FOR DELETE USING (
 );
 
 -- ============================================
+-- ORGANIZATIONS RLS (now org_members exists)
+-- ============================================
+CREATE POLICY "Org members can view their org" ON organizations FOR SELECT USING (
+  EXISTS (
+    SELECT 1 FROM org_members
+    WHERE org_id = organizations.id AND user_id = auth.uid() AND status = 'active'
+  )
+);
+CREATE POLICY "Org admins can update their org" ON organizations FOR UPDATE USING (
+  EXISTS (
+    SELECT 1 FROM org_members
+    WHERE org_id = organizations.id AND user_id = auth.uid() AND role = 'admin' AND status = 'active'
+  )
+);
+
+-- ============================================
 -- RPC: create_organization
--- Creates org + adds caller as admin atomically
 -- ============================================
 CREATE OR REPLACE FUNCTION create_organization(org_name TEXT)
 RETURNS UUID AS $$
@@ -106,7 +105,6 @@ $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- ============================================
 -- RPC: accept_org_invite
--- Accepts a pending invite by token
 -- ============================================
 CREATE OR REPLACE FUNCTION accept_org_invite(p_token TEXT)
 RETURNS BOOLEAN AS $$
@@ -121,10 +119,10 @@ BEGIN
   IF NOT FOUND THEN RETURN FALSE; END IF;
 
   UPDATE org_members
-  SET user_id   = auth.uid(),
-      status    = 'active',
+  SET user_id      = auth.uid(),
+      status       = 'active',
       invite_token = NULL,
-      joined_at = NOW()
+      joined_at    = NOW()
   WHERE id = member_row.id;
 
   RETURN TRUE;
@@ -133,7 +131,6 @@ $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- ============================================
 -- RPC: get_team_members
--- Returns members + their XP/streak for admins
 -- ============================================
 CREATE OR REPLACE FUNCTION get_team_members(p_org_id UUID)
 RETURNS TABLE (

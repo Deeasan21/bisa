@@ -65,7 +65,7 @@ export default function ApiKeySettings() {
         {saved ? (
           <div className="api-key-masked">
             <span>{maskKey(key)}</span>
-            {testResult === 'ok' && <CheckCircle size={16} weight="fill" color="#10B981" />}
+            {testResult === 'ok' && <CheckCircle size={16} weight="fill" color="#C49240" />}
             {testResult === 'fail' && <XCircle size={16} weight="fill" color="#EF4444" />}
           </div>
         ) : (
@@ -83,7 +83,7 @@ export default function ApiKeySettings() {
         {!saved ? (
           <Button
             variant="mode"
-            modeColor="#8B5CF6"
+            modeColor="#D4A853"
             onClick={handleSave}
             disabled={!key.trim()}
           >

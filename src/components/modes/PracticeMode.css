@@ -206,8 +206,8 @@
 }
 
 [data-theme="dark"] .strong-examples {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(196, 146, 64, 0.1);
+  border-color: rgba(196, 146, 64, 0.3);
 }
 
 .strong-examples h4 {
@@ -218,7 +218,7 @@
 }
 
 [data-theme="dark"] .strong-examples h4 {
-  color: #10B981;
+  color: #C49240;
 }
 
 .strong-example {
@@ -233,7 +233,7 @@
 
 [data-theme="dark"] .strong-example {
   color: #34D399;
-  border-bottom-color: rgba(16, 185, 129, 0.2);
+  border-bottom-color: rgba(196, 146, 64, 0.2);
 }
 
 .strong-example:last-child {
@@ -404,8 +404,8 @@
 }
 
 [data-theme="dark"] .ai-feedback-group.strengths {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(196, 146, 64, 0.1);
+  border-color: rgba(196, 146, 64, 0.25);
 }
 
 .ai-feedback-group.improvements {
@@ -430,8 +430,8 @@
 }
 
 [data-theme="dark"] .ai-suggested-rewrite {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.25);
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(212, 168, 83, 0.25);
 }
 
 .rewrite-label {
@@ -488,8 +488,8 @@
 }
 
 [data-theme="dark"] .ai-upsell {
-  background: rgba(139, 92, 246, 0.08);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: rgba(212, 168, 83, 0.08);
+  border-color: rgba(212, 168, 83, 0.2);
 }
 
 .ai-upsell p {
@@ -507,7 +507,7 @@
   justify-content: center;
   gap: 8px;
   padding: 12px;
-  border: 1.5px dashed rgba(139, 92, 246, 0.4);
+  border: 1.5px dashed rgba(212, 168, 83, 0.4);
   border-radius: var(--radius-lg);
   background: #F5F3FF;
   color: var(--accent-gold);
@@ -519,8 +519,8 @@
 }
 
 [data-theme="dark"] .ai-coaching-btn {
-  background: rgba(139, 92, 246, 0.08);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(212, 168, 83, 0.08);
+  border-color: rgba(212, 168, 83, 0.3);
   color: #C4B5FD;
 }
 
@@ -530,7 +530,7 @@
 }
 
 [data-theme="dark"] .ai-coaching-btn:hover {
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(212, 168, 83, 0.15);
 }
 
 /* ─── Defend Your Question ──────────────────────────────────── */

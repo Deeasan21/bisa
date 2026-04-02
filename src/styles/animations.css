@@ -97,8 +97,8 @@
 
 /* New: Glow pulse */
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 8px var(--glow-color, rgba(245, 158, 11, 0.3)); }
-  50% { box-shadow: 0 0 20px var(--glow-color, rgba(245, 158, 11, 0.6)); }
+  0%, 100% { box-shadow: 0 0 8px var(--glow-color, rgba(212, 168, 83, 0.3)); }
+  50% { box-shadow: 0 0 20px var(--glow-color, rgba(212, 168, 83, 0.6)); }
 }
 
 /* New: Gradient shimmer for cards */

@@ -6,12 +6,12 @@
  */
 
 export const LEAGUES = [
-  { name: 'Bronze', color: '#CD7F32', minXP: 0, maxXP: 499, icon: 'Shield' },
-  { name: 'Silver', color: '#C0C0C0', minXP: 500, maxXP: 1499, icon: 'ShieldStar' },
-  { name: 'Gold', color: '#FFD700', minXP: 1500, maxXP: 3499, icon: 'Crown' },
-  { name: 'Sapphire', color: '#0F52BA', minXP: 3500, maxXP: 6999, icon: 'Diamond' },
-  { name: 'Diamond', color: '#B9F2FF', minXP: 7000, maxXP: 14999, icon: 'Gem' },
-  { name: 'Master', color: '#9333EA', minXP: 15000, maxXP: Infinity, icon: 'CrownSimple' },
+  { name: 'Bronze', color: '#9A6B1F', minXP: 0, maxXP: 499, icon: 'Shield' },
+  { name: 'Silver', color: '#C49240', minXP: 500, maxXP: 1499, icon: 'ShieldStar' },
+  { name: 'Gold', color: '#D4A853', minXP: 1500, maxXP: 3499, icon: 'Crown' },
+  { name: 'Platinum', color: '#F0C060', minXP: 3500, maxXP: 6999, icon: 'Diamond' },
+  { name: 'Diamond', color: '#F5E4B0', minXP: 7000, maxXP: 14999, icon: 'Gem' },
+  { name: 'Master', color: '#D4A853', minXP: 15000, maxXP: Infinity, icon: 'CrownSimple' },
 ];
 
 /**

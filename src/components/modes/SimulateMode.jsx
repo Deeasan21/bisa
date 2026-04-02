@@ -28,10 +28,10 @@ const MAX_AI_TURNS = 8;
 const MAX_RULE_TURNS = 6;
 
 const DIFFICULTY_COLORS = {
-  beginner: '#10B981',
-  intermediate: '#3B82F6',
-  advanced: '#8B5CF6',
-  expert: '#F59E0B',
+  beginner: '#C49240',
+  intermediate: '#9A6B1F',
+  advanced: '#D4A853',
+  expert: '#D4A853',
   master: '#EF4444',
 };
 
@@ -331,8 +331,8 @@ export default function SimulateMode() {
 
   const getQualityColor = (quality) => {
     switch (quality) {
-      case 'great': case 'high': return '#10B981';
-      case 'good': case 'medium': return '#F59E0B';
+      case 'great': case 'high': return '#C49240';
+      case 'good': case 'medium': return '#D4A853';
       case 'poor': case 'low': return '#EF4444';
       default: return '#6B7280';
     }
@@ -489,7 +489,7 @@ export default function SimulateMode() {
           {ruleFeedback.techniques.length > 0 && (
             <div className="sim-techniques">
               {ruleFeedback.techniques.map(t => (
-                <Badge key={t} text={t} color="#8B5CF6" variant="soft" size="sm" />
+                <Badge key={t} text={t} color="#D4A853" variant="soft" size="sm" />
               ))}
             </div>
           )}
@@ -507,7 +507,7 @@ export default function SimulateMode() {
               {aiAvailable ? (
                 <>
                   <span>or write your own</span>
-                  <Sparkle size={12} weight="fill" color="#8B5CF6" />
+                  <Sparkle size={12} weight="fill" color="#D4A853" />
                 </>
               ) : (
                 <span>or type your own response</span>
@@ -562,7 +562,7 @@ export default function SimulateMode() {
             {/* Radar Chart Scorecard */}
             {getRadarScores() && (
               <div className="sim-radar-section">
-                <RadarChart scores={getRadarScores()} size={200} color="#8B5CF6" />
+                <RadarChart scores={getRadarScores()} size={200} color="#D4A853" />
               </div>
             )}
 
@@ -591,7 +591,7 @@ export default function SimulateMode() {
             {aiSummary && (
               <div className="sim-ai-summary animate-fade-in">
                 <div className="sim-ai-summary-header">
-                  <Sparkle size={16} weight="fill" color="#8B5CF6" />
+                  <Sparkle size={16} weight="fill" color="#D4A853" />
                   <span>AI Coach Summary</span>
                 </div>
                 <p className="sim-ai-summary-text">{aiSummary.summary}</p>

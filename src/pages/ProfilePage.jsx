@@ -130,11 +130,11 @@ export default function ProfilePage() {
   // Recommended next activity
   const getRecommendation = () => {
     if (!progress) return null;
-    if (progress.lessonsWithReflections < 5) return { label: 'Continue learning', path: '/mode/learn', color: '#F59E0B' };
+    if (progress.lessonsWithReflections < 5) return { label: 'Continue learning', path: '/mode/learn', color: '#D4A853' };
     if (progress.totalPracticeAttempts < 10) return { label: 'Practice more scenarios', path: '/mode/practice', color: '#EF4444' };
-    if (progress.challengesCompleted < 7) return { label: 'Try daily challenges', path: '/mode/daily', color: '#10B981' };
-    if (progress.simulationsCompleted < 3) return { label: 'Try a simulation', path: '/mode/simulate', color: '#8B5CF6' };
-    return { label: 'Review flashcards', path: '/mode/review', color: '#3B82F6' };
+    if (progress.challengesCompleted < 7) return { label: 'Try daily challenges', path: '/mode/daily', color: '#C49240' };
+    if (progress.simulationsCompleted < 3) return { label: 'Try a simulation', path: '/mode/simulate', color: '#D4A853' };
+    return { label: 'Review flashcards', path: '/mode/review', color: '#9A6B1F' };
   };
 
   const recommendation = getRecommendation();
@@ -189,7 +189,7 @@ export default function ProfilePage() {
 
       <div className="profile-stats-row">
         <div className="profile-stat">
-          <Fire size={20} weight="fill" color="#F59E0B" />
+          <Fire size={20} weight="fill" color="#D4A853" />
           <span className="profile-stat-val"><AnimatedNumber value={streak} /></span>
           <span className="profile-stat-lbl">Streak</span>
         </div>
@@ -216,11 +216,11 @@ export default function ProfilePage() {
                 <span>{weeklyStats.scenarios} scenarios</span>
               </div>
               <div className="weekly-item">
-                <CheckCircle size={16} color="#10B981" />
+                <CheckCircle size={16} color="#C49240" />
                 <span>{weeklyStats.challenges} challenges</span>
               </div>
               <div className="weekly-item">
-                <Lightning size={16} color="#F59E0B" />
+                <Lightning size={16} color="#D4A853" />
                 <span>{weeklyStats.xp} XP earned</span>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function ProfilePage() {
             <div key={ach.id} className={`achievement-item${isAchUnlocked ? ' unlocked' : ''}`}>
               <div className="achievement-circle">
                 {isAchUnlocked ? (
-                  <IconComp size={22} weight="fill" color="#F59E0B" />
+                  <IconComp size={22} weight="fill" color="#D4A853" />
                 ) : (
                   <div className="achievement-locked-overlay">
                     <Lock size={16} weight="bold" color="var(--text-muted)" />

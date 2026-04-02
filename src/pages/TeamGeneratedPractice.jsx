@@ -168,13 +168,13 @@ export default function TeamGeneratedPractice() {
           {feedback && !feedbackLoading && (
             <Card padding="md">
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
-                <Sparkle size={15} weight="fill" color="#8B5CF6" />
-                <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#8B5CF6', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Enya's Feedback</p>
+                <Sparkle size={15} weight="fill" color="#D4A853" />
+                <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#D4A853', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Enya's Feedback</p>
               </div>
 
               {feedback.strengths?.length > 0 && (
                 <div style={{ marginBottom: 12 }}>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#10B981', margin: '0 0 6px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>What worked</p>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#C49240', margin: '0 0 6px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>What worked</p>
                   {feedback.strengths.map((s, i) => (
                     <p key={i} style={{ fontSize: '0.88rem', color: 'var(--text-primary)', margin: '0 0 4px 0', lineHeight: 1.5 }}>✓ {s}</p>
                   ))}
@@ -183,7 +183,7 @@ export default function TeamGeneratedPractice() {
 
               {feedback.improvements?.length > 0 && (
                 <div style={{ marginBottom: 12 }}>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#F59E0B', margin: '0 0 6px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>To sharpen</p>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#D4A853', margin: '0 0 6px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>To sharpen</p>
                   {feedback.improvements.map((imp, i) => (
                     <p key={i} style={{ fontSize: '0.88rem', color: 'var(--text-primary)', margin: '0 0 4px 0', lineHeight: 1.5 }}>→ {imp}</p>
                   ))}
@@ -206,8 +206,8 @@ export default function TeamGeneratedPractice() {
           {/* Ideal question */}
           <Card padding="md">
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-              <CheckCircle size={16} weight="fill" color="#10B981" />
-              <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#10B981', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Strong question</p>
+              <CheckCircle size={16} weight="fill" color="#C49240" />
+              <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#C49240', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Strong question</p>
             </div>
             <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', fontWeight: 500, margin: 0 }}>"{scenario.idealRewrite}"</p>
           </Card>

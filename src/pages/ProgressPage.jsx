@@ -15,16 +15,16 @@ import MonthlyReport from '../components/common/MonthlyReport';
 import './ProgressPage.css';
 
 const SKILL_CATEGORIES = [
-  { key: 'Open vs. Closed', color: '#10B981' },
-  { key: 'Clarifying', color: '#10B981' },
-  { key: 'Probing', color: '#10B981' },
-  { key: 'Empathy', color: '#10B981' },
-  { key: 'Framing', color: '#10B981' },
-  { key: 'Follow-up', color: '#10B981' },
-  { key: 'Self-Reflection', color: '#10B981' },
-  { key: 'Body Language', color: '#10B981' },
-  { key: 'Cultural Awareness', color: '#10B981' },
-  { key: 'Leadership', color: '#10B981' },
+  { key: 'Open vs. Closed', color: '#C49240' },
+  { key: 'Clarifying', color: '#C49240' },
+  { key: 'Probing', color: '#C49240' },
+  { key: 'Empathy', color: '#C49240' },
+  { key: 'Framing', color: '#C49240' },
+  { key: 'Follow-up', color: '#C49240' },
+  { key: 'Self-Reflection', color: '#C49240' },
+  { key: 'Body Language', color: '#C49240' },
+  { key: 'Cultural Awareness', color: '#C49240' },
+  { key: 'Leadership', color: '#C49240' },
 ];
 
 export default function ProgressPage() {
@@ -62,8 +62,8 @@ export default function ProgressPage() {
   });
 
   const QUEST_COLORS = {
-    practice: '#D4A853', lesson: '#3B82F6', journal: '#8B5CF6',
-    daily_challenge: '#10B981', review: '#3B82F6', simulation: '#8B5CF6', streak: '#F59E0B',
+    practice: '#D4A853', lesson: '#9A6B1F', journal: '#D4A853',
+    daily_challenge: '#C49240', review: '#9A6B1F', simulation: '#D4A853', streak: '#D4A853',
   };
   const QUEST_PATHS = {
     practice: '/mode/practice', lesson: '/mode/learn', journal: '/journal',
@@ -113,7 +113,7 @@ export default function ProgressPage() {
       {allQuests.length > 0 && (
         <div className="quests-section">
           <div className="quests-title">
-            <Lightning size={18} weight="fill" color="#F59E0B" />
+            <Lightning size={18} weight="fill" color="#D4A853" />
             <h2>Daily Quests</h2>
           </div>
           {allQuests.map((quest) => (
@@ -165,7 +165,7 @@ export default function ProgressPage() {
           <ProgressBar
             value={xp - level.xpRequired}
             max={level.nextLevel.xpRequired - level.xpRequired}
-            color="#F59E0B"
+            color="#D4A853"
             size="sm"
             label={`Next: ${level.nextLevel.name}`}
             showPercent
@@ -208,7 +208,7 @@ export default function ProgressPage() {
       {strongest && weakest && (
         <div className="skill-callouts">
           <div className="skill-callout strong">
-            <ArrowUp size={16} weight="bold" color="#10B981" />
+            <ArrowUp size={16} weight="bold" color="#C49240" />
             <div>
               <span className="callout-label">Strongest</span>
               <span className="callout-value" style={{ color: strongest.color }}>{strongest.key}</span>
@@ -236,19 +236,19 @@ export default function ProgressPage() {
 
           <div className="stats-grid">
             <div className="stat-card">
-              <Target size={24} color="#10B981" />
+              <Target size={24} color="#C49240" />
               <span className="stat-value">{progress.totalPracticeAttempts}</span>
               <span className="stat-label">Practice Attempts</span>
             </div>
             <div className="stat-card">
-              <span className="stat-icon-text" style={{ color: '#10B981' }}>
+              <span className="stat-icon-text" style={{ color: '#C49240' }}>
                 {progress.averagePracticeScore}
               </span>
               <span className="stat-value-sm">avg score</span>
               <span className="stat-label">Practice Score</span>
             </div>
             <div className="stat-card">
-              <Fire size={24} color="#F59E0B" />
+              <Fire size={24} color="#D4A853" />
               <span className="stat-value">{progress.currentStreak}</span>
               <span className="stat-label">Current Streak</span>
             </div>
@@ -264,35 +264,35 @@ export default function ProgressPage() {
           <div className="activity-list">
             <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <BookOpen size={18} color="#10B981" />
+                <BookOpen size={18} color="#C49240" />
               </div>
               <span className="activity-label">Lessons Reflected</span>
               <span className="activity-value">{progress.lessonsWithReflections} / {LESSONS.length}</span>
             </div>
             <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <CheckCircle size={18} color="#10B981" />
+                <CheckCircle size={18} color="#C49240" />
               </div>
               <span className="activity-label">Challenges Completed</span>
               <span className="activity-value">{progress.challengesCompleted}</span>
             </div>
             <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <Notebook size={18} color="#10B981" />
+                <Notebook size={18} color="#C49240" />
               </div>
               <span className="activity-label">Journal Entries</span>
               <span className="activity-value">{progress.journalEntries}</span>
             </div>
             <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <ChatsCircle size={18} color="#10B981" />
+                <ChatsCircle size={18} color="#C49240" />
               </div>
               <span className="activity-label">Simulations</span>
               <span className="activity-value">{progress.simulationsCompleted}</span>
             </div>
             <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <Brain size={18} color="#10B981" />
+                <Brain size={18} color="#C49240" />
               </div>
               <span className="activity-label">Cards Learned</span>
               <span className="activity-value">{progress.cardsLearned}</span>

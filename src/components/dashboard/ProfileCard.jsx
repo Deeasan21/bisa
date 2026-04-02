@@ -13,7 +13,7 @@ export default function ProfileCard({ name, level, league, xp, streak }) {
       <span className="pc-level">{level?.name || 'Curious Beginner'}</span>
       <div className="pc-stats">
         <div className="pc-stat">
-          <Fire size={16} weight="fill" color="#F59E0B" />
+          <Fire size={16} weight="fill" color="#D4A853" />
           <span>{streak}</span>
         </div>
         <div className="pc-stat">

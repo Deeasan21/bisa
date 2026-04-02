@@ -21,8 +21,8 @@ export default function ConsequenceExplorer({ scenario, phrasings, takeaway, onC
   const { speak } = useSpeech();
 
   const qualityColor = {
-    great: '#10B981',
-    okay: '#F59E0B',
+    great: '#C49240',
+    okay: '#D4A853',
     poor: '#EF4444',
   };
 

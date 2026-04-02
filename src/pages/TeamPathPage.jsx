@@ -127,7 +127,7 @@ export default function TeamPathPage() {
       {/* No path yet */}
       {!teamPath && !showSetup && (
         <div className="team-path-empty">
-          <Sparkle size={40} weight="duotone" color="#8B5CF6" />
+          <Sparkle size={40} weight="duotone" color="#D4A853" />
           <h2>No team path yet</h2>
           <p>
             {isAdmin
@@ -149,7 +149,7 @@ export default function TeamPathPage() {
           {curatedLessons.length > 0 && (
             <div className="team-path-section">
               <div className="team-path-section-header">
-                <BookOpen size={16} weight="duotone" color="#3B82F6" />
+                <BookOpen size={16} weight="duotone" color="#9A6B1F" />
                 <h2>Start with these lessons</h2>
               </div>
               {curatedLessons.map((lesson, i) => (
@@ -159,7 +159,7 @@ export default function TeamPathPage() {
                   onClick={() => navigate('/mode/learn', { state: { lessonIndex: lesson.id } })}
                 >
                   <div className="team-path-item">
-                    <div className="team-path-item-num" style={{ background: '#3B82F614', color: '#3B82F6' }}>
+                    <div className="team-path-item-num" style={{ background: '#9A6B1F14', color: '#9A6B1F' }}>
                       {i + 1}
                     </div>
                     <div className="team-path-item-info">
@@ -177,7 +177,7 @@ export default function TeamPathPage() {
           {generatedLessons.length > 0 && (
             <div className="team-path-section">
               <div className="team-path-section-header">
-                <Sparkle size={16} weight="duotone" color="#8B5CF6" />
+                <Sparkle size={16} weight="duotone" color="#D4A853" />
                 <h2>Generated for your team</h2>
               </div>
               {generatedLessons.map((lesson, i) => (
@@ -187,7 +187,7 @@ export default function TeamPathPage() {
                   onClick={() => navigate('/team/path/lesson', { state: { lesson } })}
                 >
                   <div className="team-path-item">
-                    <div className="team-path-item-num" style={{ background: '#8B5CF614', color: '#8B5CF6' }}>
+                    <div className="team-path-item-num" style={{ background: '#D4A85314', color: '#D4A853' }}>
                       <Sparkle size={14} weight="fill" />
                     </div>
                     <div className="team-path-item-info">

@@ -29,7 +29,7 @@ export default function ConversationFork({ moment, pathA, pathB }) {
           />
           <path
             d="M 0 60 C 20 60, 20 95, 40 95"
-            stroke="#F59E0B"
+            stroke="#D4A853"
             strokeWidth="1.5"
             fill="none"
           />

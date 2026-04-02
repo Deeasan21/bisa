@@ -34,7 +34,7 @@ export default function OfflineBanner() {
         fontSize: '0.8rem',
         fontWeight: 600,
         color: '#fff',
-        background: isOnline ? '#10B981' : '#78716C',
+        background: isOnline ? '#C49240' : '#78716C',
         transition: 'background 0.3s, opacity 0.3s',
         animation: 'offlineBannerSlideIn 0.3s ease-out',
       }}

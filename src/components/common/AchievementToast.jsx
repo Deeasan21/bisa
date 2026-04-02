@@ -25,7 +25,7 @@ export default function AchievementToast({ achievementId, visible = false, onDon
   return (
     <div className="achievement-toast" aria-live="polite">
       <div className="achievement-icon">
-        <Trophy size={22} weight="fill" color="#F59E0B" />
+        <Trophy size={22} weight="fill" color="#D4A853" />
       </div>
       <div className="achievement-text">
         <span className="achievement-label">Achievement Unlocked!</span>

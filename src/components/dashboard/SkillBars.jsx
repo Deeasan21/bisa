@@ -3,10 +3,10 @@ import './SkillBars.css';
 
 const SKILL_CATEGORIES = [
   { name: 'Open Questions', color: '#EF4444', key: 'open' },
-  { name: 'Clarifying', color: '#F59E0B', key: 'clarifying' },
-  { name: 'Probing', color: '#10B981', key: 'probing' },
-  { name: 'Reflective', color: '#3B82F6', key: 'reflective' },
-  { name: 'Socratic', color: '#8B5CF6', key: 'socratic' },
+  { name: 'Clarifying', color: '#D4A853', key: 'clarifying' },
+  { name: 'Probing', color: '#C49240', key: 'probing' },
+  { name: 'Reflective', color: '#9A6B1F', key: 'reflective' },
+  { name: 'Socratic', color: '#D4A853', key: 'socratic' },
   { name: 'Reframing', color: '#06B6D4', key: 'reframing' },
 ];
 

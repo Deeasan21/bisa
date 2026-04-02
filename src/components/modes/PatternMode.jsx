@@ -547,8 +547,8 @@ export default function PatternMode() {
               <div key={i} className="feedback-message">
                 <span className="feedback-message-icon">
                   {msg.includes('Nice') || msg.includes('well') || msg.includes('Great') || msg.includes('read')
-                    ? <CheckCircle size={16} weight="fill" color="#10B981" />
-                    : <ArrowRight size={16} weight="bold" color="#F59E0B" />
+                    ? <CheckCircle size={16} weight="fill" color="#C49240" />
+                    : <ArrowRight size={16} weight="bold" color="#D4A853" />
                   }
                 </span>
                 {msg}
@@ -671,7 +671,7 @@ export default function PatternMode() {
         {isReadReact && aiResult && (
           <div className="ai-pattern-section animate-fade-in">
             <div className="ai-pattern-header">
-              <Sparkle size={16} weight="fill" color="#8B5CF6" />
+              <Sparkle size={16} weight="fill" color="#D4A853" />
               <span>AI Coach Feedback</span>
             </div>
             <div className="ai-pattern-feedback">
@@ -696,7 +696,7 @@ export default function PatternMode() {
             color: '#7C3AED', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer',
             width: '100%', justifyContent: 'center', marginBottom: 16,
           }}>
-            <Sparkle size={16} weight="fill" color="#8B5CF6" />
+            <Sparkle size={16} weight="fill" color="#D4A853" />
             Get AI Coaching
           </button>
         )}

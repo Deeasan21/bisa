@@ -190,8 +190,8 @@
 }
 
 [data-theme="dark"] .choice-btn {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(212, 168, 83, 0.3);
   color: #C4B5FD;
 }
 
@@ -201,7 +201,7 @@
 }
 
 [data-theme="dark"] .choice-btn:hover {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(212, 168, 83, 0.2);
 }
 
 .choice-btn:active {
@@ -297,7 +297,7 @@
 .sim-free-input:focus {
   outline: none;
   border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.15);
 }
 
 .sim-free-send {
@@ -365,7 +365,7 @@
 .sim-ai-summary {
   text-align: left;
   background: var(--bg-card);
-  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  border: 1.5px solid rgba(212, 168, 83, 0.25);
   border-radius: var(--radius-lg);
   padding: var(--space-md);
   margin-top: var(--space-sm);
@@ -400,8 +400,8 @@
 }
 
 [data-theme="dark"] .sim-ai-highlight {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.25);
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(212, 168, 83, 0.25);
 }
 
 .sim-ai-label {

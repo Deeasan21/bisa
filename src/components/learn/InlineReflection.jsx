@@ -31,7 +31,7 @@ export default function InlineReflection({
       <div className="ir-actions">
         <button
           className="ir-save-btn"
-          style={{ background: themeColor || '#F59E0B' }}
+          style={{ background: themeColor || '#D4A853' }}
           onClick={onSave}
           disabled={!value.trim()}
         >
@@ -55,7 +55,7 @@ export default function InlineReflection({
         <div className="ir-ai-wrap animate-fade-in">
           <div className="ir-ai-card">
             <div className="ir-ai-header">
-              <Sparkle size={16} weight="fill" color="#F59E0B" />
+              <Sparkle size={16} weight="fill" color="#D4A853" />
               <span>AI Reflection Coaching</span>
             </div>
             <div className="ir-ai-group">
