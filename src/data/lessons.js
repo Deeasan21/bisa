@@ -630,165 +630,154 @@ export const LESSONS = [
   },
   {
     id: 4,
-    title: "Questions for Learning",
+    title: "Curiosity in Everyday Life",
     skillCategory: 'Self-Reflection',
     difficultyTier: 'beginner',
     tier: 1,
     content: `
-      <h2>Lesson 4: Questions for Learning</h2>
-      <p class="intro">Your brain doesn't care how much information flows past it. It cares about what it has to <em>do</em> with that information. Questions transform passive consumption into active learning.</p>
+      <h2>Lesson 4: Curiosity in Everyday Life</h2>
+      <p class="intro">Most people treat curiosity like something that belongs in classrooms. But curiosity is a practice — one that applies to every conversation you have, every person you encounter, and every experience that passes through your life unexamined.</p>
       <section class="lesson-section">
-        <h3>Questions BEFORE Learning</h3>
+        <h3>The Curiosity Loop</h3>
         <ul>
-          <li>"What do I already know about this topic?"</li>
-          <li>"What specifically do I want to understand?"</li>
-          <li>"What will I be able to do after learning this?"</li>
+          <li><strong>Before:</strong> "What do I think I already know about this person or situation — and how confident should I actually be?"</li>
+          <li><strong>During:</strong> "What's surprising me? What doesn't fit my first impression?"</li>
+          <li><strong>After:</strong> "What did I actually learn? What did I get wrong?"</li>
         </ul>
       </section>
       <section class="lesson-section">
-        <h3>Questions DURING Learning</h3>
-        <ul>
-          <li>"Can I explain what I just read in my own words?"</li>
-          <li>"Why does this work that way?"</li>
-          <li>"How is this like something else I know?"</li>
-        </ul>
+        <h3>The First-Impression Trap</h3>
+        <p>Your brain forms an opinion of a new person within seconds — and then spends the rest of the conversation defending it. This is called <strong>confirmation bias</strong>, and it's the enemy of genuine curiosity. The fix isn't to stop forming impressions. It's to treat them as hypotheses, not conclusions.</p>
       </section>
       <section class="lesson-section">
-        <h3>Questions AFTER Learning</h3>
-        <ul>
-          <li>"What was the most important idea?"</li>
-          <li>"How would I explain this to someone else?"</li>
-          <li>"What do I still not understand?"</li>
-        </ul>
-      </section>
-      <section class="lesson-section">
-        <h3>The Feynman Technique</h3>
-        <p><strong>If you can't explain it simply, you don't truly understand it.</strong></p>
-        <p>1. Explain it as if teaching a beginner. 2. Find where you get stuck. 3. Go back and fill gaps. 4. Simplify further.</p>
+        <h3>The Understanding Test</h3>
+        <p><strong>If you can't explain your impression from their point of view, you don't actually understand them yet.</strong></p>
+        <p>Pick someone you've formed a quick judgment about. Can you articulate their perspective — not your version of it, but theirs? If not, your opinion is built on a story you wrote without their input.</p>
       </section>
       <section class="lesson-section when-to-use">
-        <h3>When to Use Learning Questions</h3>
+        <h3>When to Apply This</h3>
         <ul>
-          <li>Before, during, and after any learning experience — reading, lectures, workshops, podcasts</li>
-          <li>When studying or preparing for something new and you want active engagement, not passive absorption</li>
-          <li>When you realize you can't explain something simply — that's your signal to question deeper</li>
+          <li>Every time you meet someone new — especially when your first impression feels certain</li>
+          <li>After any significant conversation you want to actually retain</li>
+          <li>When you catch yourself confident about what someone is like before you've really asked</li>
         </ul>
-        <h3>When NOT to Use Learning Questions</h3>
+        <h3>When NOT to Force It</h3>
         <ul>
-          <li>When the priority is emotional processing, not intellectual understanding — don't turn someone's story into a study session</li>
-          <li>When you're in the middle of a conversation and shift into "learning mode" instead of staying present with the person</li>
-          <li>When over-questioning kills the flow of creative work — sometimes you need to create first and analyze later</li>
+          <li>Not every interaction needs to become a deep inquiry — some moments are just moments</li>
+          <li>Don't use curiosity as an excuse to probe someone who hasn't invited depth</li>
+          <li>Don't turn a casual exchange into a study session — presence matters more than analysis</li>
         </ul>
       </section>
     `,
     sections: [
       {
         id: 'before-during-after',
-        title: 'The Active Learning Loop',
+        title: 'The Curiosity Loop',
         content: `
-          <p>Your brain does not care how much information flows past it. It cares about what it has to <em>do</em> with that information. Questions are the tool that transforms passive consumption into active learning.</p>
-          <p><strong>Before learning:</strong> "What do I already know about this?" "What specifically do I want to understand?" Priming your brain this way means it filters for relevance instead of trying to absorb everything.</p>
-          <p><strong>During:</strong> "Can I explain what I just read in my own words?" "Why does this work that way?" "How is this like something else I know?" These questions create connections rather than isolated facts.</p>
-          <p><strong>After:</strong> "What was the most important idea?" "What do I still not understand?" Retrieval practice — trying to recall rather than re-reading — is one of the most evidence-backed learning techniques we have.</p>
+          <p>Curiosity isn't something you switch on in a classroom. It's a practice you can apply to every person you meet, every experience you have, and every assumption you carry without examining it.</p>
+          <p>The same structure that makes someone a great learner also makes someone a person others genuinely want to talk to:</p>
+          <p><strong>Before:</strong> "What do I think I already know about this person or situation — and how confident should I actually be?" Most misjudgments happen before a single word is spoken.</p>
+          <p><strong>During:</strong> "What's surprising me? What doesn't fit my first read?" If nothing surprises you, you're not paying attention — you're confirming what you already believed.</p>
+          <p><strong>After:</strong> "What do I actually know now that I didn't before? What did I get wrong?" Most people skip this entirely. The ones who don't notice things everyone else misses.</p>
         `,
         interaction: null,
       },
       {
         id: 'feynman',
-        title: 'The Feynman Test',
+        title: 'The Understanding Test',
         content: `
-          <p>Richard Feynman, Nobel Prize-winning physicist, had a simple test for understanding: <strong>if you can't explain it simply, you don't truly understand it.</strong></p>
-          <p>The technique: try to teach the concept to someone with no background. Where you stumble, hedge, or reach for jargon — that's where your understanding has gaps. Go back and fill them. Then simplify again.</p>
-          <p>Here's the difference in practice:</p>
+          <p>Here's a test Richard Feynman applied to ideas. Apply it to people: <strong>if you can't explain your impression from their point of view — not yours — you don't actually understand them yet.</strong></p>
+          <p>Try it. Pick someone you've formed a quick opinion about. Can you articulate why they might see the world the way they do? Can you describe their perspective without judgment, in their own terms?</p>
+          <p>If not, what you have is a reaction, not an understanding. One question can close that gap faster than an hour of observation. See what a single question does:</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          before: 'After a lecture, you copy your notes into a cleaner format and re-read them before the test.',
-          after: 'After the lecture, you close your notes and try to explain the concept out loud as if teaching a friend. You go back to fill in the gaps you found.',
-          explanation: 'Both approaches feel like studying. But re-reading creates familiarity without understanding — you recognize the material but can\'t generate it. The Feynman approach forces your brain to do the hard work that produces real learning.',
+          before: 'You meet someone quiet and a bit standoffish at a party. You decide they\'re unfriendly, stop trying, and later tell a friend "Yeah, they weren\'t very warm."',
+          after: 'You meet someone quiet and a bit standoffish at a party. You ask: "Is this the kind of event you usually enjoy?" They pause: "Honestly? Not really. Big groups exhaust me — I never know what to do after the first five minutes." Everything shifts.',
+          explanation: 'The first is a conclusion. The second is a question. One ends the story; the other begins it. The person you labeled "unfriendly" turned out to be someone doing their best in an environment that genuinely doesn\'t suit them. One question got you closer to who they actually are than an hour of observation would have.',
         },
       },
       {
         id: 'learning-gap',
-        title: 'The Learning Gap',
-        content: `<p>Most people think they're learning when they're actually just consuming. The difference shows up when they try to use the information:</p>`,
+        title: 'The Impression Gap',
+        content: `<p>We form strong feelings about people and then can't explain where they came from. The curiosity loop closes that gap:</p>`,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You listened to a 45-minute podcast about negotiation. Two days later, you need to negotiate your salary. What\'s most likely to happen?',
+          scenario: 'You spend an hour talking with someone you\'ve just met at a social event. Two days later, a mutual friend asks what they\'re like. What\'s most likely?',
           options: [
-            { text: 'You remember the main ideas and apply them naturally.', isCorrect: false },
-            { text: 'You remember fragments but can\'t recall the key frameworks in the moment.', isCorrect: true },
+            { text: 'You describe them clearly — their perspective, what surprised you, what they actually care about.', isCorrect: false },
+            { text: 'You describe the impression they made but struggle to explain specifically why you feel that way.', isCorrect: true },
           ],
-          explanation: 'Passive listening creates familiarity, not capability. The gap between "I heard this" and "I can do this" is filled by active learning questions — pausing to summarize, asking what you\'d actually do differently, writing one thing to apply. Without those questions, the podcast was entertainment.',
+          explanation: 'We form strong feelings about people and then can\'t explain where they came from. The curiosity loop — asking "what specifically surprised me?" and "what do I still not understand about them?" — converts vague impressions into actual knowledge. Without it, what you\'re carrying isn\'t understanding. It\'s a story you wrote.',
         },
       },
       {
         id: 'at-work',
-        title: 'At Work: The Post-Meeting Debrief',
+        title: 'After the Encounter',
         content: `
-          <p>One of the highest-leverage learning habits in professional life is the <strong>5-minute debrief</strong> after any meeting, call, or presentation.</p>
-          <p><strong>"What was said that I want to remember?"</strong> — Active recall beats re-reading notes by a wide margin.</p>
-          <p><strong>"What surprised me?"</strong> — Surprises signal where your mental model needs updating.</p>
-          <p><strong>"What will I do differently as a result?"</strong> — Without this question, most meetings leave no trace.</p>
-          <p>Five minutes. Three questions. Most people skip it. The ones who don't pull ahead — not just by days, but over years.</p>
+          <p>One of the simplest curiosity habits you can build: take 60 seconds after any meaningful encounter to ask yourself three questions.</p>
+          <p><strong>"What surprised me?"</strong> — Surprises reveal where your mental model needed updating.</p>
+          <p><strong>"What do I still not understand about them?"</strong> — The gap in your knowledge is exactly where curiosity needs to go next.</p>
+          <p><strong>"What did I get wrong on first impression?"</strong> — Most of us never ask this. The ones who do become the kind of people others describe as unusually perceptive.</p>
+          <p>Sixty seconds. Three questions. Most people skip it. The ones who don't see people more accurately — and become more interesting to talk to themselves.</p>
         `,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'After an important meeting or training session, you usually…',
+          question: 'After a meaningful conversation with someone you\'ve just met, you usually…',
           options: [
             {
-              text: 'Move immediately to the next thing on my list',
-              insight: 'Most people do. The upgrade: set a 5-minute timer after anything important and ask those three questions. You\'ll remember three times more and actually use what you heard.',
+              text: 'Form an impression and move on',
+              insight: 'Most people do. The upgrade: take 60 seconds afterward and ask "what surprised me?" That single question turns a passing encounter into something you actually carry — and changes how you show up in the next one.',
             },
             {
-              text: 'Write notes during or after',
-              insight: 'Good instinct. The upgrade: don\'t just capture — ask "What will I actually do with this?" The action question is what transforms notes into change.',
+              text: 'Think about it informally as the day goes on',
+              insight: 'That informal replay has real value. Making it deliberate — even briefly — multiplies it. Try adding: "What do I still not understand about them?" The gap in your knowledge is exactly where curiosity needs to go.',
             },
             {
-              text: 'Think about it informally as I go about my day',
-              insight: 'That informal processing has value. Making it deliberate — even for 3 minutes — multiplies it. Try closing your eyes right after something important and asking: "What\'s the one thing I most need to remember?"',
+              text: 'Think about one specific thing that stood out',
+              insight: 'You\'re ahead of most. The next level: also ask what you got wrong on first impression. The delta between your opening read and what you actually learned is where your curiosity muscle grows.',
             },
             {
-              text: 'Do a structured review of what I learned',
-              insight: 'You\'re ahead of most. The next level: add the Feynman test — try to explain the key insight to someone who wasn\'t there. Where you stumble is where to go deeper.',
+              text: 'Ask one more question before the conversation ends',
+              insight: 'This is the move. One good closing question — "What\'s something people usually get wrong about you?" or "What would I need to know to actually understand what you\'re dealing with right now?" — opens more than ten minutes of surface conversation.',
             },
           ],
         },
       },
       {
         id: 'learning-explorer',
-        title: 'The Same Information, Different Results',
-        content: `<p>Two people finish the same chapter. They process it very differently — watch what each approach produces:</p>`,
+        title: 'The Same Conversation, Different Results',
+        content: `<p>Two people spend twenty minutes talking to the same stranger. Watch what each approach produces:</p>`,
         interaction: {
           type: 'consequence-explorer',
           required: true,
-          scenario: 'You just finished a chapter on negotiation tactics. What do you do next?',
+          scenario: 'You\'ve just had a twenty-minute conversation with someone you\'ve never met. What do you do next?',
           phrasings: [
             {
-              text: 'Move to the next chapter immediately.',
-              consequence: 'By the end of the book, you remember fragments of most chapters and nothing specifically from this one. The information existed in your head for about 20 minutes.',
+              text: 'Move on immediately — already thinking about the next conversation.',
+              consequence: 'Two days later, you can\'t remember their name or a single specific thing they said. The impression fades into a vague sense of "pretty interesting, I think." Nothing from that conversation stays.',
               quality: 'poor',
             },
             {
-              text: 'Highlight the key sentences and move on.',
-              consequence: 'The highlights feel productive. But when you re-read them a week later, you remember reading them — not understanding them. Highlighting is one step from passive.',
+              text: 'Think about them on the way home — they seemed thoughtful, or nervous, or funny.',
+              consequence: 'The impression lasts a few days. But it\'s all surface. You know your reaction to them, not them. You can\'t explain why they seemed that way or what specifically they said. It\'s a feeling, not a picture.',
               quality: 'okay',
             },
             {
-              text: 'Close the book and write one paragraph explaining the key idea in your own words.',
-              consequence: 'You immediately discover two gaps where you didn\'t fully understand the idea. You go back, fill them, and write again. Takes 10 minutes — and you\'ll still remember it in a month.',
+              text: 'Before the conversation ends, you ask: "What\'s something people almost never ask you about?"',
+              consequence: 'They pause. Then tell you something they\'ve never said to a stranger before. Three weeks later, you still remember exactly what they said. That one question became the whole conversation.',
               quality: 'great',
             },
             {
-              text: 'Write one thing you\'ll try differently in your next negotiation.',
-              consequence: 'The application question does something powerful: it forces your brain to connect abstract concept to concrete action. Retention goes up, and you\'re twice as likely to actually use the tactic.',
+              text: 'Afterward, you take two minutes to ask yourself: "What surprised me?" and "What do I still not understand about them?"',
+              consequence: 'You realize your first impression was wrong on two things. You also notice a gap — something they said that you can\'t explain yet. The next time you cross paths, you know exactly what to ask. You become the person they remember.',
               quality: 'great',
             },
           ],
-          takeaway: 'Information without application questions disappears. The best learners don\'t just ask "what did I learn?" — they ask "what will I do with this?" and "where does my understanding break down?" That\'s the difference between reading and learning.',
+          takeaway: 'The difference between a passing encounter and a meaningful one isn\'t chemistry or luck. It\'s intention. Curiosity applied before, during, and after a conversation transforms what could have been forgotten into something that stays — for both of you.',
         },
       },
       {
@@ -798,7 +787,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Think of something you recently "learned" but couldn\'t fully explain. What question — asked before, during, or after — might have helped you understand it more deeply?',
+          prompt: 'Think of someone you formed a quick judgment about — a stranger, a new acquaintance — that turned out to be wrong or incomplete. What question, asked earlier, might have given you a more accurate picture?',
         },
       },
     ],
@@ -1322,18 +1311,18 @@ export const LESSONS = [
         id: 'xy-problem',
         title: 'The XY Problem',
         content: `
-          <p>There's a classic mistake called the <strong>XY Problem</strong>: you want to do X, you think Y is the way to do it, you hit a problem with Y — and you ask for help with Y instead of X.</p>
-          <p>The helper solves Y, only to discover that Y was never the right approach to X in the first place. Time wasted for everyone. The fix: always state what you're ultimately trying to accomplish, not just where you're stuck.</p>
+          <p>There's a classic mistake called the <strong>XY Problem</strong>: you want to do X, you think Y is the solution, you hit a problem with Y — and you ask for help with Y instead of X.</p>
+          <p>The helper solves Y, only to find that Y was never the right approach to begin with. Time wasted for both of you. The fix: always describe what you're ultimately trying to accomplish — not just where you're stuck.</p>
         `,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You\'re trying to figure out why your spreadsheet totals don\'t match. Which help request is better?',
+          scenario: 'You want to reconnect with a friend after a falling out. Which ask is better?',
           options: [
-            { text: '"How do I fix a SUM formula that keeps showing the wrong number?"', isCorrect: false },
-            { text: '"My sales totals don\'t match the individual line items. I\'ve checked for typos. Could you look at whether there are hidden rows or filter settings affecting the range?"', isCorrect: true },
+            { text: '"How do I write an apology without making it about me?"', isCorrect: false },
+            { text: '"I want to reconnect with someone I hurt. I\'ve written a draft message but I think it might come across as self-serving. Would you read it and tell me what emotion it reads as to you?"', isCorrect: true },
           ],
-          explanation: 'The first asks about the symptom (wrong SUM). The second describes the real goal (matching totals) and what you\'ve tried, which opens up solutions beyond just fixing the formula — like checking filters, which might be the actual cause.',
+          explanation: 'The first asks about the technique (writing an apology). The second describes the real goal — reconnecting — and what you\'ve already tried. That gives the helper enough to actually help, and opens up solutions beyond phrasing, like whether to message at all or suggest meeting in person instead.',
         },
       },
       {
@@ -1351,60 +1340,60 @@ export const LESSONS = [
       {
         id: 'ask-explorer',
         title: 'Strong Ask vs. Weak Ask',
-        content: `<p>The same need, asked four different ways. Watch how each would land:</p>`,
+        content: `<p>The same need, asked four different ways. Watch how each lands:</p>`,
         interaction: {
           type: 'consequence-explorer',
           required: true,
-          scenario: 'You need feedback on a work email you\'re about to send to a difficult client.',
+          scenario: 'A close friend is going through something hard and you want to be there — but you don\'t know how.',
           phrasings: [
             {
-              text: '"Hey, can you look at this email?"',
-              consequence: 'Your colleague reads it and doesn\'t know what you need. They say "looks fine" and move on. No useful feedback — and both of you wasted time.',
+              text: '"Let me know if you need anything."',
+              consequence: 'They say "Thanks." And don\'t reach out. You\'ve put the burden of knowing what they need on them at the worst possible time — when they have the least capacity to figure it out.',
               quality: 'poor',
             },
             {
-              text: '"Can you check this email? I\'m worried it sounds too harsh."',
-              consequence: 'Better — now they know what to look for. But they might soften the whole email when you only needed one sentence adjusted. Scope still unclear.',
+              text: '"Are you okay? What\'s going on?"',
+              consequence: 'Better, but still open enough to deflect. "I\'m managing" is an easy answer to a vague question. They may not know what they need yet — and the open question puts that work on them.',
               quality: 'okay',
             },
             {
-              text: '"I\'m sending this to a client who pushed back on our timeline. Can you read the third paragraph and tell me if it sounds defensive? I tried to make it firm but collaborative."',
-              consequence: 'Now they know the context, the specific thing to look at, and what you\'ve already tried to do. They give you targeted, useful feedback in two minutes.',
+              text: '"I want to be here for you. I don\'t know if you need someone to talk to, or just someone to sit with, or help with something practical — which would be most useful right now?"',
+              consequence: 'Specific options lower the effort required to accept help. They don\'t have to figure out what they need — they just pick one. That\'s the difference between support being available and support actually being received.',
               quality: 'great',
             },
             {
-              text: '"Before I send this — I need 5 minutes. I\'ve been going back and forth on the tone of the third paragraph. Can you tell me what emotion it reads as to you?"',
-              consequence: 'You\'ve asked for a sensory reaction, not an opinion — which is easier to give and harder to hedge. They tell you exactly what they feel when they read it. That\'s the feedback you needed.',
+              text: '"I\'m coming over Thursday. I won\'t ask you to talk. I\'ll just be there. Is that okay?"',
+              consequence: 'You\'ve taken the decision off their plate entirely. Presence offered, not just promised. The ask is small (just confirm Thursday), and it removes the most exhausting part of being helped: having to ask for it.',
               quality: 'great',
             },
           ],
-          takeaway: 'The more specific your ask, the more useful the help. Vague asks get vague responses. Specificity shows you\'ve done the thinking work — you just need the right pair of eyes.',
+          takeaway: 'The more specific your ask, the more useful the help — and the easier it is for someone to say yes. Vague offers ("let me know if you need anything") put all the work on the person who\'s already struggling. Specificity is an act of care.',
         },
       },
       {
         id: 'timing-your-ask',
         title: 'Timing and Who You Ask',
-        content: `<p>Even a great ask falls flat if the timing or person is wrong.</p>`,
+        content: `<p>Even a well-constructed ask falls flat if the timing or person is wrong.</p>`,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'You need help from a senior colleague who is visibly in the middle of something urgent. You need their input by end of day. What do you do?',
+          question: 'You need emotional support from a close friend — but they\'re visibly in the middle of something stressful themselves. Your need feels urgent. What do you do?',
           options: [
             {
-              text: 'Interrupt them — the deadline is real',
-              insight: 'Sometimes necessary. The upgrade: frame it to give them control. "Quick question about X — can you spare 2 minutes now or is there a better time before 4pm?" gives them agency while being honest about your timeline.',
+              text: 'Reach out anyway — I need support now',
+              insight: 'Sometimes the right call. The upgrade: name the timing tension directly. "I know you\'ve got a lot on — I just need ten minutes, not a solution. Can you give me that?" That framing respects their situation and makes it easier to say yes.',
             },
             {
-              text: 'Wait until they\'re free, even if it means missing my deadline',
-              insight: 'Respecting their time is right. But missing your deadline helps no one. The upgrade: send a short message that explains the urgency and lets them choose when — not whether — to respond.',
+              text: 'Wait until they seem less overwhelmed, even if it means sitting with it alone',
+              insight: 'Respecting their capacity is thoughtful. But waiting too long can mean the moment passes — or you pull away when connection was what you needed. A middle path: send a message, let them choose when.',
             },
             {
-              text: 'Send a message clearly stating what I need and my deadline',
-              insight: 'Good instinct. Written asks give the other person time to think before responding, and your deadline tells them how to prioritize. Add what you\'ve tried so they\'re not starting from scratch.',
+              text: 'Send a message explaining briefly what\'s going on and let them respond when they can',
+              insight: 'Good instinct. Written asks give the other person time to respond when they\'re ready — and you don\'t have to hold it alone in the meantime. Mention what you need ("just to talk" or "your honest take") so they can show up prepared.',
             },
             {
-              text: 'Try to solve it myself and only ask if I\'m stuck',
-              insight: 'Sometimes the right call — especially if you\'d be embarrassed to ask once you figured it out. The risk: spending 3 hours on something they could answer in 3 minutes. Know which situation you\'re in.',
+              text: 'Try to work through it myself first and only ask if I\'m really stuck',
+              insight: 'Sometimes right — especially for things you can process solo. The risk: spending three days in your head on something one honest conversation would have solved in an hour. Know which situation you\'re actually in.',
             },
           ],
         },
@@ -1416,7 +1405,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Think of a time you asked for help and didn\'t get what you needed. In hindsight, what was missing from your ask? How would you frame it differently now?',
+          prompt: 'Think of a time you needed help — from a friend, a family member, or anyone — but didn\'t ask for it, or asked and didn\'t get what you needed. What was missing? How would you frame that ask differently now?',
         },
       },
     ],
@@ -1589,65 +1578,61 @@ export const LESSONS = [
   },
   {
     id: 10,
-    title: "Advanced Techniques",
+    title: "Questions That Change How You See Yourself",
     skillCategory: 'Probing',
     difficultyTier: 'beginner',
     tier: 1,
     content: `
-      <h2>Lesson 10: Advanced Techniques</h2>
-      <p class="intro">You've built a strong foundation. Now let's add master-level techniques that separate good questioners from great ones.</p>
+      <h2>Lesson 10: Questions That Change How You See Yourself</h2>
+      <p class="intro">Some questions don't ask for information. They interrupt a loop you've been stuck in — sometimes for years. These techniques come from therapy, coaching, and philosophy. They work just as well turned inward.</p>
       <section class="lesson-section">
-        <h3>The 5 Whys</h3>
-        <p>Ask "Why?" five times to reach the root cause. "Customer retention is dropping" → "Why?" → Eventually: "We lack feedback infrastructure."</p>
+        <h3>The 5 Whys (Applied to Yourself)</h3>
+        <p>Ask "Why?" five times to reach the real root of a pattern. "I keep pulling away from people when things get close." → Why? → "I get scared of being rejected." → Why? → Eventually: a belief formed long before you had the language to name it.</p>
       </section>
       <section class="lesson-section">
         <h3>Reframing Questions</h3>
-        <p><strong>Limiting:</strong> "Why can't I find time to write?"</p>
-        <p><strong>Reframe:</strong> "How might I make time to write?"</p>
+        <p><strong>Limiting:</strong> "Why do I always end up in the same situation?"</p>
+        <p><strong>Reframe:</strong> "What am I choosing, even when it doesn't feel like a choice?"</p>
       </section>
       <section class="lesson-section">
         <h3>The Miracle Question</h3>
-        <p>"Imagine tonight a miracle happens and this problem is solved. When you wake up, what's the first thing you notice that's different?"</p>
+        <p>"Imagine you wake up tomorrow and the version of yourself you've been trying to become is already here. What's the first thing you notice about how you move through your day?"</p>
       </section>
       <section class="lesson-section">
         <h3>Scaling Questions</h3>
-        <p>"On a scale of 1-10, where are you?" Then: "What would move it from 6 to 7?"</p>
+        <p>"On a scale of 1-10, how much of what I actually want am I saying out loud to the people in my life?" Then: "What would a 7 look like?"</p>
       </section>
       <section class="lesson-section">
-        <h3>Pre-Mortem Questions</h3>
-        <p>"It's six months from now and this failed. What went wrong?" This gives permission to voice concerns before it's too late.</p>
+        <h3>Pre-Mortem (For Personal Decisions)</h3>
+        <p>"It's two years from now and this decision was the wrong one. What am I wishing I had tried first?" This question surfaces the doubts you already have but haven't let yourself say.</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>When to Use Each Technique</h3>
         <ul>
-          <li><strong>5 Whys:</strong> For root cause analysis of problems and systems — especially in teams and processes.</li>
-          <li><strong>Reframing:</strong> When someone (or you) is stuck in a limiting perspective and needs a new angle.</li>
-          <li><strong>Miracle Question:</strong> In coaching, therapy, or personal planning — when someone can't see past the current problem.</li>
-          <li><strong>Scaling:</strong> When you need to measure progress or commitment and make the abstract concrete.</li>
-          <li><strong>Pre-Mortem:</strong> Before launching a project, plan, or big decision — to surface hidden risks.</li>
+          <li><strong>5 Whys:</strong> When a pattern keeps repeating and surface-level explanations haven't changed anything.</li>
+          <li><strong>Reframing:</strong> When you're stuck in a limiting story — especially one that starts with "I always" or "I never."</li>
+          <li><strong>Miracle Question:</strong> When you can't see a path forward — this bypasses the stuck loop and moves to what a solution would feel like.</li>
+          <li><strong>Scaling:</strong> When something feels vague and you need to make it concrete enough to act on.</li>
+          <li><strong>Pre-Mortem:</strong> Before any big personal decision — to surface the doubts you haven't yet let yourself voice.</li>
         </ul>
         <h3>When NOT to Use Each Technique</h3>
         <ul>
-          <li><strong>5 Whys:</strong> With people, not problems — asking "why?" five times to a person's face feels like interrogation, not curiosity.</li>
-          <li><strong>Reframing:</strong> When someone needs validation first — reframing too early dismisses their experience.</li>
-          <li><strong>Miracle Question:</strong> When someone needs practical, immediate next steps — not visioning.</li>
-          <li><strong>Pre-Mortem:</strong> When a team is already anxious and demoralized — imagining failure can crush momentum at the wrong time.</li>
+          <li><strong>5 Whys on another person:</strong> Asking "why?" five times to someone's face feels like interrogation, not curiosity.</li>
+          <li><strong>Reframing too early:</strong> When someone (or you) needs to feel the weight of something first — reframing before validation dismisses the experience.</li>
+          <li><strong>Miracle Question:</strong> When what's needed is a practical next step, not vision — don't use it to escape the work.</li>
+          <li><strong>Pre-Mortem when already decided:</strong> If the decision is made and reversing it would cost more than committing — imagining failure can undermine needed momentum.</li>
         </ul>
       </section>
-      <div class="story-box">
-        <h3>Keep Going</h3>
-        <p>You've mastered the core techniques. There are more lessons ahead — each one adds a new dimension to your questioning practice. Questions are agents of change. Go ask something wonderful.</p>
-      </div>
     `,
     sections: [
       {
         id: 'root-cause',
-        title: 'The 5 Whys: Finding Root Causes',
+        title: 'The 5 Whys: Finding Your Own Root Causes',
         content: `
-          <p>When a problem keeps recurring, you're likely treating symptoms. The <strong>5 Whys</strong> technique — developed by Taiichi Ohno at Toyota as part of the Toyota Production System — cuts to the root by asking "why?" repeatedly until the real cause surfaces.</p>
-          <p><strong>Example:</strong> Customer retention is dropping. Why? Customers feel unsupported. Why? Support tickets take too long. Why? We don't have enough staff. Why? We don't have budget. Why? We don't track the cost of churn — so it never gets prioritized.</p>
-          <p>The fix isn't hiring — it's building a metric. Each "why" peeled back a layer.</p>
-          <p><strong>Note:</strong> Five is a guide, not a rule. Sometimes three whys reach the root. Sometimes you need seven. Stop when you've found something you can actually act on.</p>
+          <p>When a pattern keeps repeating in your life, you're probably treating the symptom. The <strong>5 Whys</strong> — developed by Taiichi Ohno at Toyota — cuts to the root by asking "why?" repeatedly until the real cause surfaces. Applied inward, it's not interrogation. It's archaeology.</p>
+          <p><strong>Example:</strong> "I keep pulling away from people when things get close." → Why? "I get scared of being rejected." → Why? "Because I've been hurt before." → Why did that land so hard? "Because I expected people to stay and they didn't." → Why did I expect that? "Because no one ever showed me that closeness can survive loss."</p>
+          <p>The surface behavior is pulling away. The root is a belief formed long before you had language for it. That's what five whys reaches.</p>
+          <p><strong>Note:</strong> Five is a guide, not a rule. Stop when you've found something you can actually act on — or something that finally feels true.</p>
         `,
         interaction: null,
       },
@@ -1656,48 +1641,48 @@ export const LESSONS = [
         title: 'Reframing, the Miracle Question, and Scaling',
         content: `
           <p>Some of the most powerful questions in coaching and therapy don't analyze the problem — they bypass it entirely.</p>
-          <p>The <strong>Miracle Question</strong> (from solution-focused therapy, developed by Steve de Shazer and Insoo Kim Berg): "Imagine tonight a miracle happens and this problem is solved. When you wake up, what's the first thing you notice that's different?" This question sidesteps the stuck loop of problem analysis and moves directly to what a solution would look like — often helping people see a path they couldn't see before.</p>
-          <p><strong>Scaling questions</strong> make the abstract concrete: "On a scale of 1-10, where are you with this?" Then: "What would move it from a 6 to a 7?" Small, specific, actionable.</p>
+          <p>The <strong>Miracle Question</strong> (from solution-focused therapy): "Imagine you wake up tomorrow and the version of yourself you've been trying to become is already here. What's the first thing you notice about how you move through your day?" This question sidesteps the stuck loop of self-analysis and moves directly to what a different life would feel like — often revealing a path the person couldn't see while facing the wall of the problem.</p>
+          <p><strong>Scaling questions</strong> make the abstract concrete: "On a scale of 1-10, how much of what you actually want are you saying out loud to the people in your life?" Then: "What would a 7 look like?" One point, not ten. Specific and doable.</p>
           <p>Here's the difference a reframe makes:</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"Why can\'t I find time to write?"',
-          after: '"How might I make time to write — even if only for ten minutes?"',
-          explanation: 'The first question focuses on the obstacle and often produces a list of complaints. The second presupposes that time is findable and invites creative problem-solving. Same situation, completely different mental direction.',
+          before: '"Why do I always end up in the same situations with people?"',
+          after: '"What am I choosing, even when it doesn\'t feel like a choice?"',
+          explanation: 'The first question invites a list of complaints and usually ends in blame — of others, circumstances, or yourself. The second assumes agency without assigning fault. It asks for the pattern beneath the pattern. Same frustration, completely different direction — one loops, the other opens.',
         },
       },
       {
         id: 'premortem',
         title: 'The Pre-Mortem: Imagine the Failure',
         content: `
-          <p>Before launching a project, Gary Klein's <strong>pre-mortem</strong> technique asks: "It's six months from now and this failed. What went wrong?" This gives everyone permission to voice concerns before it's too late — when it's still a hypothesis, not a disaster.</p>
+          <p>Before any major personal decision, Gary Klein's <strong>pre-mortem</strong> technique asks: "It's two years from now and this decision was the wrong one. What am I wishing I had tried first?" This gives you permission to voice the doubts you already have but haven't fully let yourself feel — while there's still time to act on them.</p>
         `,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your team is about to launch a new product. Which question is more likely to surface hidden risks?',
+          scenario: 'You\'re considering ending a long-term friendship that has become one-sided. Which question surfaces your real doubts?',
           options: [
-            { text: '"What risks should we consider?"', isCorrect: false },
-            { text: '"It\'s one year from now and this launch failed spectacularly. What went wrong?"', isCorrect: true },
+            { text: '"What are the risks of ending this friendship?"', isCorrect: false },
+            { text: '"It\'s two years from now and ending this friendship was the wrong call. What am I wishing I had tried first?"', isCorrect: true },
           ],
-          explanation: '"What risks should we consider?" keeps everyone in defensive mode — people don\'t want to sound pessimistic. The pre-mortem frames failure as a fact and asks for an explanation, which activates more honest, specific, and useful risk thinking.',
+          explanation: '"What are the risks?" keeps things abstract. The pre-mortem makes it real — you\'re living with the consequence, not just anticipating it. That\'s when your actual doubts surface: "I wish I\'d had one honest conversation first." Or: "I wish I\'d asked them what was going on with them instead of assuming." The thing you say in the pre-mortem is usually the thing you should do before you decide.',
         },
       },
       {
         id: '5-whys-practice',
         title: 'The 5 Whys in Practice',
-        content: `<p>The 5 Whys sounds simple — and it is, if you apply it correctly. The most common mistake is stopping at the first "why" that feels satisfying:</p>`,
+        content: `<p>The most common mistake with the 5 Whys is stopping at the first answer that feels satisfying — because it relieves the discomfort of not knowing:</p>`,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your team keeps missing weekly deadlines. You ask "Why?" and get: "People are overloaded." A manager says "Got it — we need to hire more people." What\'s the problem with stopping here?',
+          scenario: 'You notice you\'ve cancelled plans with three different friends in the past month. Someone close to you says: "I think you\'re pulling away." Your first response is "I\'ve just been busy." What\'s the problem with stopping there?',
           options: [
-            { text: 'Nothing — overload is a real problem and hiring solves it.', isCorrect: false },
-            { text: 'You\'ve stopped at a symptom. The 5 Whys would ask: why are people overloaded? And then why again.', isCorrect: true },
+            { text: 'Nothing — being busy is a legitimate reason and people should understand.', isCorrect: false },
+            { text: '"Busy" is the first why. It\'s real but it\'s not the root. The 5 Whys would ask: why are you choosing to cancel instead of reschedule? And then why again.', isCorrect: true },
           ],
-          explanation: 'Stopping at "people are overloaded" produces a clear action (hire). But dig one level deeper: overload comes from unclear priorities. One more level: unclear priorities come from too many projects being approved without capacity checks. The real fix isn\'t hiring — it\'s a better intake process. Hiring people into a broken system just makes the system more expensive.',
+          explanation: 'Stopping at "busy" produces a defense, not an insight. One level deeper: "I\'m cancelling because seeing people right now feels like more than I can give." One more: "Because I\'m struggling and I don\'t want anyone to see it." That\'s the real thing — not busyness. The 5 Whys applied to yourself doesn\'t produce shame. It produces clarity about what actually needs attention.',
         },
       },
       {
@@ -1740,7 +1725,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Which of these techniques — 5 Whys, Miracle Question, Scaling, Pre-Mortem — feels most useful for something you\'re currently dealing with? How would you apply it?',
+          prompt: 'There\'s a pattern in your life — something that keeps happening, or something you keep doing — that you haven\'t fully explained to yourself. Pick one. Which technique (5 Whys, Miracle Question, Scaling, Pre-Mortem) would get you closest to the real thing underneath it?',
         },
       },
     ],
@@ -2151,89 +2136,72 @@ export const LESSONS = [
   },
   {
     id: 13,
-    title: "Read the Room",
+    title: "Reading People You Just Met",
     skillCategory: 'Cultural Awareness',
     difficultyTier: 'beginner',
     tier: 1,
     content: `
-      <h2>Lesson 13: Read the Room — Putting It All Together</h2>
-      <p class="intro">You've learned to check your own mindset (Learner vs. Judger) and read other people's body language. Now it's time to combine them into a complete system: <strong>Read the Room</strong>—the practice of observing, calibrating, and asking with full awareness.</p>
+      <h2>Lesson 13: Reading People You Just Met</h2>
+      <p class="intro">You meet someone. In seconds, your brain has already written a story about them. The story might be accurate. It's probably not. The full loop — observe, check yourself, ask with intention — interrupts the story before it becomes a verdict.</p>
       <section class="lesson-section">
         <h3>The Full Loop</h3>
-        <p>Great questioners do three things, in this order, every time:</p>
-        <p><strong>1. Observe</strong> (Navarro) — What is the other person's body telling you? Are they comfortable or uncomfortable? Open or guarded? Engaged or ready to leave?</p>
-        <p><strong>2. Check Yourself</strong> (Adams) — What mindset am I in? Am I approaching this with curiosity or judgment? Am I about to ask because I want to understand, or because I want to prove a point?</p>
-        <p><strong>3. Ask with Intention</strong> (Question Coach) — Choose the right question type for this specific moment. Match your question to what you've observed and the mindset you've chosen.</p>
-        <p>This loop takes seconds once it becomes habit. And it changes <em>everything</em>.</p>
+        <p>Three things, in this order, every time:</p>
+        <p><strong>1. Observe</strong> — What is their body actually telling you? Are they comfortable or guarded? Engaged or somewhere else? Don't interpret yet — just see.</p>
+        <p><strong>2. Check Yourself</strong> — What story have I already written about this person? Am I about to ask because I want to understand — or because I want to confirm what I already think?</p>
+        <p><strong>3. Ask with Intention</strong> — Choose a question that creates safety rather than confirming your story. Match your question to what you've actually observed, not what you've assumed.</p>
+        <p>This loop takes seconds once it becomes habit. And it will change who you find interesting — and who finds you interesting.</p>
       </section>
       <section class="lesson-section">
         <h3>Calibrating Your Approach</h3>
-        <p>Based on what you observe, adjust your questioning strategy:</p>
-        <p><strong>If they seem comfortable and open</strong> (leaning in, relaxed posture, eye contact):</p>
+        <p>Based on what you observe, adjust:</p>
+        <p><strong>Open and engaged</strong> (leaning in, easy eye contact, animated):</p>
         <ul>
-          <li>Go deeper. Ask probing questions. Explore meaning.</li>
-          <li>"What's really driving that for you?"</li>
-          <li>"Tell me more about what that means to you."</li>
+          <li>Go deeper. "What's the part of that you don't usually get to talk about?"</li>
         </ul>
-        <p><strong>If they seem guarded or tense</strong> (crossed arms, leaning back, minimal eye contact):</p>
+        <p><strong>Guarded or tense</strong> (crossed arms, short answers, looking away):</p>
         <ul>
-          <li>Soften. Use permission-based questions. Create safety.</li>
-          <li>"Can I ask you something about that?"</li>
-          <li>"I'd love to hear your honest take, even if it disagrees with mine."</li>
+          <li>Give them control. "Is there something you'd actually rather talk about?" — lets them lead.</li>
         </ul>
-        <p><strong>If they seem anxious or distressed</strong> (fidgeting, self-soothing, voice changes):</p>
+        <p><strong>Uncomfortable or overwhelmed</strong> (fidgeting, formal posture, clipped responses):</p>
         <ul>
-          <li>Slow down. Acknowledge first, then ask gently.</li>
-          <li>"This seems like a lot. What would be most helpful right now?"</li>
-          <li>"Take your time. I'm here."</li>
+          <li>Offer an exit, not a probe. "Big gatherings can be a lot — do you want to find somewhere quieter?" An action, not a question.</li>
         </ul>
-        <p><strong>If they seem checked out or distant</strong> (minimal response, looking away, feet toward exit):</p>
+        <p><strong>Checked out or distant</strong> (monosyllabic, flat affect, scanning the room):</p>
         <ul>
-          <li>Re-engage. Ask something unexpected or personal.</li>
-          <li>"What part of this is most relevant to what you're working on?"</li>
-          <li>"We've covered a lot—what's landing for you?"</li>
+          <li>Ask something unexpected. "What's something people almost never ask you?" breaks the autopilot pattern.</li>
         </ul>
       </section>
       <section class="lesson-section">
         <h3>The Words-Body Gap</h3>
-        <p>The most important skill in reading the room is noticing when someone's <strong>words say one thing and their body says another</strong>.</p>
+        <p>The most important skill in reading people is noticing when their words say one thing and their body says another. That gap is where the real story lives — and the right question can close it without pressure.</p>
         <div class="story-box">
           <h3>The Words-Body Gap in Action</h3>
-          <p><strong>Situation:</strong> You ask your direct report how the project is going. They say "Great, everything's on track" while avoiding eye contact, fidgeting with their pen, and pressing their lips together.</p>
-          <p><strong>The gap:</strong> Words say "fine." Body says "worried."</p>
-          <p><strong>Judger response:</strong> "I don't believe you. Tell me what's really happening." (Accusatory, creates defensiveness)</p>
-          <p><strong>Learner response:</strong> "Glad to hear it's going well. Is there anything that could make it go even better? Any risks I should know about so I can help clear the path?" (Creates safety for honesty)</p>
-          <p>You noticed the gap. You checked your mindset. You asked a question that made it safe to tell the truth. <strong>That's the full loop.</strong></p>
+          <p><strong>Situation:</strong> You're talking to someone new at a social event. They say "Yeah, I love meeting new people!" — but they're half-turned toward the door, arms crossed, smile already fading.</p>
+          <p><strong>The gap:</strong> Words say "I'm enjoying this." Body says "I'm not sure I should be here."</p>
+          <p><strong>Judger response:</strong> "You seem tense — are you okay?" They say "I'm fine!" and the conversation closes.</p>
+          <p><strong>Learner response:</strong> "Is this the kind of gathering you usually enjoy, or does it feel like work?" They laugh: "Honestly, I'm terrible at these. I never know what to say after hello." And something opens.</p>
+          <p>You noticed the gap. You checked your story. You asked something that let them tell the truth without having to admit you caught them. <strong>That's the full loop.</strong></p>
         </div>
       </section>
       <section class="lesson-section">
-        <h3>Common Scenarios</h3>
-        <p><strong>In meetings:</strong> Watch who's leaning in (engaged) vs. leaning back (disengaged or disagreeing). Direct questions to the disengaged: "Alex, I'd value your perspective. What are we not seeing?"</p>
-        <p><strong>In one-on-ones:</strong> If they start self-soothing (touching neck, face), you've hit sensitive territory. Slow down: "We can come back to this if you'd like."</p>
-        <p><strong>In negotiations:</strong> When the other party's body suddenly stiffens or pulls back, your last point created resistance. Shift to curiosity: "Help me understand your concern about that."</p>
-        <p><strong>In personal conversations:</strong> When someone says "I'm fine" but their energy has dropped, use a soft observation: "You say you're fine, but I care about you, so I want to check—is there something on your mind?"</p>
-      </section>
-      <section class="lesson-section">
-        <h3>Building the Habit</h3>
-        <p>Practice this daily. In every conversation:</p>
-        <p><strong>Before you speak:</strong> What do I observe?</p>
-        <p><strong>Before you ask:</strong> Am I in Learner or Judger?</p>
-        <p><strong>When you ask:</strong> Does my question match what I'm seeing?</p>
-        <p>Over time, this becomes instinct. You'll stop missing the signals that were always there—and your questions will land with a precision that feels almost effortless to the other person.</p>
-        <p><em>They won't know why talking to you feels different. They'll just know it does.</em></p>
+        <h3>Common First-Encounter Moments</h3>
+        <p><strong>One-word answers:</strong> Usually discomfort, not disinterest. Try: "I'm probably not asking the right things — what do you actually like talking about?" Hands them the wheel.</p>
+        <p><strong>"I'm fine" with flat energy:</strong> Don't call out the gap directly. Try: "I'm glad. Is there anything taking up space in your head right now?" — leaves room without pressure.</p>
+        <p><strong>Strong opinions stated quickly:</strong> Often a signal someone doesn't expect to be heard. Try: "What made you feel that way?" — not to challenge, but because there's usually a real story there.</p>
+        <p><strong>Formal or overly polished:</strong> Some people default to performance mode with strangers. Try something specific and a little unexpected. It disrupts the script and often produces someone completely different from the one you started talking to.</p>
       </section>
       <section class="lesson-section when-to-use">
-        <h3>When to Read the Room</h3>
+        <h3>When to Use the Full Loop</h3>
         <ul>
-          <li>In every conversation with stakes — before you ask, observe</li>
-          <li>In group settings, to notice dynamics and direct your attention where it's needed most</li>
-          <li>When you sense a gap between what someone says and how they seem — that gap is your cue to ask differently</li>
+          <li>Any time you meet someone new — especially when your first impression is strong or negative</li>
+          <li>When you sense a words-body gap — that mismatch is always your cue to ask differently</li>
+          <li>When a conversation feels like it's going through the motions — one unexpected question can change everything</li>
         </ul>
-        <h3>When NOT to Read the Room</h3>
+        <h3>When NOT to Over-Read</h3>
         <ul>
-          <li>As an excuse to avoid asking hard questions — sometimes the room needs disruption, not comfort</li>
-          <li>When you over-calibrate and never say what needs to be said because you're "waiting for the right moment"</li>
-          <li>When reading the room becomes people-pleasing — the goal is awareness, not avoidance</li>
+          <li>Don't treat every signal as an invitation to dig deeper — some people don't want to be read, and that's information too</li>
+          <li>Don't let reading the room become an excuse to avoid saying what needs to be said</li>
+          <li>Don't confuse awareness with people-pleasing — the goal is connection, not comfort at all costs</li>
         </ul>
       </section>
     `,
@@ -2242,11 +2210,12 @@ export const LESSONS = [
         id: 'full-loop',
         title: 'The Full Loop',
         content: `
-          <p>You've learned to check your mindset (Learner vs. Judger) and read body language. Now combine them into one system: <strong>observe, check yourself, then ask with intention.</strong></p>
-          <p><strong>1. Observe</strong> — What is the other person's body telling you? Comfortable or guarded? Engaged or ready to leave?</p>
-          <p><strong>2. Check Yourself</strong> — What mindset am I in? Am I about to ask because I want to understand — or to prove a point?</p>
-          <p><strong>3. Ask with Intention</strong> — Choose the right question type for this specific moment.</p>
-          <p>This loop takes seconds once it becomes habit. And it changes everything.</p>
+          <p>You meet someone. Before you've finished your handshake, your brain has already written a story about them. Quiet → cold. Intense → difficult. Overly friendly → fake. That story shapes every question you ask — and every question you don't.</p>
+          <p>The full loop interrupts this: <strong>observe, check yourself, ask with intention.</strong></p>
+          <p><strong>1. Observe</strong> — What do you actually see? Not what you're interpreting — what's physically there. Are they leaning in or pulled back? Eye contact easy or avoided? Voice relaxed or clipped?</p>
+          <p><strong>2. Check Yourself</strong> — What story have I already written? Am I about to ask because I want to understand — or to confirm what I already think?</p>
+          <p><strong>3. Ask with Intention</strong> — Choose a question that creates space rather than confirming your narrative. Match it to what you've actually observed.</p>
+          <p>Three seconds. One loop. It changes who you find interesting — and who finds you interesting.</p>
         `,
         interaction: null,
       },
@@ -2254,75 +2223,75 @@ export const LESSONS = [
         id: 'words-body-gap',
         title: 'The Words-Body Gap',
         content: `
-          <p>The most important skill in reading the room is noticing when someone's words say one thing and their body says another. That gap is where the real story lives. See how different approaches play out:</p>
+          <p>The most important skill in reading people you've just met is noticing when their words say one thing and their body says another. That gap is where the real story lives. The question is how you respond to it:</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'You ask a close friend how things have been going. They say "I\'m good — honestly, I\'m fine" — while their eyes drift away, their arms are crossed, and their smile doesn\'t quite land.',
-          before: 'Judger response: "I don\'t believe you. What\'s actually going on?" You\'ve named the gap — but now they feel accused.',
-          after: 'Learner response: "I\'m glad. And if anything comes up you want to think through — I\'m here. Is there anything on your mind that\'s been taking up space lately?"',
-          explanation: 'You noticed the gap. You checked your mindset. You asked a question that made it safe to tell the truth — without making them feel watched. The Judger response gets defensiveness. The Learner response gets honesty.',
+          context: 'You\'re talking to someone new at a social event. They say "Yeah, I love meeting new people!" — but they\'re half-turned toward the door, arms crossed, smile already fading.',
+          before: 'Judger response: "You seem tense — are you okay?" They say "I\'m fine!" The conversation closes.',
+          after: 'Learner response: "Is this the kind of gathering you usually enjoy, or does it feel like work?" They laugh: "Honestly, I\'m terrible at these. I never know what to say after hello." And something opens.',
+          explanation: 'The first response names what you see — which makes them feel watched. The second gives them a question that lets them tell the truth without admitting you caught them. People don\'t mind being understood. They mind being caught. One question, same observation, completely different result.',
         },
       },
       {
         id: 'calibrating',
         title: 'Calibrating Your Approach',
         content: `
-          <p>Once you've observed someone's state, you calibrate. Here's the framework:</p>
-          <p><strong>Open and engaged</strong> (leaning in, eye contact): go deeper. "What's really driving that for you?" This is the moment for probing questions.</p>
-          <p><strong>Guarded or tense</strong> (crossed arms, leaning back): soften first. "Can I ask you something about that?" or "I'd love your honest take, even if it disagrees with mine." Create safety before creating depth.</p>
-          <p><strong>Anxious or overwhelmed</strong> (fidgeting, voice changes): slow down. "This seems like a lot. What would be most helpful right now?" — offers a choice, doesn't press.</p>
-          <p><strong>Checked out or distant</strong> (minimal response, looking away): re-engage with something unexpected. "What part of this is most relevant to what you're actually dealing with?" breaks the autopilot pattern.</p>
+          <p>Once you've observed someone's state, you calibrate. Here's how that looks with a stranger:</p>
+          <p><strong>Open and animated</strong> (leaning in, easy eye contact): go deeper. "What's the part of that you don't usually get to talk about?" This is the moment they've been waiting for.</p>
+          <p><strong>Guarded or tense</strong> (short answers, crossed arms, looking past you): give them control. "Is there something you'd actually rather talk about?" lets them choose where this goes.</p>
+          <p><strong>Uncomfortable</strong> (formal posture, clipped responses, clearly performing): offer an action, not a question. "Do you want to find somewhere less loud?" is easier to accept than "Are you okay?"</p>
+          <p><strong>Distant or checked out</strong> (monosyllabic, scanning the room): break the pattern with something unexpected. "What's something people almost never ask you?" works because it's not on the script — and most people have a genuine answer waiting.</p>
         `,
         interaction: null,
       },
       {
         id: 'scenarios-mc',
-        title: 'Reading the Room in Real Time',
-        content: `<p>Apply the full loop to a real moment:</p>`,
+        title: 'Reading a Stranger in Real Time',
+        content: `<p>Apply the full loop to a first encounter:</p>`,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You\'re running a meeting and two people who usually contribute haven\'t said a word. They\'re both looking slightly away, expressions neutral. What\'s the best move?',
+          scenario: 'You\'re introduced to someone at a social gathering. They answer your first two questions with one-word answers and look away between responses. What\'s the best move?',
           options: [
-            { text: 'Nothing — they\'re probably just tired. Keep moving through the agenda.', isCorrect: false },
-            { text: '"I want to make sure we\'re getting everyone\'s thinking before we lock this in. What are we not seeing?" — directed to the room, not just them.', isCorrect: true },
+            { text: 'They\'re clearly not interested in talking. I\'ll move on.', isCorrect: false },
+            { text: '"I\'m probably not asking the right things — what do you actually like talking about?" Then wait.', isCorrect: true },
           ],
-          explanation: 'Silence from people who usually contribute is a signal worth reading. But singling them out ("Marcus, you\'re quiet") can feel like a spotlight they didn\'t ask for. Opening the question to the room gives everyone permission to surface concerns, while implicitly inviting those who haven\'t spoken. It often draws out the exact perspective that was missing.',
+          explanation: 'One-word answers from strangers almost always mean discomfort, not disinterest. Leaving confirms their fear that they\'re bad at this. The second option names the dynamic without blaming anyone — it hands them control of where the conversation goes. You\'ll often find a completely different person on the other side of that question than the one you thought you were talking to.',
         },
       },
       {
         id: 'read-the-room-explorer',
-        title: 'The Same Room, Different Reads',
-        content: `<p>You have a 1-on-1 with someone who seems off. They say everything is fine. See what each response creates:</p>`,
+        title: 'The Same Person, Different Reads',
+        content: `<p>You meet someone who gives off signals you can\'t quite read. They seem fine, but somehow closed. Watch what each response creates:</p>`,
         interaction: {
           type: 'consequence-explorer',
           required: true,
-          scenario: 'Your direct report says "Everything\'s good, no issues" — but their voice is flat, there\'s no eye contact, and they answered faster than usual.',
+          scenario: 'Someone you\'ve just been introduced to is polite but flat — short answers, friendly but not warm, doesn\'t ask you anything back.',
           phrasings: [
             {
-              text: '"Great, sounds like we\'re on track. Anything else before we close?"',
-              consequence: 'They say no. Meeting ends. Three days later they send a resignation letter. You had the signal and didn\'t act on it. The conversation you didn\'t have became the conversation you can\'t have now.',
+              text: 'Accept their surface answers. They probably just want to be left alone.',
+              consequence: 'You walk away thinking they were unfriendly. Three months later you find out they were going through something hard that night — and they\'ve actually thought about that conversation since, wishing someone had asked one more question.',
               quality: 'poor',
             },
             {
-              text: '"You don\'t seem like yourself today. What\'s going on?"',
-              consequence: 'They bristle slightly. "I\'m fine." Direct observation sometimes works — but naming what you see puts them on the defensive before they\'ve decided to trust you with it.',
+              text: '"You don\'t seem like yourself tonight." [Said with warmth]',
+              consequence: 'They say "I\'m fine." The observation was accurate — but named too directly, it puts them on the defensive before they\'ve chosen to trust you. They close further.',
               quality: 'okay',
             },
             {
-              text: '"Before we close — is there anything about your work right now that\'s feeling less good, or anything you need from me that you\'re not getting?"',
-              consequence: 'Pause. Then: "Actually — yeah. I\'ve been feeling disconnected from the bigger picture lately." Now you\'re in the real conversation. You wouldn\'t have gotten there without asking.',
+              text: '"Is this how you usually show up to these things, or are you somewhere else tonight?"',
+              consequence: 'They blink. Then: "Somewhere else, honestly. Sorry if I seem off." Something opens. You spend the next twenty minutes in a real conversation — the kind neither of you expected to have.',
               quality: 'great',
             },
             {
-              text: '"How are things going — and I mean really, not just the project status."',
-              consequence: 'They smile slightly. "You noticed." Then they tell you what\'s been going on. The warmth of the question — the signal that you actually want to know — was the thing that opened it.',
+              text: '"What would make tonight feel worth your time?"',
+              consequence: 'They laugh, surprised. "That\'s a weird question." You: "Yeah." A pause. Then they tell you something true. The unexpected question disrupted the script they were performing — and they were relieved to drop it.',
               quality: 'great',
             },
           ],
-          takeaway: 'When words and body don\'t match, the body is usually closer to the truth. Your job isn\'t to call out the gap — it\'s to make it safe enough that they choose to close it themselves.',
+          takeaway: 'When words and body don\'t match, the body is usually closer to the truth. Your job isn\'t to call out the gap — it\'s to ask something that makes it safe enough for them to close it themselves. The person you write off in the first five minutes is often the one you would have most wanted to know.',
         },
       },
       {
@@ -2332,7 +2301,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Think of a recent situation where you sensed a words-body gap but said nothing. What held you back? What question — from a Learner mindset — could you have asked?',
+          prompt: 'Think of someone you misread on first meeting — a stranger or new acquaintance who turned out to be different from your initial read. What story had you already written about them? What question might have gotten you to the truth faster?',
         },
       },
     ],
@@ -2345,20 +2314,22 @@ export const LESSONS = [
     tier: 2,
     content: `
       <h2>Lesson 14: The Art of Follow-Up</h2>
-      <p class="intro">In Lesson 6, you learned that follow-up questions show you are truly listening. Now we go deeper. The best follow-ups do not just continue a conversation — they transform it. They take someone from a surface answer to a place of genuine insight, often surprising even the person speaking.</p>
+      <p class="intro">The best follow-ups don't just continue a conversation — they transform it. They take someone from a surface answer to a place of genuine insight, often surprising even the person speaking. This works with anyone: a close friend, someone you just met, a family member you thought you knew.</p>
       <section class="lesson-section">
         <h3>Laddering: Going Deeper Step by Step</h3>
-        <p><strong>Laddering</strong> is a technique borrowed from qualitative research. The idea is simple: each answer becomes the foundation for a deeper question. You climb down the ladder of abstraction until you reach the real meaning behind what someone is saying.</p>
+        <p><strong>Laddering</strong> is borrowed from qualitative research. Each answer becomes the foundation for a deeper question. You climb down from the abstract surface to the real meaning underneath.</p>
         <p>Here is how it works in practice:</p>
         <div class="story-box">
-          <p><strong>You:</strong> "What do you enjoy most about your work?"</p>
-          <p><strong>Them:</strong> "I like solving problems."</p>
-          <p><strong>You:</strong> "What is it about solving problems that feels satisfying?" <em>(Ladder down)</em></p>
-          <p><strong>Them:</strong> "I guess it makes me feel competent."</p>
-          <p><strong>You:</strong> "Why does feeling competent matter to you?" <em>(Ladder down again)</em></p>
-          <p><strong>Them:</strong> "Growing up, I never felt like I was good at anything. So proving I can figure things out... it means a lot."</p>
+          <p><strong>You:</strong> "What's been taking up most of your mental space lately?"</p>
+          <p><strong>Them:</strong> "I've been thinking about moving."</p>
+          <p><strong>You:</strong> "What's pulling you toward it?" <em>(Ladder down)</em></p>
+          <p><strong>Them:</strong> "I think I need a change."</p>
+          <p><strong>You:</strong> "What does a change actually mean to you — what would be different?" <em>(Ladder down again)</em></p>
+          <p><strong>Them:</strong> "I've been doing the same thing in the same place for eight years and I've stopped being surprised by anything."</p>
+          <p><strong>You:</strong> "When did you last feel genuinely surprised by something?"</p>
+          <p><strong>Them:</strong> [Pause] "God, I can't remember."</p>
         </div>
-        <p>Three questions. You went from a generic answer to something deeply personal and true. That is the power of laddering. Each rung takes you closer to what really matters.</p>
+        <p>Four questions. You started with moving logistics and ended at something they hadn't said out loud before. Each rung takes you closer to what actually matters.</p>
       </section>
       <section class="lesson-section">
         <h3>Mirroring: The Simplest Follow-Up</h3>
@@ -2421,10 +2392,10 @@ export const LESSONS = [
         id: 'laddering',
         title: 'Laddering: Going Deeper Step by Step',
         content: `
-          <p>In Lesson 6, you learned that follow-up questions show you're truly listening. Now we go deeper. The best follow-ups don't just continue a conversation — they transform it.</p>
+          <p>In Lesson 6, you learned that follow-up questions show you're truly listening. Now we go deeper. The best follow-ups don't just continue a conversation — they transform it. And they work with anyone — a close friend, someone you just met, a family member you thought you knew.</p>
           <p><strong>Laddering</strong> is borrowed from qualitative research: each answer becomes the foundation for a deeper question. You climb down from the abstract surface to the real meaning underneath.</p>
-          <p><strong>Example:</strong> "What do you enjoy most about your work?" → "I like solving problems." → "What is it about solving problems that feels satisfying?" → "I guess it makes me feel competent." → "Why does feeling competent matter to you?" → "Growing up, I never felt good at anything. So proving I can figure things out... it means a lot."</p>
-          <p>Three questions. Generic answer to something deeply personal and true. Each rung takes you closer to what really matters.</p>
+          <p><strong>Example:</strong> You ask someone you just met at a dinner party: "What's been taking up most of your mental space lately?" → "I've been thinking about moving." → "What's pulling you toward it?" → "I think I need a change." → "What does a change actually mean to you — what would be different?" → "I've been doing the same thing in the same place for eight years and I've stopped being surprised by anything." → "When did you last feel genuinely surprised by something?" They go quiet. Then: "God, I can't remember."</p>
+          <p>Four questions. You started with moving logistics and ended at something they hadn't said out loud before. That's what laddering does.</p>
         `,
         interaction: null,
       },
