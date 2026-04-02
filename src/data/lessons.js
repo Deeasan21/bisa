@@ -4698,15 +4698,15 @@ export const LESSONS = [
     tier: 4,
     content: `
       <h2>Lesson 27: Strategic Questioning in Leadership</h2>
-      <p class="intro">Leaders who tell people what to do get compliance. Leaders who ask people great questions get commitment, creativity, and ownership. Strategic questioning is the art of using questions not just to gather information, but to shape culture, align teams, and drive the organization forward.</p>
+      <p class="intro">Leaders who tell people what to do get compliance. Leaders who ask people great questions get commitment, creativity, and ownership. This isn't only true in boardrooms — it's true in families, friend groups, and any context where you help others move toward a shared outcome. Strategic questioning is the art of using questions not just to gather information, but to create alignment, shared ownership, and genuine investment in what comes next.</p>
       <section class="lesson-section">
         <h3>Vision Questions</h3>
         <p>Great leaders use questions to paint a picture of the future that everyone can see:</p>
         <ul>
           <li>"What would it look like if we were the best in the world at this?"</li>
           <li>"If we were starting from scratch today, what would we build?"</li>
-          <li>"What will our customers say about us five years from now if we get this right?"</li>
-          <li>"What is the story we want to tell at the end of this year?"</li>
+          <li>"What do we want to be able to say about this a year from now — and what would the people we're doing this for say?"</li>
+          <li>"What is the story we want to tell when we look back on this?"</li>
         </ul>
         <p>Vision questions are not about getting answers — they are about getting people to imagine possibilities they have not considered.</p>
       </section>
@@ -4717,7 +4717,7 @@ export const LESSONS = [
           <li>"In one sentence, what did we just agree to?"</li>
           <li>"What is the most important thing that will happen this week as a result of this decision?"</li>
           <li>"What would make you say we failed at this?"</li>
-          <li>"What are you going to tell your team about this?"</li>
+          <li>"What's your honest takeaway — what do you believe we actually agreed to?"</li>
         </ul>
       </section>
       <section class="lesson-section">
@@ -4786,24 +4786,24 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'Your team missed an important deadline on a high-visibility project.',
+              situation: 'You and a group you care about — friends planning something important, a family working on a shared project — had a key person not follow through on what they committed to.',
               response: '"Who is responsible for this? How did we let this happen?"',
               outcome: 'People go into self-protection mode. The honest conversation about root causes never happens. Next time, problems get hidden longer before surfacing.',
             },
             {
               label: 'okay',
-              situation: 'Your team missed an important deadline on a high-visibility project.',
+              situation: 'You and a group you care about — friends planning something important, a family working on a shared project — had a key person not follow through on what they committed to.',
               response: '"What happened? Walk me through the timeline."',
               outcome: 'Factual, non-accusatory. You get a chronology. But you haven\'t opened up the learning conversation — you\'ve just gathered information.',
             },
             {
               label: 'great',
-              situation: 'Your team missed an important deadline on a high-visibility project.',
-              response: '"What happened — and what did we learn? What would have needed to be different for us to catch this earlier? What support was missing that I could have provided?"',
-              outcome: 'The leader included themselves as a variable in the failure. People open up honestly. Root causes surface. A real process change emerges — and the team trusts their leader more, not less.',
+              situation: 'You and a group you care about — friends planning something important, a family working on a shared project — had a key person not follow through on what they committed to.',
+              response: '"What happened — and what did we learn? What would have needed to be different for us to catch this earlier? What could I have done that would have made it easier for you to come to me sooner?"',
+              outcome: 'Including yourself as part of the equation changes everything. People open up honestly. Root causes surface. A real way forward emerges — and the trust in the relationship is stronger, not weaker.',
             },
           ],
-          takeaway: 'Leaders who include themselves in accountability questions ("What could I have done differently?") build more trust than leaders who only question others.',
+          takeaway: 'People who include themselves in accountability questions ("What could I have done differently?") build more trust than those who only put the question on others.',
         },
       },
       {
@@ -4815,10 +4815,10 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You\'re starting a new project with your team and want to create real alignment, not just enthusiasm. Which question achieves that better?',
+          scenario: 'You\'re making a significant shared decision with your family or a close group — a major move, a big commitment, a shared goal — and you want real alignment, not just surface agreement. Which question achieves that better?',
           options: [
             { text: '"Are we all excited about this?"', isCorrect: false },
-            { text: '"What would it look like if we nailed this — what would our users/customers/community say about it a year from now?"', isCorrect: true },
+            { text: '"What would it look like if we got this exactly right — what would we want to be able to say about it a year from now, and what would others say about us?"', isCorrect: true },
           ],
           explanation: '"Are we excited?" invites performative agreement. Everyone says yes. The second question asks people to picture the future state in concrete terms — which immediately surfaces different visions, different success metrics, and different unstated assumptions that are worth aligning on before you start.',
         },
@@ -4884,7 +4884,7 @@ export const LESSONS = [
           <li>"What would it take to break this cycle?"</li>
         </ul>
         <div class="story-box">
-          <p><strong>Example:</strong> A company cuts customer service staff to save money. Customers wait longer. They get frustrated and call back more. Wait times increase. More staff quit from stress. Service gets worse. Customers leave. Revenue drops. More cuts are needed. This is a reinforcing loop heading in the wrong direction — and it started with what seemed like a reasonable decision.</p>
+          <p><strong>Example:</strong> Someone constantly says yes to everything — favors, commitments, extra obligations — to avoid disappointing people. They become exhausted. Things start slipping. People ask more of them because they always say yes. Exhaustion deepens. Resentment builds. The relationships they were trying to protect begin to fray. This is a reinforcing loop heading in the wrong direction — and it started with what seemed like a kind impulse.</p>
         </div>
       </section>
       <section class="lesson-section">
@@ -4933,7 +4933,7 @@ export const LESSONS = [
         content: `
           <p>Most problems we face are not isolated — they're part of interconnected systems. Fixing one thing breaks another. Systems thinking is the discipline of seeing these connections, and questions are the primary tool for making the invisible visible.</p>
           <p>A feedback loop is a cycle where the output feeds back into the input. Questions that reveal them: "What happens after we implement this? And then what happens next?" "Is this a reinforcing loop (things accelerate) or a balancing loop (things stabilize)?" "What would it take to break this cycle?"</p>
-          <p>Example: A company cuts customer service staff to save money. Customers wait longer. They call back more. More staff quit from stress. Service deteriorates. Revenue drops. More cuts needed. This is a reinforcing loop heading in the wrong direction — started by a decision that seemed reasonable in isolation.</p>
+          <p>Example: Someone constantly says yes to everything — extra work, favors, social commitments — to avoid disappointing people. They become exhausted. They start doing things poorly. People notice and ask more often because this person always says yes. Exhaustion deepens. Resentment grows. The relationships they were trying to protect begin to fray. This is a reinforcing loop — started by what seemed like a kind impulse.</p>
         `,
         interaction: null,
       },
@@ -4947,12 +4947,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your team keeps missing sprint commitments. You\'ve tried better estimating tools, but nothing works. Which question goes deeper?',
+          scenario: 'You keep starting health or personal goals with real intention — exercise, better sleep, cutting something out — but they fade within two weeks. You\'ve tried habit trackers and accountability partners, but nothing sticks. Which question goes deeper?',
           options: [
-            { text: '"How do we get better at estimating?"', isCorrect: false },
-            { text: '"Why do our estimates keep missing — and why have the fixes we\'ve tried not stuck?"', isCorrect: true },
+            { text: '"How do I build better habits?"', isCorrect: false },
+            { text: '"Why do my intentions fade every time — and why haven\'t the fixes I\'ve tried actually stuck?"', isCorrect: true },
           ],
-          explanation: 'The first question accepts the framing that estimation is the root problem. The second digs under it — often, teams that can\'t estimate accurately have a deeper issue: unclear requirements, hidden dependencies, interrupt-driven culture, or lack of safety to raise risks. You have to find that before you can fix anything.',
+          explanation: 'The first question accepts the framing that habits are the root problem. The second digs under it — often, people who can\'t sustain personal goals have a deeper issue: a mismatch between the goal and their actual values, environmental friction they haven\'t identified, or a lack of honest self-assessment about what the change would require. You have to find that before you can fix anything.',
         },
       },
       {
@@ -4979,21 +4979,21 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'Your team keeps having the same argument every week about priorities.',
-              response: 'You make a rule: all priority debates go through you before they\'re raised in meetings.',
-              outcome: 'Arguments go underground. People resent the bottleneck. The meetings get quieter but the dysfunction is now invisible — and harder to fix.',
+              situation: 'You and a partner, family member, or close friend keep having the same argument — about money, time, responsibilities, or some recurring tension — no matter how many times you seem to resolve it.',
+              response: 'You suppress it: "Let\'s just agree not to fight about this anymore." Or you resolve it in the moment and move on without examining why it keeps happening.',
+              outcome: 'It resurfaces within days or weeks, often angrier. Suppression isn\'t resolution. The underlying unmet need or structural mismatch is still there — just less visible, and harder to name now.',
             },
             {
               label: 'okay',
-              situation: 'Your team keeps having the same argument every week about priorities.',
+              situation: 'You and a partner, family member, or close friend keep having the same argument — about money, time, responsibilities, or some recurring tension — no matter how many times you seem to resolve it.',
               response: '"What\'s causing the disagreements? Let\'s talk through it."',
               outcome: 'You\'re on the right track. But one conversation doesn\'t fix a recurring pattern — you\'ve addressed an instance, not the structure.',
             },
             {
               label: 'great',
-              situation: 'Your team keeps having the same argument every week about priorities.',
-              response: '"This argument keeps coming up. What does that tell us about our system — what\'s missing in how we set and communicate priorities that makes this fight necessary?"',
-              outcome: 'The team realizes there\'s no single documented source of truth for priorities. Everyone is working from different signals. You build a simple system. The arguments stop.',
+              situation: 'You and a partner, family member, or close friend keep having the same argument — about money, time, responsibilities, or some recurring tension — no matter how many times you seem to resolve it.',
+              response: '"This argument keeps coming back. What does that tell us — what need or expectation is going unmet that keeps generating this conflict?"',
+              outcome: 'Instead of another content fight, you find the structural gap — an unspoken expectation, a mismatched value, an unmet need that neither of you had fully named. Addressing that changes the dynamic.',
             },
           ],
           takeaway: 'When a problem recurs, the real question isn\'t "what went wrong this time?" — it\'s "what in the system makes this keep happening?"',
@@ -5008,10 +5008,10 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your app\'s new users have low week-two retention. You\'ve asked "why" four times and reached: "Users don\'t understand the core value in their first session." What\'s the right fifth question?',
+          scenario: 'You want to save more money but keep running out before the month ends. You\'ve asked "why" four times and reached: "I spend impulsively when I\'m stressed or bored." What\'s the right fifth question?',
           options: [
-            { text: '"Why don\'t users understand the value?"', isCorrect: false },
-            { text: '"What specifically in the onboarding flow leaves users unclear about the value — and what would need to change?"', isCorrect: true },
+            { text: '"Why do I spend when I\'m stressed or bored?"', isCorrect: false },
+            { text: '"What specifically triggers the impulse spending — and what would need to change in my environment or routines to make it less automatic?"', isCorrect: true },
           ],
           explanation: 'After four "whys" you\'ve identified the root cause. The fifth question shouldn\'t ask "why" again — it should turn toward action: what specifically, and what would need to change. That\'s the transition from diagnosis to solution, and it\'s where the Five Whys technique earns its value.',
         },
@@ -6063,7 +6063,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Think of someone in your life — a team member, child, friend — who would grow significantly from better questioning skills. What\'s one thing you could do this week to model or encourage that? Not by teaching — but by being.',
+          prompt: 'Think of someone in your life — a child, younger person, partner, or friend — who would grow significantly from better questioning skills. What\'s one thing you could do this week to model or encourage that? Not by teaching — but by being.',
         },
       },
       {
@@ -6078,21 +6078,21 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              situation: 'A child, younger sibling, or someone you\'re mentoring asks a question that reveals a fundamental misunderstanding about something important.',
               response: '"Actually, that\'s not quite right — here\'s the answer." [Corrects them directly in front of the group.]',
-              outcome: 'They feel embarrassed. The other students silently decide not to risk asking something they\'re unsure about. Fewer questions surface for the rest of the session.',
+              outcome: 'They feel embarrassed. The others watching quietly decide not to risk asking something they\'re unsure about. Fewer questions come up after that.',
             },
             {
               label: 'okay',
-              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              situation: 'A child, younger sibling, or someone you\'re mentoring asks a question that reveals a fundamental misunderstanding about something important.',
               response: '"Good question — let me address that." [Gives a thorough answer.]',
               outcome: 'Warm and informative. But you\'ve answered the question for them rather than helping them discover the answer. The next misunderstanding will also require you to answer it.',
             },
             {
               label: 'great',
-              situation: 'A student asks a question in class that reveals a fundamental misunderstanding.',
+              situation: 'A child, younger sibling, or someone you\'re mentoring asks a question that reveals a fundamental misunderstanding about something important.',
               response: '"Interesting — what made you think about it that way? [Listen.] What do others think? [Get multiple perspectives.] What would change if X were true rather than Y?"',
-              outcome: 'You\'ve used their question as a thinking moment for everyone. The student who asked it becomes a contributor rather than someone who got it wrong. The class learns to interrogate ideas together.',
+              outcome: 'You\'ve used their question as a thinking moment for everyone. The person who asked it becomes a contributor rather than someone who got it wrong. Everyone in the conversation learns to interrogate ideas together.',
             },
           ],
           takeaway: 'In a question-friendly environment, wrong questions are more valuable than right answers — because they reveal what everyone is wondering but not saying.',
@@ -6107,12 +6107,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'Your team has just finished a project. You have five minutes for a debrief. Which question teaches the most?',
+          scenario: 'Your family, a friend group, or a community you\'re part of just finished something together — a trip, a project, a shared effort. You have five minutes to reflect on it. Which question teaches the most?',
           options: [
             { text: '"Did everything go well?"', isCorrect: false },
             { text: '"What\'s one thing that worked that we should keep, and one question we haven\'t asked yet about what we could do differently?"', isCorrect: true },
           ],
-          explanation: '"Did everything go well?" invites a yes or a vague answer — and models shallow reflection. The second question models two habits simultaneously: naming what worked (not just what went wrong) and generating unanswered questions (not just conclusions). Over time, your team learns to debrief the same way they see you debrief.',
+          explanation: '"Did everything go well?" invites a yes or a vague answer — and models shallow reflection. The second question models two habits simultaneously: naming what worked (not just what went wrong) and generating unanswered questions (not just conclusions). Over time, your group learns to debrief the same way they see you debrief.',
         },
       },
       {
