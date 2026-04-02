@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Sparkle } from '@phosphor-icons/react';
+import { useSpeech } from '../hooks/useSpeech';
+import SpeakButton from '../components/common/SpeakButton';
 import Card from '../components/common/Card';
 
 export default function TeamGeneratedLesson() {
@@ -12,8 +14,16 @@ export default function TeamGeneratedLesson() {
     return null;
   }
 
+  // Build full spoken text: content + key principle + example
+  const spokenText = [
+    lesson.content,
+    lesson.keyPrinciple ? `Key principle: ${lesson.keyPrinciple}` : '',
+    lesson.exampleQuestion ? `Try this: ${lesson.exampleQuestion}` : '',
+  ].filter(Boolean).join('. ');
+
   return (
     <div style={{ padding: 'var(--space-md)', display: 'flex', flexDirection: 'column', gap: 'var(--space-md)', maxWidth: 640, margin: '0 auto' }}>
+      {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', paddingTop: 'var(--space-sm)' }}>
         <button
           onClick={() => navigate(-1)}
@@ -28,6 +38,8 @@ export default function TeamGeneratedLesson() {
           </div>
           <h1 style={{ fontFamily: 'DM Serif Display, serif', fontSize: '1.3rem', margin: 0, color: 'var(--text-primary)' }}>{lesson.title}</h1>
         </div>
+        {/* Enya voice button */}
+        <SpeakButton text={spokenText} />
       </div>
 
       <Card padding="md">
