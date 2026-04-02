@@ -47,8 +47,10 @@ export function useTeamPath(org) {
         throw new Error(err.error || 'Generation failed');
       }
       await queryClient.invalidateQueries({ queryKey: ['teamPath', org.id] });
+      return true;
     } catch (e) {
       setGenerateError(e.message || 'Something went wrong');
+      return false;
     } finally {
       setGenerating(false);
     }

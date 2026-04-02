@@ -29,8 +29,8 @@ export default function TeamPathPage() {
   const handleGenerate = async (e) => {
     e.preventDefault();
     if (!focusArea || !focusDescription.trim()) return;
-    await generatePath(focusArea, focusDescription.trim());
-    setShowSetup(false);
+    const ok = await generatePath(focusArea, focusDescription.trim());
+    if (ok) setShowSetup(false);
   };
 
   // Map curated lesson IDs back to full lesson objects

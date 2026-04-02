@@ -56,6 +56,7 @@ const EXISTING_LESSONS = [
   { id: 37, title: 'Questions Across Cultures (Global)',                        skill: 'Cultural Awareness' },
   { id: 38, title: 'The Grand Questioner\'s Path',                             skill: 'Self-Reflection' },
   { id: 39, title: 'When the Answer Doesn\'t Come',                            skill: 'Empathy' },
+  { id: 40, title: 'The Why Trap',                                              skill: 'Framing' },
 ];
 
 function getOrigin(req) {
