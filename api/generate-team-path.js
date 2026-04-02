@@ -120,7 +120,7 @@ export default async function handler(req, res) {
     if (!members?.length) return res.status(403).json({ error: 'Not an org admin' });
   } catch (e) {
     console.error('Auth check error:', e);
-    return res.status(401).json({ error: 'Authorization failed', detail: e?.message || String(e) });
+    return res.status(401).json({ error: 'Authorization failed' });
   }
 
   try {
@@ -257,12 +257,12 @@ Rules:
     if (!upsertRes.ok) {
       const err = await upsertRes.text();
       console.error('Supabase upsert error:', err);
-      return res.status(500).json({ error: 'Failed to save path', detail: err });
+      return res.status(500).json({ error: 'Failed to save path' });
     }
 
     return res.status(200).json({ success: true, path });
   } catch (e) {
     console.error('generate-team-path error:', e);
-    return res.status(500).json({ error: 'Internal server error', detail: e?.message || String(e) });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
