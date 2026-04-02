@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, Crown, Lightning, Fire, Copy, Check, UserPlus, Trash, ArrowLeft } from '@phosphor-icons/react';
+import { Users, Crown, Lightning, Fire, Copy, Check, UserPlus, Trash, ArrowLeft, Sparkle, ArrowRight } from '@phosphor-icons/react';
 import { useOrg } from '../hooks/useOrg';
 import Card from '../components/common/Card';
 import './TeamPage.css';
@@ -169,6 +169,23 @@ export default function TeamPage() {
           </form>
         </Card>
       )}
+
+      {/* Team Path entry */}
+      <div className="team-section">
+        <h2 className="team-section-title">Learning</h2>
+        <Card padding="md" onClick={() => navigate('/team/path')}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+            <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-md)', background: 'rgba(139,92,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Sparkle size={20} weight="duotone" color="#8B5CF6" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <span style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>Team Path</span>
+              <span style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)' }}>Lessons & practice built for your team</span>
+            </div>
+            <ArrowRight size={16} color="var(--text-muted)" />
+          </div>
+        </Card>
+      </div>
 
       {activeMembers.length > 0 && (
         <div className="team-section">

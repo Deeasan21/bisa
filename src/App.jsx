@@ -13,6 +13,9 @@ import WelcomePage from './pages/WelcomePage';
 import TeamPage from './pages/TeamPage';
 import CreateOrgPage from './pages/CreateOrgPage';
 import JoinOrgPage from './pages/JoinOrgPage';
+import TeamPathPage from './pages/TeamPathPage';
+import TeamGeneratedLesson from './pages/TeamGeneratedLesson';
+import TeamGeneratedPractice from './pages/TeamGeneratedPractice';
 import { useAuth } from './hooks/useAuth';
 import { captureError } from './lib/sentry';
 import { trackPageView, capture } from './lib/analytics';
@@ -119,6 +122,9 @@ export default function App() {
           <Route path="/mode/technique" element={<SuspenseWrap><TechniqueMode /></SuspenseWrap>} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/team/create" element={<CreateOrgPage />} />
+          <Route path="/team/path" element={<TeamPathPage />} />
+          <Route path="/team/path/lesson" element={<TeamGeneratedLesson />} />
+          <Route path="/team/path/practice" element={<TeamGeneratedPractice />} />
           <Route path="/join" element={<JoinOrgPage />} />
         </Route>
       </Routes>
