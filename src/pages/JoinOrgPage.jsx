@@ -9,7 +9,7 @@ export default function JoinOrgPage() {
   const token = params.get('token');
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { acceptInvite, org } = useOrg();
+  const { acceptInvite, org, loading: orgLoading } = useOrg();
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -20,12 +20,15 @@ export default function JoinOrgPage() {
       sessionStorage.setItem('pendingInviteToken', token);
       return;
     }
-    // If already a member of any org, just go to the team page
+    // Wait for loadMembership to finish — it may have already accepted the invite
+    // via the stashed sessionStorage token, which would set org before we get here
+    if (orgLoading) return;
+    // If already a member of any org (including newly joined via loadMembership), go to team
     if (org) {
       navigate('/team', { replace: true });
       return;
     }
-    // Clear any stashed token — we have it in the URL
+    // loadMembership finished with no org — accept invite directly from the URL token
     sessionStorage.removeItem('pendingInviteToken');
     setStatus('loading');
     acceptInvite(token)
@@ -42,7 +45,7 @@ export default function JoinOrgPage() {
         setStatus('error');
         setErrorMsg(err.message || 'Something went wrong.');
       });
-  }, [token, user]);
+  }, [token, user, orgLoading, org]);
 
   const containerStyle = {
     display: 'flex', flexDirection: 'column', alignItems: 'center',
