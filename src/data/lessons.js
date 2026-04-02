@@ -2680,88 +2680,88 @@ export const LESSONS = [
   },
   {
     id: 16,
-    title: "Questions That Build Trust",
+    title: "Building Trust With the People You Love",
     skillCategory: 'Empathy',
     difficultyTier: 'intermediate',
     tier: 2,
     content: `
-      <h2>Lesson 16: Questions That Build Trust</h2>
-      <p class="intro">Trust is not built through grand gestures. It is built through small, repeated moments where someone feels safe with you. And the questions you ask — or choose not to ask — are some of the most powerful trust-building tools you have.</p>
+      <h2>Lesson 16: Building Trust With the People You Love</h2>
+      <p class="intro">Trust between people who matter to each other is not built through grand gestures. It is built through small, repeated moments where someone feels truly safe with you. And the questions you ask — or choose not to ask — are some of the most powerful tools you have.</p>
       <section class="lesson-section">
-        <h3>Psychological Safety Through Questions</h3>
-        <p>Harvard professor Amy Edmondson coined the term <strong>psychological safety</strong> — the belief that you will not be punished or humiliated for speaking up. Questions are one of the primary ways this safety is created or destroyed.</p>
+        <h3>Psychological Safety in Close Relationships</h3>
+        <p>Harvard professor Amy Edmondson coined the term <strong>psychological safety</strong> — the belief that you will not be judged, dismissed, or punished for being honest. This matters as much in friendships and families as it does anywhere else.</p>
         <p><strong>Trust-building questions sound like:</strong></p>
         <ul>
-          <li>"What is your honest take on this?"</li>
-          <li>"What am I not seeing?"</li>
-          <li>"If you could change one thing about how we work together, what would it be?"</li>
-          <li>"What do you need from me that you are not getting?"</li>
+          <li>"What have you actually been feeling about this — not the version you told everyone else?"</li>
+          <li>"What do you need from me that I haven't been giving you?"</li>
+          <li>"Is there something between us that we've been avoiding talking about?"</li>
+          <li>"What would make you feel more understood by me?"</li>
         </ul>
         <p><strong>Trust-eroding questions sound like:</strong></p>
         <ul>
-          <li>"Why did you do it that way?" (implies they did it wrong)</li>
-          <li>"Did you even think about this?" (implies incompetence)</li>
-          <li>"Who told you to do that?" (implies they lack authority)</li>
+          <li>"Why do you always make this about you?" (accusation dressed as curiosity)</li>
+          <li>"Did you really think that was a good idea?" (implies they're foolish)</li>
+          <li>"Why can't you just be happy?" (implies their feelings are a choice or a problem)</li>
         </ul>
-        <p>The difference often is not the words themselves but the tone, timing, and power dynamic. "Why did you do it that way?" can be genuinely curious or subtly accusatory. Context and delivery matter enormously.</p>
+        <p>Often the difference isn't the words — it's the tone, timing, and whether the question is genuinely for them or secretly for you.</p>
       </section>
       <section class="lesson-section">
         <h3>Vulnerability-Based Questions</h3>
-        <p>One of the fastest ways to build trust is to be vulnerable first. When you ask a question that reveals your own uncertainty, you give the other person permission to be uncertain too.</p>
+        <p>One of the fastest ways to build trust with someone close to you is to be vulnerable first. When you admit your own uncertainty, you give them permission to be uncertain too.</p>
         <div class="story-box">
-          <p><strong>A manager who wants honest feedback might say:</strong></p>
-          <p>"I have been trying to improve how I run our one-on-ones, but I am not sure I am getting it right. What is one thing I could do differently that would make these more useful for you?"</p>
-          <p>This works because the manager admitted imperfection first. The vulnerability is the trust signal.</p>
+          <p><strong>A partner who wants honest feedback might say:</strong></p>
+          <p>"I feel like I haven't been fully present lately, and I'm not sure if that's been affecting us. Is there something you've been wanting to say that you haven't?"</p>
+          <p>This works because admitting imperfection first is the trust signal — it makes honesty feel safer.</p>
         </div>
         <p><strong>More vulnerability-based questions:</strong></p>
         <ul>
-          <li>"I am not sure I handled that well. How did it land with you?"</li>
-          <li>"I might be wrong about this. What is your perspective?"</li>
-          <li>"I am struggling with this decision. What would you do?"</li>
+          <li>"I'm not sure I handled that well. How did it feel from your side?"</li>
+          <li>"I might be getting this wrong. What am I not seeing?"</li>
+          <li>"I've been struggling to figure out how to show up for you here. What would actually help?"</li>
         </ul>
       </section>
       <section class="lesson-section">
         <h3>The Trust Equation</h3>
         <p>David Maister's Trust Equation says: <strong>Trust = (Credibility + Reliability + Intimacy) divided by Self-Orientation.</strong></p>
-        <p>Questions can strengthen each component:</p>
+        <p>In personal relationships, this plays out as:</p>
         <ul>
-          <li><strong>Credibility:</strong> Ask informed questions that show you have done your homework.</li>
-          <li><strong>Reliability:</strong> Follow up on things people told you previously. "Last time you mentioned X — how did that turn out?"</li>
-          <li><strong>Intimacy:</strong> Ask questions that go beyond surface level. "What matters most to you about this?"</li>
-          <li><strong>Low self-orientation:</strong> Ask questions focused on them, not you. "What would be most helpful for you?" instead of "What do I need to know?"</li>
+          <li><strong>Credibility:</strong> Do you say what you mean and mean what you say?</li>
+          <li><strong>Reliability:</strong> Do you follow through? "You mentioned your interview was today — how did it go?" builds reliability through remembering.</li>
+          <li><strong>Intimacy:</strong> Do you ask beyond the surface? "What matters most to you about this?" instead of "What happened?"</li>
+          <li><strong>Low self-orientation:</strong> Is the question really about them, or about managing your own feelings?</li>
         </ul>
       </section>
       <section class="lesson-section">
         <h3>Remembering and Referencing</h3>
         <p>One of the most underrated trust builders is <strong>remembering what someone told you and asking about it later.</strong></p>
         <ul>
-          <li>"You mentioned your daughter's recital was last weekend. How did it go?"</li>
-          <li>"Last month you were worried about the Q3 numbers. Did things improve?"</li>
-          <li>"You said you were reading that book on leadership. What did you think?"</li>
+          <li>"You mentioned your sister was going through something hard — how is she doing?"</li>
+          <li>"Last month you were figuring out whether to leave that job. Did you make a decision?"</li>
+          <li>"You said something that stuck with me — that you've been feeling invisible lately. Is that still true?"</li>
         </ul>
         <p>These questions say: <em>I was listening. You mattered. I remembered.</em> Few things build trust faster.</p>
       </section>
       <section class="lesson-section">
         <h3>Practice Exercise</h3>
-        <p>Choose one relationship — a colleague, friend, or family member — where you want to deepen trust. This week:</p>
+        <p>Choose one person you care about — a partner, friend, sibling, or parent — where you want to deepen trust. This week:</p>
         <p><strong>1.</strong> Ask one vulnerability-based question where you admit uncertainty first.</p>
-        <p><strong>2.</strong> Reference something they shared with you previously.</p>
-        <p><strong>3.</strong> Ask "What do you need from me?" and truly listen to the answer.</p>
+        <p><strong>2.</strong> Reference something they shared with you previously and ask how it's going.</p>
+        <p><strong>3.</strong> Ask "What do you need from me right now?" and listen without offering solutions.</p>
         <p>Trust is built in moments. These three questions can create three of those moments.</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>When to Use Trust-Building Questions</h3>
         <ul>
-          <li>When you want to deepen a relationship — professional or personal</li>
-          <li>When building a new team or entering a new group — trust is the foundation for everything</li>
-          <li>When someone seems guarded — vulnerability-based questions show it's safe to be honest</li>
+          <li>When a friendship or relationship feels like it's lost some depth</li>
+          <li>When someone you love seems guarded — vulnerability-based questions signal that it's safe to be honest</li>
+          <li>When you want someone to know they matter to you beyond the surface</li>
         </ul>
         <h3>When NOT to Use Trust-Building Questions</h3>
         <ul>
-          <li>When trust hasn't been earned yet — asking "What are you not telling me?" too early feels intrusive, not inviting</li>
-          <li>When the vulnerability isn't genuine — fake vulnerability to extract honesty is manipulation</li>
-          <li>When you ask trust-building questions but don't follow through — remembering what someone shared and then ignoring it erodes trust faster than never asking</li>
-          <li>When power dynamics make the question feel coercive — a boss asking "What do you need from me?" while punishing honesty builds cynicism, not trust</li>
+          <li>When trust hasn't been established yet — asking "What are you not telling me?" too early feels intrusive</li>
+          <li>When the vulnerability isn't genuine — performing openness to extract honesty is manipulation</li>
+          <li>When you ask but don't follow through — remembering something personal and then ignoring it later erodes trust faster than never asking</li>
+          <li>When emotions are too raw — some questions need to wait until both people can actually hear each other</li>
         </ul>
       </section>
     `,
@@ -2770,11 +2770,11 @@ export const LESSONS = [
         id: 'psychological-safety',
         title: 'Building Psychological Safety',
         content: `
-          <p>Trust is not built through grand gestures. It's built through small, repeated moments where someone feels safe with you. And the questions you ask — or choose not to ask — are some of the most powerful trust-building tools you have.</p>
-          <p>Harvard professor Amy Edmondson coined the term <strong>psychological safety</strong> — the belief that you won't be punished or humiliated for speaking up. Questions create or destroy this safety.</p>
-          <p><strong>Trust-building:</strong> "What is your honest take on this?" "What am I not seeing?" "What do you need from me that you're not getting?"</p>
-          <p><strong>Trust-eroding:</strong> "Why did you do it that way?" (implies they did it wrong) "Did you even think about this?" (implies incompetence)</p>
-          <p>Often the difference isn't the words but the tone, timing, and power dynamic. "Why did you do it that way?" can be genuinely curious or subtly accusatory. Context matters enormously.</p>
+          <p>Trust between people who matter to each other isn't built through grand gestures. It's built through small, repeated moments where someone feels genuinely safe with you. The questions you ask — or don't ask — shape whether that safety exists.</p>
+          <p>Harvard professor Amy Edmondson coined the term <strong>psychological safety</strong> — the belief that you won't be judged, dismissed, or made to regret being honest. This is just as real in a friendship or family as it is anywhere else.</p>
+          <p><strong>Trust-building:</strong> "What have you actually been feeling about this?" "Is there something between us we've been avoiding?" "What would make you feel more understood by me?"</p>
+          <p><strong>Trust-eroding:</strong> "Why do you always make this about you?" (accusation in disguise) "Why can't you just be happy?" (implies their feelings are a problem)</p>
+          <p>The difference often isn't the words — it's whether the question is genuinely for them or secretly for you.</p>
         `,
         interaction: null,
       },
@@ -2797,29 +2797,29 @@ export const LESSONS = [
         id: 'remembering',
         title: 'Remember and Reference',
         content: `
-          <p>One of the most underrated trust-builders: <strong>remembering what someone told you and asking about it later.</strong> "You mentioned your daughter's recital — how did it go?" "Last month you were worried about Q3 — did things improve?"</p>
-          <p>These questions say: <em>I was listening. You mattered. I remembered.</em> Few things build trust faster.</p>
+          <p>One of the most underrated trust-builders in any close relationship: <strong>remembering what someone told you and asking about it later.</strong> "You mentioned your sister was going through something — how is she doing?" "Last month you were figuring out whether to leave that job — did you decide?"</p>
+          <p>These questions say: <em>I was listening. You mattered. I remembered.</em> Few things build trust faster between people who care about each other.</p>
         `,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'Which component of the Trust Equation do you find hardest to build?',
+          question: 'Which component of the Trust Equation do you find hardest to build in your close relationships?',
           options: [
             {
-              text: 'Credibility — being seen as knowledgeable and competent',
-              insight: 'Credibility is built partly through asking informed questions that show you\'ve done your homework. "I read your last report and noticed X — can you help me understand Y?" builds credibility while opening dialogue.',
+              text: 'Credibility — being someone whose words and intentions can be trusted',
+              insight: 'Credibility in relationships is built through consistency — saying what you mean and meaning what you say. Questions that signal you\'re genuinely trying to understand (not just appear to) are part of this: "I want to make sure I\'m getting this right — can you help me understand what you mean by that?"',
             },
             {
-              text: 'Reliability — following through on what you say you\'ll do',
-              insight: 'Trust-through-reliability can be built with questions too: "What would be most helpful to you, and when do you need it?" — then doing exactly that. Asking and delivering builds a track record.',
+              text: 'Reliability — following through, including on small things',
+              insight: 'Reliability builds through follow-through on what you said you\'d pay attention to. "You said you\'d been feeling lonely lately — I wanted to check back in" is a question that demonstrates you were actually listening.',
             },
             {
-              text: 'Intimacy — creating depth and safety in the relationship',
-              insight: 'Intimacy comes from asking questions that go beyond surface level — and sharing yourself in return. "What matters most to you about this?" is a question that builds intimacy when asked with genuine care.',
+              text: 'Intimacy — creating real depth, not just surface conversations',
+              insight: 'Intimacy comes from asking questions that go beneath the surface — and sharing yourself in return. "What has this actually been like for you, beyond what you told everyone else?" opens a different kind of conversation.',
             },
             {
-              text: 'Low self-orientation — keeping the focus on them, not me',
-              insight: 'This is the hardest and most important. The test: before asking, ask yourself "who is this question for?" If the honest answer is "for me," rephrase toward their experience first.',
+              text: 'Low self-orientation — keeping the focus on them when they need it',
+              insight: 'This is the hardest and most important. Before asking, try checking: "Is this question for them — or is it to manage my own feelings?" If it\'s the latter, the question can wait.',
             },
           ],
         },
@@ -2836,24 +2836,24 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'Your direct report seems disengaged in meetings lately.',
+              situation: 'A close friend has been distant and less communicative for a few weeks.',
               response: '"Why have you been so checked out lately?"',
-              outcome: 'They get defensive. The phrase "checked out" is a judgment before you\'ve heard anything. Trust drops.',
+              outcome: 'They get defensive. "Checked out" is a judgment before you\'ve heard anything. They shut down or apologize stiffly. Whatever was going on stays hidden.',
             },
             {
               label: 'okay',
-              situation: 'Your direct report seems disengaged in meetings lately.',
+              situation: 'A close friend has been distant and less communicative for a few weeks.',
               response: '"Is everything okay with you?"',
-              outcome: 'They say "yeah, fine." You\'ve offered care but in a closed form — the answer was almost predetermined.',
+              outcome: 'They say "yeah, fine." You\'ve offered care, but in a closed form — the answer was almost predetermined. Nothing really opens.',
             },
             {
               label: 'great',
-              situation: 'Your direct report seems disengaged in meetings lately.',
-              response: '"I\'ve noticed you\'ve seemed a bit quieter lately — I wanted to check in. What\'s going on for you?"',
-              outcome: 'They open up about a personal situation they\'d been hiding. The conversation builds real trust.',
+              situation: 'A close friend has been distant and less communicative for a few weeks.',
+              response: '"I\'ve noticed you\'ve seemed a bit quieter lately — I\'m not asking you to explain yourself, I just wanted to say I\'m here. What\'s going on for you?"',
+              outcome: 'They pause. Then they tell you what\'s actually been happening — something they hadn\'t told anyone. The conversation deepens the friendship.',
             },
           ],
-          takeaway: 'Naming what you\'ve observed — without labeling it as a problem — creates the safest invitation to honesty.',
+          takeaway: 'Naming what you\'ve noticed — without labeling it as a problem — creates the safest invitation to honesty. Releasing the need for an explanation makes the opening even wider.',
         },
       },
       {
@@ -2865,12 +2865,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'A colleague made a call on a project without looping you in. You want to understand what happened — without creating resentment. Which question builds trust?',
+          scenario: 'Someone you care about made a decision that affected you without talking to you first. You want to understand what happened — without causing a rupture. Which question builds trust?',
           options: [
-            { text: '"Why did you make that call without telling me?"', isCorrect: false },
-            { text: '"Help me understand the thinking behind that decision."', isCorrect: true },
+            { text: '"Why did you do that without telling me?"', isCorrect: false },
+            { text: '"Help me understand what was going through your mind."', isCorrect: true },
           ],
-          explanation: '"Why" questions — especially about decisions — can sound accusatory even when you don\'t mean them that way. The second question expresses the same curiosity but frames it as learning, not judgment. The other person stays open rather than going defensive.',
+          explanation: '"Why" questions — especially about decisions — can sound accusatory even when you don\'t mean them that way. The second question invites them into the same conversation without putting them on trial. They stay open instead of going defensive, and you actually learn what happened.',
         },
       },
       {
@@ -2887,23 +2887,23 @@ export const LESSONS = [
   },
   {
     id: 17,
-    title: "Avoiding Assumptions",
+    title: "The Stories We Make Up About People",
     skillCategory: 'Clarifying',
     difficultyTier: 'intermediate',
     tier: 2,
     content: `
-      <h2>Lesson 17: Avoiding Assumptions</h2>
-      <p class="intro">Every question you ask carries invisible baggage — assumptions about what is true, what the other person thinks, and how the world works. When you do not examine these assumptions, your questions can mislead, offend, or shut down the very conversation you are trying to open.</p>
+      <h2>Lesson 17: The Stories We Make Up About People</h2>
+      <p class="intro">The moment you meet someone — or the moment a person you love does something unexpected — your brain starts filling in the blanks. You construct a story about who they are, what they meant, why they did it. And then you ask questions that confirm the story you've already written.</p>
       <section class="lesson-section">
         <h3>How Assumptions Poison Questions</h3>
-        <p>An assumption-loaded question has a hidden premise baked into it. The classic example: "When did you stop cheating?" assumes cheating happened. But everyday assumptions are more subtle:</p>
+        <p>An assumption-loaded question has a hidden premise baked into it. The classic example: "When did you stop cheating?" assumes cheating happened. But everyday assumptions are far more subtle:</p>
         <ul>
-          <li>"Why are you so quiet in meetings?" <em>(assumes quietness is a problem)</em></li>
-          <li>"What went wrong with the project?" <em>(assumes something went wrong)</em></li>
-          <li>"How do you balance work and family?" <em>(assumes they have a family, or that balance is their goal)</em></li>
-          <li>"Why did you not think of that?" <em>(assumes they should have)</em></li>
+          <li>"Why are you so unfriendly?" <em>(assumes unfriendliness — they might just be anxious)</em></li>
+          <li>"What's wrong with you today?" <em>(assumes something is wrong)</em></li>
+          <li>"Why do you always do this?" <em>(assumes a pattern, assigns intent)</em></li>
+          <li>"Why didn't you just tell me?" <em>(assumes they should have known to)</em></li>
         </ul>
-        <p>Each of these questions forces the other person to either accept your assumption or spend energy correcting it. Either way, you have taken control of the narrative instead of opening space for theirs.</p>
+        <p>Each of these questions forces the other person to either accept your framing or spend energy correcting it. Either way, you've already written the story — and they're just a character in it.</p>
       </section>
       <section class="lesson-section">
         <h3>The Assumption Audit</h3>
@@ -2912,51 +2912,51 @@ export const LESSONS = [
         <p><strong>Step 2:</strong> Ask yourself — "What am I assuming is true?"</p>
         <p><strong>Step 3:</strong> Rewrite the question without the assumption.</p>
         <div class="story-box">
-          <p><strong>Original:</strong> "Why are you resistant to this change?"</p>
-          <p><strong>Assumption:</strong> They are resistant.</p>
-          <p><strong>Rewrite:</strong> "What is your reaction to this proposed change?"</p>
-          <p><strong>Original:</strong> "What is stressing you out?"</p>
+          <p><strong>Original:</strong> "Why are you being so cold to me?"</p>
+          <p><strong>Assumption:</strong> They are deliberately cold — and it's about you.</p>
+          <p><strong>Rewrite:</strong> "You seem a little off today — is everything okay?"</p>
+          <p><strong>Original:</strong> "What's stressing you out?"</p>
           <p><strong>Assumption:</strong> They are stressed.</p>
-          <p><strong>Rewrite:</strong> "How are you doing with everything on your plate?"</p>
+          <p><strong>Rewrite:</strong> "How are you feeling about everything going on?"</p>
         </div>
-        <p>The rewritten questions open space. The originals close it.</p>
+        <p>The rewritten questions open space. The originals close it — and often create the very conflict they were trying to address.</p>
       </section>
       <section class="lesson-section">
-        <h3>Confirmation Bias in Questions</h3>
-        <p><strong>Confirmation bias</strong> is the tendency to seek information that confirms what you already believe. It is especially dangerous in questions because you will naturally ask questions that lead toward answers you expect.</p>
-        <p>If you believe a coworker is slacking, you might ask: "How much time did you actually spend on this?" The word "actually" reveals your assumption.</p>
-        <p><strong>The antidote:</strong> Deliberately ask questions that could prove you wrong.</p>
+        <h3>Confirmation Bias and the Stranger Problem</h3>
+        <p><strong>Confirmation bias</strong> makes you naturally ask questions that confirm what you already believe. With strangers, this is especially dangerous — because you have almost no actual information, but your brain fills the gap with pattern-matching and projection.</p>
+        <p>You meet someone at a gathering who seems aloof. You decide they're unfriendly. Every subsequent question you ask — or don't ask — is colored by that verdict. You've judged someone before they've had a chance to be themselves.</p>
+        <p><strong>The antidote:</strong> Deliberately ask questions that could prove your story wrong.</p>
         <ul>
-          <li>If you think someone is disengaged, ask: "What part of this work energizes you most?"</li>
-          <li>If you think a plan will fail, ask: "What would need to be true for this to succeed?"</li>
-          <li>If you think you know the answer, ask: "What am I missing here?"</li>
+          <li>If someone seems unfriendly, ask: "What brings you here tonight?" — they might just be nervous.</li>
+          <li>If someone seems boring, ask: "What's something you've been thinking about lately?" — you might be surprised.</li>
+          <li>If you think you know who someone is, ask: "What am I missing about you?"</li>
         </ul>
       </section>
       <section class="lesson-section">
-        <h3>Cultural and Identity Assumptions</h3>
-        <p>Some of the most harmful assumptions are rooted in identity — assumptions based on someone's appearance, background, accent, age, or role.</p>
+        <h3>First Impressions and Identity Assumptions</h3>
+        <p>Some of the most harmful assumptions are rooted in appearance, background, age, or behavior at a single moment.</p>
         <ul>
-          <li>"Where are you really from?" <em>(assumes they are foreign)</em></li>
-          <li>"Who watches your kids while you work?" <em>(assumes gender roles)</em></li>
-          <li>"Can you explain this in simpler terms?" <em>(assumes someone cannot understand complexity)</em></li>
+          <li>"Where are you really from?" <em>(assumes they are foreign based on appearance)</em></li>
+          <li>"You seem like you have everything together." <em>(assumes visible confidence means inner certainty)</em></li>
+          <li>"You don't seem like the type who would..." <em>(assumes a type)</em></li>
         </ul>
-        <p><strong>The fix is not to avoid questions about people's lives.</strong> It is to ask open questions that let them define their own story: "Tell me about your background" rather than "Are you from [country]?"</p>
+        <p><strong>The fix is not to avoid questions about people's lives.</strong> It's to ask open questions that let them define their own story: "Tell me about your background" rather than "Are you from [country]?" gives them the pen.</p>
       </section>
       <section class="lesson-section">
         <h3>Practice Exercise</h3>
-        <p>For one day, write down five questions you ask people. After each one, identify the assumption embedded in it. Then rewrite the question assumption-free. Over time, this audit becomes automatic — and your questions become cleaner, more respectful, and far more effective.</p>
+        <p>For one day, notice the story you build about someone before asking them anything — a stranger, a friend who's acting differently, a family member you think you know. Then ask one question that challenges your story. Notice what you learn.</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>When to Run an Assumption Audit</h3>
         <ul>
-          <li>Before any high-stakes conversation — interviews, feedback sessions, negotiations</li>
-          <li>When asking questions about someone's identity, background, or personal life</li>
-          <li>When you notice yourself feeling certain about someone's motives before asking</li>
+          <li>When meeting someone new and you've already formed an impression</li>
+          <li>When someone close to you does something unexpected and you feel certain you know why</li>
+          <li>When you notice yourself feeling sure about someone's motives before you've asked</li>
         </ul>
         <h3>When NOT to Over-Audit</h3>
         <ul>
-          <li>When you're so worried about assumptions that you stop asking anything at all — imperfect questions asked with genuine curiosity are better than silence</li>
-          <li>When the assumption is reasonable and shared — "How was your weekend?" assumes they had one, and that's fine</li>
+          <li>When you're so worried about assumptions that you stop asking anything — imperfect questions asked with genuine curiosity are better than silence</li>
+          <li>When the assumption is reasonable and shared — "How was your weekend?" is fine</li>
           <li>When auditing every word becomes performative rather than genuine — the point is cleaner thinking, not linguistic perfection</li>
         </ul>
       </section>
@@ -2966,14 +2966,14 @@ export const LESSONS = [
         id: 'assumption-poison',
         title: 'How Assumptions Poison Questions',
         content: `
-          <p>Every question you ask carries invisible baggage — assumptions about what's true, what the other person thinks, and how the world works. When you don't examine these assumptions, your questions can mislead, offend, or shut down the very conversation you're trying to open.</p>
-          <p>The classic example: "When did you stop cheating?" assumes cheating happened. But everyday assumptions are more subtle:</p>
+          <p>Every question you ask carries invisible baggage — assumptions about what's true, what the other person thinks, and why they did what they did. When you don't examine these, your questions can mislead, offend, or shut down the very conversation you were trying to open.</p>
+          <p>The classic example: "When did you stop cheating?" assumes cheating happened. But the assumptions that hurt us most are the everyday ones:</p>
           <ul>
-            <li>"Why are you so quiet in meetings?" <em>(assumes quietness is a problem)</em></li>
-            <li>"How do you balance work and family?" <em>(assumes they have a family, or that balance is their goal)</em></li>
-            <li>"Why didn't you think of that?" <em>(assumes they should have)</em></li>
+            <li>"Why are you being so cold to me?" <em>(assumes coldness — and that it's about you)</em></li>
+            <li>"Why do you always do this?" <em>(assumes a pattern, assigns intent)</em></li>
+            <li>"What's wrong with you today?" <em>(assumes something is wrong — and puts it on them)</em></li>
           </ul>
-          <p>Each forces the other person to accept your framing — or spend energy correcting it. Either way, you've taken control of their narrative instead of opening space for theirs.</p>
+          <p>Each forces the other person to accept your story — or spend energy correcting it. Either way, you've already decided who they are before asking.</p>
         `,
         interaction: null,
       },
@@ -2981,43 +2981,40 @@ export const LESSONS = [
         id: 'audit',
         title: 'The Assumption Audit',
         content: `
-          <p>Before asking an important question, run a quick <strong>Assumption Audit</strong>: write or think through the question, ask "What am I assuming is true?", then rewrite the question without the assumption. See it in action:</p>
+          <p>Before asking an important question, run a quick <strong>Assumption Audit</strong>: think through the question, ask "What am I assuming is true?", then rewrite the question without the assumption. See it in action:</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"Why are you resistant to this change?"',
-          after: '"What\'s your reaction to this proposed change?"',
-          explanation: 'The first assumes resistance — so the other person either agrees with the framing (creates defensiveness) or spends energy correcting it ("I\'m not resistant, I just..."). The second is genuinely open. Their reaction might be enthusiastic, skeptical, confused, or conflicted — you don\'t know yet. The clean question finds out.',
+          before: '"Why are you being so distant lately?"',
+          after: '"I feel like we haven\'t really connected lately — is something going on for you?"',
+          explanation: 'The first assumes they\'re being distant intentionally — it\'s accusatory before you\'ve heard anything. The other person has to defend themselves before explaining anything. The second names what you\'ve noticed, owns your own feeling, and opens the door without presuming the cause. You might learn they\'ve been dealing with something hard — and it had nothing to do with you.',
         },
       },
       {
         id: 'confirmation-bias',
-        title: 'Confirmation Bias and Identity Assumptions',
+        title: 'The Stories We Tell About Strangers',
         content: `
-          <p><strong>Confirmation bias</strong> makes you naturally ask questions that lead toward answers you already expect. The antidote: deliberately ask questions that could prove you wrong.</p>
-          <ul>
-            <li>If you think someone is disengaged, ask: "What part of this work energizes you most?"</li>
-            <li>If you think a plan will fail, ask: "What would need to be true for this to succeed?"</li>
-          </ul>
-          <p>Some of the most harmful assumptions are rooted in identity — based on someone's appearance, background, age, or role. The fix isn't to avoid questions about people's lives. It's to ask open questions that let them define their own story: "Tell me about your background" rather than "Are you from [country]?"</p>
+          <p><strong>Confirmation bias</strong> makes you naturally ask questions that confirm what you already believe. With strangers, this is especially dangerous — you have almost no information, but your brain fills the gap instantly.</p>
+          <p>You meet someone at a gathering who seems quiet and aloof. You decide they're unfriendly. Every question you ask from that point — or don't ask — is shaped by that verdict. You've already written their character before they've had a chance to be themselves.</p>
+          <p>The antidote: deliberately ask questions that could prove your story wrong.</p>
         `,
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'You believe a colleague is slacking. You\'re about to check in with them. Which question is assumption-free?',
+          scenario: 'You\'re at a social event. Someone you just met is giving short answers and not asking you much back. You\'ve decided they\'re unfriendly. Which question challenges your assumption?',
           options: [
-            { text: '"How much time did you actually spend on this?"', isCorrect: false },
-            { text: '"Walk me through where you are with the project."', isCorrect: true },
+            { text: '"You seem like you\'d rather be somewhere else — am I right?"', isCorrect: false },
+            { text: '"What brings you here tonight?"', isCorrect: true },
           ],
-          explanation: 'The word "actually" in the first question reveals the assumption — you already suspect they haven\'t done enough. That framing puts them on defense before they\'ve said a word. The second is neutral and invites them to show you their work, which gives you real information either way.',
+          explanation: 'The first confirms your story and puts them in an awkward position — they either agree (conversation over) or deny it defensively. The second is genuinely open. They might be shy, nervous, having a hard week, or just a slow-starter. You won\'t know until you actually ask.',
         },
       },
       {
         id: 'assumption-explorer',
-        title: 'The Same Question, Three Levels of Assumption',
+        title: 'Reading Someone Wrong',
         content: `
-          <p>Not all assumption-loaded questions are equally harmful. Some carry light assumptions, others are deeply loaded. See the spectrum:</p>
+          <p>Here's how quickly a misread can calcify into a conclusion — and how one different question changes everything:</p>
         `,
         interaction: {
           type: 'consequence-explorer',
@@ -3025,52 +3022,52 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'A new team member is quieter than expected in their first month.',
-              response: '"Why are you so shy? You need to speak up more."',
-              outcome: 'The assumption that quietness = shyness = a problem. They feel judged before they\'ve had a chance to show who they are.',
+              situation: 'You meet someone at a party who barely makes eye contact and gives one-word answers.',
+              response: '"You\'re kind of hard to talk to, you know that?"',
+              outcome: 'They look hurt and excuse themselves. You feel slightly vindicated — "see, they were unfriendly." But you were wrong. They\'re severely anxious in social settings and were already fighting to stay in the conversation.',
             },
             {
               label: 'okay',
-              situation: 'A new team member is quieter than expected in their first month.',
-              response: '"Are you feeling comfortable on the team?"',
-              outcome: 'Slightly better — it\'s warmer, but still assumes discomfort is the issue. A yes/no question limits what they can tell you.',
+              situation: 'You meet someone at a party who barely makes eye contact and gives one-word answers.',
+              response: '"Do you know many people here?"',
+              outcome: 'Better — it\'s a gentle opener. They say "not really." You interpret that as confirmation of your theory and move on. Still a missed connection.',
             },
             {
               label: 'great',
-              situation: 'A new team member is quieter than expected in their first month.',
-              response: '"What\'s been your experience of the team so far?"',
-              outcome: 'Completely open. They might share that they\'re still calibrating, or that they process differently — and you learn something real.',
+              situation: 'You meet someone at a party who barely makes eye contact and gives one-word answers.',
+              response: '"Big groups aren\'t always easy — is there something you\'d rather be talking about than party small talk?"',
+              outcome: 'They pause. Then they laugh and say "honestly yes — I\'ve been obsessed with this thing all week." Twenty minutes later you\'re deep in a conversation you didn\'t expect to have.',
             },
           ],
-          takeaway: 'The assumption-free question doesn\'t just avoid offense — it actually gets you better information.',
+          takeaway: 'The most interesting people are often the ones who look the least available at first. A question that meets them where they are — instead of where you expected them to be — is the one that opens things up.',
         },
       },
       {
         id: 'assumption-poll',
         title: 'Where Do Your Assumptions Come From?',
         content: `
-          <p>We all carry assumptions — the question is which ones are most likely to sneak into our questions unexamined.</p>
+          <p>We all carry assumptions — the question is which ones are most likely to sneak into our interactions unexamined.</p>
         `,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'Which type of assumption do you think most often affects your questions?',
+          question: 'Which type of assumption most often shapes how you engage with people you don\'t know well?',
           options: [
             {
-              text: 'Role assumptions — assuming people think or act a certain way because of their job or status',
-              insight: 'Role assumptions are pervasive in hierarchical settings. The antidote: treat every individual as if their job title tells you very little about their actual perspective.',
+              text: 'Appearance assumptions — I\'ve already formed an impression before they speak',
+              insight: 'Appearance assumptions are fast and often wrong. The antidote isn\'t to pretend you don\'t notice — it\'s to deliberately ask a question that lets them defy the first impression.',
             },
             {
-              text: 'Emotional assumptions — assuming I know how someone feels before they tell me',
-              insight: 'Even well-meaning emotional assumptions ("you must be devastated") close down the conversation. Try naming what you observe instead: "You seem thoughtful — what\'s on your mind?"',
+              text: 'Emotional assumptions — I assume I know how they feel before they tell me',
+              insight: 'Even well-meaning assumptions ("you must be nervous") close things down. Try naming what you observe instead: "You seem like you\'re thinking about something — what\'s on your mind?"',
             },
             {
-              text: 'Cause assumptions — assuming I know why someone did something before I ask',
-              insight: 'These are especially risky in conflict. "You did X because Y" is almost always an inference, not a fact. The question "What was behind that decision?" tends to reveal a reality you didn\'t expect.',
+              text: 'Intent assumptions — I think I know why they said or did something before asking',
+              insight: 'Intent assumptions are especially common in conflict or awkwardness. "They did X because Y" is almost always an inference, not a fact. "What were you thinking when that happened?" tends to reveal a reality you didn\'t expect.',
             },
             {
-              text: 'Outcome assumptions — assuming the result of something before asking',
-              insight: '"What went wrong?" assumes something went wrong. "What went well?" assumes something did. Try: "How did it go?" and let them tell you the shape of the experience.',
+              text: 'Category assumptions — I slot people into types and expect type-typical behavior',
+              insight: 'Category assumptions ("she seems like a shy person," "he seems like a talker") are a shortcut that often misfires. Every person contains categories that contradict each other. The question "what surprised you recently?" can crack through any category.',
             },
           ],
         },
@@ -3089,13 +3086,13 @@ export const LESSONS = [
   },
   {
     id: 18,
-    title: "The Ladder of Inference",
+    title: "The Story You Built Before They Finished Their Sentence",
     skillCategory: 'Probing',
     difficultyTier: 'intermediate',
     tier: 2,
     content: `
-      <h2>Lesson 18: The Ladder of Inference</h2>
-      <p class="intro">Imagine a ladder inside your mind. At the bottom rung is raw, observable reality — what actually happened. At the top is the action you take. Between them are several invisible rungs: the data you select, the meaning you add, the assumptions you make, the conclusions you draw, and the beliefs you adopt. Most of us race up this ladder in milliseconds without realizing it. Questions are the tool that lets you climb back down.</p>
+      <h2>Lesson 18: The Story You Built Before They Finished Their Sentence</h2>
+      <p class="intro">Someone you just met goes quiet after your joke. A friend doesn't text back for two days. A person at a gathering looks past you while you're talking. In milliseconds, your brain has already written a story about what it means — who they are, what they think of you, what's really going on. You act on that story as if it were fact. It almost never is.</p>
       <section class="lesson-section">
         <h3>The Seven Rungs</h3>
         <p>Psychologist Chris Argyris described the <strong>Ladder of Inference</strong> as the mental path we travel from observation to action:</p>
@@ -3108,48 +3105,47 @@ export const LESSONS = [
           <li><strong>Rung 6 — Beliefs:</strong> Views that shape future perception</li>
           <li><strong>Rung 7 — Actions:</strong> What you do based on all of the above</li>
         </ul>
-        <p>The problem is not that you climb the ladder — everyone must. The problem is climbing it <em>unconsciously</em> and treating your conclusions as facts.</p>
+        <p>The problem is not that you climb the ladder — everyone must. The problem is climbing it <em>unconsciously</em> and treating your private story as shared reality.</p>
       </section>
       <section class="lesson-section">
         <h3>Questions That Descend the Ladder</h3>
-        <p>The power of the ladder metaphor is that you can use questions to move yourself and others back down toward observable reality:</p>
+        <p>You can use questions to move yourself — or someone else — back down toward what actually happened:</p>
         <div class="story-box">
-          <p><strong>At the action level:</strong> "What are you planning to do about this?"</p>
-          <p><strong>At the belief level:</strong> "What do you believe is really going on here?"</p>
-          <p><strong>At the conclusion level:</strong> "What conclusion are you drawing from this?"</p>
-          <p><strong>At the assumption level:</strong> "What are you assuming about their intentions?"</p>
-          <p><strong>At the interpretation level:</strong> "How are you interpreting what happened?"</p>
-          <p><strong>At the data level:</strong> "What exactly did they say or do?"</p>
+          <p><strong>At the action level:</strong> "What are you about to do — and is it based on what happened or what you inferred?"</p>
+          <p><strong>At the belief level:</strong> "What do I now believe about this person — and how did I get there?"</p>
+          <p><strong>At the conclusion level:</strong> "What conclusion am I drawing? Is it actually supported?"</p>
+          <p><strong>At the assumption level:</strong> "What am I assuming about their intentions?"</p>
+          <p><strong>At the data level:</strong> "What exactly did they say or do — in their words, not my interpretation?"</p>
         </div>
-        <p>Each question moves the conversation closer to shared reality and further from private interpretation.</p>
+        <p>Each question moves you closer to shared reality and further from the private story you've been building alone.</p>
       </section>
       <section class="lesson-section">
         <h3>Using It on Yourself</h3>
-        <p>The ladder is most powerful when you use it on your own thinking. When you feel a strong reaction — anger, defensiveness, certainty — pause and ask yourself:</p>
+        <p>The ladder is most powerful when you use it on your own thinking. When you feel a strong reaction — hurt, certainty, the urge to pull away — pause and ask:</p>
         <ul>
-          <li>"What data am I working from?"</li>
+          <li>"What data am I actually working from?"</li>
           <li>"Am I selecting data that confirms what I already think?"</li>
           <li>"What meaning am I adding that might not be there?"</li>
-          <li>"What would someone else see in this same situation?"</li>
+          <li>"What would someone who liked this person see in the same situation?"</li>
         </ul>
-        <p>This is not about doubting yourself constantly. It is about building the habit of <strong>checking your reasoning</strong> before acting on it, especially in high-stakes moments.</p>
+        <p>This is not about doubting every feeling. It is about the habit of <strong>checking your reasoning</strong> before acting on it in a way you might regret.</p>
       </section>
       <section class="lesson-section">
         <h3>Practice Exercise</h3>
-        <p>Think of a recent situation where you felt certain about someone else's motives. Write down the observable facts (what they actually said or did), then trace your reasoning up each rung. Where did you add meaning? Where did you make assumptions? What questions could you have asked to check your interpretation?</p>
+        <p>Think of someone you recently made a quick judgment about — someone new, or someone close who did something that confused or hurt you. Write down only the observable facts. Then trace your reasoning up each rung: where did you add meaning? What question could you have asked to check your interpretation before the story hardened?</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>When to Use the Ladder of Inference</h3>
         <ul>
-          <li>When you have a strong reaction — anger, certainty, defensiveness — and want to check if it's based on reality or interpretation</li>
-          <li>In conflict, when both sides are working from different interpretations of the same events</li>
-          <li>On yourself — when you catch yourself saying "They obviously did it because..." and realize you're at the top of the ladder</li>
+          <li>When you feel a strong reaction to something someone did — and you're about to act on it</li>
+          <li>When you've decided you know what someone meant before asking</li>
+          <li>When you catch yourself saying "They obviously did it because..." and realize you're at the top of the ladder</li>
         </ul>
         <h3>When NOT to Use the Ladder of Inference</h3>
         <ul>
-          <li>To gaslight someone's valid perception — "You're just climbing the ladder of inference" can dismiss legitimate concerns</li>
-          <li>When speed matters — descending the ladder takes time, and in emergencies you need to act on your best read</li>
-          <li>When you use it to second-guess every thought until you can't trust your own judgment — the ladder is for checking, not for paralysis</li>
+          <li>To dismiss someone's valid perception — "You're just climbing the ladder" can gaslight a real concern</li>
+          <li>When speed matters — sometimes you need to act on your best read; the ladder is for reflection, not real-time emergency</li>
+          <li>When it becomes paralysis — the goal is a quick self-check, not endless second-guessing</li>
         </ul>
       </section>
     `,
@@ -3158,18 +3154,18 @@ export const LESSONS = [
         id: 'seven-rungs',
         title: 'The Ladder Inside Your Mind',
         content: `
-          <p>Imagine a ladder inside your mind. At the bottom is raw, observable reality — what actually happened. At the top is the action you take. Between them are several invisible rungs you climb in milliseconds without realizing it.</p>
-          <p>Psychologist Chris Argyris described the <strong>Ladder of Inference</strong>:</p>
+          <p>Someone you just met goes quiet after your joke. A friend doesn't text back for two days. Your mind doesn't wait for information — it builds a complete story in milliseconds, then acts like the story is fact.</p>
+          <p>Psychologist Chris Argyris called this the <strong>Ladder of Inference</strong>: the mental path from observable reality to the action you take, with several invisible rungs between them that you climb without realizing it.</p>
           <ul>
             <li><strong>Rung 1 — Observable Data:</strong> The actual words, events, or facts</li>
             <li><strong>Rung 2 — Selected Data:</strong> What you choose to pay attention to</li>
             <li><strong>Rung 3 — Interpreted Data:</strong> The meaning you add</li>
             <li><strong>Rung 4 — Assumptions:</strong> Beliefs formed from your interpretations</li>
             <li><strong>Rung 5 — Conclusions:</strong> Judgments you reach</li>
-            <li><strong>Rung 6 — Beliefs:</strong> Views that shape future perception</li>
+            <li><strong>Rung 6 — Beliefs:</strong> Views that shape how you see them going forward</li>
             <li><strong>Rung 7 — Actions:</strong> What you do based on all of the above</li>
           </ul>
-          <p>The problem isn't climbing the ladder — everyone must. The problem is climbing it <em>unconsciously</em> and treating your conclusions as facts.</p>
+          <p>The problem isn't climbing the ladder — everyone does. The problem is climbing it <em>unconsciously</em> and treating the story you built as shared reality.</p>
         `,
         diagram: {
           type: 'escalation-flow',
@@ -3188,10 +3184,10 @@ export const LESSONS = [
         interaction: {
           type: 'before-after',
           required: true,
-          context: 'Your colleague hasn\'t responded to your last three messages. You\'ve concluded they\'re avoiding you.',
-          before: 'You act from the top of the ladder: you stop including them in key meetings. You mention to your manager that they "seem checked out."',
-          after: 'You climb back down: "What did they actually say or do?" (just no replies) "What\'s another explanation?" (busy, missed notifications, personal situation) You ask: "Hey, wanted to check in — everything okay? I know things have been hectic."',
-          explanation: 'At the top of the ladder, your interpretation feels like fact — and you act on it with real consequences. Descending asks: what do I actually know vs. what have I added? The clean question reveals reality rather than confirming the story you built.',
+          context: 'Someone you met at a gathering seemed to look past you mid-conversation and then drifted away. You\'ve decided they thought you were boring.',
+          before: 'You act from the top of the ladder: you feel embarrassed and withdraw for the rest of the event. You leave early. You decide you\'re not good at social situations.',
+          after: 'You climb back down: "What did they actually do?" (looked away, moved on) "What\'s another explanation?" (saw someone they knew, anxious themselves, had to get somewhere) You notice the reaction, and either let it go or ask: "Hey — good to meet you earlier. What brings you here tonight?"',
+          explanation: 'At the top of the ladder, the interpretation feels like fact — and the actions you take from there have real consequences. Descending asks: what do I actually know vs. what did I add? Often the reality is much more neutral than the story your brain wrote.',
         },
       },
       {
@@ -3206,24 +3202,24 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'Your manager didn\'t include you in a key meeting this week.',
-              response: 'You immediately conclude: "They\'re pushing me out. I\'m going to be managed out." You start job searching.',
-              outcome: 'You\'ve leapt from observable data (absent from meeting) to action (job search) in seconds. The interpretation in between was entirely yours.',
+              situation: 'Someone you like texts back late and briefly for the third time in a row.',
+              response: 'You immediately conclude: "They\'re not interested. I\'m reading this wrong. They\'re probably just politely tolerating me." You pull back and stop reaching out.',
+              outcome: 'You\'ve leapt from observable data (short replies) to action (withdrawing) in seconds. The interpretation in between was entirely yours. The relationship quietly ends based on a story you told yourself.',
             },
             {
               label: 'okay',
-              situation: 'Your manager didn\'t include you in a key meeting this week.',
-              response: 'You feel hurt but wait. Later you mention it: "I noticed I wasn\'t in that meeting — can you help me understand why?"',
-              outcome: 'Better — you checked the interpretation. They explain the meeting was deliberately small to move fast. The story collapses.',
+              situation: 'Someone you like texts back late and briefly for the third time in a row.',
+              response: 'You feel uncertain but wait. Later you say: "Hey, I\'ve noticed our texts have been pretty short lately — is everything okay with you?"',
+              outcome: 'Better — you checked the interpretation. They explain they\'ve been slammed at work. The story collapses. Connection resumes.',
             },
             {
               label: 'great',
-              situation: 'Your manager didn\'t include you in a key meeting this week.',
-              response: 'You notice your reaction, label it: "I\'m at rung 5 here." You ask yourself what else could explain the data. Then you ask them — calmly and without accusation.',
-              outcome: 'You get accurate information, preserve the relationship, and discover you\'d added three rungs of meaning to a simple scheduling decision.',
+              situation: 'Someone you like texts back late and briefly for the third time in a row.',
+              response: 'You notice your reaction, name it: "I\'m telling myself a story here." You ask what else could explain the data. You reach out warmly — no accusation, no withdrawal.',
+              outcome: 'You get accurate information and keep the connection intact. You discover you\'d added four rungs of meaning to someone just being busy.',
             },
           ],
-          takeaway: 'The ladder doesn\'t make you irrational — it makes you human. Awareness of the climb is what makes you wise.',
+          takeaway: 'The ladder doesn\'t make you irrational — it makes you human. The awareness of the climb is what makes you wise.',
         },
       },
       {
@@ -3263,60 +3259,60 @@ export const LESSONS = [
   },
   {
     id: 19,
-    title: "Questions for Conflict Resolution",
+    title: "Hard Conversations at Home",
     skillCategory: 'Empathy',
     difficultyTier: 'intermediate',
     tier: 2,
     content: `
-      <h2>Lesson 19: Questions for Conflict Resolution</h2>
-      <p class="intro">Conflict is where most people stop asking questions and start making statements. We defend, argue, explain, accuse. But here is the paradox: the fastest way to resolve a conflict is not to fight harder or give in — it is to get genuinely curious about the other person's experience. Questions are the de-escalation tool hiding in plain sight.</p>
+      <h2>Lesson 19: Hard Conversations at Home</h2>
+      <p class="intro">The hardest conflicts are rarely at work. They're with the people we love most — partners, parents, siblings, close friends. And because the stakes feel higher and our history is longer, we stop asking questions faster. We defend, argue, explain, accuse. But the fastest way through a hard conversation is not to fight harder — it's to get genuinely curious about what the other person is actually experiencing.</p>
       <section class="lesson-section">
         <h3>Why Curiosity Defeats Defensiveness</h3>
-        <p>When two people are in conflict, both feel unheard. The instinct is to speak louder, but speaking louder just makes the other person feel <em>more</em> unheard. A well-timed question breaks this cycle because it signals: <em>I am willing to listen.</em></p>
-        <p>Neuroscience backs this up — when someone asks us a genuine question, our brain shifts from threat-response mode to reflective mode. The amygdala calms. The prefrontal cortex engages. We literally think better when someone shows curiosity about our perspective.</p>
+        <p>When two people who care about each other are in conflict, both feel unheard. Speaking louder just makes the other person feel <em>more</em> unheard. A well-timed question breaks this cycle — it signals: <em>I am willing to listen before I respond.</em></p>
+        <p>Research in psychology suggests genuine curiosity shifts someone from threat-response mode to a more reflective state — making real dialogue possible. The key word is <em>genuine</em>: a tactical question asked to score a point still triggers defensiveness.</p>
       </section>
       <section class="lesson-section">
         <h3>Positions vs. Interests</h3>
-        <p>Most conflicts are fought at the level of <strong>positions</strong> — what each person says they want. "I want the project done my way." "I want more freedom." "I want you to stop doing that."</p>
-        <p>Beneath every position is an <strong>interest</strong> — the deeper need driving the demand. And interests are where resolution lives.</p>
+        <p>Most conflicts at home are fought at the level of <strong>positions</strong> — what each person says they want. "I want you to be home more." "I need more space." "You have to stop doing that."</p>
+        <p>Beneath every position is an <strong>interest</strong> — the deeper need driving the demand. Interests are where resolution lives.</p>
         <div class="story-box">
-          <p><strong>Position:</strong> "I need this report by Friday."</p>
-          <p><strong>Interest question:</strong> "What happens on Friday that makes the deadline important?"</p>
-          <p><strong>Discovered interest:</strong> They have a board meeting Monday and need prep time.</p>
-          <p><strong>New solution:</strong> Maybe you can deliver the key data Thursday and the full report Monday morning.</p>
+          <p><strong>Position:</strong> "I want us to spend Christmas at my family's this year."</p>
+          <p><strong>Interest question:</strong> "What makes it important to you to be there this year specifically?"</p>
+          <p><strong>Discovered interest:</strong> Your parent had a health scare and they want the whole family together while they can.</p>
+          <p><strong>New solution:</strong> You spend Christmas Day with their family and carry through your original plans the following weekend.</p>
         </div>
-        <p>The magic question for finding interests: <strong>"What is important to you about this?"</strong></p>
+        <p>The question that finds interests: <strong>"What is important to you about this?"</strong></p>
       </section>
       <section class="lesson-section">
         <h3>De-Escalation Questions</h3>
         <p>When tempers are high, these questions create breathing room:</p>
         <ul>
-          <li>"Help me understand what is frustrating you most about this."</li>
+          <li>"Help me understand what's frustrating you most about this."</li>
           <li>"What would a good outcome look like for you?"</li>
-          <li>"What do you think I am not seeing?"</li>
-          <li>"If we could start over on this, what would you want to be different?"</li>
-          <li>"What is the one thing that would make this feel more fair?"</li>
+          <li>"What do you think I'm not seeing?"</li>
+          <li>"If we could start this conversation over, what would you want to be different?"</li>
+          <li>"What's the one thing that would make this feel more fair?"</li>
         </ul>
-        <p>Notice that none of these questions are about winning. They are about <em>understanding</em>. And understanding, paradoxically, is what leads to solutions that work for both sides.</p>
+        <p>None of these questions are about winning. They're about <em>understanding</em>. And understanding is what leads to solutions that actually hold.</p>
       </section>
       <section class="lesson-section">
         <h3>The Empathy Bridge</h3>
-        <p>Before you can resolve a conflict, you must build an empathy bridge — a moment where both people feel the other person genuinely understands their experience. This does not mean you agree. It means you can say: "I hear that you feel overlooked, and that matters to me."</p>
-        <p>The question that builds this bridge: <strong>"How has this been affecting you?"</strong> This simple question invites the other person to share their emotional experience, not just their logical position. And that is where healing begins.</p>
+        <p>Before you can resolve a conflict with someone you love, you usually need to build an empathy bridge — a moment where both people feel genuinely understood. This does not mean you agree. It means you can say: "I hear that you've been feeling alone in this, and that matters to me."</p>
+        <p>The question that builds this bridge: <strong>"How has this been affecting you?"</strong> It invites the emotional experience, not just the position. That's where the real conversation starts.</p>
       </section>
       <section class="lesson-section when-to-use">
-        <h3>When to Use Conflict Resolution Questions</h3>
+        <h3>When to Use These Questions</h3>
         <ul>
-          <li>When both sides are stuck defending positions instead of exploring interests</li>
+          <li>When both sides are stuck defending positions instead of exploring what each person actually needs</li>
           <li>When emotions are high and the conversation is escalating — curiosity breaks the cycle</li>
-          <li>When you want resolution, not victory — these questions prioritize understanding over winning</li>
+          <li>When you want resolution, not victory — these questions prioritize understanding over being right</li>
         </ul>
-        <h3>When NOT to Use Conflict Resolution Questions</h3>
+        <h3>When NOT to Use These Questions</h3>
         <ul>
-          <li>When safety is at risk — if someone is being abused or harmed, the priority is protection, not curiosity about the other person's perspective</li>
-          <li>When the other person is acting in bad faith — curiosity requires that both sides are willing to engage honestly</li>
-          <li>When you need to set a firm boundary — sometimes the answer is a clear statement ("This is not acceptable"), not a question</li>
-          <li>When using questions to avoid taking a stand — conflict resolution is not conflict avoidance</li>
+          <li>When safety is at risk — protection comes before curiosity about the other person's perspective</li>
+          <li>When the other person is acting in bad faith — genuine curiosity requires both sides to be willing to be honest</li>
+          <li>When you need to set a firm boundary — sometimes what's needed is a clear statement, not a question</li>
+          <li>When questions become a way to avoid taking a stand — conflict resolution is not conflict avoidance</li>
         </ul>
       </section>
     `,
@@ -3325,9 +3321,9 @@ export const LESSONS = [
         id: 'curiosity-vs-defensiveness',
         title: 'Why Curiosity Defeats Defensiveness',
         content: `
-          <p>Conflict is where most people stop asking questions and start making statements. We defend, argue, explain, accuse. But the fastest way to resolve a conflict is not to fight harder — it is to get genuinely curious about the other person's experience.</p>
-          <p>When someone feels unheard, speaking louder just makes them feel <em>more</em> unheard. A well-timed question breaks this cycle because it signals: <em>I am willing to listen.</em></p>
-          <p>Research in psychology suggests that genuine curiosity can shift someone from a threat-response state to a more reflective one — making real dialogue possible. The key word is <em>genuine</em>: a tactical question asked to win still triggers defensiveness.</p>
+          <p>The hardest conflicts are rarely with strangers — they're with the people we love most. And because the stakes feel higher and our history is longer, we stop asking questions even faster. We defend, argue, accuse, explain. We say things we don't mean because we feel unheard.</p>
+          <p>When someone feels unheard, speaking louder just makes them feel <em>more</em> unheard. A well-timed question breaks this cycle — it signals: <em>I am willing to listen before I respond.</em></p>
+          <p>Research suggests genuine curiosity shifts someone from a threat-response state to a more reflective one. The key word is <em>genuine</em>: a tactical question asked to score a point still triggers defensiveness, and the people who love you can usually tell the difference.</p>
         `,
         interaction: null,
       },
@@ -3357,12 +3353,12 @@ export const LESSONS = [
         interaction: {
           type: 'micro-challenge',
           required: true,
-          scenario: 'A teammate is visibly frustrated and says: "You always get credit for things we built together." How do you respond?',
+          scenario: 'Your partner says, frustrated: "You always make me feel like I\'m the only one who cares about this relationship." How do you respond?',
           options: [
-            { text: '"That\'s not true — I always acknowledge the team."', isCorrect: false },
-            { text: '"It sounds like you\'ve been feeling overlooked. Can you tell me when that happened?"', isCorrect: true },
+            { text: '"That\'s not fair — I do so much for us."', isCorrect: false },
+            { text: '"It sounds like you\'ve been feeling really alone in this. When did that start?"', isCorrect: true },
           ],
-          explanation: 'The first response defends your position — which confirms to them that you\'re not listening, and escalates. The second acknowledges their emotional experience before addressing the facts. That sequence — feelings first, facts second — is what de-escalation actually looks like.',
+          explanation: 'The first defends your position — which confirms to them that you\'re not listening, and escalates. The second acknowledges their emotional experience before addressing the facts. That sequence — feelings first, facts second — is what de-escalation actually looks like in the relationships that matter most.',
         },
       },
       {
@@ -3399,30 +3395,30 @@ export const LESSONS = [
       },
       {
         id: 'conflict-poll',
-        title: 'What\'s Your Conflict Default?',
+        title: 'What\'s Your Conflict Default at Home?',
         content: `
-          <p>We all have a pattern when things get tense. Knowing yours is the first step to changing it.</p>
+          <p>We all have a pattern when things get tense with people we love. Knowing yours is the first step to changing it when it matters most.</p>
         `,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'When a conflict arises, your first instinct is usually to:',
+          question: 'When conflict comes up with someone close to you, your first instinct is usually to:',
           options: [
             {
               text: 'State my case clearly and directly',
-              insight: 'Directness is a strength — but in conflict, stating your case first tends to trigger the other person\'s defenses before they\'ve felt heard. Try one question before your first statement: "What\'s your take on this?" can change the entire arc.',
+              insight: 'Directness is a strength — but in conflict with people we love, stating your case first tends to trigger their defenses before they\'ve felt heard. Try one question before your first statement: "What\'s your take on what happened?" can change the entire arc.',
             },
             {
               text: 'Try to smooth things over and avoid confrontation',
-              insight: 'Conflict avoidance keeps the peace short-term but leaves the underlying interest unaddressed. The question "What would need to be different for this to feel resolved?" — asked gently — is a way to address the root without escalating.',
+              insight: 'Conflict avoidance keeps the peace short-term but leaves the underlying hurt unaddressed — and it usually resurfaces. The question "What would need to be different for this to feel resolved?" — asked gently — can address the root without escalating.',
             },
             {
               text: 'Ask what happened from their point of view',
-              insight: 'This is the approach most likely to lead to real resolution. The key is making sure it\'s genuine curiosity, not tactical listening while you plan your counterargument.',
+              insight: 'This is the approach most likely to lead to real resolution. The key is that it\'s genuine curiosity — not tactical listening while you plan your counterargument. People who love you can usually tell the difference.',
             },
             {
               text: 'Withdraw and process before engaging',
-              insight: 'Processing first is wise — but when you return, lead with curiosity: "I\'ve been thinking about this. Can you help me understand your experience of what happened?" Coming back with a question signals you\'re ready to understand, not just respond.',
+              insight: 'Processing first is often wise — but when you return, lead with curiosity: "I\'ve been thinking about this. Can you help me understand your experience of what happened?" Coming back with a question signals you\'re ready to understand, not just respond.',
             },
           ],
         },
@@ -3633,59 +3629,60 @@ export const LESSONS = [
   },
   {
     id: 21,
-    title: "Power Dynamics in Questions",
+    title: "Questions Between Parents and Kids",
     skillCategory: 'Leadership',
     difficultyTier: 'advanced',
     tier: 3,
     content: `
-      <h2>Lesson 21: Power Dynamics in Questions</h2>
-      <p class="intro">Questions are never asked in a vacuum. They are asked between people — and people exist in hierarchies, whether we acknowledge them or not. A boss asking "Why did you do it that way?" carries a completely different weight than a peer asking the same words. Understanding power dynamics transforms you from someone who asks questions into someone who wields them wisely.</p>
+      <h2>Lesson 21: Questions Between Parents and Kids</h2>
+      <p class="intro">Questions are never asked between equals. They're asked between people — and people exist in hierarchies. Nowhere is that power gap more intimate, or more consequential, than between parents and children. The same question carries completely different weight depending on who's asking. "Why did you do that?" from a parent can feel like an interrogation. "Can I ask you something?" from a child can take enormous courage.</p>
       <section class="lesson-section">
         <h3>Questions from Authority</h3>
-        <p>When someone with power asks a question, it is rarely experienced as neutral. A CEO asking "Why are we doing this?" can paralyze an entire team — even if the CEO was genuinely curious. This is because questions from authority carry an implicit message: <em>justify yourself.</em></p>
-        <p>If you hold authority, you must work harder to make your questions feel safe:</p>
+        <p>When a parent asks a question, it's rarely experienced as neutral by the child. "Why did you do that?" might be genuine curiosity — but to a child, it often lands as: <em>justify yourself.</em> The parent has all the power: over consequences, over the roof, over the story that gets told about what happened.</p>
+        <p>Parents who want honest answers must work harder to make their questions feel safe:</p>
         <ul>
-          <li><strong>Frame your intent:</strong> "I am asking because I want to learn, not because I am questioning your judgment."</li>
-          <li><strong>Ask about the situation, not the person:</strong> "What challenges came up?" instead of "Why didn't you finish?"</li>
-          <li><strong>Invite, do not interrogate:</strong> "I'd love to hear your thinking on this" instead of "Explain your reasoning."</li>
+          <li><strong>Frame your intent:</strong> "I'm not asking to punish you — I genuinely want to understand."</li>
+          <li><strong>Ask about the situation, not the person:</strong> "What happened?" instead of "Why would you do something like that?"</li>
+          <li><strong>Invite, don't interrogate:</strong> "Tell me what was going on for you" instead of "Explain yourself."</li>
+        </ul>
+        <p>When children feel safe to be honest with parents, those conversations prevent far more problems than interrogation ever could.</p>
+      </section>
+      <section class="lesson-section">
+        <h3>Questioning Up: When Children Ask Parents</h3>
+        <p>Asking questions upward — from child to parent, from teenager to adult authority — takes real courage. The risk is real: you can be dismissed, told "because I said so," or made to feel disrespectful for asking. But families where children can never question make worse decisions, and produce adults who struggle to speak up in any direction.</p>
+        <p>For younger people learning to ask questions of authority figures in their lives:</p>
+        <ul>
+          <li><strong>Signal care before the question:</strong> "I'm not trying to challenge you — I just want to understand."</li>
+          <li><strong>Use hypotheticals:</strong> "What would happen if I tried it this way instead?"</li>
+          <li><strong>Name your curiosity:</strong> "I've been wondering about this — can I ask you something?"</li>
+          <li><strong>Make it about understanding, not winning:</strong> "I want to get this right — can you help me see your reasoning?"</li>
         </ul>
       </section>
       <section class="lesson-section">
-        <h3>Questioning Up</h3>
-        <p>Asking questions to someone above you in a hierarchy takes courage and skill. The risk is real — you can seem unprepared, insubordinate, or slow. But the reward is also real: leaders who are never questioned make worse decisions.</p>
-        <p>Techniques for questioning up:</p>
+        <h3>Creating Psychological Safety at Home</h3>
+        <p>The best parents don't just tolerate questions — they create conditions where questioning is expected. Where a child can say "I don't understand" without being dismissed, and "I disagree" without being punished for it.</p>
+        <p>This psychological safety is built by:</p>
         <ul>
-          <li><strong>Preface with alignment:</strong> "I support this direction. I want to make sure I understand the reasoning so I can explain it to the team."</li>
-          <li><strong>Use hypotheticals:</strong> "What would we do if this assumption turns out to be wrong?"</li>
-          <li><strong>Ask on behalf of others:</strong> "I think the team might wonder about X — how should I address that?"</li>
-          <li><strong>Make it about quality:</strong> "I want to make this the best it can be — can I ask about the decision criteria?"</li>
+          <li>Asking "What's your take on this?" and actually listening</li>
+          <li>Thanking a child when they push back respectfully — "Good question"</li>
+          <li>Sharing your own uncertainty: "I'm not sure — what do you think we should do?"</li>
+          <li>Never making a child feel stupid or disrespectful for a genuine question</li>
         </ul>
-      </section>
-      <section class="lesson-section">
-        <h3>Creating Psychological Safety</h3>
-        <p>The best leaders do not just tolerate questions — they <strong>create conditions</strong> where questioning is expected. This is what Harvard professor Amy Edmondson calls <strong>psychological safety</strong>: the belief that you will not be punished for speaking up.</p>
-        <p>Leaders can build this by:</p>
-        <ul>
-          <li>Asking "What am I missing?" regularly</li>
-          <li>Thanking people who challenge their ideas</li>
-          <li>Sharing their own uncertainty: "I am not sure about this — what do you think?"</li>
-          <li>Never punishing someone for a question, even if the timing is inconvenient</li>
-        </ul>
-        <p>When people feel safe to question, the quality of every decision in the organization improves.</p>
+        <p>Children who feel safe to ask questions at home grow into adults who ask better questions everywhere.</p>
       </section>
       <section class="lesson-section when-to-use">
         <h3>When to Be Mindful of Power Dynamics</h3>
         <ul>
-          <li>Whenever you hold positional authority — your questions carry more weight than you think</li>
-          <li>When questioning someone above you — frame your intent and make it about quality, not challenge</li>
-          <li>When you notice people giving you the answers they think you want instead of what they actually think</li>
+          <li>When you're a parent asking questions during a tense moment — your questions carry more weight than you think</li>
+          <li>When a child or teenager is quiet and won't engage — the real question is whether they feel safe to speak</li>
+          <li>When you notice the people in your care giving you the answers they think you want</li>
         </ul>
-        <h3>When NOT to Let Power Dynamics Silence You</h3>
+        <h3>When NOT to Let Power Dynamics Silence Anyone</h3>
         <ul>
-          <li>When important concerns go unvoiced because everyone is afraid to question the leader</li>
-          <li>When "reading the room" becomes code for never challenging authority</li>
-          <li>When your question could prevent a serious mistake — the cost of staying silent exceeds the discomfort of asking</li>
-          <li>When you're a leader who avoids questions to protect your ego — that's the moment your team needs your curiosity most</li>
+          <li>When children have important concerns that go unvoiced because they're afraid of the reaction</li>
+          <li>When "respect" becomes code for never questioning what an elder says</li>
+          <li>When a young person's question could prevent a serious mistake — the cost of silencing them is often greater than the discomfort of being questioned</li>
+          <li>When parents avoid questions from their kids to protect their own authority — that's the moment the relationship needs curiosity most</li>
         </ul>
       </section>
     `,
@@ -3694,59 +3691,59 @@ export const LESSONS = [
         id: 'questions-from-authority',
         title: 'Questions from Authority',
         content: `
-          <p>Questions are never asked in a vacuum. They're asked between people — and people exist in hierarchies. A boss asking "Why did you do it that way?" carries a completely different weight than a peer asking the same words.</p>
-          <p>When someone with power asks a question, it's rarely experienced as neutral. A CEO asking "Why are we doing this?" can paralyze an entire team — even if the CEO was genuinely curious. Questions from authority carry an implicit message: <em>justify yourself.</em></p>
-          <p>If you hold authority, you must work harder to make your questions feel safe:</p>
+          <p>Questions are never asked between equals. Between parents and children, the power gap is intimate and constant. A parent asking "Why did you do that?" carries a completely different weight than a friend asking the same words.</p>
+          <p>When someone with power asks a question, it's rarely experienced as neutral. "Why would you do something like that?" can feel like an indictment even when the parent is genuinely curious. Questions from authority carry an implicit message: <em>justify yourself.</em></p>
+          <p>Parents who want honest answers must work harder to make their questions feel safe:</p>
           <ul>
-            <li><strong>Frame your intent:</strong> "I'm asking because I want to learn, not because I'm questioning your judgment."</li>
-            <li><strong>Ask about the situation, not the person:</strong> "What challenges came up?" instead of "Why didn't you finish?"</li>
-            <li><strong>Invite, don't interrogate:</strong> "I'd love to hear your thinking on this" instead of "Explain your reasoning."</li>
+            <li><strong>Frame your intent:</strong> "I'm not asking to punish you — I genuinely want to understand."</li>
+            <li><strong>Ask about the situation, not the person:</strong> "What happened?" instead of "What were you thinking?"</li>
+            <li><strong>Invite, don't interrogate:</strong> "Tell me what was going on for you" instead of "Explain yourself."</li>
           </ul>
         `,
         interaction: null,
       },
       {
         id: 'questioning-up',
-        title: 'Questioning Up: Courage Meets Craft',
+        title: 'Questioning Up: When Kids Ask Parents',
         content: `
-          <p>Asking questions upward in a hierarchy takes courage and skill. The risk is real — you can seem unprepared or insubordinate. But leaders who are never questioned make worse decisions, consistently.</p>
-          <p>Compare two approaches to raising a concern with someone above you:</p>
+          <p>Asking questions upward — from child to parent, from teenager to adult — takes real courage. The fear is real: you might be dismissed, told "because I said so," or made to feel disrespectful for asking. But families where children can never question make worse decisions together.</p>
+          <p>Compare two ways a teenager might raise a concern with a parent:</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"I don\'t think this is the right call. You haven\'t thought it through."',
-          after: '"I want to understand the thinking — I\'m with you on wanting this to work. What\'s the part you feel most uncertain about, and what\'s your plan if that piece doesn\'t hold?"',
-          explanation: 'The first reads as challenge or criticism — which makes the listener defensive regardless of whether you\'re right. The second signals alignment, frames your concern as a question about quality, and gives the other person room to think rather than defend. Same concern, very different landing.',
+          before: '"You never listen to me. You just make decisions without asking what I think."',
+          after: '"I\'m not trying to be difficult — I just want to understand. Can you help me see the thinking behind this decision? I\'ll be honest with you about how it\'s landing for me."',
+          explanation: 'The first is emotionally honest but arrives as accusation — which makes any parent defensive before they\'ve heard anything. The second signals good faith, frames the question as seeking understanding (not winning), and offers reciprocal honesty. Same concern, completely different reception. The second version is also far more likely to get a real answer.',
         },
       },
       {
         id: 'psychological-safety-leadership',
-        title: 'Creating Psychological Safety',
+        title: 'Creating Safety for Honest Questions at Home',
         content: `
-          <p>The best leaders don't just tolerate questions — they create conditions where questioning is expected. They do this by asking "What am I missing?" regularly, thanking people who challenge their ideas, sharing their own uncertainty, and never punishing someone for a question.</p>
-          <p>When people feel safe to question, the quality of every decision in the organization improves.</p>
+          <p>The best parents don't just tolerate questions from their children — they create conditions where questioning is expected. Where "I don't understand" gets a patient explanation, and "I disagree" doesn't get shut down.</p>
+          <p>This psychological safety is built through small, consistent acts: asking "What's your take?" and actually listening, thanking a child when they push back thoughtfully, sharing your own uncertainty, and never making someone feel stupid or disrespectful for a genuine question.</p>
         `,
         interaction: {
           type: 'poll',
           required: true,
-          question: 'Which direction of power dynamics is harder for you personally?',
+          question: 'In the family dynamics you grew up in (or live in now), which was harder?',
           options: [
             {
-              text: 'Questioning down — my questions feel too loaded with authority',
-              insight: 'The antidote: frame your intent explicitly. "I\'m asking because I want to understand, not because I\'m judging" isn\'t weakness — it\'s what makes genuine dialogue possible when power is unequal.',
+              text: 'As a parent/elder — making sure my questions don\'t feel like interrogations',
+              insight: 'The antidote: frame your intent explicitly before asking. "I\'m not asking to punish you — I want to understand" isn\'t weakness. It\'s what makes honest conversation possible when there\'s a power gap.',
             },
             {
-              text: 'Questioning up — it feels risky to challenge someone above me',
-              insight: 'The technique: align before you challenge. "I support this direction — I want to raise one question so I can explain it well to the team" lowers the perceived threat level without compromising your concern.',
+              text: 'As a child/younger person — asking questions of parents or authority figures without seeming disrespectful',
+              insight: 'The technique: signal care and alignment before the question. "I\'m not challenging you — I genuinely want to understand" lowers the perceived threat without dropping your concern.',
             },
             {
-              text: 'Neither — I feel comfortable in both directions',
-              insight: 'That\'s a rare and valuable skill. The next challenge: helping others in your team feel safe to question in both directions too.',
+              text: 'Both felt hard, for different reasons',
+              insight: 'Very common. The common thread: explicit intent before any question. "I\'m asking because..." defuses power tension in almost every direction, in almost every relationship.',
             },
             {
-              text: 'Both feel hard, for different reasons',
-              insight: 'Very common. The common thread in both cases: framing your intent before asking. Explicit intent ("I\'m asking because...") defuses power tension in almost every direction.',
+              text: 'Neither — honest questions were welcome in both directions',
+              insight: 'That\'s genuinely rare and worth recognizing. The next question: how do you recreate that safety in the relationships and families you\'re part of now?',
             },
           ],
         },
@@ -3755,7 +3752,7 @@ export const LESSONS = [
         id: 'power-explorer',
         title: 'Authority and Questions: Three Moments',
         content: `
-          <p>The same question carries different weight depending on who's asking. Watch how authority changes everything:</p>
+          <p>The same question carries completely different weight depending on who's asking. Watch how authority changes everything in a parent-child moment:</p>
         `,
         interaction: {
           type: 'consequence-explorer',
@@ -3763,38 +3760,38 @@ export const LESSONS = [
           scenarios: [
             {
               label: 'poor',
-              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
-              response: '"Why did you think you had the authority to do that without checking with me first?"',
-              outcome: 'The question makes them feel judged and small. They stop making independent decisions — and stop bringing you problems early, too.',
+              situation: 'Your teenager came home late without texting. You\'ve been worried.',
+              response: '"Where were you? Why didn\'t you call? Do you know how irresponsible that was?"',
+              outcome: 'They shut down or get defensive. The rapid-fire questions read as a verdict, not curiosity. They give you the minimum answer to end the conversation — and are less likely to tell you things next time.',
             },
             {
               label: 'okay',
-              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
-              response: '"What made you decide to move forward on that?"',
-              outcome: 'Better — genuinely curious, no judgment baked in. But you\'ve missed a chance to also address what you\'re actually trying to solve: the coordination gap.',
+              situation: 'Your teenager came home late without texting. You\'ve been worried.',
+              response: '"Are you okay? Why didn\'t you let me know?"',
+              outcome: 'Better — you checked if they\'re safe first. But "why didn\'t you" still carries implicit judgment. They feel they need to defend themselves rather than explain.',
             },
             {
               label: 'great',
-              situation: 'You\'re a manager and a team member made an unexpected decision without asking you.',
-              response: '"Walk me through your thinking on that decision. And separately — are there situations where you\'re unsure what calls are yours to make vs. mine to weigh in on?"',
-              outcome: 'You learn their reasoning (which may be excellent), and you address the real gap: unclear decision boundaries. Both of you leave knowing more. Trust is intact.',
+              situation: 'Your teenager came home late without texting. You\'ve been worried.',
+              response: '"I\'m glad you\'re home. I was worried. Tell me what happened tonight."',
+              outcome: 'You\'ve expressed your feeling without accusation, and opened the door with a genuinely open question. They explain. You learn something real about their night — and they leave the conversation feeling heard rather than prosecuted.',
             },
           ],
-          takeaway: 'When you hold power, the question behind the question often matters more than the question itself. What are you really trying to solve?',
+          takeaway: 'When you hold authority over someone, the question behind the question often matters more than the words. What are you actually trying to understand?',
         },
       },
       {
         id: 'power-reframe',
-        title: 'Reframing Upward: The Art of Questioning Your Boss',
+        title: 'Reframing Upward: How Young People Can Question Authority',
         content: `
-          <p>Questioning someone above you in a hierarchy is one of the most valuable skills in any organization — and one of the least practiced. The fear is real: you might seem insubordinate, unprepared, or difficult. But there's a powerful reframe available to you.</p>
+          <p>Questioning a parent, a grandparent, or an elder authority figure is one of the most valuable skills a young person can develop — and one of the hardest to practice. The fear is real: you might seem disrespectful or ungrateful. But there's a reframe available.</p>
         `,
         interaction: {
           type: 'before-after',
           required: true,
-          before: '"I have some concerns about this plan." [Your manager hears: criticism, resistance, problem employee.]',
-          after: '"I\'m fully on board with this direction. To make sure I can champion it effectively with my team — can you help me understand the reasoning behind the timeline? They\'ll ask."',
-          explanation: 'The second framing does three things: it signals alignment first (reducing perceived threat), frames your question as serving the mission (not challenging authority), and gives the manager a reason to answer that feels helpful rather than interrogative. Same concern, completely different reception.',
+          before: '"You always make decisions without asking me. I\'m old enough to have a say in this." [Parent hears: challenge to authority, ingratitude.]',
+          after: '"I\'d really like to understand your thinking on this — and I\'d love for you to hear mine too. Can we talk through it together?"',
+          explanation: 'The second framing does three things: it expresses a desire to understand (not to win), signals willingness to share rather than just challenge, and frames the conversation as collaborative. Same underlying concern, completely different reception. A parent is far more likely to actually listen — and change their mind if needed.',
         },
       },
       {
@@ -3804,7 +3801,7 @@ export const LESSONS = [
         interaction: {
           type: 'reflection',
           required: false,
-          prompt: 'Think of a question you need to ask someone above or below you in a hierarchy — one you\'ve been hesitating on. How would you frame your intent before asking it? What do you think would change?',
+          prompt: 'Think of a question you\'ve been holding back from someone in your family — a parent, a child, a sibling — because of the power dynamic between you. What would you need to feel safe asking it? How could you frame your intent to make it more likely to land well?',
         },
       },
     ],
