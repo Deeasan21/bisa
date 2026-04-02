@@ -262,35 +262,35 @@ export default function ProgressPage() {
           <h2 className="section-title">Activity</h2>
 
           <div className="activity-list">
-            <div className="activity-row">
+            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/learn')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <BookOpen size={18} color="#C49240" />
               </div>
               <span className="activity-label">Lessons Reflected</span>
               <span className="activity-value">{progress.lessonsWithReflections} / {LESSONS.length}</span>
             </div>
-            <div className="activity-row">
+            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/daily')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <CheckCircle size={18} color="#C49240" />
               </div>
               <span className="activity-label">Challenges Completed</span>
               <span className="activity-value">{progress.challengesCompleted}</span>
             </div>
-            <div className="activity-row">
+            <div className="activity-row activity-row--clickable" onClick={() => navigate('/journal')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <Notebook size={18} color="#C49240" />
               </div>
               <span className="activity-label">Journal Entries</span>
               <span className="activity-value">{progress.journalEntries}</span>
             </div>
-            <div className="activity-row">
+            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/simulate')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <ChatsCircle size={18} color="#C49240" />
               </div>
               <span className="activity-label">Simulations</span>
               <span className="activity-value">{progress.simulationsCompleted}</span>
             </div>
-            <div className="activity-row">
+            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/review')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <Brain size={18} color="#C49240" />
               </div>

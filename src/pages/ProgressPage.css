@@ -272,6 +272,15 @@
   border-bottom: none;
 }
 
+.activity-row--clickable {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.activity-row--clickable:hover {
+  background: var(--bg-secondary);
+}
+
 .activity-icon {
   width: 36px;
   height: 36px;
