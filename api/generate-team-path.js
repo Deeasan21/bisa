@@ -120,7 +120,7 @@ export default async function handler(req, res) {
     if (!members?.length) return res.status(403).json({ error: 'Not an org admin' });
   } catch (e) {
     console.error('Auth check error:', e);
-    return res.status(401).json({ error: 'Authorization failed' });
+    return res.status(401).json({ error: 'Authorization failed', detail: e?.message || String(e) });
   }
 
   try {
@@ -263,6 +263,6 @@ Rules:
     return res.status(200).json({ success: true, path });
   } catch (e) {
     console.error('generate-team-path error:', e);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', detail: e?.message || String(e) });
   }
 }
