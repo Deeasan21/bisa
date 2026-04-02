@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Fire, CheckCircle, Clock, Timer, PaperPlaneTilt, Sparkle, Robot, CaretDown } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
@@ -49,6 +50,7 @@ function getTimerDuration(tier) {
 
 export default function DailyChallenge() {
   const { db, isReady } = useSupabaseDB();
+  const queryClient = useQueryClient();
   const [phase, setPhase] = useState('ready');        // ready | burst | results | completed
   const [scenario, setScenario] = useState(null);      // today's burst scenario
   const [questions, setQuestions] = useState([]);       // submitted question strings
@@ -167,6 +169,7 @@ export default function DailyChallenge() {
       newStreak = await db.updateStreak(todayStr);
       setStreak(newStreak);
       setLongestStreak(prev => Math.max(prev, newStreak));
+      queryClient.invalidateQueries({ queryKey: ['streak'] });
     } catch (err) {
       console.error('Failed to update streak:', err);
     }

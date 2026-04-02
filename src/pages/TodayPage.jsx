@@ -134,19 +134,25 @@ export default function TodayPage() {
   const insightColor = CATEGORY_COLORS[dailyInsight.category] || '#6B7280';
 
   // Build streak calendar (last 7 days)
+  // Uses local date strings throughout to avoid UTC-offset issues when comparing date-only strings
   const getStreakCalendar = () => {
     const days = [];
     const today = new Date();
-    const streakEndDate = lastDate ? new Date(lastDate) : null;
     for (let i = 6; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
+      const y = d.getFullYear();
+      const mo = String(d.getMonth() + 1).padStart(2, '0');
+      const dy = String(d.getDate()).padStart(2, '0');
+      const dateStr = `${y}-${mo}-${dy}`;
       const dayLabel = d.toLocaleDateString('en', { weekday: 'narrow' });
       const isToday = i === 0;
       let isActive = false;
-      if (streakEndDate && streak > 0) {
-        const daysFromEnd = Math.floor((streakEndDate - d) / (1000 * 60 * 60 * 24));
+      if (lastDate && streak > 0) {
+        // Parse lastDate as local noon to avoid DST / UTC midnight issues
+        const end = new Date(`${lastDate}T12:00:00`);
+        const cur = new Date(`${dateStr}T12:00:00`);
+        const daysFromEnd = Math.round((end - cur) / (1000 * 60 * 60 * 24));
         isActive = daysFromEnd >= 0 && daysFromEnd < streak;
       }
       days.push({ dateStr, dayLabel, isToday, isActive });
