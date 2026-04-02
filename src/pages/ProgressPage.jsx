@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { CaretDown, CaretUp } from '@phosphor-icons/react';
 import { Fire, Target, Notebook, ChatsCircle, Brain, ArrowUp, ArrowDown, BookOpen, CheckCircle, ArrowRight, Lightning, Gift } from '@phosphor-icons/react';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { calculateLevel, calculateLeague } from '../utils/xpCalculator';
@@ -60,6 +61,24 @@ export default function ProgressPage() {
     enabled,
     placeholderData: [],
   });
+
+  const [openAccordion, setOpenAccordion] = useState(null);
+
+  const { data: reflections } = useQuery({
+    queryKey: ['allReflections'],
+    queryFn: () => db.getAllReflections(),
+    enabled: enabled && openAccordion === 'lessons',
+    placeholderData: [],
+  });
+
+  const { data: challengeHistory } = useQuery({
+    queryKey: ['challengeHistory'],
+    queryFn: () => db.getChallengeHistory(20),
+    enabled: enabled && openAccordion === 'challenges',
+    placeholderData: [],
+  });
+
+  const toggleAccordion = (key) => setOpenAccordion(prev => prev === key ? null : key);
 
   const QUEST_COLORS = {
     practice: '#D4A853', lesson: '#9A6B1F', journal: '#D4A853',
@@ -262,41 +281,86 @@ export default function ProgressPage() {
           <h2 className="section-title">Activity</h2>
 
           <div className="activity-list">
-            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/learn')}>
-              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <BookOpen size={18} color="#C49240" />
+
+            {/* Lessons Reflected */}
+            <div>
+              <div className="activity-row activity-row--clickable" onClick={() => toggleAccordion('lessons')}>
+                <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                  <BookOpen size={18} color="#C49240" />
+                </div>
+                <span className="activity-label">Lessons Reflected</span>
+                <span className="activity-value">{progress.lessonsWithReflections} / {LESSONS.length}</span>
+                {openAccordion === 'lessons' ? <CaretUp size={14} color="var(--text-muted)" /> : <CaretDown size={14} color="var(--text-muted)" />}
               </div>
-              <span className="activity-label">Lessons Reflected</span>
-              <span className="activity-value">{progress.lessonsWithReflections} / {LESSONS.length}</span>
+              {openAccordion === 'lessons' && (
+                <div className="accordion-body">
+                  {(reflections || []).length === 0 ? (
+                    <p className="accordion-empty">No reflections yet — complete a lesson to add one.</p>
+                  ) : (reflections || []).map(r => {
+                    const lesson = LESSONS.find(l => l.id === r.lesson_id);
+                    return (
+                      <div key={r.lesson_id} className="accordion-item" onClick={() => navigate('/mode/learn', { state: { lessonIndex: r.lesson_id } })}>
+                        <span className="accordion-item-title">{lesson?.title || `Lesson ${r.lesson_id}`}</span>
+                        <span className="accordion-item-sub">{r.content?.slice(0, 80)}{r.content?.length > 80 ? '…' : ''}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/daily')}>
-              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <CheckCircle size={18} color="#C49240" />
+
+            {/* Challenges Completed */}
+            <div>
+              <div className="activity-row activity-row--clickable" onClick={() => toggleAccordion('challenges')}>
+                <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                  <CheckCircle size={18} color="#C49240" />
+                </div>
+                <span className="activity-label">Challenges Completed</span>
+                <span className="activity-value">{progress.challengesCompleted}</span>
+                {openAccordion === 'challenges' ? <CaretUp size={14} color="var(--text-muted)" /> : <CaretDown size={14} color="var(--text-muted)" />}
               </div>
-              <span className="activity-label">Challenges Completed</span>
-              <span className="activity-value">{progress.challengesCompleted}</span>
+              {openAccordion === 'challenges' && (
+                <div className="accordion-body">
+                  {(challengeHistory || []).length === 0 ? (
+                    <p className="accordion-empty">No challenges completed yet.</p>
+                  ) : (challengeHistory || []).map((c, i) => (
+                    <div key={i} className="accordion-item">
+                      <span className="accordion-item-title">{c.title || c.challenge_title || 'Daily Challenge'}</span>
+                      <span className="accordion-item-sub">{c.date || c.challenge_date}{c.score ? ` · ${c.score}%` : ''}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* Journal Entries */}
             <div className="activity-row activity-row--clickable" onClick={() => navigate('/journal')}>
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <Notebook size={18} color="#C49240" />
               </div>
               <span className="activity-label">Journal Entries</span>
               <span className="activity-value">{progress.journalEntries}</span>
+              <ArrowRight size={14} color="var(--text-muted)" />
             </div>
-            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/simulate')}>
+
+            {/* Simulations — count only */}
+            <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <ChatsCircle size={18} color="#C49240" />
               </div>
               <span className="activity-label">Simulations</span>
               <span className="activity-value">{progress.simulationsCompleted}</span>
             </div>
-            <div className="activity-row activity-row--clickable" onClick={() => navigate('/mode/review')}>
+
+            {/* Cards Learned — count only */}
+            <div className="activity-row">
               <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
                 <Brain size={18} color="#C49240" />
               </div>
               <span className="activity-label">Cards Learned</span>
               <span className="activity-value">{progress.cardsLearned}</span>
             </div>
+
           </div>
         </>
       )}

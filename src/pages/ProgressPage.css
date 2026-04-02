@@ -312,3 +312,42 @@
 .quest-label { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
 .quest-reward { flex-shrink: 0; text-align: center; min-width: 60px; }
 .quest-xp { font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full); }
+
+/* Accordion */
+.accordion-body {
+  background: var(--bg-secondary);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+}
+
+.accordion-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px var(--space-md) 10px 60px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.accordion-item:last-child { border-bottom: none; }
+.accordion-item:hover { background: var(--border-light); }
+
+.accordion-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.accordion-item-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.accordion-empty {
+  padding: 12px var(--space-md) 12px 60px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}

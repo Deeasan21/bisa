@@ -23,26 +23,26 @@ const MOOD_OPTIONS = [
 ];
 
 const TYPE_COLORS = {
-  Open: '#EF4444',
-  Clarifying: '#D4A853',
-  Probing: '#D4A853',
-  Reflective: '#06B6D4',
+  Open: '#D4A853',
+  Clarifying: '#C49240',
+  Probing: '#9A6B1F',
+  Reflective: '#D4A853',
   Hypothetical: '#C49240',
   'Follow-up': '#9A6B1F',
   Other: '#78716C',
 };
 
 const SKILL_COLORS = {
-  'Open vs. Closed': '#EF4444',
-  'Probing': '#D4A853',
-  'Empathy': '#EC4899',
+  'Open vs. Closed': '#D4A853',
+  'Probing': '#9A6B1F',
+  'Empathy': '#D4A853',
   'Follow-up': '#9A6B1F',
-  'Clarifying': '#D4A853',
+  'Clarifying': '#C49240',
   'Framing': '#C49240',
-  'Self-Reflection': '#06B6D4',
-  'Leadership': '#D4A853',
-  'Cultural Awareness': '#D4A853',
-  'Body Language': '#EC4899',
+  'Self-Reflection': '#D4A853',
+  'Leadership': '#9A6B1F',
+  'Cultural Awareness': '#C49240',
+  'Body Language': '#D4A853',
 };
 
 const defaultForm = {
