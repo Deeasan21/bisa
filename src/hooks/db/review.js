@@ -134,7 +134,21 @@ export function buildReviewFunctions(userId) {
     } catch (e) { console.error('getReviewStats:', e); return { totalCards: 0, cardsDue: 0, cardsLearned: 0 }; }
   }
 
+  async function getLearnedCards(limit = 20) {
+    try {
+      const { data, error } = await supabase
+        .from('sr_cards')
+        .select('front, card_type, last_review, repetitions')
+        .eq('user_id', userId)
+        .gt('repetitions', 0)
+        .order('last_review', { ascending: false })
+        .limit(limit);
+      if (error) throw error;
+      return data || [];
+    } catch (e) { console.error('getLearnedCards:', e); return []; }
+  }
+
   return {
-    seedReviewCards, seedFlashcards, getDueCards, submitReview, getReviewStats,
+    seedReviewCards, seedFlashcards, getDueCards, submitReview, getReviewStats, getLearnedCards,
   };
 }

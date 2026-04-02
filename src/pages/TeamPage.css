@@ -356,3 +356,40 @@
   color: #EF4444;
   background: rgba(239, 68, 68, 0.08);
 }
+
+/* ── Leaderboard ─────────────────────────────── */
+.team-leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.team-leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+.team-leaderboard-rank {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.team-leaderboard-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.team-leaderboard-xp {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}

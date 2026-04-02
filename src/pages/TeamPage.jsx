@@ -187,6 +187,30 @@ export default function TeamPage() {
         </Card>
       </div>
 
+      {activeMembers.length > 1 && (
+        <div className="team-section">
+          <h2 className="team-section-title">Leaderboard</h2>
+          <Card padding="none">
+            {[...activeMembers]
+              .sort((a, b) => (b.total_xp ?? 0) - (a.total_xp ?? 0))
+              .map((m, idx) => {
+                const initial = (m.display_name || m.email || '?').charAt(0).toUpperCase();
+                const rankColor = idx === 0 ? '#D4A853' : idx === 1 ? '#C49240' : idx === 2 ? '#9A6B1F' : 'var(--text-muted)';
+                return (
+                  <div key={m.member_id} className="team-leaderboard-row">
+                    <span className="team-leaderboard-rank" style={{ color: rankColor }}>#{idx + 1}</span>
+                    <div className="team-member-avatar" style={{ width: 32, height: 32, fontSize: '0.85rem' }}>{initial}</div>
+                    <span className="team-leaderboard-name">{m.display_name || 'Bisa User'}</span>
+                    <span className="team-leaderboard-xp" style={{ color: rankColor }}>
+                      <Lightning size={12} weight="fill" />{(m.total_xp ?? 0).toLocaleString()} XP
+                    </span>
+                  </div>
+                );
+              })}
+          </Card>
+        </div>
+      )}
+
       {activeMembers.length > 0 && (
         <div className="team-section">
           <h2 className="team-section-title">Members</h2>

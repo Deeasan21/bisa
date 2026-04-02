@@ -38,6 +38,19 @@ export function buildSimulationFunctions(userId) {
     } catch (e) { console.error('getSimulationStats:', e); return {}; }
   }
 
+  async function getSimulationHistory(limit = 20) {
+    try {
+      const { data, error } = await supabase
+        .from('simulation_attempts')
+        .select('simulation_id, ending_node, created_at')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(limit);
+      if (error) throw error;
+      return data || [];
+    } catch (e) { console.error('getSimulationHistory:', e); return []; }
+  }
+
   // ── Pattern ───────────────────────────────────────────────────────────────
 
   async function savePatternAttempt(subMode, scenarioId, userResponse, selectedOption, score, dimensionScores, feedback, difficultyTier, sessionId, roundNumber) {
@@ -95,7 +108,7 @@ export function buildSimulationFunctions(userId) {
   }
 
   return {
-    saveSimulationAttempt, getSimulationStats,
+    saveSimulationAttempt, getSimulationStats, getSimulationHistory,
     savePatternAttempt, getPatternStats, getPatternSessionResults,
   };
 }

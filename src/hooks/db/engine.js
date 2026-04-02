@@ -147,11 +147,14 @@ export function buildEngineFunctions(userId, deps) {
     } catch (e) { console.error('updateQuestProgress:', e); }
   }
 
+  let _generatingQuests = false;
   async function generateDailyQuests() {
     const today = new Date().toISOString().split('T')[0];
     try {
       const existing = await getDailyQuests(today);
       if (existing.length > 0) return existing;
+      if (_generatingQuests) return [];
+      _generatingQuests = true;
 
       let weakCategories = [];
       try {
@@ -199,8 +202,10 @@ export function buildEngineFunctions(userId, deps) {
       }
 
       await saveDailyQuests(today, quests);
-      return getDailyQuests(today);
-    } catch (e) { console.error('generateDailyQuests:', e); return []; }
+      const result = await getDailyQuests(today);
+      _generatingQuests = false;
+      return result;
+    } catch (e) { console.error('generateDailyQuests:', e); _generatingQuests = false; return []; }
   }
 
   async function allQuestsCompleted() {

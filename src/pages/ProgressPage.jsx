@@ -78,6 +78,20 @@ export default function ProgressPage() {
     placeholderData: [],
   });
 
+  const { data: simulationHistory } = useQuery({
+    queryKey: ['simulationHistory'],
+    queryFn: () => db.getSimulationHistory(20),
+    enabled: enabled && openAccordion === 'simulations',
+    placeholderData: [],
+  });
+
+  const { data: learnedCards } = useQuery({
+    queryKey: ['learnedCards'],
+    queryFn: () => db.getLearnedCards(20),
+    enabled: enabled && openAccordion === 'cards',
+    placeholderData: [],
+  });
+
   const toggleAccordion = (key) => setOpenAccordion(prev => prev === key ? null : key);
 
   const QUEST_COLORS = {
@@ -343,22 +357,62 @@ export default function ProgressPage() {
               <ArrowRight size={14} color="var(--text-muted)" />
             </div>
 
-            {/* Simulations — count only */}
-            <div className="activity-row">
-              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <ChatsCircle size={18} color="#C49240" />
+            {/* Simulations */}
+            <div>
+              <div className="activity-row activity-row--clickable" onClick={() => toggleAccordion('simulations')}>
+                <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                  <ChatsCircle size={18} color="#C49240" />
+                </div>
+                <span className="activity-label">Simulations</span>
+                <span className="activity-value">{progress.simulationsCompleted}</span>
+                {openAccordion === 'simulations' ? <CaretUp size={14} color="var(--text-muted)" /> : <CaretDown size={14} color="var(--text-muted)" />}
               </div>
-              <span className="activity-label">Simulations</span>
-              <span className="activity-value">{progress.simulationsCompleted}</span>
+              {openAccordion === 'simulations' && (
+                <div className="accordion-body">
+                  {(simulationHistory || []).length === 0 ? (
+                    <p className="accordion-empty">No simulations completed yet.</p>
+                  ) : (simulationHistory || []).map((s, i) => {
+                    const result = s.ending_node?.includes('great') ? 'Great ending'
+                      : s.ending_node?.includes('good') || s.ending_node?.includes('medium') ? 'Good ending'
+                      : 'Needs work';
+                    const date = s.created_at ? new Date(s.created_at).toLocaleDateString() : '';
+                    return (
+                      <div key={i} className="accordion-item" style={{ cursor: 'default' }}>
+                        <span className="accordion-item-title">Simulation #{s.simulation_id}</span>
+                        <span className="accordion-item-sub">{date}{result ? ` · ${result}` : ''}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            {/* Cards Learned — count only */}
-            <div className="activity-row">
-              <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
-                <Brain size={18} color="#C49240" />
+            {/* Cards Learned */}
+            <div>
+              <div className="activity-row activity-row--clickable" onClick={() => toggleAccordion('cards')}>
+                <div className="activity-icon" style={{ background: 'var(--bg-secondary)' }}>
+                  <Brain size={18} color="#C49240" />
+                </div>
+                <span className="activity-label">Cards Learned</span>
+                <span className="activity-value">{progress.cardsLearned}</span>
+                {openAccordion === 'cards' ? <CaretUp size={14} color="var(--text-muted)" /> : <CaretDown size={14} color="var(--text-muted)" />}
               </div>
-              <span className="activity-label">Cards Learned</span>
-              <span className="activity-value">{progress.cardsLearned}</span>
+              {openAccordion === 'cards' && (
+                <div className="accordion-body">
+                  {(learnedCards || []).length === 0 ? (
+                    <p className="accordion-empty">No cards learned yet — try Review mode.</p>
+                  ) : (learnedCards || []).map((c, i) => {
+                    const date = c.last_review ? new Date(c.last_review).toLocaleDateString() : '';
+                    const typeLabel = c.card_type === 'flashcard' ? 'Flashcard' : c.card_type === 'practice' ? 'Practice' : 'Challenge';
+                    return (
+                      <div key={i} className="accordion-item" style={{ cursor: 'default' }}>
+                        <span className="accordion-item-title">{c.front?.slice(0, 70)}{c.front?.length > 70 ? '…' : ''}</span>
+                        <span className="accordion-item-sub">{typeLabel}{date ? ` · ${date}` : ''} · {c.repetitions} rep{c.repetitions !== 1 ? 's' : ''}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
           </div>
