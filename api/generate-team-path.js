@@ -235,7 +235,7 @@ Rules:
     }
 
     // Save to Supabase using service role key (bypasses RLS — server-side write)
-    const upsertRes = await fetch(`${supabaseUrl}/rest/v1/team_paths`, {
+    const upsertRes = await fetch(`${supabaseUrl}/rest/v1/team_paths?on_conflict=org_id`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
