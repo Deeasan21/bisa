@@ -36,7 +36,7 @@ export function OrgProvider({ children }) {
         if (pendingToken) {
           sessionStorage.removeItem('pendingInviteToken');
           try {
-            const { error: inviteError } = await supabase.rpc('accept_org_invite', { p_token: pendingToken });
+            const { error: inviteError } = await supabase.rpc('accept_org_invite', { p_token: pendingToken, p_user_id: user.id });
             if (!inviteError) {
               capture('invite_accepted');
               setPostJoinPath('/team');
@@ -158,7 +158,7 @@ export function OrgProvider({ children }) {
   }
 
   async function acceptInvite(token) {
-    const { data, error } = await supabase.rpc('accept_org_invite', { p_token: token });
+    const { data, error } = await supabase.rpc('accept_org_invite', { p_token: token, p_user_id: user.id });
     if (error) throw error;
     capture('invite_accepted');
     await loadMembership();
