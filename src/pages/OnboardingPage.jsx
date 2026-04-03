@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Lightning, Eye, ArrowCounterClockwise, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { NeaOnnim } from '../components/brand';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
@@ -8,13 +8,15 @@ import './OnboardingPage.css';
 export default function OnboardingPage() {
   const [slide, setSlide] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const destination = location.state?.next || '/';
   const { db } = useSupabaseDB();
 
   const TOTAL_SLIDES = 3;
 
   const finish = async () => {
     try { await db.markOnboardingComplete(); } catch {}
-    navigate('/', { replace: true });
+    navigate(destination, { replace: true });
   };
 
   const next = () => {
