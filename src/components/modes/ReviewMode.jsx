@@ -72,8 +72,9 @@ function enrichCards(cards, flashcards) {
 
 export default function ReviewMode() {
   const { db, isReady } = useSupabaseDB();
-  const [cards, setCards] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [queue, setQueue] = useState([]);
+  const [totalCards, setTotalCards] = useState(0);
+  const [sessionAnswered, setSessionAnswered] = useState(new Set());
   const [stats, setStats] = useState(null);
   const [seeding, setSeeding] = useState(false);
   const [goodStreak, setGoodStreak] = useState(0);
@@ -98,8 +99,10 @@ export default function ReviewMode() {
   const loadCards = async () => {
     if (!db) return;
     const due = await db.getDueCards(20);
-    setCards(enrichCards(due, flashcardsRef.current));
-    setCurrentIndex(0);
+    const enriched = enrichCards(due, flashcardsRef.current);
+    setQueue(enriched);
+    setTotalCards(enriched.length);
+    setSessionAnswered(new Set());
     setSelected(null);
     setStats(await db.getReviewStats());
     setReviewed(0);
@@ -119,7 +122,7 @@ export default function ReviewMode() {
   };
 
   const advance = async (quality) => {
-    const card = cards[currentIndex];
+    const card = queue[0];
     if (!card || !db || transitioning) return;
 
     await db.submitReview(card.id, QUALITY_MAP[quality]);
@@ -136,14 +139,18 @@ export default function ReviewMode() {
     if (quality === 'good') setGoodStreak(prev => prev + 1);
     else setGoodStreak(0);
 
+    const newAnswered = new Set(sessionAnswered);
+    newAnswered.add(card.id);
+    setSessionAnswered(newAnswered);
+
     setTransitioning(true);
     setTimeout(() => {
-      const nextIndex = currentIndex + 1;
-      if (nextIndex < cards.length) {
-        setCurrentIndex(nextIndex);
-        setSelected(null);
-      } else {
+      if (newAnswered.size >= totalCards) {
         loadCards();
+      } else {
+        // Rotate answered card to back of queue
+        setQueue(prev => [...prev.slice(1), prev[0]]);
+        setSelected(null);
       }
       setTransitioning(false);
     }, 280);
@@ -151,14 +158,15 @@ export default function ReviewMode() {
 
   const handleChoice = (choice) => {
     if (selected || transitioning) return;
-    const card = cards[currentIndex];
+    const card = queue[0];
     const correct = choice === card.skillCategory;
     setSelected({ choice, correct });
-    // Auto-advance after 1.8s
-    setTimeout(() => advance(correct ? 'good' : 'again'), 1800);
+    // No auto-advance — user controls when to move on
   };
 
-  const currentCard = cards[currentIndex];
+  const handleReviewAgain = () => setSelected(null);
+
+  const currentCard = queue[0];
 
   // Build options once per card (stable across re-renders)
   const options = useMemo(() => {
@@ -216,15 +224,19 @@ export default function ReviewMode() {
             {/* Session progress */}
             <div className="review-session">
               <div className="review-progress-dots">
-                {cards.map((_, i) => (
+                {Array.from({ length: totalCards }).map((_, i) => (
                   <span
                     key={i}
-                    className={`progress-pip${i < currentIndex ? ' done' : i === currentIndex ? ' current' : ''}`}
+                    className={`progress-pip${
+                      i < sessionAnswered.size ? ' done'
+                      : i === sessionAnswered.size ? ' current'
+                      : ''
+                    }`}
                     style={{ '--pip-color': theme.primary }}
                   />
                 ))}
               </div>
-              <span className="review-progress-info">Card {currentIndex + 1} of {cards.length}</span>
+              <span className="review-progress-info">{sessionAnswered.size} of {totalCards} answered</span>
             </div>
 
             {goodStreak >= 2 && (
@@ -289,26 +301,48 @@ export default function ReviewMode() {
                 </div>
 
                 {selected && (
-                  <p className={cn(
-                    'text-center text-sm font-semibold mt-1',
-                    selected.correct ? 'text-green-600' : 'text-red-500'
-                  )}>
-                    {selected.correct
-                      ? 'Correct! +1 streak'
-                      : `Not quite — it's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`}
-                  </p>
+                  <>
+                    <p className={cn(
+                      'text-center text-sm font-semibold mt-1',
+                      selected.correct ? 'text-green-600' : 'text-red-500'
+                    )}>
+                      {selected.correct
+                        ? 'Correct! +1 streak'
+                        : `Not quite — it's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`}
+                    </p>
+                    <div className="review-nav-buttons">
+                      <button className="review-nav-btn review-nav-back" onClick={handleReviewAgain}>
+                        Review Again
+                      </button>
+                      <button
+                        className="review-nav-btn review-nav-next"
+                        style={{ background: theme.primary }}
+                        onClick={() => advance(selected.correct ? 'good' : 'again')}
+                      >
+                        Next Card
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             ) : (
-              /* Fallback for cards without skillCategory: old Show/Rate flow */
+              /* Fallback for cards without skillCategory: Show/Rate flow */
               !selected ? (
                 <Button variant="mode" modeColor={theme.primary} onClick={() => setSelected({ choice: null, correct: null })}>
                   Show Answer
                 </Button>
               ) : (
-                <div className="rating-buttons">
-                  <button className="rate-btn rate-again" onClick={() => advance('again')}>Again</button>
-                  <button className="rate-btn rate-good" onClick={() => advance('good')}>Good</button>
+                <div className="review-nav-buttons">
+                  <button className="review-nav-btn review-nav-back" onClick={handleReviewAgain}>
+                    Review Again
+                  </button>
+                  <button
+                    className="review-nav-btn review-nav-next"
+                    style={{ background: theme.primary }}
+                    onClick={() => advance('good')}
+                  >
+                    Next Card
+                  </button>
                 </div>
               )
             )}

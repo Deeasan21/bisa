@@ -290,3 +290,48 @@
 .tap-hint {
   animation: float 3s ease-in-out infinite;
 }
+
+/* ---- Card nav buttons (Review Again / Next Card) ---- */
+.review-nav-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.review-nav-btn {
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  border: none;
+}
+
+.review-nav-btn:active {
+  transform: scale(0.96);
+}
+
+.review-nav-back {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+.review-nav-back:hover {
+  border-color: var(--border-medium, #ccc);
+  color: var(--text-primary);
+}
+
+.review-nav-next {
+  color: #fff;
+  border: none;
+}
+
+.review-nav-next:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
