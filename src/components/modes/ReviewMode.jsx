@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Cards, CheckCircle, Fire } from '@phosphor-icons/react';
+import { useState, useEffect, useMemo } from 'react';
+import { Cards, CheckCircle, Fire, XCircle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
@@ -7,33 +7,60 @@ import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { XP_RULES } from '../../engine/xpSystem';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
-import Card from '../common/Card';
-import Badge from '../common/Badge';
-import ProgressBar from '../common/ProgressBar';
 import AchievementToast from '../common/AchievementToast';
 import FloatingOrbs from '../common/FloatingOrbs';
 import BisaBalloon from '../common/BisaBalloon';
+import { cn } from '@/lib/utils';
 import './ReviewMode.css';
 
 const theme = MODE_THEMES.review;
 
-const QUALITY_MAP = {
-  again: 0,
-  hard: 3,
-  good: 4,
-  easy: 5,
+const ALL_TYPES = [
+  'Open vs. Closed',
+  'Clarifying',
+  'Probing',
+  'Empathy',
+  'Framing',
+  'Follow-up',
+  'Self-Reflection',
+  'Body Language',
+  'Cultural Awareness',
+  'Leadership',
+];
+
+const TYPE_DISPLAY = {
+  'Open vs. Closed': 'Open / Closed',
+  'Clarifying': 'Clarifying',
+  'Probing': 'Probing',
+  'Empathy': 'Empathy',
+  'Framing': 'Framing',
+  'Follow-up': 'Follow-up',
+  'Self-Reflection': 'Reflective',
+  'Body Language': 'Body Language',
+  'Cultural Awareness': 'Cultural',
+  'Leadership': 'Leadership',
 };
+
+// Pick 4 options: correct + 3 random distractors, shuffled
+function buildOptions(correct) {
+  const distractors = ALL_TYPES.filter(t => t !== correct);
+  const picked = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
+  return [...picked, correct].sort(() => Math.random() - 0.5);
+}
+
+const QUALITY_MAP = { again: 0, good: 4 };
 
 export default function ReviewMode() {
   const { db, isReady } = useSupabaseDB();
   const [cards, setCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
   const [stats, setStats] = useState(null);
   const [seeding, setSeeding] = useState(false);
   const [goodStreak, setGoodStreak] = useState(0);
   const [reviewed, setReviewed] = useState(0);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [selected, setSelected] = useState(null); // null | { choice, correct }
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     if (!isReady || !db) return;
@@ -45,7 +72,7 @@ export default function ReviewMode() {
     const due = await db.getDueCards(20);
     setCards(due);
     setCurrentIndex(0);
-    setShowAnswer(false);
+    setSelected(null);
     setStats(await db.getReviewStats());
     setReviewed(0);
     setGoodStreak(0);
@@ -54,23 +81,16 @@ export default function ReviewMode() {
   const handleSeed = async () => {
     if (!db) return;
     setSeeding(true);
-
     await db.seedReviewCards(PRACTICE_SCENARIOS, DAILY_CHALLENGES);
-
     try {
       const module = await import('../../data/flashcards.js');
-      if (module.FLASHCARDS) {
-        await db.seedFlashcards(module.FLASHCARDS);
-      }
+      if (module.FLASHCARDS) await db.seedFlashcards(module.FLASHCARDS);
     } catch { /* flashcards optional */ }
-
     setSeeding(false);
     loadCards();
   };
 
-  const [transitioning, setTransitioning] = useState(false);
-
-  const handleRate = async (quality) => {
+  const advance = async (quality) => {
     const card = cards[currentIndex];
     if (!card || !db || transitioning) return;
 
@@ -85,19 +105,15 @@ export default function ReviewMode() {
       if (newlyUnlocked.length > 0) setNewAchievement(newlyUnlocked[0]);
     }
 
-    if (quality === 'good' || quality === 'easy') {
-      setGoodStreak(prev => prev + 1);
-    } else {
-      setGoodStreak(0);
-    }
+    if (quality === 'good') setGoodStreak(prev => prev + 1);
+    else setGoodStreak(0);
 
-    // Animate card out then bring next in
     setTransitioning(true);
     setTimeout(() => {
       const nextIndex = currentIndex + 1;
       if (nextIndex < cards.length) {
         setCurrentIndex(nextIndex);
-        setShowAnswer(false);
+        setSelected(null);
       } else {
         loadCards();
       }
@@ -105,7 +121,22 @@ export default function ReviewMode() {
     }, 280);
   };
 
+  const handleChoice = (choice) => {
+    if (selected || transitioning) return;
+    const card = cards[currentIndex];
+    const correct = choice === card.skillCategory;
+    setSelected({ choice, correct });
+    // Auto-advance after 1.8s
+    setTimeout(() => advance(correct ? 'good' : 'again'), 1800);
+  };
+
   const currentCard = cards[currentIndex];
+
+  // Build options once per card (stable across re-renders)
+  const options = useMemo(() => {
+    if (!currentCard?.skillCategory) return null;
+    return buildOptions(currentCard.skillCategory);
+  }, [currentCard?.id]);
 
   return (
     <div className="review-mode">
@@ -165,12 +196,9 @@ export default function ReviewMode() {
                   />
                 ))}
               </div>
-              <span className="review-progress-info">
-                Card {currentIndex + 1} of {cards.length}
-              </span>
+              <span className="review-progress-info">Card {currentIndex + 1} of {cards.length}</span>
             </div>
 
-            {/* Good streak counter */}
             {goodStreak >= 2 && (
               <div className="review-streak animate-scale-in">
                 <Fire size={14} weight="fill" color="#D4A853" />
@@ -178,51 +206,83 @@ export default function ReviewMode() {
               </div>
             )}
 
-            {/* 3D Flip Card */}
-            <div
-              className={`review-card-3d${showAnswer ? ' flipped' : ''}${transitioning ? ' card-exit' : ''}`}
-              onClick={() => !transitioning && setShowAnswer(v => !v)}
-            >
-              <div className="review-card-inner">
-                <div className="review-card-front-face">
-                  {currentCard.card_type && (
-                    <Badge
-                      text={currentCard.card_type}
-                      color={theme.primary}
-                      variant="soft"
-                      size="sm"
-                    />
-                  )}
-                  <pre className="card-text">{currentCard.front}</pre>
-                  {!showAnswer && (
-                    <span className="tap-hint">Tap to reveal</span>
-                  )}
-                </div>
-                <div className="review-card-back-face">
+            {/* Card */}
+            <div className={cn('review-card-front-face', transitioning && 'card-exit')}>
+              {currentCard.card_type && (
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                  style={{ color: theme.primary, background: `${theme.primary}18` }}>
+                  {currentCard.card_type}
+                </span>
+              )}
+              <pre className="card-text">{currentCard.front}</pre>
+
+              {/* Revealed explanation after answer */}
+              {selected && (
+                <div className="mt-3 pt-3 border-t border-stone-100">
                   <pre className="card-text card-answer">{currentCard.back}</pre>
                 </div>
-              </div>
+              )}
             </div>
 
-            {!showAnswer ? (
-              <Button variant="mode" modeColor={theme.primary} onClick={() => setShowAnswer(true)}>
-                Show Answer
-              </Button>
-            ) : (
-              <div className="rating-buttons">
-                <button className="rate-btn rate-again" onClick={() => handleRate('again')}>
-                  <span>Again</span>
-                </button>
-                <button className="rate-btn rate-hard" onClick={() => handleRate('hard')}>
-                  <span>Hard</span>
-                </button>
-                <button className="rate-btn rate-good" onClick={() => handleRate('good')}>
-                  <span>Good</span>
-                </button>
-                <button className="rate-btn rate-easy" onClick={() => handleRate('easy')}>
-                  <span>Easy</span>
-                </button>
+            {/* Type identification choices */}
+            {options ? (
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-stone-400 text-center uppercase tracking-wide">
+                  What type of question is this?
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {options.map((opt) => {
+                    const isSelected = selected?.choice === opt;
+                    const isCorrect = opt === currentCard.skillCategory;
+                    const showResult = !!selected;
+
+                    let style = 'border-stone-200 bg-white text-stone-700 hover:border-stone-300 hover:bg-stone-50';
+                    if (showResult && isCorrect) style = 'border-green-400 bg-green-50 text-green-800';
+                    else if (showResult && isSelected && !isCorrect) style = 'border-red-300 bg-red-50 text-red-700';
+                    else if (showResult) style = 'border-stone-100 bg-white text-stone-300';
+
+                    return (
+                      <button
+                        key={opt}
+                        disabled={!!selected}
+                        onClick={() => handleChoice(opt)}
+                        className={cn(
+                          'flex items-center justify-between gap-2 px-3 py-3 rounded-xl border text-sm font-medium transition-all text-left',
+                          style,
+                          !selected && 'active:scale-95'
+                        )}
+                      >
+                        <span>{TYPE_DISPLAY[opt] || opt}</span>
+                        {showResult && isCorrect && <CheckCircle size={16} weight="fill" color="#16A34A" />}
+                        {showResult && isSelected && !isCorrect && <XCircle size={16} weight="fill" color="#DC2626" />}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {selected && (
+                  <p className={cn(
+                    'text-center text-sm font-semibold mt-1',
+                    selected.correct ? 'text-green-600' : 'text-red-500'
+                  )}>
+                    {selected.correct
+                      ? 'Correct! +1 streak'
+                      : `Not quite — it's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`}
+                  </p>
+                )}
               </div>
+            ) : (
+              /* Fallback for cards without skillCategory: old Show/Rate flow */
+              !selected ? (
+                <Button variant="mode" modeColor={theme.primary} onClick={() => setSelected({ choice: null, correct: null })}>
+                  Show Answer
+                </Button>
+              ) : (
+                <div className="rating-buttons">
+                  <button className="rate-btn rate-again" onClick={() => advance('again')}>Again</button>
+                  <button className="rate-btn rate-good" onClick={() => advance('good')}>Good</button>
+                </div>
+              )
             )}
           </div>
         )}
