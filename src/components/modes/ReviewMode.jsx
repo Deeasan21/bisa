@@ -13,14 +13,21 @@ import BisaBalloon from '../common/BisaBalloon';
 import { cn } from '@/lib/utils';
 import './ReviewMode.css';
 
-// Strip lines that reveal the answer (e.g. "Skill: Probing")
-function stripSkillLine(text) {
+// Return only the context portion — strip Skill and Weak question lines
+function extractContext(text) {
   if (!text) return text;
   return text
     .split('\n')
-    .filter(line => !/^skill\s*:/i.test(line.trim()))
+    .filter(line => !/^skill\s*:/i.test(line.trim()) && !/^weak question\s*:/i.test(line.trim()))
     .join('\n')
     .trim();
+}
+
+// Pull the weak question text out of the front field
+function extractWeakQuestion(text) {
+  if (!text) return null;
+  const match = text.match(/weak question:\s*"([^"]+)"/i) || text.match(/weak question:\s*(.+)/i);
+  return match ? match[1].trim() : null;
 }
 
 const CATEGORY_EXPLANATIONS = {
@@ -287,14 +294,33 @@ export default function ReviewMode() {
                   {currentCard.card_type}
                 </span>
               )}
-              <pre className="card-text">{stripSkillLine(currentCard.front)}</pre>
+              <pre className="card-text">{extractContext(currentCard.front)}</pre>
+
+              {/* Always show the strong examples so the user classifies those */}
+              {currentCard.back && (
+                <div className="mt-3 pt-3 border-t border-stone-100">
+                  <pre className="card-text card-answer">{currentCard.back}</pre>
+                </div>
+              )}
+
+              {/* After answering: reveal the weak question for self-reflection */}
+              {selected && (() => {
+                const weakQ = extractWeakQuestion(currentCard.front);
+                return weakQ ? (
+                  <div className="mt-3 pt-3 border-t border-stone-100">
+                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-1">Weak question</p>
+                    <p className="card-text" style={{ fontStyle: 'italic' }}>"{weakQ}"</p>
+                    <p className="text-xs text-stone-400 mt-2">What type of question is this one? Think about it.</p>
+                  </div>
+                ) : null;
+              })()}
             </div>
 
             {/* Type identification choices */}
             {options ? (
               <div className="space-y-2">
                 <p className="text-xs font-semibold text-stone-400 text-center uppercase tracking-wide">
-                  What type of question is this?
+                  What type of question are the examples above?
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {options.map((opt) => {
