@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import './ProgressBar.css';
+import { cn } from '@/lib/utils';
 
 export default function ProgressBar({ value = 0, max = 100, color, label, showPercent, size = 'md', animate = true }) {
   const [width, setWidth] = useState(animate ? 0 : (value / max) * 100);
@@ -15,21 +15,22 @@ export default function ProgressBar({ value = 0, max = 100, color, label, showPe
   }, [value, max, animate]);
 
   const percent = Math.round((value / max) * 100);
+  const trackHeight = size === 'sm' ? 'h-1.5' : size === 'lg' ? 'h-3' : 'h-2';
 
   return (
-    <div className={`progress-bar progress-bar-${size}`} ref={ref}>
+    <div ref={ref} className="w-full">
       {(label || showPercent) && (
-        <div className="progress-bar-header">
-          {label && <span className="progress-bar-label">{label}</span>}
-          {showPercent && <span className="progress-bar-percent">{percent}%</span>}
+        <div className="flex justify-between items-center mb-1">
+          {label && <span className="text-xs text-stone-500">{label}</span>}
+          {showPercent && <span className="text-xs text-stone-500">{percent}%</span>}
         </div>
       )}
-      <div className="progress-bar-track">
+      <div className={cn('w-full bg-stone-100 rounded-full overflow-hidden', trackHeight)}>
         <div
-          className="progress-bar-fill"
+          className="h-full rounded-full transition-[width] duration-700 ease-out"
           style={{
             width: `${Math.min(width, 100)}%`,
-            background: color || 'var(--text-primary)',
+            background: color || '#D4A853',
           }}
         />
       </div>

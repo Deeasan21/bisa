@@ -7,7 +7,7 @@ import { LESSONS } from '../data/lessons';
 import { PRACTICE_SCENARIOS } from '../data/practiceScenarios';
 import { SIMULATIONS } from '../data/simulations';
 import HexBadge from '../components/common/HexBadge';
-import './ModesPage.css';
+import { cn } from '@/lib/utils';
 
 export default function ModesPage() {
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ export default function ModesPage() {
     })();
   }, [db, isReady]);
 
-  // Calculate completion percentage per mode
   const getProgress = (modeKey) => {
     if (!progress) return 0;
     switch (modeKey) {
@@ -40,39 +39,52 @@ export default function ModesPage() {
   };
 
   return (
-    <div className="modes-page animate-fade-in">
-      <div className="modes-header">
-        <h1>Training Modes</h1>
-        <p>Choose how you want to grow today</p>
+    <div className="px-4 pb-6 pt-5 animate-fade-in">
+      <div className="mb-5">
+        <h1 className="font-serif text-2xl font-bold text-stone-900">Training Modes</h1>
+        <p className="text-sm text-stone-500 mt-1">Choose how you want to grow today</p>
       </div>
-      <div className="modes-grid">
+
+      <div className="grid grid-cols-2 gap-3">
         {PLAYABLE_MODES.map((mode, i) => {
           const pct = getProgress(mode.key);
           const isRecommended = mode.key === recommended;
+
           return (
             <button
               key={mode.key}
-              className={`mode-card stagger-${i + 1}`}
+              className={cn(
+                'bg-white rounded-xl border border-stone-200 shadow-sm text-left overflow-hidden',
+                'hover:shadow-md active:scale-[0.98] transition-all',
+                `stagger-${i + 1}`
+              )}
               style={{ '--mode-color': mode.primary }}
               onClick={() => navigate(mode.path)}
             >
-              <div className="mode-card-header" style={{ background: mode.bgGradient }}>
+              {/* Card header band */}
+              <div
+                className="h-16 flex items-center justify-between px-3 relative"
+                style={{ background: mode.bgGradient }}
+              >
                 <HexBadge icon={mode.icon} color={mode.primary} size="sm" />
                 {isRecommended && (
-                  <div className="mode-recommended">
-                    <Star size={10} weight="fill" />
-                    <span>Recommended</span>
+                  <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 text-[10px] font-semibold" style={{ color: mode.primary }}>
+                    <Star size={9} weight="fill" />
+                    <span>Best</span>
                   </div>
                 )}
               </div>
-              <div className="mode-card-content">
-                <h3>{mode.name}</h3>
-                <span className="mode-card-category">{mode.category}</span>
-                <p className="mode-card-desc">{mode.description}</p>
+
+              {/* Card content */}
+              <div className="p-3">
+                <h3 className="text-sm font-semibold text-stone-900 leading-tight">{mode.name}</h3>
+                <span className="text-[10px] text-stone-400 font-medium">{mode.category}</span>
+                <p className="text-xs text-stone-500 mt-1.5 leading-relaxed line-clamp-2">{mode.description}</p>
+
                 {progress && (
-                  <div className="mode-progress-ring">
-                    <svg width="28" height="28" viewBox="0 0 28 28">
-                      <circle cx="14" cy="14" r="11" fill="none" stroke="var(--border)" strokeWidth="2.5" />
+                  <div className="flex items-center gap-2 mt-3">
+                    <svg width="22" height="22" viewBox="0 0 28 28" className="flex-shrink-0">
+                      <circle cx="14" cy="14" r="11" fill="none" stroke="#E7E5E4" strokeWidth="2.5" />
                       <circle
                         cx="14" cy="14" r="11" fill="none"
                         stroke={mode.primary}
@@ -82,7 +94,7 @@ export default function ModesPage() {
                         transform="rotate(-90 14 14)"
                       />
                     </svg>
-                    <span className="mode-progress-text">{pct}%</span>
+                    <span className="text-[10px] font-semibold text-stone-500">{pct}%</span>
                   </div>
                 )}
               </div>

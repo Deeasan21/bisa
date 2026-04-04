@@ -4,8 +4,11 @@ import { ArrowLeft, Sparkle, BookOpen, Target, ArrowRight, ClockCounterClockwise
 import { useOrg } from '../hooks/useOrg';
 import { useTeamPath } from '../hooks/useTeamPath';
 import { LESSONS } from '../data/lessons';
-import Card from '../components/common/Card';
-import './TeamPathPage.css';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 const FOCUS_AREAS = [
   { value: 'sales',       label: 'Sales & Discovery' },
@@ -33,7 +36,6 @@ export default function TeamPathPage() {
     if (ok) setShowSetup(false);
   };
 
-  // Map curated lesson IDs back to full lesson objects
   const curatedLessons = (teamPath?.curated_lesson_ids || [])
     .map(id => LESSONS.find(l => l.id === Number(id)))
     .filter(Boolean);
@@ -43,245 +45,260 @@ export default function TeamPathPage() {
 
   if (isLoading) {
     return (
-      <div className="team-path-page">
-        <div className="team-path-loading">Loading team path…</div>
+      <div className="px-4 pt-5 pb-6 space-y-4">
+        <Skeleton className="h-8 w-32" />
+        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-16 w-full" />
       </div>
     );
   }
 
   return (
-    <div className="team-path-page animate-fade-in">
+    <div className="px-4 pt-5 pb-6 space-y-4 animate-fade-in">
       {/* Header */}
-      <div className="team-path-header">
-        <button className="team-back-btn" onClick={() => navigate('/team')}>
-          <ArrowLeft size={20} />
+      <div className="flex items-center gap-3">
+        <button
+          className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-50 transition-colors flex-shrink-0"
+          onClick={() => navigate('/team')}
+        >
+          <ArrowLeft size={18} />
         </button>
-        <div className="team-path-header-info">
-          <h1>Team Path</h1>
-          <p>{org?.name}</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="font-serif text-xl font-bold text-stone-900">Team Path</h1>
+          {org?.name && <p className="text-xs text-stone-500">{org.name}</p>}
         </div>
         {isAdmin && (
-          <button
-            className="team-path-setup-btn"
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-stone-200 text-stone-700"
             onClick={() => setShowSetup(v => !v)}
           >
             {teamPath ? 'Regenerate' : 'Set up'}
-          </button>
+          </Button>
         )}
       </div>
 
       {/* Admin setup form */}
       {showSetup && isAdmin && (
-        <Card padding="md">
-          <form className="team-path-form" onSubmit={handleGenerate}>
-            <h3>Configure your team's learning path</h3>
-            <p className="team-path-form-desc">
+        <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 space-y-4">
+          <div>
+            <h3 className="font-serif text-base font-bold text-stone-900">Configure your team's learning path</h3>
+            <p className="text-sm text-stone-500 mt-1">
               Tell Bisa about your team. We'll generate lessons and practice scenarios built specifically for your context.
             </p>
+          </div>
 
-            <label className="team-path-label">What best describes your team?</label>
-            <div className="team-path-focus-grid">
-              {FOCUS_AREAS.map(f => (
-                <button
-                  key={f.value}
-                  type="button"
-                  className={`team-path-focus-chip${focusArea === f.value ? ' selected' : ''}`}
-                  onClick={() => setFocusArea(f.value)}
-                >
-                  {f.label}
-                </button>
-              ))}
+          <form onSubmit={handleGenerate} className="space-y-4">
+            <div>
+              <Label className="mb-2 block">What best describes your team?</Label>
+              <div className="flex flex-wrap gap-2">
+                {FOCUS_AREAS.map(f => (
+                  <button
+                    key={f.value}
+                    type="button"
+                    className={cn(
+                      'px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
+                      focusArea === f.value
+                        ? 'bg-gold border-gold text-stone-900'
+                        : 'border-stone-200 text-stone-600 hover:border-stone-300 bg-white'
+                    )}
+                    onClick={() => setFocusArea(f.value)}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <label className="team-path-label">
-              Describe your team's biggest challenge with conversations or questions
-            </label>
-            <textarea
-              className="team-path-textarea"
-              placeholder="e.g. Our sales reps talk too much on discovery calls and miss the real pain. We need them to ask better questions and actually listen."
-              value={focusDescription}
-              onChange={e => setFocusDescription(e.target.value)}
-              rows={4}
-              maxLength={1000}
-              required
-            />
-            <span className="team-path-char-count">{focusDescription.length}/1000</span>
+            <div className="space-y-1.5">
+              <Label>Describe your team's biggest challenge</Label>
+              <Textarea
+                placeholder="e.g. Our sales reps talk too much on discovery calls and miss the real pain. We need them to ask better questions and actually listen."
+                value={focusDescription}
+                onChange={e => setFocusDescription(e.target.value)}
+                rows={4}
+                maxLength={1000}
+                className="focus-visible:ring-gold resize-none"
+              />
+              <p className="text-xs text-stone-400 text-right">{focusDescription.length}/1000</p>
+            </div>
 
-            {generateError && <p className="team-path-error">{generateError}</p>}
+            {generateError && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                {generateError}
+              </p>
+            )}
 
-            <div className="team-path-form-actions">
-              <button type="button" className="team-btn-secondary" onClick={() => setShowSetup(false)}>
+            <div className="flex gap-2 justify-end">
+              <Button type="button" variant="outline" size="sm" onClick={() => setShowSetup(false)}>
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                className="team-btn-primary"
+                size="sm"
+                className="bg-gold hover:bg-gold-mid text-stone-900 font-semibold"
                 disabled={generating || !focusArea || !focusDescription.trim()}
               >
                 {generating ? 'Generating…' : 'Generate path'}
-              </button>
+              </Button>
             </div>
           </form>
-        </Card>
+        </div>
       )}
 
-      {/* No path yet */}
+      {/* Empty state */}
       {!teamPath && !showSetup && (
-        <div className="team-path-empty">
-          <Sparkle size={40} weight="duotone" color="#D4A853" />
-          <h2>No team path yet</h2>
-          <p>
-            {isAdmin
-              ? 'Set up your team\'s focus and Bisa will generate a custom learning path — lessons and practice scenarios built for your specific role and challenges.'
-              : 'Your admin hasn\'t set up a team path yet. Check back soon.'}
-          </p>
+        <div className="flex flex-col items-center text-center py-12 gap-4">
+          <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center">
+            <Sparkle size={28} weight="duotone" color="#D4A853" />
+          </div>
+          <div>
+            <h2 className="font-serif text-lg font-bold text-stone-900">No team path yet</h2>
+            <p className="text-sm text-stone-500 mt-2 max-w-xs">
+              {isAdmin
+                ? "Set up your team's focus and Bisa will generate a custom learning path — lessons and practice scenarios built for your specific role and challenges."
+                : "Your admin hasn't set up a team path yet. Check back soon."}
+            </p>
+          </div>
           {isAdmin && (
-            <button className="team-create-btn" onClick={() => setShowSetup(true)}>
+            <Button
+              className="bg-gold hover:bg-gold-mid text-stone-900 font-semibold"
+              onClick={() => setShowSetup(true)}
+            >
               Set up team path
-            </button>
+            </Button>
           )}
         </div>
       )}
 
       {/* Generated path */}
       {teamPath && !showSetup && (
-        <>
+        <div className="space-y-5">
           {/* Curated lessons */}
           {curatedLessons.length > 0 && (
-            <div className="team-path-section">
-              <div className="team-path-section-header">
-                <BookOpen size={16} weight="duotone" color="#9A6B1F" />
-                <h2>Start with these lessons</h2>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <BookOpen size={15} weight="duotone" color="#9A6B1F" />
+                <h2 className="text-sm font-semibold text-stone-900">Start with these lessons</h2>
               </div>
               {curatedLessons.map((lesson, i) => (
-                <Card
+                <button
                   key={lesson.id}
-                  padding="md"
+                  className="w-full bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex items-center gap-3 hover:shadow-md transition-shadow text-left"
                   onClick={() => navigate('/mode/learn', { state: { lessonIndex: lesson.id } })}
                 >
-                  <div className="team-path-item">
-                    <div className="team-path-item-num" style={{ background: '#9A6B1F14', color: '#9A6B1F' }}>
-                      {i + 1}
-                    </div>
-                    <div className="team-path-item-info">
-                      <span className="team-path-item-title">{lesson.title}</span>
-                      <span className="team-path-item-skill">{lesson.skillCategory}</span>
-                    </div>
-                    <ArrowRight size={16} color="var(--text-muted)" />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: '#9A6B1F14', color: '#9A6B1F' }}>
+                    {i + 1}
                   </div>
-                </Card>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-stone-900 truncate">{lesson.title}</p>
+                    <p className="text-xs text-stone-500 mt-0.5">{lesson.skillCategory}</p>
+                  </div>
+                  <ArrowRight size={15} color="#A8A29E" />
+                </button>
               ))}
             </div>
           )}
 
           {/* AI-generated lessons */}
           {generatedLessons.length > 0 && (
-            <div className="team-path-section">
-              <div className="team-path-section-header">
-                <Sparkle size={16} weight="duotone" color="#D4A853" />
-                <h2>Generated for your team</h2>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Sparkle size={15} weight="duotone" color="#D4A853" />
+                <h2 className="text-sm font-semibold text-stone-900">Generated for your team</h2>
               </div>
               {generatedLessons.map((lesson, i) => (
-                <Card
+                <button
                   key={i}
-                  padding="md"
+                  className="w-full bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex items-center gap-3 hover:shadow-md transition-shadow text-left"
                   onClick={() => navigate('/team/path/lesson', { state: { lesson } })}
                 >
-                  <div className="team-path-item">
-                    <div className="team-path-item-num" style={{ background: '#D4A85314', color: '#D4A853' }}>
-                      <Sparkle size={14} weight="fill" />
-                    </div>
-                    <div className="team-path-item-info">
-                      <span className="team-path-item-title">{lesson.title}</span>
-                      <span className="team-path-item-skill">{lesson.skillCategory}</span>
-                      {lesson.summary && (
-                        <span className="team-path-item-summary">{lesson.summary}</span>
-                      )}
-                    </div>
-                    <ArrowRight size={16} color="var(--text-muted)" />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#D4A85314', color: '#D4A853' }}>
+                    <Sparkle size={13} weight="fill" />
                   </div>
-                </Card>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-stone-900 truncate">{lesson.title}</p>
+                    <p className="text-xs text-stone-500 mt-0.5">{lesson.skillCategory}</p>
+                    {lesson.summary && <p className="text-xs text-stone-400 mt-0.5 line-clamp-1">{lesson.summary}</p>}
+                  </div>
+                  <ArrowRight size={15} color="#A8A29E" />
+                </button>
               ))}
             </div>
           )}
 
           {/* Practice scenarios */}
           {generatedScenarios.length > 0 && (
-            <div className="team-path-section">
-              <div className="team-path-section-header">
-                <Target size={16} weight="duotone" color="#D4A853" />
-                <h2>Practice scenarios</h2>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Target size={15} weight="duotone" color="#D4A853" />
+                <h2 className="text-sm font-semibold text-stone-900">Practice scenarios</h2>
               </div>
               {generatedScenarios.map((scenario, i) => (
-                <Card
+                <button
                   key={scenario.id || i}
-                  padding="md"
+                  className="w-full bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex items-center gap-3 hover:shadow-md transition-shadow text-left"
                   onClick={() => navigate('/team/path/practice', { state: { scenario } })}
                 >
-                  <div className="team-path-item">
-                    <div className="team-path-item-num" style={{ background: '#D4A85314', color: '#D4A853' }}>
-                      {i + 1}
-                    </div>
-                    <div className="team-path-item-info">
-                      <span className="team-path-item-title">{scenario.context?.slice(0, 80)}{scenario.context?.length > 80 ? '…' : ''}</span>
-                      <span className="team-path-item-skill">{scenario.skillCategory}</span>
-                    </div>
-                    <ArrowRight size={16} color="var(--text-muted)" />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: '#D4A85314', color: '#D4A853' }}>
+                    {i + 1}
                   </div>
-                </Card>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-stone-900 line-clamp-1">{scenario.context?.slice(0, 80)}{scenario.context?.length > 80 ? '…' : ''}</p>
+                    <p className="text-xs text-stone-500 mt-0.5">{scenario.skillCategory}</p>
+                  </div>
+                  <ArrowRight size={15} color="#A8A29E" />
+                </button>
               ))}
             </div>
           )}
 
-          <p className="team-path-generated-at">
+          <p className="text-xs text-stone-400 text-center">
             Generated {teamPath.generated_at ? new Date(teamPath.generated_at).toLocaleDateString() : ''}
             {isAdmin && (
-              <> · <button className="team-path-regen-link" onClick={() => setShowSetup(true)}>Regenerate</button></>
+              <> · <button className="text-gold hover:text-gold-dark underline-offset-2 hover:underline" onClick={() => setShowSetup(true)}>Regenerate</button></>
             )}
           </p>
 
-          {/* Version history — admin only */}
+          {/* Version history */}
           {isAdmin && teamPath.history?.length > 0 && (
-            <div className="team-path-section">
-              <div className="team-path-section-header">
-                <ClockCounterClockwise size={16} weight="duotone" color="var(--text-muted)" />
-                <h2 style={{ color: 'var(--text-muted)' }}>Previous versions</h2>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <ClockCounterClockwise size={14} weight="duotone" color="#A8A29E" />
+                <h2 className="text-sm font-semibold text-stone-400">Previous versions</h2>
               </div>
               {teamPath.history.map((entry, i) => (
-                <Card key={i} padding="md">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
-                    <div style={{ flex: 1 }}>
-                      <span style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                        {entry.generated_at ? new Date(entry.generated_at).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Unknown date'}
-                      </span>
-                      {entry.focus_snapshot && (
-                        <span style={{ display: 'block', fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: 2 }}>
-                          {entry.focus_snapshot.slice(0, 80)}{entry.focus_snapshot.length > 80 ? '…' : ''}
-                        </span>
-                      )}
-                    </div>
-                    <button
-                      className="team-path-restore-btn"
-                      onClick={() => restorePath(i)}
-                      disabled={restoring}
-                    >
-                      <ArrowCounterClockwise size={14} />
-                      {restoring ? 'Restoring…' : 'Restore'}
-                    </button>
-                    <button
-                      className="team-path-delete-history-btn"
-                      onClick={() => deleteHistoryEntry(i)}
-                      disabled={restoring}
-                      aria-label="Delete this version"
-                    >
-                      <Trash size={14} />
-                    </button>
+                <div key={i} className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex items-center gap-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-stone-800">
+                      {entry.generated_at ? new Date(entry.generated_at).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Unknown date'}
+                    </p>
+                    {entry.focus_snapshot && (
+                      <p className="text-xs text-stone-400 mt-0.5 truncate">{entry.focus_snapshot.slice(0, 80)}{entry.focus_snapshot.length > 80 ? '…' : ''}</p>
+                    )}
                   </div>
-                </Card>
+                  <button
+                    className="flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-gold border border-stone-200 rounded-lg px-2.5 py-1.5 transition-colors"
+                    onClick={() => restorePath(i)}
+                    disabled={restoring}
+                  >
+                    <ArrowCounterClockwise size={13} />
+                    {restoring ? 'Restoring…' : 'Restore'}
+                  </button>
+                  <button
+                    className="w-8 h-8 rounded-lg border border-stone-200 flex items-center justify-center text-stone-400 hover:text-red-500 hover:border-red-200 transition-colors"
+                    onClick={() => deleteHistoryEntry(i)}
+                    disabled={restoring}
+                    aria-label="Delete this version"
+                  >
+                    <Trash size={14} />
+                  </button>
+                </div>
               ))}
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );

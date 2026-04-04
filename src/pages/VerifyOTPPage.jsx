@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
-import './VerifyOTPPage.css';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 function maskEmail(email) {
   if (!email) return '';
@@ -23,12 +25,10 @@ export default function VerifyOTPPage() {
   const email = location.state?.email;
   const next = location.state?.next || '/';
 
-  // Redirect if accessed directly with no email in state
   useEffect(() => {
     if (!email) navigate('/auth', { replace: true });
   }, [email, navigate]);
 
-  // If already verified/logged in, skip to app (but not if we're mid-verification)
   const verifyingRef = useRef(false);
   useEffect(() => {
     if (user && !verifyingRef.current) navigate('/', { replace: true });
@@ -44,12 +44,10 @@ export default function VerifyOTPPage() {
 
   const inputRefs = useRef([]);
 
-  // Auto-focus first input on mount
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
 
-  // Countdown timer for resend
   useEffect(() => {
     if (resendTimer <= 0) return;
     const t = setTimeout(() => setResendTimer(s => s - 1), 1000);
@@ -60,13 +58,11 @@ export default function VerifyOTPPage() {
   const canVerify = code.length === 8 && !loading && !success;
 
   function handleDigitChange(index, value) {
-    // Only allow digits
     const digit = value.replace(/\D/g, '').slice(-1);
     const next = [...digits];
     next[index] = digit;
     setDigits(next);
     setError('');
-
     if (digit && index < 7) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -99,14 +95,13 @@ export default function VerifyOTPPage() {
     for (let i = 0; i < pasted.length; i++) next[i] = pasted[i];
     setDigits(next);
     setError('');
-    // Focus the box after the last pasted digit, or the last box
     const focusIdx = Math.min(pasted.length, 7);
     inputRefs.current[focusIdx]?.focus();
   }
 
   async function handleVerify() {
     if (!canVerify) return;
-    verifyingRef.current = true; // prevent the "already logged in" redirect from firing
+    verifyingRef.current = true;
     setLoading(true);
     setError('');
 
@@ -160,78 +155,107 @@ export default function VerifyOTPPage() {
   if (!email) return null;
 
   return (
-    <div className="auth-page">
-      <div className="auth-card verify-card">
-        <div className="auth-brand">
-          <img src="/icon.svg" alt="Bisa" className="auth-logo-mark" />
-          <p className="auth-brand-tagline">Learn to ask better questions</p>
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-sm">
+        {/* Brand */}
+        <div className="flex flex-col items-center mb-8">
+          <img src="/icon.svg" alt="Bisa" className="w-12 h-12 mb-3" />
+          <h1 className="font-serif text-2xl font-bold text-stone-900">Bisa</h1>
+          <p className="text-sm text-stone-500 mt-1">Learn to ask better questions</p>
         </div>
 
-        {success ? (
-          <div className="verify-success">
-            <div className="verify-check">✓</div>
-            <p>Email verified!</p>
-          </div>
-        ) : (
-          <>
-            <div className="verify-heading">
-              <h2>Check your email</h2>
-              <p>We sent an 8-digit code to<br /><strong>{maskEmail(email)}</strong></p>
-            </div>
+        <Card className="shadow-md border-stone-200">
+          <CardContent className="pt-6">
+            {success ? (
+              <div className="flex flex-col items-center py-8 gap-4">
+                <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center">
+                  <span className="text-2xl text-gold font-bold">✓</span>
+                </div>
+                <p className="text-stone-700 font-medium">Email verified!</p>
+              </div>
+            ) : (
+              <>
+                <div className="text-center mb-6">
+                  <h2 className="font-serif text-xl font-bold text-stone-900 mb-1">Check your email</h2>
+                  <p className="text-sm text-stone-500">
+                    We sent an 8-digit code to<br />
+                    <strong className="text-stone-700">{maskEmail(email)}</strong>
+                  </p>
+                </div>
 
-            {error && <div className="auth-error">{error}</div>}
-            {resendMessage && <div className="auth-success">{resendMessage}</div>}
+                {error && (
+                  <div className="mb-4 px-3 py-2.5 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">
+                    {error}
+                  </div>
+                )}
+                {resendMessage && (
+                  <div className="mb-4 px-3 py-2.5 rounded-lg bg-green-50 border border-green-200 text-sm text-green-700">
+                    {resendMessage}
+                  </div>
+                )}
 
-            <div className="otp-boxes" onPaste={handlePaste}>
-              {digits.map((d, i) => (
-                <input
-                  key={i}
-                  ref={el => inputRefs.current[i] = el}
-                  className={`otp-input${d ? ' filled' : ''}`}
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  value={d}
-                  onChange={e => handleDigitChange(i, e.target.value)}
-                  onKeyDown={e => handleKeyDown(i, e)}
-                  autoComplete="one-time-code"
-                  aria-label={`Digit ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              className="auth-submit"
-              onClick={handleVerify}
-              disabled={!canVerify}
-            >
-              {loading ? 'Verifying…' : 'Verify code'}
-            </button>
-
-            <div className="verify-resend">
-              {resendTimer > 0 ? (
-                <span className="verify-resend-timer">Resend code in {resendTimer}s</span>
-              ) : (
-                <button
-                  className="verify-resend-btn"
-                  onClick={handleResend}
-                  disabled={resendLoading}
+                {/* OTP digit boxes */}
+                <div
+                  className="flex gap-1.5 justify-center mb-6"
+                  onPaste={handlePaste}
                 >
-                  {resendLoading ? 'Sending…' : "Didn't get a code? Resend"}
-                </button>
-              )}
-            </div>
+                  {digits.map((d, i) => (
+                    <input
+                      key={i}
+                      ref={el => inputRefs.current[i] = el}
+                      className={cn(
+                        'w-9 h-11 text-center text-lg font-bold rounded-lg border-2 outline-none transition-colors',
+                        'bg-white text-stone-900',
+                        d
+                          ? 'border-gold bg-gold/5'
+                          : 'border-stone-200 focus:border-gold'
+                      )}
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={d}
+                      onChange={e => handleDigitChange(i, e.target.value)}
+                      onKeyDown={e => handleKeyDown(i, e)}
+                      autoComplete="one-time-code"
+                      aria-label={`Digit ${i + 1}`}
+                    />
+                  ))}
+                </div>
 
-            <div className="verify-back">
-              <button
-                className="verify-back-btn"
-                onClick={() => navigate('/auth', { replace: true })}
-              >
-                ← Back to sign in
-              </button>
-            </div>
-          </>
-        )}
+                <Button
+                  className="w-full bg-gold hover:bg-gold-mid text-stone-900 font-semibold mb-4"
+                  onClick={handleVerify}
+                  disabled={!canVerify}
+                >
+                  {loading ? 'Verifying…' : 'Verify code'}
+                </Button>
+
+                <div className="text-center text-sm">
+                  {resendTimer > 0 ? (
+                    <span className="text-stone-400">Resend code in {resendTimer}s</span>
+                  ) : (
+                    <button
+                      className="text-gold hover:text-gold-dark font-medium"
+                      onClick={handleResend}
+                      disabled={resendLoading}
+                    >
+                      {resendLoading ? 'Sending…' : "Didn't get a code? Resend"}
+                    </button>
+                  )}
+                </div>
+
+                <div className="text-center mt-3">
+                  <button
+                    className="text-sm text-stone-400 hover:text-stone-600"
+                    onClick={() => navigate('/auth', { replace: true })}
+                  >
+                    ← Back to sign in
+                  </button>
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

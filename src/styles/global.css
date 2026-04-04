@@ -19,9 +19,9 @@ html {
 }
 
 body {
+  background-color: #ffffff;
+  color: #1c1917;
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;

@@ -9,11 +9,10 @@ import { XP_RULES } from '../engine/xpSystem';
 import { getDailyInsight, CATEGORY_COLORS } from '../data/dailyInsights';
 import { LESSONS } from '../data/lessons';
 import ProgressBar from '../components/common/ProgressBar';
-import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Confetti from '../components/common/Confetti';
 import { NeaOnnim } from '../components/brand';
-import './TodayPage.css';
+import { cn } from '@/lib/utils';
 
 const MODE_PATHS = {
   practice: '/mode/practice',
@@ -33,29 +32,10 @@ const MODE_LABELS = {
   simulate: 'Simulate Mode',
 };
 
-// Default mode suggestions for new users — no hardcoded lesson links
 const NEW_USER_MODES = [
-  {
-    title: 'Daily Challenge',
-    reason: 'Build your questioning reflex — 60 seconds a day',
-    color: '#C49240',
-    Icon: Lightning,
-    path: '/mode/daily',
-  },
-  {
-    title: 'Pattern Mode',
-    reason: 'Discover how you read people and situations',
-    color: '#C49240',
-    Icon: Eye,
-    path: '/mode/pattern',
-  },
-  {
-    title: 'Practice Mode',
-    reason: 'Rewrite real questions and get instant AI feedback',
-    color: '#C49240',
-    Icon: Target,
-    path: '/mode/practice',
-  },
+  { title: 'Daily Challenge', reason: 'Build your questioning reflex — 60 seconds a day', color: '#C49240', Icon: Lightning, path: '/mode/daily' },
+  { title: 'Pattern Mode', reason: 'Discover how you read people and situations', color: '#C49240', Icon: Eye, path: '/mode/pattern' },
+  { title: 'Practice Mode', reason: 'Rewrite real questions and get instant AI feedback', color: '#C49240', Icon: Target, path: '/mode/practice' },
 ];
 
 export default function TodayPage() {
@@ -105,10 +85,8 @@ export default function TodayPage() {
     placeholderData: null,
   });
 
-  // Check if all quests done for confetti + bonus XP (once per day)
   useEffect(() => {
     if (!enabled || !engineQuests || engineQuests.length === 0) return;
-
     (async () => {
       try {
         const allDone = await db.allQuestsCompleted();
@@ -133,8 +111,6 @@ export default function TodayPage() {
   const dailyInsight = getDailyInsight();
   const insightColor = CATEGORY_COLORS[dailyInsight.category] || '#6B7280';
 
-  // Build streak calendar (last 7 days)
-  // Uses local date strings throughout to avoid UTC-offset issues when comparing date-only strings
   const getStreakCalendar = () => {
     const days = [];
     const today = new Date();
@@ -149,7 +125,6 @@ export default function TodayPage() {
       const isToday = i === 0;
       let isActive = false;
       if (lastDate && streak > 0) {
-        // Parse lastDate as local noon to avoid DST / UTC midnight issues
         const end = new Date(`${lastDate}T12:00:00`);
         const cur = new Date(`${dateStr}T12:00:00`);
         const daysFromEnd = Math.round((end - cur) / (1000 * 60 * 60 * 24));
@@ -161,23 +136,13 @@ export default function TodayPage() {
   };
 
   const QUEST_COLORS = {
-    practice: '#D4A853',
-    lesson: '#9A6B1F',
-    journal: '#D4A853',
-    daily_challenge: '#C49240',
-    review: '#9A6B1F',
-    simulation: '#D4A853',
-    streak: '#D4A853',
+    practice: '#D4A853', lesson: '#9A6B1F', journal: '#D4A853',
+    daily_challenge: '#C49240', review: '#9A6B1F', simulation: '#D4A853', streak: '#D4A853',
   };
 
   const QUEST_PATHS = {
-    practice: '/mode/practice',
-    lesson: '/mode/learn',
-    journal: '/journal',
-    daily_challenge: '/mode/daily',
-    review: '/mode/review',
-    simulation: '/mode/simulate',
-    streak: '/mode/daily',
+    practice: '/mode/practice', lesson: '/mode/learn', journal: '/journal',
+    daily_challenge: '/mode/daily', review: '/mode/review', simulation: '/mode/simulate', streak: '/mode/daily',
   };
 
   const dailyQuests = engineQuests.map(q => ({
@@ -198,244 +163,253 @@ export default function TodayPage() {
   const allQuestsDone = dailyQuests.length > 0 && dailyQuests.every(q => q.completed);
   const streakCalendar = getStreakCalendar();
 
-  // Navigate to lesson from daily insight
   const handleInsightTap = () => {
     const lessonIndex = LESSONS.findIndex(l => l.id === dailyInsight.lessonId);
     navigate('/mode/learn', { state: { lessonIndex: lessonIndex >= 0 ? lessonIndex : 0 } });
   };
 
-  // Build recommendation reason text and route for returning users
   const getRecInfo = (rec) => {
     let reason = '';
     let path = '/mode/practice';
     let Icon = Target;
-
     if (rec.isWeak && rec.isStale) {
       reason = `${rec.category} needs review — ${rec.staleDays} days since last session`;
-      path = '/mode/learn';
-      Icon = BookOpen;
+      path = '/mode/learn'; Icon = BookOpen;
     } else if (rec.isNew) {
       reason = `You haven't tried ${rec.category} yet — discover your level`;
-      path = '/mode/practice';
-      Icon = Target;
+      path = '/mode/practice'; Icon = Target;
     } else if (rec.isWeak) {
       reason = `${rec.category} is at ${rec.avg}% — practice will push it higher`;
-      path = '/mode/practice';
-      Icon = Target;
+      path = '/mode/practice'; Icon = Target;
     } else if (rec.isStale) {
       reason = `${rec.category} is getting rusty — quick review will lock it in`;
-      path = '/mode/review';
-      Icon = BookOpen;
+      path = '/mode/review'; Icon = BookOpen;
     }
-
     return { reason, path, Icon };
   };
 
-  // XP numbers for progress card
   const xpCurrent = totalXP - (level.xpRequired || 0);
-  const xpNeeded = level.nextLevel
-    ? level.nextLevel.xpRequired - (level.xpRequired || 0)
-    : null;
+  const xpNeeded = level.nextLevel ? level.nextLevel.xpRequired - (level.xpRequired || 0) : null;
 
   return (
-    <div className="today-page animate-fade-in">
+    <div className="px-4 pb-6 pt-5 space-y-4 animate-fade-in">
       <Confetti active={showConfetti} />
 
-      <div className="today-header">
-        <div className="today-header-left">
-          <NeaOnnim size={40} className="today-brand-mark" />
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <NeaOnnim size={36} className="flex-shrink-0" />
           <div>
-            <h1>{greeting}</h1>
-            <p className="today-subtitle">Keep the streak alive</p>
+            <h1 className="font-serif text-xl font-bold text-stone-900">{greeting}</h1>
+            <p className="text-xs text-stone-500">Keep the streak alive</p>
           </div>
         </div>
-        <div className="streak-pill">
-          <Fire size={18} weight="fill" color="#D4A853" />
-          <span>{streak}</span>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/20">
+          <Fire size={16} weight="fill" color="#D4A853" />
+          <span className="text-sm font-bold text-gold">{streak}</span>
         </div>
       </div>
 
-      {/* Progress Card — replaces mascot */}
-      <Card className="progress-card" padding="md">
-        <div className="progress-card-top">
-          <div className="progress-level-info">
-            <span className="progress-level-num">Level {level.level}</span>
-            <span className="progress-level-name">{level.name}</span>
+      {/* Progress Card */}
+      <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <span className="text-xs font-semibold text-stone-900">Level {level.level}</span>
+            <span className="text-xs text-stone-400 ml-2">{level.name}</span>
           </div>
           {xpNeeded && (
-            <span className="progress-xp-text">{xpCurrent} / {xpNeeded} XP</span>
+            <span className="text-xs text-stone-400">{xpCurrent} / {xpNeeded} XP</span>
           )}
         </div>
-        <ProgressBar
-          value={Math.round(level.progress * 100)}
-          max={100}
-          color="var(--xp-color)"
-          size="sm"
-          animate
-        />
-        <div className="progress-card-footer">
-          <span className="progress-last-activity">
+        <ProgressBar value={Math.round(level.progress * 100)} max={100} color="#D4A853" size="sm" animate />
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-xs text-stone-400">
             {lastActivity
               ? `Last: ${lastActivity.type} · ${daysAgo(lastActivity.date)}`
-              : 'No activity yet — pick a mode below to start'
+              : 'No activity yet — pick a mode to start'
             }
           </span>
           {nextMode && (
             <button
-              className="progress-continue-btn"
+              className="flex items-center gap-1 text-xs font-semibold text-gold hover:text-gold-dark"
               onClick={() => navigate(MODE_PATHS[nextMode.mode] || '/modes')}
             >
               Continue: {MODE_LABELS[nextMode.mode]}
-              <ArrowRight size={13} weight="bold" />
+              <ArrowRight size={12} weight="bold" />
             </button>
           )}
         </div>
-      </Card>
+      </div>
 
-      {/* First-session start card */}
+      {/* First-session CTA */}
       {isNewUser && (
-        <div className="first-session-card animate-fade-in">
-          <div className="first-session-body">
-            <span className="first-session-eyebrow">Start here</span>
-            <h2 className="first-session-headline">Your first 60 seconds</h2>
-            <p className="first-session-body">Complete today's Daily Challenge to start your streak and earn your first XP. It takes under a minute.</p>
-          </div>
-          <button className="first-session-cta" onClick={() => navigate('/mode/daily')}>
+        <div className="bg-gold/5 border border-gold/20 rounded-xl p-4 animate-fade-in">
+          <span className="text-xs font-semibold text-gold uppercase tracking-wide">Start here</span>
+          <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">Your first 60 seconds</h2>
+          <p className="text-sm text-stone-600 mt-1 mb-3">Complete today's Daily Challenge to start your streak and earn your first XP. It takes under a minute.</p>
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-gold text-stone-900 rounded-full text-sm font-semibold hover:bg-gold-mid transition-colors"
+            onClick={() => navigate('/mode/daily')}
+          >
             Begin Daily Challenge
-            <ArrowRight size={16} weight="bold" />
+            <ArrowRight size={14} weight="bold" />
           </button>
         </div>
       )}
 
       {/* Daily Insight */}
-      <Card className="daily-insight-card" padding="md" onClick={handleInsightTap} style={{ '--insight-color': insightColor }}>
-        <div className="insight-header">
-          <Lightbulb size={20} weight="fill" color={insightColor} />
-          <span className="insight-label">Daily Insight</span>
+      <div
+        className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+        style={{ borderLeftWidth: 3, borderLeftColor: insightColor }}
+        onClick={handleInsightTap}
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <Lightbulb size={16} weight="fill" color={insightColor} />
+          <span className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Daily Insight</span>
           <Badge text={dailyInsight.category} color={insightColor} variant="soft" size="sm" />
         </div>
-        <h3 className="insight-title">{dailyInsight.title}</h3>
-        <p className="insight-body">{dailyInsight.explanation}</p>
-        <div className="insight-example">
-          <span className="insight-example-label">Try this:</span>
-          <span className="insight-example-text">{dailyInsight.exampleQuestion}</span>
+        <h3 className="font-serif text-base font-bold text-stone-900 mb-1">{dailyInsight.title}</h3>
+        <p className="text-sm text-stone-600 mb-3">{dailyInsight.explanation}</p>
+        <div className="bg-stone-50 rounded-lg p-3 mb-3">
+          <span className="text-xs font-semibold text-stone-400">Try this:</span>
+          <p className="text-sm text-stone-700 mt-0.5 italic">"{dailyInsight.exampleQuestion}"</p>
         </div>
-        <div className="insight-cta">
-          <BookOpen size={16} weight="duotone" color={insightColor} />
+        <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: insightColor }}>
+          <BookOpen size={14} weight="duotone" />
           <span>Read the full lesson</span>
-          <ArrowRight size={14} weight="bold" color={insightColor} />
+          <ArrowRight size={12} weight="bold" />
         </div>
-      </Card>
+      </div>
 
       {/* Streak Calendar */}
-      <div className="streak-calendar">
+      <div className="flex justify-between px-1">
         {streakCalendar.map((day) => (
-          <div key={day.dateStr} className={`streak-day${day.isActive ? ' active' : ''}${day.isToday ? ' today' : ''}`}>
-            <span className="streak-day-label">{day.dayLabel}</span>
-            <div className="streak-dot" />
+          <div key={day.dateStr} className="flex flex-col items-center gap-1.5">
+            <span className="text-[10px] text-stone-400 font-medium">{day.dayLabel}</span>
+            <div className={cn(
+              'w-7 h-7 rounded-full border-2 transition-colors',
+              day.isActive
+                ? 'bg-gold border-gold'
+                : day.isToday
+                ? 'border-stone-300 bg-stone-50'
+                : 'border-stone-200 bg-white'
+            )} />
           </div>
         ))}
       </div>
 
-      <div className="quests-section">
-        <div className="quests-title">
-          <Lightning size={20} weight="fill" color="#D4A853" />
-          <h2>Daily Challenge</h2>
-          <span className="quests-timer">{hoursLeft}h left</span>
+      {/* Daily Challenge */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Lightning size={16} weight="fill" color="#D4A853" />
+          <h2 className="text-sm font-semibold text-stone-900">Daily Challenge</h2>
+          <span className="ml-auto text-xs text-stone-400">{hoursLeft}h left</span>
         </div>
 
         {dailyChallengeQuest ? (
-          <Card key={dailyChallengeQuest.id || dailyChallengeQuest.label} padding="md" onClick={() => navigate(dailyChallengeQuest.path)}>
-            <div className="quest-row">
-              <div className="quest-info">
-                <span className="quest-label">{dailyChallengeQuest.label}</span>
-                <ProgressBar
-                  value={dailyChallengeQuest.value}
-                  max={dailyChallengeQuest.max}
-                  color={dailyChallengeQuest.color}
-                  size="sm"
-                  animate
-                />
+          <div
+            className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate(dailyChallengeQuest.path)}
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-stone-700 font-medium mb-2">{dailyChallengeQuest.label}</p>
+                <ProgressBar value={dailyChallengeQuest.value} max={dailyChallengeQuest.max} color={dailyChallengeQuest.color} size="sm" animate />
               </div>
-              <div className="quest-reward">
+              <div className="flex-shrink-0">
                 {dailyChallengeQuest.completed ? (
                   <Gift size={24} weight="fill" color={dailyChallengeQuest.color} />
                 ) : (
-                  <span className="quest-xp" style={{ color: dailyChallengeQuest.color, background: `${dailyChallengeQuest.color}14` }}>+{dailyChallengeQuest.xp} XP</span>
+                  <span
+                    className="text-xs font-bold px-2.5 py-1 rounded-full"
+                    style={{ color: dailyChallengeQuest.color, background: `${dailyChallengeQuest.color}14` }}
+                  >
+                    +{dailyChallengeQuest.xp} XP
+                  </span>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
         ) : (
-          <Card padding="md" onClick={() => navigate('/mode/daily')}>
-            <div className="quest-row">
-              <div className="quest-info">
-                <span className="quest-label">Complete today's Daily Challenge</span>
-              </div>
-              <span className="quest-xp" style={{ color: '#C49240', background: '#C4924014' }}>+25 XP</span>
+          <div
+            className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/mode/daily')}
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-stone-700 font-medium">Complete today's Daily Challenge</p>
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ color: '#C49240', background: '#C4924014' }}>+25 XP</span>
             </div>
-          </Card>
+          </div>
         )}
 
         {otherQuests.length > 0 && (
-          <button className="quests-more-link" onClick={() => navigate('/progress')}>
-            <Lightning size={14} weight="fill" color="#D4A853" />
+          <button
+            className="flex items-center gap-1.5 text-xs text-stone-500 hover:text-gold transition-colors w-full justify-center py-1"
+            onClick={() => navigate('/progress')}
+          >
+            <Lightning size={12} weight="fill" color="#D4A853" />
             {otherQuestsDone}/{otherQuests.length} other quests
-            <ArrowRight size={14} weight="bold" />
+            <ArrowRight size={12} weight="bold" />
           </button>
         )}
 
         {allQuestsDone && (
-          <div className="quests-complete animate-scale-in">
+          <div className="text-center py-2 text-sm font-semibold text-gold animate-scale-in">
             All quests complete! +25 XP bonus
           </div>
         )}
       </div>
 
-      {/* Recommended for You */}
-      <div className="recommendations-section">
-        <div className="recommendations-title">
-          <Sparkle size={20} weight="fill" color="#D4A853" />
-          <h2>Play Next</h2>
+      {/* Play Next / Recommendations */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Sparkle size={16} weight="fill" color="#D4A853" />
+          <h2 className="text-sm font-semibold text-stone-900">Play Next</h2>
         </div>
 
         {(!recommendations || recommendations.recommended.length === 0) ? (
-          // New user — suggest modes directly, not specific lessons
           NEW_USER_MODES.map(({ title, reason, color, Icon, path }) => (
-            <Card key={title} padding="md" onClick={() => navigate(path)}>
-              <div className="rec-card">
-                <div className="rec-icon" style={{ background: `${color}18` }}>
-                  <Icon size={22} weight="duotone" color={color} />
+            <div
+              key={title}
+              className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => navigate(path)}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${color}18` }}>
+                  <Icon size={20} weight="duotone" color={color} />
                 </div>
-                <div className="rec-content">
-                  <span className="rec-title">{title}</span>
-                  <span className="rec-reason">{reason}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-stone-900">{title}</p>
+                  <p className="text-xs text-stone-500 mt-0.5">{reason}</p>
                 </div>
-                <ArrowRight size={18} color="var(--text-muted)" />
+                <ArrowRight size={16} color="#A8A29E" />
               </div>
-            </Card>
+            </div>
           ))
         ) : (
           recommendations.recommended.slice(0, 3).map((rec) => {
             const color = CATEGORY_COLORS[rec.category] || '#6B7280';
             const { reason, path, Icon } = getRecInfo(rec);
-
             return (
-              <Card key={rec.category} padding="md" onClick={() => navigate(path)}>
-                <div className="rec-card">
-                  <div className="rec-icon" style={{ background: `${color}18` }}>
-                    <Icon size={22} weight="duotone" color={color} />
+              <div
+                key={rec.category}
+                className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => navigate(path)}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${color}18` }}>
+                    <Icon size={20} weight="duotone" color={color} />
                   </div>
-                  <div className="rec-content">
-                    <div className="rec-title-row">
-                      <span className="rec-title">Work on {rec.category}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <p className="text-sm font-semibold text-stone-900">Work on {rec.category}</p>
                       {rec.avg > 0 && <Badge text={`${rec.avg}%`} color={color} variant="soft" size="sm" />}
                     </div>
-                    <span className="rec-reason">{reason}</span>
+                    <p className="text-xs text-stone-500">{reason}</p>
                   </div>
-                  <ArrowRight size={18} color="var(--text-muted)" />
+                  <ArrowRight size={16} color="#A8A29E" />
                 </div>
-              </Card>
+              </div>
             );
           })
         )}

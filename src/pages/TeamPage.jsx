@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, Crown, Lightning, Fire, Copy, Check, UserPlus, Trash, ArrowLeft, Sparkle, ArrowRight } from '@phosphor-icons/react';
 import { useOrg } from '../hooks/useOrg';
-import Card from '../components/common/Card';
-import './TeamPage.css';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Badge as ShadcnBadge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://neaobisa.com';
 
@@ -19,35 +23,60 @@ function MemberRow({ member, isAdmin, onRemove }) {
   };
 
   return (
-    <div className={`team-member-row${isPending ? ' team-member-pending' : ''}`}>
-      <div className="team-member-avatar">{isPending ? '?' : initial}</div>
-      <div className="team-member-info">
-        <div className="team-member-name-row">
-          <span className="team-member-name">
+    <div className={cn('flex items-center gap-3 p-4', isPending && 'opacity-70')}>
+      <Avatar className="w-9 h-9 flex-shrink-0">
+        <AvatarFallback className="text-sm font-semibold bg-stone-100 text-stone-600">
+          {isPending ? '?' : initial}
+        </AvatarFallback>
+      </Avatar>
+
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-sm font-medium text-stone-900 truncate">
             {isPending ? member.email : (member.display_name || 'Bisa User')}
           </span>
           {member.role === 'admin' && (
-            <span className="team-role-badge team-role-admin">
-              <Crown size={10} weight="fill" /> Admin
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] font-semibold">
+              <Crown size={9} weight="fill" /> Admin
             </span>
           )}
-          {isPending && <span className="team-role-badge team-role-pending">Pending</span>}
+          {isPending && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 text-[10px] font-semibold">
+              Pending
+            </span>
+          )}
         </div>
+
         {!isPending && (
-          <div className="team-member-stats">
-            <span className="team-stat"><Lightning size={12} weight="fill" />{member.total_xp?.toLocaleString() ?? 0} XP</span>
-            <span className="team-stat"><Fire size={12} weight="fill" />{member.current_streak ?? 0} streak</span>
+          <div className="flex items-center gap-3 mt-0.5">
+            <span className="flex items-center gap-1 text-[11px] text-stone-400">
+              <Lightning size={11} weight="fill" color="#D4A853" />
+              {member.total_xp?.toLocaleString() ?? 0} XP
+            </span>
+            <span className="flex items-center gap-1 text-[11px] text-stone-400">
+              <Fire size={11} weight="fill" color="#D4A853" />
+              {member.current_streak ?? 0} streak
+            </span>
           </div>
         )}
+
         {isPending && member.invite_token && (
-          <button className="team-copy-link" onClick={copyInviteLink}>
-            {copied ? <><Check size={12} /> Copied!</> : <><Copy size={12} /> Copy invite link</>}
+          <button
+            className="flex items-center gap-1 text-[11px] text-gold hover:text-gold-dark mt-0.5 transition-colors"
+            onClick={copyInviteLink}
+          >
+            {copied ? <><Check size={11} /> Copied!</> : <><Copy size={11} /> Copy invite link</>}
           </button>
         )}
       </div>
+
       {isAdmin && (
-        <button className="team-remove-btn" onClick={() => onRemove(member.member_id)} aria-label="Remove member">
-          <Trash size={16} />
+        <button
+          className="w-8 h-8 rounded-full hover:bg-red-50 flex items-center justify-center text-stone-300 hover:text-red-400 transition-colors flex-shrink-0"
+          onClick={() => onRemove(member.member_id)}
+          aria-label="Remove member"
+        >
+          <Trash size={15} />
         </button>
       )}
     </div>
@@ -94,23 +123,28 @@ export default function TeamPage() {
 
   if (loading) {
     return (
-      <div className="team-page">
-        <div className="team-loading">Loading…</div>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <p className="text-sm text-stone-400">Loading…</p>
       </div>
     );
   }
 
   if (!org) {
     return (
-      <div className="team-page animate-fade-in">
-        <div className="team-empty-state">
-          <div className="team-empty-icon"><Users size={40} weight="duotone" /></div>
-          <h2>You don't have a team yet</h2>
-          <p>Create a team to track your colleagues' progress, invite members, and build a culture of better questioning.</p>
-          <button className="team-create-btn" onClick={() => navigate('/team/create')}>
-            Create your team
-          </button>
+      <div className="px-4 pb-8 pt-16 flex flex-col items-center text-center gap-4 animate-fade-in">
+        <div className="w-16 h-16 rounded-2xl bg-stone-100 flex items-center justify-center">
+          <Users size={32} weight="duotone" color="#A8A29E" />
         </div>
+        <h2 className="font-serif text-xl font-bold text-stone-900">You don't have a team yet</h2>
+        <p className="text-sm text-stone-500 max-w-xs">
+          Create a team to track your colleagues' progress, invite members, and build a culture of better questioning.
+        </p>
+        <Button
+          className="bg-gold hover:bg-gold-mid text-stone-900 font-semibold mt-2"
+          onClick={() => navigate('/team/create')}
+        >
+          Create your team
+        </Button>
       </div>
     );
   }
@@ -119,117 +153,152 @@ export default function TeamPage() {
   const pendingMembers = members.filter(m => m.status === 'pending');
 
   return (
-    <div className="team-page animate-fade-in">
-      <div className="team-header">
-        <button className="team-back-btn" onClick={() => navigate('/me')}>
-          <ArrowLeft size={20} />
+    <div className="px-4 pb-6 pt-5 space-y-4 animate-fade-in">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <button
+          className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:bg-stone-50 transition-colors flex-shrink-0"
+          onClick={() => navigate('/me')}
+        >
+          <ArrowLeft size={18} />
         </button>
-        <div className="team-header-info">
-          <h1>{org.name}</h1>
-          <span className="team-member-count">{activeMembers.length} member{activeMembers.length !== 1 ? 's' : ''}</span>
+        <div className="flex-1 min-w-0">
+          <h1 className="font-serif text-xl font-bold text-stone-900 truncate">{org.name}</h1>
+          <p className="text-xs text-stone-500">{activeMembers.length} member{activeMembers.length !== 1 ? 's' : ''}</p>
         </div>
         {isAdmin && (
-          <button className="team-invite-trigger" onClick={() => setShowInviteForm(v => !v)}>
-            <UserPlus size={18} />
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-1.5 border-gold text-gold hover:bg-gold/5 flex-shrink-0"
+            onClick={() => setShowInviteForm(v => !v)}
+          >
+            <UserPlus size={15} />
             Invite
-          </button>
+          </Button>
         )}
       </div>
 
+      {/* Invite form */}
       {showInviteForm && isAdmin && (
-        <Card padding="md">
-          <form className="team-invite-form" onSubmit={handleInvite}>
-            <h3>Invite a team member</h3>
-            <input
-              type="email"
-              placeholder="colleague@company.com"
-              value={inviteEmail}
-              onChange={e => setInviteEmail(e.target.value)}
-              required
-              className="team-invite-input"
-            />
-            <div className="team-invite-role">
-              <label>
+        <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-4">
+          <h3 className="text-sm font-semibold text-stone-900 mb-3">Invite a team member</h3>
+          <form onSubmit={handleInvite} className="space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="invite-email">Email</Label>
+              <Input
+                id="invite-email"
+                type="email"
+                placeholder="colleague@company.com"
+                value={inviteEmail}
+                onChange={e => setInviteEmail(e.target.value)}
+                required
+                className="focus-visible:ring-gold"
+              />
+            </div>
+            <div className="flex gap-4">
+              <label className="flex items-center gap-2 text-sm text-stone-700 cursor-pointer">
                 <input type="radio" name="role" value="member" checked={inviteRole === 'member'} onChange={() => setInviteRole('member')} />
                 Member
               </label>
-              <label>
+              <label className="flex items-center gap-2 text-sm text-stone-700 cursor-pointer">
                 <input type="radio" name="role" value="admin" checked={inviteRole === 'admin'} onChange={() => setInviteRole('admin')} />
                 Admin
               </label>
             </div>
-            {inviteError && <p className="team-invite-error">{inviteError}</p>}
-            <div className="team-invite-actions">
-              <button type="button" className="team-btn-secondary" onClick={() => setShowInviteForm(false)}>Cancel</button>
-              <button type="submit" className="team-btn-primary" disabled={inviting}>
+            {inviteError && (
+              <p className="text-xs text-red-500">{inviteError}</p>
+            )}
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="flex-1"
+                onClick={() => setShowInviteForm(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                size="sm"
+                className="flex-1 bg-gold hover:bg-gold-mid text-stone-900 font-semibold"
+                disabled={inviting}
+              >
                 {inviting ? 'Sending…' : 'Generate invite link'}
-              </button>
+              </Button>
             </div>
-            <p className="team-invite-note">We'll generate a link you can share with them directly.</p>
+            <p className="text-xs text-stone-400 text-center">We'll generate a link you can share with them directly.</p>
           </form>
-        </Card>
+        </div>
       )}
 
-      {/* Team Path entry */}
-      <div className="team-section">
-        <h2 className="team-section-title">Learning</h2>
-        <Card padding="md" onClick={() => navigate('/team/path')}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
-            <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-md)', background: 'rgba(212,168,83,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Sparkle size={20} weight="duotone" color="#D4A853" />
-            </div>
-            <div style={{ flex: 1 }}>
-              <span style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>Team Path</span>
-              <span style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)' }}>Lessons & practice built for your team</span>
-            </div>
-            <ArrowRight size={16} color="var(--text-muted)" />
+      {/* Team Path */}
+      <div>
+        <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-2">Learning</h2>
+        <div
+          className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex items-center gap-3 cursor-pointer hover:shadow-md transition-shadow"
+          onClick={() => navigate('/team/path')}
+        >
+          <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
+            <Sparkle size={20} weight="duotone" color="#D4A853" />
           </div>
-        </Card>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-stone-900">Team Path</p>
+            <p className="text-xs text-stone-500">Lessons & practice built for your team</p>
+          </div>
+          <ArrowRight size={16} color="#A8A29E" />
+        </div>
       </div>
 
+      {/* Leaderboard */}
       {activeMembers.length > 1 && (
-        <div className="team-section">
-          <h2 className="team-section-title">Leaderboard</h2>
-          <Card padding="none">
+        <div>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-2">Leaderboard</h2>
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm divide-y divide-stone-100 overflow-hidden">
             {[...activeMembers]
               .sort((a, b) => (b.total_xp ?? 0) - (a.total_xp ?? 0))
               .map((m, idx) => {
                 const initial = (m.display_name || m.email || '?').charAt(0).toUpperCase();
-                const rankColor = idx === 0 ? '#D4A853' : idx === 1 ? '#C49240' : idx === 2 ? '#9A6B1F' : 'var(--text-muted)';
+                const rankColor = idx === 0 ? '#D4A853' : idx === 1 ? '#C49240' : idx === 2 ? '#9A6B1F' : '#A8A29E';
                 return (
-                  <div key={m.member_id} className="team-leaderboard-row">
-                    <span className="team-leaderboard-rank" style={{ color: rankColor }}>#{idx + 1}</span>
-                    <div className="team-member-avatar" style={{ width: 32, height: 32, fontSize: '0.85rem' }}>{initial}</div>
-                    <span className="team-leaderboard-name">{m.display_name || 'Bisa User'}</span>
-                    <span className="team-leaderboard-xp" style={{ color: rankColor }}>
-                      <Lightning size={12} weight="fill" />{(m.total_xp ?? 0).toLocaleString()} XP
+                  <div key={m.member_id} className="flex items-center gap-3 px-4 py-3">
+                    <span className="w-6 text-sm font-bold" style={{ color: rankColor }}>#{idx + 1}</span>
+                    <Avatar className="w-8 h-8 flex-shrink-0">
+                      <AvatarFallback className="text-xs font-semibold bg-stone-100 text-stone-600">{initial}</AvatarFallback>
+                    </Avatar>
+                    <span className="flex-1 text-sm font-medium text-stone-900">{m.display_name || 'Bisa User'}</span>
+                    <span className="flex items-center gap-1 text-xs font-bold" style={{ color: rankColor }}>
+                      <Lightning size={11} weight="fill" />{(m.total_xp ?? 0).toLocaleString()} XP
                     </span>
                   </div>
                 );
               })}
-          </Card>
+          </div>
         </div>
       )}
 
+      {/* Members */}
       {activeMembers.length > 0 && (
-        <div className="team-section">
-          <h2 className="team-section-title">Members</h2>
-          <Card padding="none">
+        <div>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-2">Members</h2>
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm divide-y divide-stone-100 overflow-hidden">
             {activeMembers.map(m => (
               <MemberRow key={m.member_id} member={m} isAdmin={isAdmin} onRemove={handleRemove} />
             ))}
-          </Card>
+          </div>
         </div>
       )}
 
+      {/* Pending invites */}
       {pendingMembers.length > 0 && (
-        <div className="team-section">
-          <h2 className="team-section-title">Pending invites</h2>
-          <Card padding="none">
+        <div>
+          <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-2">Pending invites</h2>
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm divide-y divide-stone-100 overflow-hidden">
             {pendingMembers.map(m => (
               <MemberRow key={m.member_id} member={m} isAdmin={isAdmin} onRemove={handleRemove} />
             ))}
-          </Card>
+          </div>
         </div>
       )}
     </div>

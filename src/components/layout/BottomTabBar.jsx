@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Lightning, SquaresFour, ChartLineUp, Notebook, User } from '@phosphor-icons/react';
-import './BottomTabBar.css';
+import { cn } from '@/lib/utils';
 
 const TABS = [
   { path: '/', label: 'Today', icon: Lightning },
@@ -20,19 +20,32 @@ export default function BottomTabBar() {
   };
 
   return (
-    <nav className="bottom-tab-bar" aria-label="Main navigation" role="navigation">
-      {TABS.map(({ path, label, icon: Icon }) => (
-        <button
-          key={path}
-          className={`tab-item${isActive(path) ? ' tab-active' : ''}`}
-          onClick={() => navigate(path)}
-          aria-label={`Navigate to ${label}`}
-          aria-current={isActive(path) ? 'page' : undefined}
-        >
-          <Icon size={24} weight={isActive(path) ? 'fill' : 'regular'} aria-hidden="true" />
-          <span className="tab-label">{label}</span>
-        </button>
-      ))}
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-stone-200 flex items-stretch"
+      style={{ height: 64, paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      aria-label="Main navigation"
+      role="navigation"
+    >
+      {TABS.map(({ path, label, icon: Icon }) => {
+        const active = isActive(path);
+        return (
+          <button
+            key={path}
+            className={cn(
+              'flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors',
+              active ? 'text-gold' : 'text-stone-400 hover:text-stone-600'
+            )}
+            onClick={() => navigate(path)}
+            aria-label={`Navigate to ${label}`}
+            aria-current={active ? 'page' : undefined}
+          >
+            <Icon size={24} weight={active ? 'fill' : 'regular'} aria-hidden="true" />
+            <span className={cn('text-[10px] font-medium', active ? 'text-gold' : 'text-stone-400')}>
+              {label}
+            </span>
+          </button>
+        );
+      })}
     </nav>
   );
 }
