@@ -5,6 +5,7 @@ import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { XP_RULES } from '../../engine/xpSystem';
+import { callClaude, extractText } from '../../services/claudeApi';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import AchievementToast from '../common/AchievementToast';
@@ -12,6 +13,33 @@ import FloatingOrbs from '../common/FloatingOrbs';
 import BisaBalloon from '../common/BisaBalloon';
 import { cn } from '@/lib/utils';
 import './ReviewMode.css';
+
+// Strip lines that reveal the answer (e.g. "Skill: Probing")
+function stripSkillLine(text) {
+  if (!text) return text;
+  return text
+    .split('\n')
+    .filter(line => !/^skill\s*:/i.test(line.trim()))
+    .join('\n')
+    .trim();
+}
+
+async function fetchExplanation(cardFront, correctType, userChoice, wasCorrect) {
+  const prompt = wasCorrect
+    ? `A learner correctly identified a question as "${correctType}". In 1-2 sentences, briefly explain why this is a ${correctType} question, so they reinforce the concept.`
+    : `A learner thought a question was "${userChoice}" but it's actually "${correctType}". In 1-2 sentences, explain what makes it a ${correctType} question and why "${userChoice}" doesn't fit here.`;
+
+  try {
+    const res = await callClaude({
+      system: 'You are Enya, a warm questioning coach in the Bisa app. Give concise, friendly explanations (1-2 sentences max). No markdown, no bullet points — just plain prose.',
+      messages: [{ role: 'user', content: `Card context:\n${cardFront}\n\n${prompt}` }],
+      max_tokens: 120,
+    });
+    return extractText(res);
+  } catch {
+    return null;
+  }
+}
 
 const theme = MODE_THEMES.review;
 
@@ -81,6 +109,7 @@ export default function ReviewMode() {
   const [reviewed, setReviewed] = useState(0);
   const [newAchievement, setNewAchievement] = useState(null);
   const [selected, setSelected] = useState(null);
+  const [explanation, setExplanation] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const flashcardsRef = useRef(null);
 
@@ -151,6 +180,7 @@ export default function ReviewMode() {
         // Rotate answered card to back of queue
         setQueue(prev => [...prev.slice(1), prev[0]]);
         setSelected(null);
+        setExplanation(null);
       }
       setTransitioning(false);
     }, 280);
@@ -161,10 +191,13 @@ export default function ReviewMode() {
     const card = queue[0];
     const correct = choice === card.skillCategory;
     setSelected({ choice, correct });
-    // No auto-advance — user controls when to move on
+    setExplanation(null);
+    // Fetch AI explanation in the background
+    fetchExplanation(stripSkillLine(card.front), card.skillCategory, choice, correct)
+      .then(text => { if (text) setExplanation(text); });
   };
 
-  const handleReviewAgain = () => setSelected(null);
+  const handleReviewAgain = () => { setSelected(null); setExplanation(null); };
 
   const currentCard = queue[0];
 
@@ -254,14 +287,7 @@ export default function ReviewMode() {
                   {currentCard.card_type}
                 </span>
               )}
-              <pre className="card-text">{currentCard.front}</pre>
-
-              {/* Revealed explanation after answer */}
-              {selected && (
-                <div className="mt-3 pt-3 border-t border-stone-100">
-                  <pre className="card-text card-answer">{currentCard.back}</pre>
-                </div>
-              )}
+              <pre className="card-text">{stripSkillLine(currentCard.front)}</pre>
             </div>
 
             {/* Type identification choices */}
@@ -307,9 +333,16 @@ export default function ReviewMode() {
                       selected.correct ? 'text-green-600' : 'text-red-500'
                     )}>
                       {selected.correct
-                        ? 'Correct! +1 streak'
+                        ? `Correct! It's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`
                         : `Not quite — it's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`}
                     </p>
+                    {explanation ? (
+                      <p className="text-sm text-stone-500 text-center leading-relaxed px-1">
+                        {explanation}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-stone-300 text-center animate-pulse">Enya is thinking…</p>
+                    )}
                     <div className="review-nav-buttons">
                       <button className="review-nav-btn review-nav-back" onClick={handleReviewAgain}>
                         Review Again
