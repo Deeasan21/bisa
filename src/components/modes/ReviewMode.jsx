@@ -5,7 +5,6 @@ import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
 import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { XP_RULES } from '../../engine/xpSystem';
-import { callClaude, extractText } from '../../services/claudeApi';
 import ModeHeader from '../layout/ModeHeader';
 import Button from '../common/Button';
 import AchievementToast from '../common/AchievementToast';
@@ -24,21 +23,25 @@ function stripSkillLine(text) {
     .trim();
 }
 
-async function fetchExplanation(cardFront, correctType, userChoice, wasCorrect) {
-  const prompt = wasCorrect
-    ? `A learner correctly identified a question as "${correctType}". In 1-2 sentences, briefly explain why this is a ${correctType} question, so they reinforce the concept.`
-    : `A learner thought a question was "${userChoice}" but it's actually "${correctType}". In 1-2 sentences, explain what makes it a ${correctType} question and why "${userChoice}" doesn't fit here.`;
+const CATEGORY_EXPLANATIONS = {
+  'Open vs. Closed': 'Open questions invite elaboration and can\'t be answered with yes or no. Closed questions shut the door — they invite a one-word reply.',
+  'Clarifying': 'Clarifying questions pin down exactly what someone means. They\'re used when a word or statement is vague and you need specifics.',
+  'Probing': 'Probing questions dig beneath the surface to uncover the "why" behind what someone said. They push past the first answer.',
+  'Empathy': 'Empathy questions acknowledge feelings before seeking information. They signal you\'ve noticed the emotional weight in a moment.',
+  'Framing': 'Framing questions set context or reposition the situation before asking. They shape how the other person thinks about the topic.',
+  'Follow-up': 'Follow-up questions build directly on what was just said. They show you\'re listening and want to go deeper on that specific point.',
+  'Self-Reflection': 'Self-reflection questions turn the lens inward — they invite the asker or listener to examine their own assumptions and reactions.',
+  'Body Language': 'Body language questions address what you\'re observing non-verbally. They name what you see and invite the person to respond to it.',
+  'Cultural Awareness': 'Cultural awareness questions acknowledge that background and context shape meaning. They create space for different perspectives.',
+  'Leadership': 'Leadership questions focus on direction, ownership, or team dynamics. They move a conversation from problem to possibility.',
+};
 
-  try {
-    const res = await callClaude({
-      system: 'You are Enya, a warm questioning coach in the Bisa app. Give concise, friendly explanations (1-2 sentences max). No markdown, no bullet points — just plain prose.',
-      messages: [{ role: 'user', content: `Card context:\n${cardFront}\n\n${prompt}` }],
-      max_tokens: 120,
-    });
-    return extractText(res);
-  } catch {
-    return null;
-  }
+function getExplanation(correctType, userChoice, wasCorrect) {
+  const definition = CATEGORY_EXPLANATIONS[correctType] || '';
+  if (wasCorrect) return definition;
+  const wrongDef = CATEGORY_EXPLANATIONS[userChoice];
+  if (!wrongDef) return definition;
+  return `${definition} A ${userChoice} question would instead ${wrongDef.charAt(0).toLowerCase()}${wrongDef.slice(1)}`;
 }
 
 const theme = MODE_THEMES.review;
@@ -191,10 +194,7 @@ export default function ReviewMode() {
     const card = queue[0];
     const correct = choice === card.skillCategory;
     setSelected({ choice, correct });
-    setExplanation(null);
-    // Fetch AI explanation in the background
-    fetchExplanation(stripSkillLine(card.front), card.skillCategory, choice, correct)
-      .then(text => { if (text) setExplanation(text); });
+    setExplanation(getExplanation(card.skillCategory, choice, correct));
   };
 
   const handleReviewAgain = () => { setSelected(null); setExplanation(null); };
@@ -336,12 +336,10 @@ export default function ReviewMode() {
                         ? `Correct! It's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`
                         : `Not quite — it's ${TYPE_DISPLAY[currentCard.skillCategory] || currentCard.skillCategory}`}
                     </p>
-                    {explanation ? (
+                    {explanation && (
                       <p className="text-sm text-stone-500 text-center leading-relaxed px-1">
                         {explanation}
                       </p>
-                    ) : (
-                      <p className="text-xs text-stone-300 text-center animate-pulse">Enya is thinking…</p>
                     )}
                     <div className="review-nav-buttons">
                       <button className="review-nav-btn review-nav-back" onClick={handleReviewAgain}>
