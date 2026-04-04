@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { Cards, CheckCircle, Fire, XCircle } from '@phosphor-icons/react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { CheckCircle, Fire, XCircle } from '@phosphor-icons/react';
 import { MODE_THEMES } from '../../themes/modeThemes';
 import { PRACTICE_SCENARIOS } from '../../data/practiceScenarios';
 import { DAILY_CHALLENGES } from '../../data/dailyChallenges';
@@ -50,6 +50,26 @@ function buildOptions(correct) {
 
 const QUALITY_MAP = { again: 0, good: 4 };
 
+// Enrich cards with skillCategory using source data (no DB column needed)
+function enrichCards(cards, flashcards) {
+  return cards.map(card => {
+    if (card.skillCategory) return card;
+    if (card.card_type === 'practice') {
+      const s = PRACTICE_SCENARIOS.find(s => s.id === card.source_id);
+      return { ...card, skillCategory: s?.skillCategory || null };
+    }
+    if (card.card_type === 'challenge') {
+      const c = DAILY_CHALLENGES[card.source_id];
+      return { ...card, skillCategory: c?.skillCategory || null };
+    }
+    if (card.card_type === 'flashcard' && flashcards) {
+      const f = flashcards.find(f => f.id === card.source_id);
+      return { ...card, skillCategory: f?.skillCategory || null };
+    }
+    return card;
+  });
+}
+
 export default function ReviewMode() {
   const { db, isReady } = useSupabaseDB();
   const [cards, setCards] = useState([]);
@@ -59,8 +79,16 @@ export default function ReviewMode() {
   const [goodStreak, setGoodStreak] = useState(0);
   const [reviewed, setReviewed] = useState(0);
   const [newAchievement, setNewAchievement] = useState(null);
-  const [selected, setSelected] = useState(null); // null | { choice, correct }
+  const [selected, setSelected] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
+  const flashcardsRef = useRef(null);
+
+  // Pre-load flashcard data for enrichment
+  useEffect(() => {
+    import('../../data/flashcards.js')
+      .then(m => { flashcardsRef.current = m.FLASHCARDS; })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (!isReady || !db) return;
@@ -70,7 +98,7 @@ export default function ReviewMode() {
   const loadCards = async () => {
     if (!db) return;
     const due = await db.getDueCards(20);
-    setCards(due);
+    setCards(enrichCards(due, flashcardsRef.current));
     setCurrentIndex(0);
     setSelected(null);
     setStats(await db.getReviewStats());
