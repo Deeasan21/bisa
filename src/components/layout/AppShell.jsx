@@ -37,7 +37,7 @@ export default function AppShell() {
         className="flex-1 overflow-y-auto pb-16 flex flex-col items-center"
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-4xl px-2 sm:px-4">
           <Outlet />
         </div>
       </main>
