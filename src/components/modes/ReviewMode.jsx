@@ -30,25 +30,56 @@ function extractWeakQuestion(text) {
   return match ? match[1].trim() : null;
 }
 
-const CATEGORY_EXPLANATIONS = {
-  'Open vs. Closed': 'Open questions invite elaboration and can\'t be answered with yes or no. Closed questions shut the door — they invite a one-word reply.',
-  'Clarifying': 'Clarifying questions pin down exactly what someone means. They\'re used when a word or statement is vague and you need specifics.',
-  'Probing': 'Probing questions dig beneath the surface to uncover the "why" behind what someone said. They push past the first answer.',
-  'Empathy': 'Empathy questions acknowledge feelings before seeking information. They signal you\'ve noticed the emotional weight in a moment.',
-  'Framing': 'Framing questions set context or reposition the situation before asking. They shape how the other person thinks about the topic.',
-  'Follow-up': 'Follow-up questions build directly on what was just said. They show you\'re listening and want to go deeper on that specific point.',
-  'Self-Reflection': 'Self-reflection questions turn the lens inward — they invite the asker or listener to examine their own assumptions and reactions.',
-  'Body Language': 'Body language questions address what you\'re observing non-verbally. They name what you see and invite the person to respond to it.',
-  'Cultural Awareness': 'Cultural awareness questions acknowledge that background and context shape meaning. They create space for different perspectives.',
-  'Leadership': 'Leadership questions focus on direction, ownership, or team dynamics. They move a conversation from problem to possibility.',
+const CATEGORIES = {
+  'Open vs. Closed': {
+    definition: "Open questions invite elaboration — they can't be answered with yes or no, so they give the other person room to share on their own terms.",
+    signal: "invite a simple yes or no and close the door on elaboration",
+  },
+  'Clarifying': {
+    definition: "Clarifying questions pin down exactly what someone means when their words are vague or ambiguous. They make sure you're both talking about the same thing.",
+    signal: "seek to define or narrow down what was meant",
+  },
+  'Probing': {
+    definition: "Probing questions dig beneath the surface to uncover the 'why' behind what someone said. They push past the first answer to find what's really going on.",
+    signal: "dig for the deeper reason or motivation underneath",
+  },
+  'Empathy': {
+    definition: "Empathy questions acknowledge feelings before seeking information. They signal you've noticed the emotional weight in a moment before moving on.",
+    signal: "acknowledge the emotional weight of the moment",
+  },
+  'Framing': {
+    definition: "Framing questions set context or reposition the situation before asking. They shape how the other person thinks about a topic before they respond.",
+    signal: "reframe or reposition the situation before asking",
+  },
+  'Follow-up': {
+    definition: "Follow-up questions build directly on what was just said. They show you were listening and want to go deeper on that specific point — not introduce a new thread.",
+    signal: "build on something specific that was just said",
+  },
+  'Self-Reflection': {
+    definition: "Self-reflection questions turn the lens inward. They invite the speaker or listener to examine their own assumptions, reactions, or role in a situation.",
+    signal: "invite the speaker to look inward at themselves",
+  },
+  'Body Language': {
+    definition: "Body language questions name something you're observing non-verbally and invite the person to respond to it. They make the unspoken visible.",
+    signal: "name a non-verbal cue you're observing and invite a response",
+  },
+  'Cultural Awareness': {
+    definition: "Cultural awareness questions acknowledge that background and context shape how meaning is made. They create space for different lived perspectives.",
+    signal: "acknowledge how cultural background or context is shaping the situation",
+  },
+  'Leadership': {
+    definition: "Leadership questions focus on direction, ownership, or team dynamics. They move a conversation from describing a problem toward taking ownership of a solution.",
+    signal: "focus on direction, ownership, or moving from problem to possibility",
+  },
 };
 
 function getExplanation(correctType, userChoice, wasCorrect) {
-  const definition = CATEGORY_EXPLANATIONS[correctType] || '';
-  if (wasCorrect) return definition;
-  const wrongDef = CATEGORY_EXPLANATIONS[userChoice];
-  if (!wrongDef) return definition;
-  return `${definition} A ${userChoice} question would instead ${wrongDef.charAt(0).toLowerCase()}${wrongDef.slice(1)}`;
+  const correct = CATEGORIES[correctType];
+  const wrong = CATEGORIES[userChoice];
+  if (!correct) return '';
+  if (wasCorrect) return correct.definition;
+  if (!wrong) return correct.definition;
+  return `${correct.definition} A ${userChoice} question would ${wrong.signal} — that's not what's happening here.`;
 }
 
 const theme = MODE_THEMES.review;
