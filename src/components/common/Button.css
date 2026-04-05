@@ -5,7 +5,7 @@
   gap: 8px;
   border-radius: var(--radius-md);
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all var(--duration-normal) var(--ease-out);
   white-space: nowrap;
   cursor: pointer;
   border: none;
@@ -27,38 +27,38 @@
 
 /* Variants */
 .btn-primary {
-  background: var(--btn-color, var(--text-primary));
+  background: var(--btn-color, var(--foreground));
   color: #FFFFFF;
 }
 .btn-primary:hover:not(:disabled) {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
   box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--background-secondary);
+  color: var(--foreground);
+  border: 1px solid var(--border-default);
 }
 .btn-secondary:hover:not(:disabled) {
-  background: var(--border);
+  background: var(--border-default);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--btn-color, var(--text-secondary));
+  color: var(--btn-color, var(--foreground-secondary));
 }
 .btn-ghost:hover:not(:disabled) {
-  background: var(--bg-secondary);
+  background: var(--background-secondary);
 }
 
 .btn-mode {
-  background: var(--btn-color, #3B82F6);
+  background: var(--btn-color, oklch(0.62 0.16 250));
   color: #FFFFFF;
   border-radius: var(--radius-lg);
 }
 .btn-mode:hover:not(:disabled) {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
   box-shadow: var(--shadow-md);
 }
 

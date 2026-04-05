@@ -6,12 +6,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, oklch(0.22 0.02 75) 0%, oklch(0.28 0.03 75) 100%);
+  border: 1px solid oklch(0.75 0.14 75 / 0.3);
   padding: 14px 20px;
   border-radius: var(--radius-lg);
   z-index: 10000;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(245, 158, 11, 0.1);
+  box-shadow: var(--shadow-xl), 0 0 0 1px oklch(0.75 0.14 75 / 0.1);
   animation: achievementSlideIn 4s ease-out forwards;
   max-width: 340px;
   width: calc(100% - 32px);
@@ -22,7 +22,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: rgba(245, 158, 11, 0.15);
+  background: oklch(0.75 0.14 75 / 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,18 +39,18 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #F59E0B;
+  color: var(--bisa-gold);
 }
 
 .achievement-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #FAFAF9;
+  color: oklch(0.97 0 0);
 }
 
 .achievement-desc {
   font-size: 0.8rem;
-  color: #A8A29E;
+  color: oklch(0.65 0.015 60);
   line-height: 1.3;
 }
 

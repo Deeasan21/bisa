@@ -6,15 +6,15 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #1C1917;
-  color: #F59E0B;
+  background: oklch(0.22 0.02 75);
+  color: var(--bisa-gold);
   padding: 10px 20px;
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 0.95rem;
   z-index: 10000;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  animation: xpToastIn 1.8s ease-out forwards;
+  box-shadow: var(--shadow-xl);
+  animation: xpToastIn 1.8s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
 }
 
 @keyframes xpToastIn {

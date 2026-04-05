@@ -11,17 +11,17 @@
 .badge-md { padding: 4px 14px; font-size: 0.85rem; }
 
 .badge-filled {
-  background: var(--badge-color, var(--bg-secondary));
+  background: var(--badge-color, var(--background-secondary));
   color: #FFFFFF;
 }
 
 .badge-outlined {
   background: transparent;
-  border: 1.5px solid var(--badge-color, var(--border));
-  color: var(--badge-color, var(--text-secondary));
+  border: 1.5px solid var(--badge-color, var(--border-default));
+  color: var(--badge-color, var(--foreground-secondary));
 }
 
 .badge-soft {
-  background: color-mix(in srgb, var(--badge-color, var(--text-muted)) 15%, transparent);
-  color: var(--badge-color, var(--text-secondary));
+  background: color-mix(in srgb, var(--badge-color, var(--foreground-muted)) 15%, transparent);
+  color: var(--badge-color, var(--foreground-secondary));
 }

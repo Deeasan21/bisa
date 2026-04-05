@@ -1,19 +1,20 @@
 .today-page {
   padding: var(--space-md);
-  background: radial-gradient(ellipse 110% 320px at 50% -20px, rgba(212, 168, 83, 0.13) 0%, transparent 100%);
+  background: radial-gradient(ellipse 110% 320px at 50% -20px, oklch(0.75 0.14 75 / 0.10) 0%, transparent 100%);
   min-height: 100%;
 }
 
 /* First session card */
 .first-session-card {
-  background: linear-gradient(135deg, #7C4A14 0%, #5C3410 50%, #3D2208 100%);
+  background: linear-gradient(135deg, oklch(0.35 0.08 75) 0%, oklch(0.28 0.06 60) 50%, oklch(0.22 0.04 50) 100%);
   border-radius: var(--radius-lg);
   padding: var(--space-md);
   margin-bottom: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  border: 1px solid rgba(212, 168, 83, 0.2);
+  border: 1px solid oklch(0.75 0.14 75 / 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .first-session-eyebrow {
@@ -21,13 +22,13 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #F59E0B;
+  color: var(--bisa-gold);
 }
 
 .first-session-headline {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.4rem;
-  color: #FAFAF9;
+  color: oklch(0.97 0 0);
   margin: 4px 0 0;
 }
 
@@ -39,7 +40,7 @@
 
 .first-session-body p {
   font-size: 0.88rem;
-  color: rgba(250, 250, 249, 0.65);
+  color: oklch(0.97 0 0 / 0.65);
   line-height: 1.55;
   margin: 6px 0 0;
 }
@@ -50,18 +51,25 @@
   gap: 8px;
   padding: 12px 20px;
   border-radius: var(--radius-full);
-  background: #F59E0B;
-  color: #1C1917;
+  background: var(--bisa-gold);
+  color: oklch(0.15 0.02 75);
   font-size: 0.9rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
   align-self: flex-start;
-  transition: opacity 0.15s, transform 0.12s;
+  transition: all var(--duration-normal) var(--ease-out);
+  box-shadow: var(--shadow-sm);
 }
 
-.first-session-cta:hover { opacity: 0.9; }
-.first-session-cta:active { transform: scale(0.97); }
+.first-session-cta:hover {
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.05);
+}
+
+.first-session-cta:active {
+  transform: scale(0.97);
+}
 
 .today-header {
   display: flex;
@@ -78,7 +86,7 @@
 
 .today-brand-mark {
   opacity: 0.85;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity var(--duration-normal), transform var(--duration-normal) var(--ease-bounce);
   cursor: default;
   flex-shrink: 0;
 }
@@ -89,14 +97,14 @@
 }
 
 .today-header h1 {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
-  color: var(--text-primary);
+  color: var(--foreground);
   margin: 0;
 }
 
 .today-subtitle {
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   margin: 4px 0 0;
   font-size: 0.9rem;
 }
@@ -105,17 +113,13 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #FEF3C7;
+  background: var(--bisa-gold-subtle);
   padding: 6px 12px;
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 0.95rem;
-  color: #92400E;
-}
-
-[data-theme="dark"] .streak-pill {
-  background: rgba(245, 158, 11, 0.15);
-  color: #F59E0B;
+  color: var(--bisa-gold-dark);
+  border: 1px solid oklch(0.75 0.14 75 / 0.15);
 }
 
 /* Progress Card */
@@ -124,8 +128,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  background: linear-gradient(145deg, #FFF8E8 0%, #FFFFFF 65%) !important;
-  border-color: rgba(212, 168, 83, 0.35) !important;
+  background: linear-gradient(145deg, var(--bisa-gold-subtle) 0%, var(--surface) 65%) !important;
+  border-color: oklch(0.75 0.14 75 / 0.25) !important;
 }
 
 .progress-card-top {
@@ -145,20 +149,20 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--xp-color);
+  color: var(--bisa-gold);
 }
 
 .progress-level-name {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary);
-  font-family: 'DM Serif Display', Georgia, serif;
+  color: var(--foreground);
+  font-family: var(--font-display);
 }
 
 .progress-xp-text {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
   padding-top: 2px;
 }
 
@@ -173,7 +177,7 @@
 
 .progress-last-activity {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
 }
 
 .progress-continue-btn {
@@ -182,30 +186,33 @@
   gap: 4px;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--text-primary);
-  background: var(--bg-secondary);
+  color: var(--foreground);
+  background: var(--background-secondary);
   border: none;
   border-radius: var(--radius-full);
   padding: 5px 12px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all var(--duration-normal) var(--ease-out);
   white-space: nowrap;
 }
 
 .progress-continue-btn:hover {
-  background: var(--border);
+  background: var(--border-default);
+}
+
+.progress-continue-btn:active {
+  transform: scale(0.97);
 }
 
 /* Streak Calendar */
 .streak-calendar {
   display: flex;
   justify-content: space-between;
-  background: var(--bg-card);
-  border: 1px solid rgba(212, 168, 83, 0.2);
+  border: 1px solid oklch(0.75 0.14 75 / 0.15);
   border-radius: var(--radius-lg);
   padding: var(--space-sm) var(--space-md);
   margin-bottom: var(--space-lg);
-  background: linear-gradient(to bottom, #FFFDF6, #FFFFFF);
+  background: linear-gradient(to bottom, var(--bisa-gold-subtle), var(--surface));
 }
 
 .streak-day {
@@ -220,41 +227,41 @@
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
 }
 
 .streak-day.today .streak-day-label {
-  color: var(--text-primary);
+  color: var(--foreground);
 }
 
 .streak-dot {
   width: 12px;
   height: 12px;
   border-radius: var(--radius-full);
-  background: var(--border);
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--border-default);
+  transition: all var(--duration-slow) var(--ease-bounce);
 }
 
 .streak-day.active .streak-dot {
-  background: #D4A853;
+  background: var(--bisa-gold);
   transform: scale(1.2);
-  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.22);
+  box-shadow: 0 0 0 3px oklch(0.75 0.14 75 / 0.22);
 }
 
 .streak-day.today:not(.active) .streak-dot {
-  border: 2px solid var(--text-primary);
+  border: 2px solid var(--foreground);
 }
 
 .streak-day.active.today .streak-dot {
-  background: #D4A853;
-  border: 2px solid #9A6B1F;
-  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.3);
+  background: var(--bisa-gold);
+  border: 2px solid var(--bisa-gold-dark);
+  box-shadow: 0 0 0 3px oklch(0.75 0.14 75 / 0.3);
   animation: streakPulse 2.2s ease-in-out infinite;
 }
 
 @keyframes streakPulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.3); }
-  50% { box-shadow: 0 0 0 6px rgba(212, 168, 83, 0); }
+  0%, 100% { box-shadow: 0 0 0 3px oklch(0.75 0.14 75 / 0.3); }
+  50% { box-shadow: 0 0 0 6px oklch(0.75 0.14 75 / 0); }
 }
 
 /* Quests */
@@ -272,12 +279,12 @@
 }
 
 .quests-title h2 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   margin: 0;
   flex: 1;
 }
@@ -285,7 +292,7 @@
 .quests-timer {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
 }
 
 .quest-row {
@@ -304,7 +311,7 @@
 .quest-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--foreground);
 }
 
 .quest-reward {
@@ -316,8 +323,8 @@
 .quest-xp {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
+  color: var(--foreground-secondary);
+  background: var(--background-secondary);
   padding: 4px 10px;
   border-radius: var(--radius-full);
 }
@@ -326,7 +333,7 @@
   text-align: center;
   font-weight: 700;
   font-size: 0.9rem;
-  color: #10B981;
+  color: var(--score-excellent);
   padding: var(--space-sm);
 }
 
@@ -339,20 +346,20 @@
   width: 100%;
   margin-top: var(--space-lg);
   padding: 14px;
-  border: 2px dashed var(--border);
+  border: 2px dashed var(--border-default);
   border-radius: var(--radius-lg);
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 .quick-practice-btn:hover {
-  border-color: #D4A853;
-  color: #9A6B1F;
-  background: rgba(212, 168, 83, 0.06);
+  border-color: var(--bisa-gold);
+  color: var(--bisa-gold-dark);
+  background: oklch(0.75 0.14 75 / 0.06);
 }
 
 .quick-practice-btn:active {
@@ -362,9 +369,9 @@
 /* ===== Daily Insight Card ===== */
 .daily-insight-card {
   margin-bottom: var(--space-md);
-  background: #FFF9EE !important;
-  border-left: 3px solid var(--insight-color, #D4A853) !important;
-  border-color: rgba(212, 168, 83, 0.3) !important;
+  background: var(--bisa-gold-subtle) !important;
+  border-left: 3px solid var(--insight-color, var(--bisa-gold)) !important;
+  border-color: oklch(0.75 0.14 75 / 0.2) !important;
 }
 
 .insight-header {
@@ -379,27 +386,27 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
   flex: 1;
 }
 
 .insight-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
-  color: var(--text-primary);
+  color: var(--foreground);
   margin: 0 0 6px;
   line-height: 1.3;
 }
 
 .insight-body {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   line-height: 1.55;
   margin: 0 0 var(--space-sm);
 }
 
 .insight-example {
-  background: var(--bg-secondary);
+  background: var(--background-secondary);
   border-radius: var(--radius-sm);
   padding: var(--space-sm) var(--space-md);
   margin-bottom: var(--space-sm);
@@ -408,14 +415,14 @@
 .insight-example-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--foreground-muted);
   display: block;
   margin-bottom: 4px;
 }
 
 .insight-example-text {
   font-size: 0.85rem;
-  color: var(--text-primary);
+  color: var(--foreground);
   font-style: italic;
   line-height: 1.4;
 }
@@ -426,8 +433,13 @@
   gap: 6px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   padding-top: 4px;
+  transition: color var(--duration-normal);
+}
+
+.daily-insight-card:hover .insight-cta {
+  color: var(--foreground);
 }
 
 /* ===== Recommendations Section ===== */
@@ -445,12 +457,12 @@
 }
 
 .recommendations-title h2 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   margin: 0;
 }
 
@@ -486,11 +498,11 @@
 .rec-title {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--foreground);
 }
 
 .rec-reason {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--foreground-secondary);
   line-height: 1.3;
 }

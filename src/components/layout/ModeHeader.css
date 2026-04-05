@@ -14,12 +14,16 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all var(--duration-normal) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 
 .mode-header-back:hover {
   background: rgba(255, 255, 255, 0.25);
+}
+
+.mode-header-back:active {
+  transform: scale(0.92);
 }
 
 .mode-header-content {
@@ -30,11 +34,12 @@
 }
 
 .mode-header-text h1 {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 400;
   margin: 0;
   line-height: 1.2;
+  color: #FFFFFF;
 }
 
 .mode-header-text p {
