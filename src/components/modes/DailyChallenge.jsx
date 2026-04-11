@@ -7,6 +7,7 @@ import { BURST_CHALLENGES, getTodaysBurst } from '../../data/burstChallenges';
 import { scoreBurst } from '../../engine/burstScorer';
 import { hasApiKey } from '../../services/claudeApi';
 import { getAIBurstCoaching } from '../../engine/aiBurstCoaching';
+import { getAICharacterResponse } from '../../engine/aiCharacterResponse';
 import { useSupabaseDB } from '../../hooks/useSupabaseDB';
 import { getTodayString, getHoursUntilMidnight } from '../../utils/dateHelpers';
 import { XP_RULES } from '../../engine/xpSystem';
@@ -67,6 +68,8 @@ export default function DailyChallenge() {
   const [hoursLeft, setHoursLeft] = useState(getHoursUntilMidnight());
   const [aiCoaching, setAiCoaching] = useState(null);
   const [aiCoachingLoading, setAiCoachingLoading] = useState(false);
+  const [characterResponse, setCharacterResponse] = useState(null);
+  const [characterResponseLoading, setCharacterResponseLoading] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
   const [expandedHistory, setExpandedHistory] = useState(null);
   const inputRef = useRef(null);
@@ -214,13 +217,18 @@ export default function DailyChallenge() {
       return h;
     }));
 
-    // Trigger AI coaching if available
+    // Trigger AI coaching + character response if available
     if (hasApiKey()) {
       setAiCoachingLoading(true);
-      getAIBurstCoaching(questions, scenario, results)
+      setCharacterResponseLoading(true);
+      getAIBurstCoaching(currentQuestions, scenario, results)
         .then(coaching => setAiCoaching(coaching))
-        .catch(() => {}) // Silent fail — rule-based results are complete
+        .catch(() => {})
         .finally(() => setAiCoachingLoading(false));
+      getAICharacterResponse(currentQuestions, scenario, results)
+        .then(cr => setCharacterResponse(cr))
+        .catch(() => {})
+        .finally(() => setCharacterResponseLoading(false));
     }
   };
 
@@ -426,6 +434,37 @@ export default function DailyChallenge() {
               <ProgressBar value={burstResults.breakdown.techniques} label="Techniques" color="#D4A853" showPercent size="sm" />
               <ProgressBar value={burstResults.breakdown.quality} label="Quality" color="#D4A853" showPercent size="sm" />
             </div>
+
+            {/* Character Response Section */}
+            {characterResponseLoading && (
+              <div className="burst-character-response animate-fade-in">
+                <div className="burst-character-response-header">
+                  <div className="burst-character-avatar">{scenario?.character?.[0] || '?'}</div>
+                  <span className="burst-character-response-name">{scenario?.character} is responding…</span>
+                </div>
+                <Skeleton height={14} width="85%" />
+                <Skeleton height={14} width="70%" />
+              </div>
+            )}
+
+            {characterResponse && (
+              <div className="burst-character-response animate-fade-in">
+                <div className="burst-character-response-header">
+                  <div className="burst-character-avatar">{scenario?.character?.[0] || '?'}</div>
+                  <div>
+                    <span className="burst-character-response-name">{scenario?.character}</span>
+                    <span className="burst-character-response-role">{scenario?.role}</span>
+                  </div>
+                </div>
+                <div className="burst-character-question-used">
+                  <span className="burst-character-q-label">You asked:</span>
+                  <p>"{characterResponse.questionUsed}"</p>
+                </div>
+                <div className="burst-character-says">
+                  <p>"{characterResponse.characterResponse}"</p>
+                </div>
+              </div>
+            )}
 
             {/* AI Coaching Section */}
             {aiCoachingLoading && (

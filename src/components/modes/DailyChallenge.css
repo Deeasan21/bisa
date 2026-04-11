@@ -662,6 +662,96 @@
 }
 
 /* AI Coaching Section */
+/* Character Response Card */
+.burst-character-response {
+  background: linear-gradient(135deg, #FFFBF0 0%, #FFF8E7 100%);
+  border: 1.5px solid rgba(212, 168, 83, 0.4);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+[data-theme="dark"] .burst-character-response {
+  background: rgba(212, 168, 83, 0.07);
+  border-color: rgba(212, 168, 83, 0.25);
+}
+
+.burst-character-response-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.burst-character-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D4A853, #9A6B1F);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.burst-character-response-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  display: block;
+}
+
+.burst-character-response-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.burst-character-question-used {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+
+[data-theme="dark"] .burst-character-question-used {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.burst-character-q-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.burst-character-question-used p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.burst-character-says {
+  border-left: 3px solid #D4A853;
+  padding-left: 12px;
+}
+
+.burst-character-says p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  font-style: italic;
+}
+
 .burst-ai-coaching {
   background: var(--bg-card);
   border: 1.5px solid rgba(212, 168, 83, 0.25);
