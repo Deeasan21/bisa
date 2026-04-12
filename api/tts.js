@@ -78,7 +78,7 @@ function isAllowedOrigin(req) {
 // --- Blob cache ---
 
 // Bump this when voice settings change — invalidates all old cached audio
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 
 function getCacheKey(text, voiceId) {
   const hash = crypto.createHash('sha256').update(text + voiceId + CACHE_VERSION).digest('hex').slice(0, 24);
