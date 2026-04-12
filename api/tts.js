@@ -213,6 +213,6 @@ export default async function handler(req, res) {
     return res.send(Buffer.from(audioBuffer));
   } catch (err) {
     console.error('TTS error:', err.message);
-    return res.status(500).json({ error: 'Failed to generate audio' });
+    return res.status(500).json({ error: 'Failed to generate audio', detail: err.message });
   }
 }

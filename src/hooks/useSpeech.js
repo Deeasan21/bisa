@@ -50,6 +50,10 @@ export function useSpeech() {
       audioRef.current.onended = null;
       audioRef.current = null;
     }
+    // Always cancel browser TTS too — it runs independently of audioRef
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
     setState('idle');
   }, []);
 
@@ -96,9 +100,8 @@ export function useSpeech() {
 
   const toggle = useCallback((rawHtml) => {
     if (state === 'idle') speak(rawHtml);
-    else if (state === 'speaking') { audioRef.current?.pause(); setState('paused'); }
-    else if (state === 'paused') { audioRef.current?.play(); setState('speaking'); }
-  }, [state, speak]);
+    else stop(); // stop both HTML audio and browser TTS
+  }, [state, speak, stop]);
 
   useEffect(() => {
     return () => {
