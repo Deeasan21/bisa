@@ -19,8 +19,8 @@ export function htmlToSpeechText(html) {
     .trim();
 }
 
-function fallbackBrowserSpeak(text) {
-  if (!window.speechSynthesis) return;
+function fallbackBrowserSpeak(text, onEnd) {
+  if (!window.speechSynthesis) { onEnd?.(); return; }
   window.speechSynthesis.cancel();
   const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.length > 3);
   const voices = window.speechSynthesis.getVoices();
@@ -29,7 +29,7 @@ function fallbackBrowserSpeak(text) {
   ) || voices.find(v => v.lang?.startsWith('en')) || null;
 
   const speakNext = (i) => {
-    if (i >= sentences.length) return;
+    if (i >= sentences.length) { onEnd?.(); return; }
     const utt = new SpeechSynthesisUtterance(sentences[i]);
     utt.rate = 0.82;
     if (voice) utt.voice = voice;
@@ -40,7 +40,7 @@ function fallbackBrowserSpeak(text) {
 }
 
 export function useSpeech() {
-  const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking' | 'paused'
+  const [state, setState] = useState('idle'); // 'idle' | 'loading' | 'speaking'
   const audioRef = useRef(null);
   const cacheRef = useRef({});
 
@@ -50,7 +50,6 @@ export function useSpeech() {
       audioRef.current.onended = null;
       audioRef.current = null;
     }
-    // Always cancel browser TTS too — it runs independently of audioRef
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
@@ -74,9 +73,9 @@ export function useSpeech() {
         });
 
         if (!res.ok) {
-          fallbackBrowserSpeak(text);
-          setState('idle');
-          onEnd?.();
+          // ElevenLabs failed — use browser TTS but track state properly
+          setState('speaking');
+          fallbackBrowserSpeak(text, () => { setState('idle'); onEnd?.(); });
           return;
         }
 
@@ -88,19 +87,21 @@ export function useSpeech() {
       const audio = new Audio(url);
       audioRef.current = audio;
       audio.onended = () => { setState('idle'); onEnd?.(); };
-      audio.onerror = () => { setState('idle'); fallbackBrowserSpeak(text); onEnd?.(); };
+      audio.onerror = () => {
+        setState('speaking');
+        fallbackBrowserSpeak(text, () => { setState('idle'); onEnd?.(); });
+      };
       await audio.play();
       setState('speaking');
     } catch {
-      fallbackBrowserSpeak(text);
-      setState('idle');
-      onEnd?.();
+      setState('speaking');
+      fallbackBrowserSpeak(text, () => { setState('idle'); onEnd?.(); });
     }
   }, [stop]);
 
   const toggle = useCallback((rawHtml) => {
     if (state === 'idle') speak(rawHtml);
-    else stop(); // stop both HTML audio and browser TTS
+    else stop();
   }, [state, speak, stop]);
 
   useEffect(() => {
@@ -108,7 +109,7 @@ export function useSpeech() {
       stop();
       Object.values(cacheRef.current).forEach(url => URL.revokeObjectURL(url));
     };
-  }, []);
+  }, [stop]);
 
   return { state, speak, toggle, stop };
 }
