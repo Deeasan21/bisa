@@ -78,7 +78,7 @@ function isAllowedOrigin(req) {
 // --- Blob cache ---
 
 // Bump this when voice settings change — invalidates all old cached audio
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 
 function getCacheKey(text, voiceId) {
   const hash = crypto.createHash('sha256').update(text + voiceId + CACHE_VERSION).digest('hex').slice(0, 24);
@@ -213,6 +213,6 @@ export default async function handler(req, res) {
     return res.send(Buffer.from(audioBuffer));
   } catch (err) {
     console.error('TTS error:', err.message);
-    return res.status(500).json({ error: 'Failed to generate audio', detail: err.message });
+    return res.status(500).json({ error: 'Failed to generate audio' });
   }
 }
