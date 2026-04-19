@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv, Users, ArrowRight, Buildings } from '@phosphor-icons/react';
+import { Fire, Trophy, Lightning, Lock, CheckCircle, Target, BookOpen, SignOut, Export, FileJs, FileCsv, Users, ArrowRight, Buildings, SpeakerHigh } from '@phosphor-icons/react';
 import * as Icons from '@phosphor-icons/react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSupabaseDB } from '../hooks/useSupabaseDB';
@@ -57,6 +57,15 @@ export default function ProfilePage() {
   const [editing, setEditing] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [exporting, setExporting] = useState(false);
+  const [resetIntroState, setResetIntroState] = useState('idle');
+
+  const handleResetEnyaIntro = async () => {
+    setResetIntroState('working');
+    await db.resetEnyaIntro();
+    await queryClient.invalidateQueries({ queryKey: ['profile'] });
+    setResetIntroState('done');
+    setTimeout(() => setResetIntroState('idle'), 2500);
+  };
 
   const enabled = isReady && !!db;
 
@@ -323,6 +332,22 @@ export default function ProfilePage() {
             {exporting ? 'Exporting…' : 'CSV'}
           </button>
         </div>
+      </div>
+
+      {/* Replay Enya intro */}
+      <div className="flex justify-center">
+        <button
+          onClick={handleResetEnyaIntro}
+          disabled={resetIntroState === 'working'}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-stone-200 text-sm text-stone-500 hover:text-stone-900 hover:border-stone-300 transition-colors font-medium disabled:opacity-50"
+        >
+          <SpeakerHigh size={15} />
+          {resetIntroState === 'working'
+            ? 'Resetting…'
+            : resetIntroState === 'done'
+              ? 'Done — open Lesson 0 to hear it'
+              : "Replay Enya's intro"}
+        </button>
       </div>
 
       {/* Sign out */}

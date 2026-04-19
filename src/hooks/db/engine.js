@@ -394,6 +394,15 @@ export function buildEngineFunctions(userId, deps) {
     } catch (e) { console.error('markEnyaIntroPlayed:', e); }
   }
 
+  async function resetEnyaIntro() {
+    try {
+      localStorage.removeItem('enya_intro_played');
+      await supabase.from('profiles')
+        .update({ enya_intro_played: false })
+        .eq('id', userId);
+    } catch (e) { console.error('resetEnyaIntro:', e); }
+  }
+
   // ── Data Export ──────────────────────────────────────────────────────────
 
   async function exportAllData() {
@@ -444,7 +453,7 @@ export function buildEngineFunctions(userId, deps) {
     generateDailyQuests, allQuestsCompleted,
     getOverallProgress,
     getRecommendations, getRecommendedMode,
-    getProfile, updateProfile, markOnboardingComplete, markEnyaIntroPlayed,
+    getProfile, updateProfile, markOnboardingComplete, markEnyaIntroPlayed, resetEnyaIntro,
     exportAllData,
   };
 }
