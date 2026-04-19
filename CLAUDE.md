@@ -51,6 +51,7 @@
 - **Onboarding behind auth** — `/onboarding` inside AuthGuard, `onboarding_completed` in Supabase profiles, `markOnboardingComplete()` in engine.js
 - **Streak expiry** — `getStreakInfo()` resets streak to 0 if `last_challenge_date` is older than yesterday
 - **Supabase columns added:** `profiles.onboarding_completed boolean DEFAULT false`, `profiles.enya_intro_played boolean DEFAULT false`
+- **TTS pre-gen script (2026-04-18)** — `scripts/pregen-tts.js`, run with `npm run pregen-tts` (requires `vercel env pull .env.local` first). Walks every spoken string in `lessons.js` (section text + micro-challenge/before-after/consequence-explorer reveals + Enya intro), uses the exact cache key format as `api/tts.js` (`tts/v5/<sha256-24>.mp3`), uploads to Vercel Blob. Flags: `--dry-run`, `--force`, `--lesson <id>`. Full catalog ≈ 345 texts / 130K credits. Auto-stops on `quota_exceeded` and skips already-cached keys on re-run.
 
 ## Phase 2.6 Features (Merged 2026-03-23)
 These were in branch `claude/analyze-test-coverage-EYHat`, now in master:

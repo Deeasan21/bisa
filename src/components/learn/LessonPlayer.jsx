@@ -285,10 +285,16 @@ function InteractionRenderer({
   }
 
   if (type === 'consequence-explorer') {
+    const scenario = interaction.scenario ?? interaction.scenarios?.[0]?.situation;
+    const phrasings = interaction.phrasings ?? interaction.scenarios?.map(s => ({
+      quality: s.label,
+      text: s.response,
+      consequence: s.outcome,
+    }));
     return (
       <ConsequenceExplorer
-        scenario={interaction.scenario}
-        phrasings={interaction.phrasings}
+        scenario={scenario}
+        phrasings={phrasings}
         takeaway={interaction.takeaway}
         onComplete={onComplete}
       />

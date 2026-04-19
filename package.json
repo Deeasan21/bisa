@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "pregen-tts": "node --env-file=.env.local scripts/pregen-tts.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
