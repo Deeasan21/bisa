@@ -116,14 +116,83 @@
   min-height: 220px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-sm);
+  position: relative;
+  background:
+    linear-gradient(180deg, #FFFFFF 0%, #FBF8F2 100%);
+  border: 1px solid #E8E0CE;
+  border-radius: 22px;
+  padding: 26px 28px 24px;
+  box-shadow:
+    0 1px 2px rgba(15, 18, 26, 0.04),
+    0 8px 24px rgba(196, 146, 64, 0.10),
+    0 24px 60px -20px rgba(154, 107, 31, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  overflow: hidden;
+}
+
+/* Flashcard top edge — subtle gold rail */
+.review-card-front-face::before,
+.review-card-back-face::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #D4A853 0%, #C49240 50%, #9A6B1F 100%);
+  border-radius: 22px 22px 0 0;
+}
+
+/* Stack illusion — back card peeking out */
+.review-card-front-face::after,
+.review-card-back-face::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  right: 8px;
+  height: 6px;
+  background: #F4EFE2;
+  border-radius: 22px 22px 0 0;
+  z-index: -1;
+  box-shadow:
+    0 14px 0 -10px #ECE3CD,
+    0 28px 0 -20px #DFD2B0;
+}
+
+/* Category tag pill — refined */
+.review-card-front-face > .text-xs.font-semibold,
+.review-card-front-face > span[class*="rounded-full"] {
+  align-self: flex-start;
+  padding: 4px 12px !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px !important;
+  border: 1px solid rgba(196, 146, 64, 0.18);
+}
+
+/* Section dividers within the card */
+.review-card-front-face .border-t {
+  border-top: 1px dashed #E8E0CE !important;
+  padding-top: 16px !important;
+  margin-top: 16px !important;
+}
+
+@media (max-width: 480px) {
+  .review-card-front-face,
+  .review-card-back-face {
+    padding: 22px 20px 20px;
+    border-radius: 18px;
+  }
+  .review-card-front-face::after,
+  .review-card-back-face::after {
+    display: none;
+  }
 }
 
 .review-card-back-face {
