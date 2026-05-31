@@ -349,35 +349,47 @@ export default function ReviewMode() {
 
             {/* Type identification choices */}
             {options ? (
-              <div className="space-y-2">
-                <p className="text-xs font-semibold text-stone-400 text-center uppercase tracking-wide">
+              <div>
+                <p className="review-choices-prompt">
                   What type of question are the examples above?
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="review-choices-grid">
                   {options.map((opt) => {
                     const isSelected = selected?.choice === opt;
                     const isCorrect = opt === currentCard.skillCategory;
                     const showResult = !!selected;
 
-                    let style = 'border-stone-200 bg-white text-stone-700 hover:border-stone-300 hover:bg-stone-50';
-                    if (showResult && isCorrect) style = 'border-green-400 bg-green-50 text-green-800';
-                    else if (showResult && isSelected && !isCorrect) style = 'border-red-300 bg-red-50 text-red-700';
-                    else if (showResult) style = 'border-stone-100 bg-white text-stone-300';
+                    let stateClass = '';
+                    if (showResult && isCorrect) stateClass = 'is-correct';
+                    else if (showResult && isSelected && !isCorrect) stateClass = 'is-wrong';
+                    else if (showResult) stateClass = 'is-faded';
 
                     return (
                       <button
                         key={opt}
+                        type="button"
                         disabled={!!selected}
                         onClick={() => handleChoice(opt)}
-                        className={cn(
-                          'flex items-center justify-between gap-2 px-3 py-3 rounded-xl border text-sm font-medium transition-all text-left',
-                          style,
-                          !selected && 'active:scale-95'
-                        )}
+                        className={cn('review-choice-card', stateClass)}
+                        style={{ '--choice-accent': theme.primary }}
                       >
-                        <span>{TYPE_DISPLAY[opt] || opt}</span>
-                        {showResult && isCorrect && <CheckCircle size={16} weight="fill" color="#16A34A" />}
-                        {showResult && isSelected && !isCorrect && <XCircle size={16} weight="fill" color="#DC2626" />}
+                        <span className="review-choice-label">
+                          {TYPE_DISPLAY[opt] || opt}
+                        </span>
+                        <div className="review-choice-foot">
+                          <span className="review-choice-hint">Tap to choose</span>
+                          <span className="review-choice-chev" aria-hidden>→</span>
+                        </div>
+                        {showResult && isCorrect && (
+                          <span className="review-choice-icon">
+                            <CheckCircle size={20} weight="fill" color="#16A34A" />
+                          </span>
+                        )}
+                        {showResult && isSelected && !isCorrect && (
+                          <span className="review-choice-icon">
+                            <XCircle size={20} weight="fill" color="#DC2626" />
+                          </span>
+                        )}
                       </button>
                     );
                   })}
